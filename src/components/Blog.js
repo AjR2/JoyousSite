@@ -9,7 +9,7 @@ const Blog = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('http://akeyreu.com/api/posts') // need to update with real
+    fetch('https://akeyreu.com/api/posts') // need to update with real
       .then((res) => {
         if (!res.ok) throw new Error('Failed to fetch posts');
         return res.json();

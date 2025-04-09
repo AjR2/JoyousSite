@@ -180,7 +180,7 @@ function App() {
                 <div className="card" id="learn-more">
                   <h2 className="section-title">Want to find out more?</h2>
                   <p>Join our community by signing up for our newsletter and take the first step in control of your mental wellbeing!</p>
-                  <a href="http://eepurl.com/iMvslY" target="_blank">
+                  <a href="https://eepurl.com/iMvslY" target="_blank">
                     <button type="submit" className="button" name="submit">Subscribe Here!</button>
                   </a>
                 </div>
