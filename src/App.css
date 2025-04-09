@@ -125,6 +125,51 @@ html, body {
   font-size: calc(5px + 2vmin);
 }
 
+.socials-section {
+  display: flex;
+  justify-content: center;
+  gap: 15%;
+}
+
+.social-icon {
+  font-size: clamp(2rem, 4vw, 5rem);
+  transition: transform 0.3s ease;
+  color: black;
+}
+
+.social-icon:hover {
+  transform: scale(1.2);
+}
+
+.disabled-icon > svg {
+  cursor: default;
+  pointer-events: none; /* Prevents clicks on the icon */
+}
+
+/* Tooltip Styling */
+.disabled-icon::after {
+  content: "Coming soon!";
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: black;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 1rem;
+  white-space: nowrap;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Show Tooltip on Hover */
+.disabled-icon:hover::after {
+  visibility: visible;
+  opacity: 1;
+}
+
 /* Button */
 .button {
   display: inline-block;

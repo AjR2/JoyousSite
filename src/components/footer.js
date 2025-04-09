@@ -9,7 +9,7 @@ function Footer() {
                 <img
                     src={nvidia}
                     alt="Nvidia Inception Badge"
-                    class="small"
+                    className="small"
                 />
 
                 <p>&copy; 2024 Akeyreu LLC. All rights reserved.</p>

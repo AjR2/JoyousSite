@@ -1,127 +1,59 @@
-import React, { useState } from 'react';
-import posts from './posts.json'; // Import the local JSON file
-import './Blog.css'; // Import the new CSS file
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import './Blog.css';
+import MetaTags from './MetaTags';
 
-const BlogHome = () => {
-  const [selectedPost, setSelectedPost] = useState(null); // Start with no selected post
+const Blog = () => {
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const handlePostClick = (postTitle) => {
-    // Find the selected post by title
-    const post = posts.find((post) => post.title === postTitle);
-    if (post) {
-      setSelectedPost(post); // Update the selectedPost state
-    } else {
-      console.error('Post not found for title:', postTitle); // Debugging: Log if no post is found
-    }
-  };
+  useEffect(() => {
+    fetch('http://localhost:3001/api/posts') // need to update with real
+      .then((res) => {
+        if (!res.ok) throw new Error('Failed to fetch posts');
+        return res.json();
+      })
+      .then((data) => {
+        setPosts(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError(err.message);
+        setLoading(false);
+      });
+  }, []);
 
   return (
-    <div className="blog-container">
-      {/* Blog Post List */}
-      <div className="blog-sidebar">
-        <h2>Blog Posts</h2>
-        <ul className="blog-post-list">
-          {posts.map((post) => (
-            <li
-              key={post.title} // Use title as the key
-              className="blog-post-item"
-              onClick={() => handlePostClick(post.title)} // Use title to identify the post
-            >
-              {post.title}
-            </li>
+    <>
+      <MetaTags
+        title="Akeyreu: Blog"
+        description="Akeyreu integrates advanced neural technologies with mental wellness practices, making technology-enhanced wellness accessible to everyone through nAura and Vza."
+        keywords="mental wellness, neural technology, sleep analysis, cognitive wellness, AI wellness, nAura, Vza, blog"
+        canonicalUrl="https://www.akeyreu.com/blog/"
+      />
+      
+      <div className="blog-center-container">
+        <h2 className="blog-title">Blog Posts</h2>
+        {loading && <p>Loading...</p>}
+        {error && <p>Error: {error}</p>}
+        <div className="blog-post-preview-list">
+          {posts.map((post, index) => (
+            <Link to={`/blog/${post.title.toLowerCase().replace(/\s+/g, '-')}`} key={index} className="blog-post-preview">
+              <h3>{post.title}</h3>
+              <p className="blog-date">{post.date || 'No date available'}</p>
+              <p className="blog-snippet">
+                {(post.content || post.summary || '')
+                  .slice(0, 175)
+                  .trim()}
+                ...
+              </p>
+            </Link>
           ))}
-        </ul>
+        </div>
       </div>
-
-      {/* Selected Blog Post Content */}
-      <div className="blog-content">
-        {selectedPost ? (
-          <div>
-            <h1>{selectedPost.title}</h1>
-            <h5>{selectedPost.date}</h5>
-            {/* Split content into paragraphs */}
-            {selectedPost.content.split('<>').map((paragraph, index) => (
-              <p key={index}>{paragraph}</p>
-            ))}
-          </div>
-        ) : (
-          <p>Select a blog post to view its content.</p>
-        )}
-      </div>
-    </div>
+    </>
   );
 };
 
-export default BlogHome;
-
-// for server.js database
-// import React, { useState, useEffect } from 'react';
-// import './Blog.css';
-
-// const BlogHome = () => {
-//   const [posts, setPosts] = useState([]);
-//   const [selectedPost, setSelectedPost] = useState(null);
-
-//   // Fetch all posts on component mount
-//   useEffect(() => {
-//     fetch('http://localhost:5000/posts')
-//       .then((response) => {
-//         if (!response.ok) {
-//           throw new Error('Failed to fetch posts');
-//         }
-//         return response.json();
-//       })
-//       .then((data) => setPosts(data))
-//       .catch((error) => console.error('Error fetching posts:', error));
-//   }, []);
-
-//   const handlePostClick = (postId) => {
-//     // Fetch a single post by ID
-//     fetch(`http://localhost:5000/posts/${postId}`)
-//       .then((response) => {
-//         if (!response.ok) {
-//           throw new Error('Failed to fetch the selected post');
-//         }
-//         return response.json();
-//       })
-//       .then((data) => setSelectedPost(data))
-//       .catch((error) => console.error('Error fetching post:', error));
-//   };
-
-//   return (
-//     <div className="blog-container">
-//       {/* Blog Post List */}
-//       <div className="blog-sidebar">
-//         <h2>Blog Posts</h2>
-//         <ul className="blog-post-list">
-//           {posts.map((post) => (
-//             <li
-//               key={post.id}
-//               className="blog-post-item"
-//               onClick={() => handlePostClick(post.id)}
-//             >
-//               {post.title}
-//             </li>
-//           ))}
-//         </ul>
-//       </div>
-
-//       {/* Selected Blog Post Content */}
-//       <div className="blog-content">
-//         {selectedPost ? (
-//           <div>
-//             <h1>{selectedPost.title}</h1>
-//             <h5>{selectedPost.date}</h5>
-//             {selectedPost.content.split('<>').map((paragraph, index) => (
-//               <p key={index}>{paragraph}</p>
-//             ))}
-//           </div>
-//         ) : (
-//           <p>Select a blog post to view its content.</p>
-//         )}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default BlogHome;
+export default Blog;

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Homepage -->
+  <url>
+    <loc>https://www.akeyreu.com/</loc>
+    <lastmod>2025-03-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+<!-- 
+  <url>
+    <loc>https://www.akeyreu.com/about</loc>
+    <lastmod>2025-03-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+
+  <url>
+    <loc>https://www.akeyreu.com/values</loc>
+    <lastmod>2025-03-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+ 
+  <url>
+    <loc>https://www.akeyreu.com/products</loc>
+    <lastmod>2025-03-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url> -->
+  
+  <!-- Learn More Page -->
+  <url>
+    <loc>https://www.akeyreu.com/learn-more</loc>
+    <lastmod>2025-03-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Blog Index Page -->
+  <url>
+    <loc>https://www.akeyreu.com/blog</loc>
+    <lastmod>2025-03-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Blog Posts -->
+  <url>
+    <loc>https://www.akeyreu.com/blog/spring-forward-with-tiny-wins</loc>
+    <lastmod>2025-03-13</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://www.akeyreu.com/blog/supporting-a-friend-struggling-with-mental-illness</loc>
+    <lastmod>2025-03-13</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://www.akeyreu.com/blog/the-mental-health-benefits-of-gratitude-in-love-and-life</loc>
+    <lastmod>2025-03-13</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.akeyreu.com/blog/how-to-build-healthy-boundaries-in-relationships</loc>
+    <lastmod>2025-03-13</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.akeyreu.com/blog/self-love-practices-for-better-mental-health</loc>
+    <lastmod>2025-03-13</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.akeyreu.com/blog/the-role-of-sleep-in-mental-reset-and-resilience</loc>
+    <lastmod>2025-03-13</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://www.akeyreu.com/blog/mindful-journaling:-starting-the-year-with-clarity</loc>
+    <lastmod>2025-03-13</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://www.akeyreu.com/blog/how-to-avoid-burnout-after-new-year’s-highs</loc>
+    <lastmod>2025-03-13</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://www.akeyreu.com/blog/setting-intentions-vs.-resolutions-for-mental-wellness</loc>
+    <lastmod>2025-03-13</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://www.akeyreu.com/blog/looking-ahead:-preparing-your-mind-for-a-new-year</loc>
+    <lastmod>2025-03-13</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://www.akeyreu.com/blog/prioritizing-mental-wellness-during-busy-seasons</loc>
+    <lastmod>2025-03-13</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://www.akeyreu.com/blog/how-to-say-no-without-feeling-guilty</loc>
+    <lastmod>2025-03-13</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://www.akeyreu.com/blog/managing-holiday-stress</loc>
+    <lastmod>2025-03-13</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://www.akeyreu.com/blog/navigating-family-dynamics-during-the-holidays</loc>
+    <lastmod>2025-03-13</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://www.akeyreu.com/blog/how-to-reflect-on-the-year-without-self-judgment</loc>
+    <lastmod>2025-03-13</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://www.akeyreu.com/blog/the-mental-health-benefits-of-practicing-gratitude</loc>
+    <lastmod>2025-03-13</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <!-- Podcast Page -->
+  <url>
+    <loc>https://www.akeyreu.com/podcast</loc>
+    <lastmod>2025-03-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Contact Page -->
+  <url>
+    <loc>https://www.akeyreu.com/contact</loc>
+    <lastmod>2025-03-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+</urlset>
