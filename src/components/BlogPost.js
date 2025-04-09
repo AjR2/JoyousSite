@@ -12,7 +12,7 @@ const BlogPost = () => {
   const decodedTitle = decodeURIComponent(slug.replace(/-/g, ' '));
 
   useEffect(() => {
-    fetch(`https://www.akeyreu.com/api/posts/${encodeURIComponent(decodedTitle)}`) // need to update to real
+    fetch(`/api/posts/${encodeURIComponent(decodedTitle)}`) // need to update to real
       .then((res) => {
         if (!res.ok) throw new Error('Post not found');
         return res.json();
