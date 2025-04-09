@@ -9,7 +9,7 @@ const Blog = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('/posts.json') // need to update with real
+    fetch(process.env.PUBLIC_URL + '/posts.json')
       .then((res) => {
         if (!res.ok) throw new Error('Failed to fetch posts');
         return res.json();

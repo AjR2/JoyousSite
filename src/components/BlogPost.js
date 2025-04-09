@@ -12,7 +12,7 @@ const BlogPost = () => {
   const decodedTitle = decodeURIComponent(slug.replace(/-/g, ' '));
 
   useEffect(() => {
-    fetch('/posts.json')  // Load all posts and find the one you want
+    fetch(process.env.PUBLIC_URL + '/posts.json')
       .then((res) => {
         if (!res.ok) throw new Error('Failed to fetch post');
         return res.json();
