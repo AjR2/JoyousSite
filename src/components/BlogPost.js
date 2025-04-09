@@ -12,13 +12,18 @@ const BlogPost = () => {
   const decodedTitle = decodeURIComponent(slug.replace(/-/g, ' '));
 
   useEffect(() => {
-    fetch(`/api/posts/${encodeURIComponent(decodedTitle)}`) // need to update to real
+    fetch('/posts.json')  // Load all posts and find the one you want
       .then((res) => {
-        if (!res.ok) throw new Error('Post not found');
+        if (!res.ok) throw new Error('Failed to fetch post');
         return res.json();
       })
       .then((data) => {
-        setPost(data);
+        const match = data.find(p => p.title.toLowerCase() === decodedTitle.toLowerCase());
+        if (match) {
+          setPost(match);
+        } else {
+          throw new Error('Post not found');
+        }
       })
       .catch((err) => {
         setError(err.message);
