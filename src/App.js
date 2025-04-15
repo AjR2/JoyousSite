@@ -1,28 +1,32 @@
+// Updated App.js to use ErrorBoundary and proper component organization
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // Import Router components
-// import { Helmet } from 'react-helmet';
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Header from './components/header';
 import Footer from './components/footer';
 import Blog from './components/Blog';
 import BlogPost from './components/BlogPost';
-import Contact from './components/Contact'
+import Contact from './components/Contact';
 import MetaTags from './components/MetaTags';
 import SchemaMarkup from './components/SchemaMarkup';
+import ErrorBoundary from './components/ErrorBoundary';
 import readingImage from './assets/readingImage.png';
 import friendsImage from './assets/HappyHumans.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInstagram, faXTwitter, faTiktok } from '@fortawesome/free-brands-svg-icons';
 import { faBlog, faPodcast } from '@fortawesome/free-solid-svg-icons';
 
-function App() {
+// Wrapper component to use hooks outside of Router
+function AppContent() {
+  const navigate = useNavigate();
+
   const handleNavClick = (e, targetId) => {
     e.preventDefault();
 
     // Navigate to the main page first
     if (window.location.pathname !== '/') {
-      navigate('/', { replace: false }); // Navigate to the main page
+      navigate('/', { replace: false });
     }
 
     // Scroll to the target section after navigation
@@ -35,26 +39,16 @@ function App() {
 
         window.scrollTo({
           top: yPosition,
-          behavior: 'smooth', // Smooth scrolling
+          behavior: 'smooth',
         });
       }
-    }, 100); // Small delay to ensure navigation completes
+    }, 100);
   };
 
   return (
     <>
-      <MetaTags
-        title="Akeyreu: Mental Wellness Reimagined Through Neural Technology"
-        description="Akeyreu integrates advanced neural technologies with mental wellness practices, making technology-enhanced wellness accessible to everyone through nAura and Vza."
-        keywords="mental wellness, neural technology, sleep analysis, cognitive wellness, AI wellness, nAura, Vza"
-        canonicalUrl="https://www.akeyreu.com/"
-      />
-
-      <SchemaMarkup type="organization" />
-      <SchemaMarkup type="website" />
-
-      <Router>
-        <Header />
+      <Header />
+      <ErrorBoundary>
         <Routes>
           <Route
             path="/"
@@ -166,13 +160,21 @@ function App() {
                 <div className="card" id="socials">
                   <h2 className="section-title">Check us out on social media!</h2>
                   <div className="socials-section">
-                    <a href="/blog" rel="noopener noreferrer" className="social-icon"><FontAwesomeIcon icon={faBlog} /></a>
-                    {/*href="https://ajr2.github.io/RoamingMinds/" target="_blank" rel="noopener noreferrer"*/}
-                    <a className="social-icon disabled-icon"><FontAwesomeIcon icon={faPodcast} /></a>
-                    <a href="https://instagram.com/a_keyreu/" target="_blank" rel="noopener noreferrer" className="social-icon"><FontAwesomeIcon icon={faInstagram} /></a>
-                    {/* <a href="https://x.com" target="_blank" rel="noopener noreferrer" className="social-icon"><FontAwesomeIcon icon={faXTwitter} /></a> */}
-                    <a className="social-icon disabled-icon"><FontAwesomeIcon icon={faXTwitter} /></a>
-                    <a href="https://tiktok.com/@akeyreu/" target="_blank" rel="noopener noreferrer" className="social-icon"><FontAwesomeIcon icon={faTiktok} /></a>
+                    <a href="/blog" rel="noopener noreferrer" className="social-icon" aria-label="Blog">
+                      <FontAwesomeIcon icon={faBlog} />
+                    </a>
+                    <span className="social-icon disabled-icon" aria-label="Podcast coming soon" aria-disabled="true">
+                      <FontAwesomeIcon icon={faPodcast} />
+                    </span>
+                    <a href="https://instagram.com/a_keyreu/" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="Instagram">
+                      <FontAwesomeIcon icon={faInstagram} />
+                    </a>
+                    <span className="social-icon disabled-icon" aria-label="Twitter coming soon" aria-disabled="true">
+                      <FontAwesomeIcon icon={faXTwitter} />
+                    </span>
+                    <a href="https://tiktok.com/@akeyreu/" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="TikTok">
+                      <FontAwesomeIcon icon={faTiktok} />
+                    </a>
                   </div>
                 </div>
 
@@ -180,7 +182,7 @@ function App() {
                 <div className="card" id="learn-more">
                   <h2 className="section-title">Want to find out more?</h2>
                   <p>Join our community by signing up for our newsletter and take the first step in control of your mental wellbeing!</p>
-                  <a href="https://eepurl.com/iMvslY" target="_blank">
+                  <a href="https://eepurl.com/iMvslY" target="_blank" rel="noopener noreferrer">
                     <button type="submit" className="button" name="submit">Subscribe Here!</button>
                   </a>
                 </div>
@@ -194,9 +196,29 @@ function App() {
           <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>
-      </Router >
+      </ErrorBoundary>
     </>
   );
-};
+}
+
+function App() {
+  return (
+    <>
+      <MetaTags
+        title="Akeyreu: Mental Wellness Reimagined Through Neural Technology"
+        description="Akeyreu integrates advanced neural technologies with mental wellness practices, making technology-enhanced wellness accessible to everyone through nAura and Vza."
+        keywords="mental wellness, neural technology, sleep analysis, cognitive wellness, AI wellness, nAura, Vza"
+        canonicalUrl="https://www.akeyreu.com/"
+      />
+
+      <SchemaMarkup type="organization" />
+      <SchemaMarkup type="website" />
+
+      <Router>
+        <AppContent />
+      </Router>
+    </>
+  );
+}
 
 export default App;
