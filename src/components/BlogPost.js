@@ -17,7 +17,7 @@ const BlogPost = () => {
 
   useEffect(() => {
     // Use the API endpoint instead of static JSON file
-    fetch(`/api/posts/${slug}`)
+    fetch(`https://akeyreu.vercel.app/api/posts${slug}`)
       .then((res) => {
         if (!res.ok) {
           if (res.status === 404) {
