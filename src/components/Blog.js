@@ -100,17 +100,6 @@ const Blog = () => {
                   <p className="blog-snippet">
                     {post.summary || createSummary(post.content)}
                   </p>
-                  {post.key_points && post.key_points.length > 0 && (
-                    <div className="key-points">
-                      <span className="key-points-label">Key points:</span>
-                      <ul>
-                        {post.key_points.slice(0, 2).map((point, idx) => (
-                          <li key={idx}>{point}</li>
-                        ))}
-                        {post.key_points.length > 2 && <li>...</li>}
-                      </ul>
-                    </div>
-                  )}
                 </Link>
               );
             })}

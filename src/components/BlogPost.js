@@ -110,7 +110,7 @@ const BlogPost = () => {
           <h1>{post.title}</h1>
           <h5>{post.date || 'No date available'}</h5>
 
-          {post.key_points && post.key_points.length > 0 && (
+          {/* {post.key_points && post.key_points.length > 0 && (
             <div className="key-points-section">
               <h3>Key Points</h3>
               <ul>
@@ -119,7 +119,7 @@ const BlogPost = () => {
                 ))}
               </ul>
             </div>
-          )}
+          )} */}
 
           {post.content && post.content.split('<>').map((para, idx) => (
             <p key={idx}>{para}</p>
