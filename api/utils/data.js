@@ -172,17 +172,21 @@ function generateSummary(content, maxLength = 200) {
 function generateKeyPoints(content) {
     if (!content) return [];
 
-    // Split content into paragraphs
     const paragraphs = content.split('<>');
 
-    // Extract first sentence from first 3 paragraphs as key points
-    const keyPoints = paragraphs.slice(0, 3).map(paragraph => {
-        // Find the first sentence (ending with . or ! or ?)
-        const match = paragraph.match(/^[^.!?]*[.!?]/);
-        return match ? match[0].trim() : paragraph.substring(0, 100).trim() + '...';
-    });
+    return paragraphs.slice(0, 3).map(paragraph => {
+        const cleaned = paragraph.trim();
 
-    return keyPoints.filter(point => point.length > 0);
+        // Match the first sentence ending in . ! or ? optionally followed by a quote or whitespace
+        const match = cleaned.match(/^.*?[.!?](?=\s|$)/);
+
+        if (match) {
+            return match[0].trim(); // return full sentence
+        }
+
+        // fallback: no sentence end found, just show preview
+        return cleaned.slice(0, 100).trim() + '...';
+    });
 }
 
 module.exports = {
