@@ -44,6 +44,10 @@
             "dest": "/sitemap.xml"
         },
         {
+            "src": "/blog/.*",
+            "dest": "/index.html"
+        },
+        {
             "src": ".*",
             "dest": "/index.html"
         }
