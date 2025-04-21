@@ -57,3 +57,43 @@
 .blog-post-preview:hover .blog-snippet {
     color: #ffffff;
 }
+
+.key-points {
+    margin-top: 10px;
+}
+
+.key-points-label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+    font-size: 1.1rem;
+    color: inherit;
+}
+
+.key-points ul {
+    padding-left: 20px;
+    margin: 0;
+}
+
+.key-points li {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: inherit;
+    margin-bottom: 4px;
+}
+
+/* Match hover behavior */
+.blog-post-preview:hover .key-points-label,
+.blog-post-preview:hover .key-points li {
+    color: #ffffff;
+}
+
+.key-points ul {
+    list-style: none;
+    padding-left: 0;
+}
+.key-points li::before {
+    content: "• ";
+    color: inherit;
+    margin-right: 6px;
+}
