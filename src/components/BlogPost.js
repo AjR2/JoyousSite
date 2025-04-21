@@ -103,9 +103,9 @@ const BlogPost = () => {
 
       <ErrorBoundary>
         <div className="blog-content">
-          <button onClick={handleBackClick} className="back-button" aria-label="Back to blog list">
+          {/* <button onClick={handleBackClick} className="back-button" aria-label="Back to blog list">
             &larr; Back to Blog
-          </button>
+          </button> */}
 
           <h1>{post.title}</h1>
           <h5>{post.date || 'No date available'}</h5>
@@ -125,11 +125,11 @@ const BlogPost = () => {
             <p key={idx}>{para}</p>
           ))}
 
-          <div className="post-footer">
+          {/* <div className="post-footer">
             <button onClick={handleBackClick} className="back-button" aria-label="Back to blog list">
               &larr; Back to Blog
             </button>
-          </div>
+          </div> */}
         </div>
       </ErrorBoundary>
     </>
