@@ -86,7 +86,7 @@ const Blog = () => {
 
           <div className="blog-post-preview-list">
             {posts.map((post, index) => {
-              const slug = post.url ? post.url.split('/').pop() : createSlug(post.title);
+              const slug = createSlug(post.title);
 
               return (
                 <Link
