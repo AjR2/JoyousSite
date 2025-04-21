@@ -42,7 +42,6 @@ async function getAllPosts() {
 // Function to get a post by slug
 async function getPostBySlug(slug) {
     try {
-        // Check cache first
         const cacheKey = CACHE_KEYS.POST_BY_SLUG(slug);
         const cachedPost = getFromCache(cacheKey);
         if (cachedPost) {
@@ -50,22 +49,37 @@ async function getPostBySlug(slug) {
         }
 
         const posts = await getAllPosts();
-
-        // First try to find by exact slug match
         const normalizedSlug = slug.toLowerCase();
 
-        // Try to find post by matching the slug with the title
         const post = posts.find(post => {
-            const postSlug = slugify(post.title, {
+            if (!post.title) return false;
+
+            const slugFromTitle = slugify(post.title, {
                 lower: true,
                 strict: true,
                 remove: /[*+~.()'"!:@]/g
             });
-            return postSlug === normalizedSlug;
+
+            const slugFromUrl = post.url
+                ? post.url.split('/').pop().toLowerCase()
+                : null;
+
+            return slugFromTitle === normalizedSlug || slugFromUrl === normalizedSlug;
         });
 
-        // Store in cache if found
-        if (post) {
+        if (!post) {
+            console.warn(`Post not found for slug "${slug}"`);
+            console.warn(
+                'Available slugs:',
+                posts.map(p =>
+                    slugify(p.title || '', {
+                        lower: true,
+                        strict: true,
+                        remove: /[*+~.()'"!:@]/g
+                    })
+                )
+            );
+        } else {
             setInCache(cacheKey, post);
         }
 
