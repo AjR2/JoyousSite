@@ -52,7 +52,7 @@
             "dest": "/index.html"
         },
         {
-            "src": ".*",
+            "src": "/",
             "dest": "/index.html"
         }
     ]
