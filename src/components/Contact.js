@@ -24,7 +24,7 @@ const Contact = () => {
     };
 
     emailjs
-      .send("service_zzvj0ur", "template_lmr1i7v", templateParams, "Rc8h7uEQIYsCp9F2L")
+      .send("service_jpewjm8", "template_lmr1i7v", templateParams, "Rc8h7uEQIYsCp9F2L")
       .then(() => {
         alert("Message Sent! We’ll get back to you soon.");
         setFormData({ name: "", email: "", message: "", subject: "" });
