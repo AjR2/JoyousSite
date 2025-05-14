@@ -27,6 +27,7 @@ Allow: /
 User-agent: *
 Disallow: /admin/
 Disallow: /internal/
+Disallow: /Vza.html
 
 # Sitemap location
 Sitemap: https://www.akeyreu.com/sitemap.xml

@@ -1,4 +1,3 @@
-// Updated BlogPost.js to use ErrorBoundary and proper component organization
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import slugify from 'slugify';
@@ -15,8 +14,14 @@ const BlogPost = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // ✅ Early exit for invalid slugs
   useEffect(() => {
-    // Use the API endpoint instead of static JSON file
+    if (!slug || slug === 'undefined') {
+      setError('Invalid blog post slug.');
+      setLoading(false);
+      return;
+    }
+
     fetch(`/api/posts/${slug}`)
       .then((res) => {
         if (!res.ok) {
@@ -38,7 +43,6 @@ const BlogPost = () => {
       });
   }, [slug]);
 
-  // Handle back to blog list
   const handleBackClick = () => {
     navigate('/blog');
   };
@@ -76,9 +80,9 @@ const BlogPost = () => {
     );
   }
 
-  // Generate canonical URL
-  const canonicalSlug = post.url ? post.url.split('/').pop() :
-    slugify(post.title, { lower: true, strict: true, remove: /[*+~.()'"!:@]/g });
+  const canonicalSlug = post.url
+    ? post.url.split('/').pop()
+    : slugify(post.title, { lower: true, strict: true, remove: /[*+~.()'"!:@]/g });
   const canonicalUrl = `https://www.akeyreu.com/blog/${canonicalSlug}`;
 
   return (
@@ -103,33 +107,12 @@ const BlogPost = () => {
 
       <ErrorBoundary>
         <div className="blog-content">
-          {/* <button onClick={handleBackClick} className="back-button" aria-label="Back to blog list">
-            &larr; Back to Blog
-          </button> */}
-
           <h1>{post.title}</h1>
           <h5>{post.date || 'No date available'}</h5>
-
-          {/* {post.key_points && post.key_points.length > 0 && (
-            <div className="key-points-section">
-              <h3>Key Points</h3>
-              <ul>
-                {post.key_points.map((point, index) => (
-                  <li key={index}>{point}</li>
-                ))}
-              </ul>
-            </div>
-          )} */}
 
           {post.content && post.content.split('<>').map((para, idx) => (
             <p key={idx}>{para}</p>
           ))}
-
-          {/* <div className="post-footer">
-            <button onClick={handleBackClick} className="back-button" aria-label="Back to blog list">
-              &larr; Back to Blog
-            </button>
-          </div> */}
         </div>
       </ErrorBoundary>
     </>
