@@ -18,9 +18,12 @@ const breaks = [
   { icon: faEarListen, text: 'Pause and note five things you can hear around you.' },
 ];
 
+<<<<<<< HEAD
 
 import './MindfulBreaks.css';
 
+=======
+>>>>>>> revert
 const MindfulBreaks = () => (
   <>
     <MetaTags
@@ -29,7 +32,10 @@ const MindfulBreaks = () => (
       keywords="mindfulness, break, wellness"
       canonicalUrl="https://www.akeyreu.com/mindful-breaks/"
     />
+<<<<<<< HEAD
   
+=======
+>>>>>>> revert
     <div className="mindful-card">
       <h2>Mindful Break Ideas</h2>
       <div className="break-items">
@@ -40,6 +46,7 @@ const MindfulBreaks = () => (
           </div>
         ))}
       </div>
+<<<<<<< HEAD
 
     <div className="mindful-container">
       <h2>Mindful Break Ideas</h2>
@@ -51,8 +58,14 @@ const MindfulBreaks = () => (
         <li>Pause and note five things you can hear around you.</li>
       </ul>
 
+=======
+>>>>>>> revert
     </div>
   </>
 );
 
 export default MindfulBreaks;
+<<<<<<< HEAD
+=======
+
+>>>>>>> revert
