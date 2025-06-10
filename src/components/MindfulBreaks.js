@@ -19,6 +19,7 @@ const breaks = [
 ];
 
 
+
 import './MindfulBreaks.css';
 
 const MindfulBreaks = () => (
