@@ -1,12 +1,12 @@
 const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
 const cors = require('cors');
+const slugify = require('slugify');
 
 const app = express();
 const PORT = 5000;
 
 // Enable CORS for frontend requests
-const cors = require('cors');
 
 // Enable CORS for specific origin
 app.use(
@@ -37,7 +37,7 @@ const db = new sqlite3.Database('./blog.db', (err) => {
 });
 
 // Get all posts
-app.get('/posts', (req, res) => {
+app.get('/api/posts', (req, res) => {
     db.all('SELECT id, title, date FROM posts', [], (err, rows) => {
         if (err) {
             res.status(500).json({ error: err.message });
@@ -48,7 +48,7 @@ app.get('/posts', (req, res) => {
 });
 
 // Get a single post by ID
-app.get('/posts/:id', (req, res) => {
+app.get('/api/posts/:id', (req, res) => {
     const id = req.params.id;
     db.get('SELECT * FROM posts WHERE id = ?', [id], (err, row) => {
         if (err) {
@@ -61,8 +61,31 @@ app.get('/posts/:id', (req, res) => {
     });
 });
 
+// Get a single post by slug
+app.get('/api/posts/slug/:slug', (req, res) => {
+    const slug = req.params.slug;
+    db.all('SELECT * FROM posts', [], (err, rows) => {
+        if (err) {
+            res.status(500).json({ error: err.message });
+            return;
+        }
+        const match = rows.find((r) =>
+            slugify(r.title, {
+                lower: true,
+                strict: true,
+                remove: /[*+~.()'"!:@]/g,
+            }) === slug
+        );
+        if (!match) {
+            res.status(404).json({ error: 'Post not found' });
+        } else {
+            res.json(match);
+        }
+    });
+});
+
 // Add a new post (optional for testing)
-app.post('/posts', (req, res) => {
+app.post('/api/posts', (req, res) => {
     const { title, date, content } = req.body;
     db.run(
         'INSERT INTO posts (title, date, content) VALUES (?, ?, ?)',
