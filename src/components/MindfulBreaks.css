@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> revert
 .mindful-card {
   max-width: 900px;
   margin: 120px auto 80px;
@@ -26,6 +29,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1.5rem;
+<<<<<<< HEAD
 
 .mindful-container {
   max-width: 700px;
@@ -44,11 +48,16 @@
 
 .mindful-container ul {
 
+=======
+>>>>>>> revert
   list-style: none;
   padding: 0;
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> revert
 .mindful-break-item {
   backdrop-filter: blur(15px);
   background: rgba(255, 255, 255, 0.1);
@@ -88,9 +97,12 @@
     opacity: 1;
     transform: translateY(0);
   }
+<<<<<<< HEAD
 
 .mindful-container li {
   margin-bottom: 15px;
   font-size: 1.1rem;
 
+=======
+>>>>>>> revert
 }
