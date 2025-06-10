@@ -2,7 +2,7 @@
 .dark-blue { color: #074073; }
 .golden-rod { color: #debf5f; }
 .sky-blue { color: #035aa6; }
-electric-blue { color: #0596F2; }
+.electric-blue { color: #0596F2; }
 
 /* Global Styles */
 html, body {
@@ -26,22 +26,35 @@ html, body {
 /* Card */
 .card {
   text-align: center;
-  background-color: #FFFFFF;
   margin: 20px auto;
   padding: 30px;
-  width: 85%; /* Ensures consistent width */
-  min-height: 600px; /* Forces cards to remain large */
+  width: 85%;
+  min-height: 600px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-radius: 10px;
-  box-shadow: 0 0 30px #035aa6;
+  border-radius: 24px;
+  backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.05);
   margin-bottom: 100px;
   font-size: clamp(22px, 3vmin, 35px);
   overflow: hidden;
   word-wrap: break-word;
-  flex-grow: 1; /* Ensures all cards take up equal space */
+  flex-grow: 1;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(1.02);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+  }
 }
 
 /* Ensure all cards are equal height in a row */
@@ -85,6 +98,12 @@ html, body {
 .section-title {
   text-align: center;
   margin-bottom: 20px;
+  font-weight: 700;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  background: linear-gradient(90deg, #0066CC, #0596F2);
+  -webkit-background-clip: text;
+  color: transparent;
+  letter-spacing: -0.02em;
 }
 
 /* Values Section */

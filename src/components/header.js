@@ -106,6 +106,9 @@ const Header = () => {
             <a href="/blog" className="nav-link">Blog</a>
           </li>
           <li className="nav-item">
+            <a href="/mindful-breaks" className="nav-link">Mindful Breaks</a>
+          </li>
+          <li className="nav-item">
             <a href="/contact" className="nav-link">Contact Us</a>
           </li>
           <li className="nav-item">
