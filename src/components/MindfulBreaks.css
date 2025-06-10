@@ -1,0 +1,24 @@
+.mindful-container {
+  max-width: 700px;
+  margin: 100px auto;
+  padding: 20px;
+  text-align: center;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px #035aa6;
+  border-radius: 10px;
+}
+
+.mindful-container h2 {
+  margin-bottom: 20px;
+  color: #035aa6;
+}
+
+.mindful-container ul {
+  list-style: none;
+  padding: 0;
+}
+
+.mindful-container li {
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+}
