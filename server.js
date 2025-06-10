@@ -47,20 +47,6 @@ app.get('/api/posts', (req, res) => {
     });
 });
 
-// Get a single post by ID
-app.get('/api/posts/:id', (req, res) => {
-    const id = req.params.id;
-    db.get('SELECT * FROM posts WHERE id = ?', [id], (err, row) => {
-        if (err) {
-            res.status(500).json({ error: err.message });
-        } else if (!row) {
-            res.status(404).json({ error: 'Post not found' });
-        } else {
-            res.json(row);
-        }
-    });
-});
-
 // Get a single post by slug
 app.get('/api/posts/slug/:slug', (req, res) => {
     const slug = req.params.slug;
@@ -80,6 +66,20 @@ app.get('/api/posts/slug/:slug', (req, res) => {
             res.status(404).json({ error: 'Post not found' });
         } else {
             res.json(match);
+        }
+    });
+});
+
+// Get a single post by ID
+app.get('/api/posts/:id', (req, res) => {
+    const id = req.params.id;
+    db.get('SELECT * FROM posts WHERE id = ?', [id], (err, row) => {
+        if (err) {
+            res.status(500).json({ error: err.message });
+        } else if (!row) {
+            res.status(404).json({ error: 'Post not found' });
+        } else {
+            res.json(row);
         }
     });
 });
