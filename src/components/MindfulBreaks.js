@@ -8,8 +8,6 @@ import {
   faChild,
   faEarListen,
 } from '@fortawesome/free-solid-svg-icons';
-import './MindfulBreaks.css';
-
 const breaks = [
   { icon: faPersonWalking, text: 'Take a short walk and focus on your breath.' },
   { icon: faWind, text: 'Spend two minutes practicing deep belly breathing.' },
@@ -19,7 +17,6 @@ const breaks = [
 ];
 
 
-import './MindfulBreaks.css';
 
 const MindfulBreaks = () => (
   <>
@@ -40,6 +37,7 @@ const MindfulBreaks = () => (
           </div>
         ))}
       </div>
+    </div>
 
     <div className="mindful-container">
       <h2>Mindful Break Ideas</h2>
