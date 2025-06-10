@@ -1,3 +1,4 @@
+
 .mindful-card {
   max-width: 900px;
   margin: 120px auto 80px;
@@ -25,9 +26,28 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1.5rem;
+
+.mindful-container {
+  max-width: 700px;
+  margin: 100px auto;
+  padding: 20px;
+  text-align: center;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px #035aa6;
+  border-radius: 10px;
+}
+
+.mindful-container h2 {
+  margin-bottom: 20px;
+  color: #035aa6;
+}
+
+.mindful-container ul {
+
   list-style: none;
   padding: 0;
 }
+
 
 .mindful-break-item {
   backdrop-filter: blur(15px);
@@ -68,4 +88,9 @@
     opacity: 1;
     transform: translateY(0);
   }
+
+.mindful-container li {
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+
 }

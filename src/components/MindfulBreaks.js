@@ -18,6 +18,9 @@ const breaks = [
   { icon: faEarListen, text: 'Pause and note five things you can hear around you.' },
 ];
 
+
+import './MindfulBreaks.css';
+
 const MindfulBreaks = () => (
   <>
     <MetaTags
@@ -26,6 +29,7 @@ const MindfulBreaks = () => (
       keywords="mindfulness, break, wellness"
       canonicalUrl="https://www.akeyreu.com/mindful-breaks/"
     />
+  
     <div className="mindful-card">
       <h2>Mindful Break Ideas</h2>
       <div className="break-items">
@@ -36,6 +40,17 @@ const MindfulBreaks = () => (
           </div>
         ))}
       </div>
+
+    <div className="mindful-container">
+      <h2>Mindful Break Ideas</h2>
+      <ul>
+        <li>Take a short walk and focus on your breath.</li>
+        <li>Spend two minutes practicing deep belly breathing.</li>
+        <li>Do a quick body scan, relaxing any tension you notice.</li>
+        <li>Stretch your arms and legs slowly, noticing each movement.</li>
+        <li>Pause and note five things you can hear around you.</li>
+      </ul>
+
     </div>
   </>
 );
