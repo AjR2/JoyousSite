@@ -8,6 +8,7 @@ import Footer from './components/footer';
 import Blog from './components/Blog';
 import BlogPost from './components/BlogPost';
 import Contact from './components/Contact';
+import MindfulBreaks from './components/MindfulBreaks';
 import MetaTags from './components/MetaTags';
 import SchemaMarkup from './components/SchemaMarkup';
 import ErrorBoundary from './components/ErrorBoundary';
@@ -194,6 +195,7 @@ function AppContent() {
           />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
+          <Route path="/mindful-breaks" element={<MindfulBreaks />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>
       </ErrorBoundary>

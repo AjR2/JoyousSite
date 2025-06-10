@@ -6,7 +6,6 @@ const app = express();
 const PORT = 5000;
 
 // Enable CORS for frontend requests
-const cors = require('cors');
 
 // Enable CORS for specific origin
 app.use(
@@ -37,7 +36,7 @@ const db = new sqlite3.Database('./blog.db', (err) => {
 });
 
 // Get all posts
-app.get('/posts', (req, res) => {
+app.get('/api/posts', (req, res) => {
     db.all('SELECT id, title, date FROM posts', [], (err, rows) => {
         if (err) {
             res.status(500).json({ error: err.message });
@@ -48,7 +47,7 @@ app.get('/posts', (req, res) => {
 });
 
 // Get a single post by ID
-app.get('/posts/:id', (req, res) => {
+app.get('/api/posts/:id', (req, res) => {
     const id = req.params.id;
     db.get('SELECT * FROM posts WHERE id = ?', [id], (err, row) => {
         if (err) {
@@ -62,7 +61,7 @@ app.get('/posts/:id', (req, res) => {
 });
 
 // Add a new post (optional for testing)
-app.post('/posts', (req, res) => {
+app.post('/api/posts', (req, res) => {
     const { title, date, content } = req.body;
     db.run(
         'INSERT INTO posts (title, date, content) VALUES (?, ?, ?)',

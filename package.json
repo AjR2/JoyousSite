@@ -2,10 +2,11 @@
   "name": "akeyreuwebsiteupdate",
   "version": "1.0.0",
   "main": "index.js",
+  "proxy": "http://localhost:5000",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "server": "node api/server.js",
+    "server": "node server.js",
     "dev": "concurrently \"npm run server\" \"npm run start\"",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
