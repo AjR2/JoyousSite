@@ -45,7 +45,7 @@ const Blog = () => {
   const createSummary = (content, maxLength = 175) => {
     if (!content) return '';
 
-    const plainText = content.replace(/<>/g, ' ').trim();
+    const plainText = content.replace(/<[^>]+>/g, ' ').trim();
     if (plainText.length <= maxLength) return plainText;
 
     return plainText.slice(0, maxLength).trim() + '...';
