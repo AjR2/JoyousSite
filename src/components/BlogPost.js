@@ -22,7 +22,7 @@ const BlogPost = () => {
       return;
     }
 
-    fetch(`/api/posts/${slug}`)
+    fetch(`/api/posts/slug/${slug}`)
       .then((res) => {
         if (!res.ok) {
           if (res.status === 404) {

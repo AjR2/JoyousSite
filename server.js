@@ -1,6 +1,7 @@
 const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
 const cors = require('cors');
+const slugify = require('slugify');
 
 const app = express();
 const PORT = 5000;
@@ -56,6 +57,29 @@ app.get('/api/posts/:id', (req, res) => {
             res.status(404).json({ error: 'Post not found' });
         } else {
             res.json(row);
+        }
+    });
+});
+
+// Get a single post by slug
+app.get('/api/posts/slug/:slug', (req, res) => {
+    const slug = req.params.slug;
+    db.all('SELECT * FROM posts', [], (err, rows) => {
+        if (err) {
+            res.status(500).json({ error: err.message });
+            return;
+        }
+        const match = rows.find((r) =>
+            slugify(r.title, {
+                lower: true,
+                strict: true,
+                remove: /[*+~.()'"!:@]/g,
+            }) === slug
+        );
+        if (!match) {
+            res.status(404).json({ error: 'Post not found' });
+        } else {
+            res.json(match);
         }
     });
 });
