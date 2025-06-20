@@ -6,8 +6,7 @@ import './Blog.css';
 import MetaTags from './MetaTags';
 import LoadingSpinner from './LoadingSpinner';
 import ErrorBoundary from './ErrorBoundary';
-import BlogSearch from './BlogSearch';
-import BlogFilters from './BlogFilters';
+import BlogSearchAndFilters from './BlogSearchAndFilters';
 
 const Blog = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -166,17 +165,13 @@ const Blog = () => {
             </p>
           </header>
 
-          {/* Search Component */}
-          <BlogSearch
+          {/* Consolidated Search and Filters Component */}
+          <BlogSearchAndFilters
             onSearch={handleSearch}
-            searchQuery={searchQuery}
-            isLoading={searchLoading}
-          />
-
-          {/* Filters Component */}
-          <BlogFilters
             onFilterChange={handleFilterChange}
+            searchQuery={searchQuery}
             activeFilters={filters}
+            isLoading={searchLoading}
           />
 
           {/* Results Summary */}
