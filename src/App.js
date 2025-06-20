@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-route
 import { HelmetProvider } from 'react-helmet-async';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import './styles/mobile-optimizations.css';
 import Header from './components/header';
 import Footer from './components/footer';
 import MetaTags from './components/MetaTags';

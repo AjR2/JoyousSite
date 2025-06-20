@@ -266,6 +266,10 @@
     font-size: 1rem;
     margin-top: 1rem;
     transition: background-color 0.2s ease;
+    min-height: 44px;
+    min-width: 44px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgba(220, 53, 69, 0.2);
 }
 
 .retry-button:hover {
@@ -312,6 +316,12 @@
         position: static;
         max-height: none;
         order: -1; /* Show sidebar above content on mobile */
+    }
+
+    /* Improve touch targets on mobile */
+    .blog-post-link {
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: rgba(3, 90, 166, 0.1);
     }
 
     .blog-title {

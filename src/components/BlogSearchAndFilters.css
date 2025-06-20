@@ -26,6 +26,9 @@
   color: #495057;
   align-items: center;
   gap: 0.75rem;
+  min-height: 44px;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(0, 123, 255, 0.1);
 }
 
 .mobile-filters-toggle .toggle-icon {
@@ -95,9 +98,12 @@
   color: #6c757d;
   transition: color 0.2s ease, background-color 0.2s ease;
   min-width: 44px;
+  min-height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
 }
 
 .clear-search-btn:hover,
@@ -184,6 +190,9 @@
   font-weight: 500;
   color: #495057;
   transition: background-color 0.2s ease;
+  min-height: 44px;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(0, 123, 255, 0.1);
 }
 
 .advanced-toggle-btn:hover {
