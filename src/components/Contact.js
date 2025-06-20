@@ -163,61 +163,124 @@ const Contact = () => {
   };
 
   return (
-    <div className="contact-container">
-      <h2>Contact Us</h2>
-      <p>Have any questions? Feel free to reach out.</p>
+    <main className="contact-container" id="main-content" role="main">
+      <header className="contact-header">
+        <h1>Contact Us</h1>
+        <p>Have any questions? Feel free to reach out.</p>
+      </header>
 
-      <form onSubmit={handleSubmit} className="contact-form">
-      <div className="input-group">
-          <label>Name</label>
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-            placeholder="Enter your name"
-          />
-        </div>
+      <section className="contact-form-section" aria-labelledby="contact-form-heading">
+        <h2 id="contact-form-heading" className="sr-only">Contact Form</h2>
+        <form onSubmit={handleSubmit} className="contact-form" noValidate>
+          <div className="input-group">
+            <label htmlFor="name">Name</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              onFocus={handleFocus}
+              required
+              placeholder="Enter your name"
+              aria-describedby={errors.name ? "name-error" : undefined}
+              aria-invalid={!!errors.name}
+            />
+            {errors.name && (
+              <span id="name-error" className="error-message" role="alert">
+                {errors.name}
+              </span>
+            )}
+          </div>
 
-        <div className="input-group">
-          <label>Email</label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-            placeholder="Enter your email"
-          />
-        </div>
+          <div className="input-group">
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              onFocus={handleFocus}
+              required
+              placeholder="Enter your email"
+              aria-describedby={errors.email ? "email-error" : undefined}
+              aria-invalid={!!errors.email}
+            />
+            {errors.email && (
+              <span id="email-error" className="error-message" role="alert">
+                {errors.email}
+              </span>
+            )}
+          </div>
 
-        <div className="input-group">
-          <label>Subject</label>
-          <input
-            type="text"
-            name="subject"
-            value={formData.subject}
-            onChange={handleChange}
-            required
-            placeholder="Subject"
-          />
-        </div>
+          <div className="input-group">
+            <label htmlFor="subject">Subject</label>
+            <input
+              type="text"
+              id="subject"
+              name="subject"
+              value={formData.subject}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              onFocus={handleFocus}
+              required
+              placeholder="Subject"
+              aria-describedby={errors.subject ? "subject-error" : undefined}
+              aria-invalid={!!errors.subject}
+            />
+            {errors.subject && (
+              <span id="subject-error" className="error-message" role="alert">
+                {errors.subject}
+              </span>
+            )}
+          </div>
 
-        <div className="input-group">
-          <label>Message</label>
-          <textarea
-            name="message"
-            value={formData.message}
-            onChange={handleChange}
-            required
-            placeholder="Your message"
-          ></textarea>
-        </div>
+          <div className="input-group">
+            <label htmlFor="message">Message</label>
+            <textarea
+              id="message"
+              name="message"
+              value={formData.message}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              onFocus={handleFocus}
+              required
+              placeholder="Your message"
+              aria-describedby={errors.message ? "message-error" : undefined}
+              aria-invalid={!!errors.message}
+            ></textarea>
+            {errors.message && (
+              <span id="message-error" className="error-message" role="alert">
+                {errors.message}
+              </span>
+            )}
+          </div>
 
-        <button type="submit" className="submit-btn">Send Message</button>
-      </form>
-    </div>
+          <button
+            type="submit"
+            className="submit-btn"
+            disabled={isSubmitting}
+            aria-describedby="submit-status"
+          >
+            {isSubmitting ? 'Sending...' : 'Send Message'}
+          </button>
+
+          {submitStatus && (
+            <div
+              id="submit-status"
+              className={`submit-status ${submitStatus}`}
+              role="alert"
+              aria-live="polite"
+            >
+              {submitMessage}
+            </div>
+          )}
+        </form>
+      </section>
+    </main>
   );
 };
 

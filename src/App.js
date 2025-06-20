@@ -10,6 +10,7 @@ import MetaTags from './components/MetaTags';
 import SchemaMarkup from './components/SchemaMarkup';
 import ErrorBoundary from './components/ErrorBoundary';
 import LoadingSpinner from './components/LoadingSpinner';
+import AccessibilityProvider from './components/AccessibilityProvider';
 
 // Lazy load components for code splitting
 const Blog = React.lazy(() => import('./components/Blog'));
@@ -360,19 +361,21 @@ function AppContent() {
 function App() {
   return (
     <HelmetProvider>
-      <MetaTags
-        title="Akeyreu: Mental Wellness Reimagined Through Neural Technology"
-        description="Akeyreu integrates advanced neural technologies with mental wellness practices, making technology-enhanced wellness accessible to everyone through nAura and Vza."
-        keywords="mental wellness, neural technology, sleep analysis, cognitive wellness, AI wellness, nAura, Vza"
-        canonicalUrl="https://www.akeyreu.com/"
-      />
+      <AccessibilityProvider>
+        <MetaTags
+          title="Akeyreu: Mental Wellness Reimagined Through Neural Technology"
+          description="Akeyreu integrates advanced neural technologies with mental wellness practices, making technology-enhanced wellness accessible to everyone through nAura and Vza."
+          keywords="mental wellness, neural technology, sleep analysis, cognitive wellness, AI wellness, nAura, Vza"
+          canonicalUrl="https://www.akeyreu.com/"
+        />
 
-      <SchemaMarkup type="organization" />
-      <SchemaMarkup type="website" />
+        <SchemaMarkup type="organization" />
+        <SchemaMarkup type="website" />
 
-      <Router>
-        <AppContent />
-      </Router>
+        <Router>
+          <AppContent />
+        </Router>
+      </AccessibilityProvider>
     </HelmetProvider>
   );
 }
