@@ -4,14 +4,51 @@
   background: white;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   overflow: hidden;
   border: 1px solid #e9ecef;
+  position: sticky;
+  top: 0;
+}
+
+/* Mobile Toggle Button */
+.mobile-filters-toggle {
+  display: none;
+  width: 100%;
+  padding: 1rem;
+  background: #f8f9fa;
+  border: none;
+  border-bottom: 1px solid #e9ecef;
+  text-align: left;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #495057;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.mobile-filters-toggle .toggle-icon {
+  font-size: 1.2rem;
+}
+
+.mobile-active-indicator {
+  margin-left: auto;
+  background: #007bff;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.search-and-filters-content {
+  /* Content is always visible on desktop */
 }
 
 /* Search Section */
 .search-section {
-  padding: 1.5rem;
+  padding: 1.25rem;
   border-bottom: 1px solid #f1f3f4;
 }
 
@@ -175,9 +212,11 @@
 
 /* Advanced Filters Panel */
 .advanced-filters-panel {
-  padding: 1.5rem;
+  padding: 1.25rem;
   background: #fafbfc;
   border-top: 1px solid #f1f3f4;
+  max-height: 70vh;
+  overflow-y: auto;
 }
 
 .filter-actions {
@@ -232,9 +271,9 @@
 
 /* Filters Grid */
 .filters-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
 }
 
 .filter-group {
@@ -261,8 +300,8 @@
 }
 
 .tags-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  display: flex;
+  flex-direction: column;
   gap: 0.5rem;
 }
 
@@ -432,27 +471,44 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
+  .blog-search-and-filters {
+    position: static;
+    margin-bottom: 1.5rem;
+  }
+
+  .mobile-filters-toggle {
+    display: flex;
+  }
+
+  .search-and-filters-content {
+    display: none;
+  }
+
+  .search-and-filters-content.mobile-open {
+    display: block;
+  }
+
   .search-section {
     padding: 1rem;
   }
-  
+
   .advanced-filters-panel {
     padding: 1rem;
+    max-height: none;
   }
-  
+
   .filters-grid {
-    grid-template-columns: 1fr;
     gap: 1rem;
   }
-  
+
   .filter-group {
     padding: 1rem;
   }
-  
+
   .tags-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .active-filter-tags {
     flex-direction: column;
     align-items: flex-start;

@@ -11,6 +11,7 @@ const BlogSearchAndFilters = ({
   const [query, setQuery] = useState(searchQuery);
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
   const [categories, setCategories] = useState([]);
   const [tags, setTags] = useState([]);
@@ -145,8 +146,29 @@ const BlogSearchAndFilters = ({
 
   return (
     <div className="blog-search-and-filters">
-      {/* Main Search Bar */}
-      <div className="search-section" role="search">
+      {/* Mobile Toggle Button */}
+      <button
+        className="mobile-filters-toggle"
+        onClick={() => setIsMobileFiltersOpen(!isMobileFiltersOpen)}
+        aria-expanded={isMobileFiltersOpen}
+        aria-controls="search-and-filters-content"
+      >
+        <span className="toggle-icon">{isMobileFiltersOpen ? '✕' : '🔍'}</span>
+        <span>Search & Filters</span>
+        {hasActiveFilters && (
+          <span className="mobile-active-indicator">
+            ({Object.values(activeFilters).filter(v => v && v !== '').length})
+          </span>
+        )}
+      </button>
+
+      {/* Search and Filters Content */}
+      <div
+        id="search-and-filters-content"
+        className={`search-and-filters-content ${isMobileFiltersOpen ? 'mobile-open' : ''}`}
+      >
+        {/* Main Search Bar */}
+        <div className="search-section" role="search">
         <form onSubmit={handleSubmit} className="search-form">
           <div className="search-input-container">
             <label htmlFor="blog-search-input" className="sr-only">
@@ -391,6 +413,7 @@ const BlogSearchAndFilters = ({
           )}
         </div>
       )}
+      </div>
     </div>
   );
 };

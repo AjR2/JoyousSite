@@ -165,58 +165,63 @@ const Blog = () => {
             </p>
           </header>
 
-          {/* Consolidated Search and Filters Component */}
-          <BlogSearchAndFilters
-            onSearch={handleSearch}
-            onFilterChange={handleFilterChange}
-            searchQuery={searchQuery}
-            activeFilters={filters}
-            isLoading={searchLoading}
-          />
+          <div className="blog-layout">
+            {/* Left Sidebar - Search and Filters */}
+            <aside className="blog-sidebar" role="complementary" aria-label="Search and filter options">
+              <BlogSearchAndFilters
+                onSearch={handleSearch}
+                onFilterChange={handleFilterChange}
+                searchQuery={searchQuery}
+                activeFilters={filters}
+                isLoading={searchLoading}
+              />
+            </aside>
 
-          {/* Results Summary */}
-          {hasActiveSearch && !loading && (
-            <div className="search-results-summary" role="status" aria-live="polite">
-              <p>
-                {searchLoading ? 'Searching...' : `Found ${resultCount} post${resultCount !== 1 ? 's' : ''}`}
-                {searchQuery && ` for "${searchQuery}"`}
-                {filters.category && ` in category "${filters.category}"`}
-                {filters.tag && ` with tag "${filters.tag}"`}
-                {filters.featured && ` (featured only)`}
-              </p>
-            </div>
-          )}
+            {/* Main Content Area */}
+            <div className="blog-main-content">
+              {/* Results Summary */}
+              {hasActiveSearch && !loading && (
+                <div className="search-results-summary" role="status" aria-live="polite">
+                  <p>
+                    {searchLoading ? 'Searching...' : `Found ${resultCount} post${resultCount !== 1 ? 's' : ''}`}
+                    {searchQuery && ` for "${searchQuery}"`}
+                    {filters.category && ` in category "${filters.category}"`}
+                    {filters.tag && ` with tag "${filters.tag}"`}
+                    {filters.featured && ` (featured only)`}
+                  </p>
+                </div>
+              )}
 
-          {loading && (
-            <div className="loading-container" role="status" aria-live="polite">
-              <LoadingSpinner />
-              <span className="sr-only">Loading blog posts...</span>
-            </div>
-          )}
+              {loading && (
+                <div className="loading-container" role="status" aria-live="polite">
+                  <LoadingSpinner />
+                  <span className="sr-only">Loading blog posts...</span>
+                </div>
+              )}
 
-          {error && (
-            <div className="error-message" role="alert" aria-live="assertive">
-              <h2>Error Loading Blog Posts</h2>
-              <p>Error: {error}</p>
-              <button
-                onClick={() => window.location.reload()}
-                className="retry-button"
-                aria-label="Retry loading blog posts"
-              >
-                Retry
-              </button>
-            </div>
-          )}
+              {error && (
+                <div className="error-message" role="alert" aria-live="assertive">
+                  <h2>Error Loading Blog Posts</h2>
+                  <p>Error: {error}</p>
+                  <button
+                    onClick={() => window.location.reload()}
+                    className="retry-button"
+                    aria-label="Retry loading blog posts"
+                  >
+                    Retry
+                  </button>
+                </div>
+              )}
 
-          {!loading && !error && posts.length === 0 && (
-            <div className="no-posts-message" role="status">
-              <p>No blog posts found. Check back soon for new content!</p>
-            </div>
-          )}
+              {!loading && !error && posts.length === 0 && (
+                <div className="no-posts-message" role="status">
+                  <p>No blog posts found. Check back soon for new content!</p>
+                </div>
+              )}
 
-          <section className="blog-posts-section" aria-labelledby="blog-title">
-            <h2 className="sr-only">List of blog posts</h2>
-            <div className="blog-post-preview-list" role="list">
+              <section className="blog-posts-section" aria-labelledby="blog-title">
+                <h2 className="sr-only">List of blog posts</h2>
+                <div className="blog-post-preview-list" role="list">
               {posts.map((post, index) => {
                 const slug = post.id || createSlug(post.title);
 
@@ -291,11 +296,13 @@ const Blog = () => {
 
                       <span className="sr-only">Read full article: {post.title}</span>
                     </Link>
-                  </article>
-                );
-              })}
+                    </article>
+                  );
+                })}
+                </div>
+              </section>
             </div>
-          </section>
+          </div>
         </main>
       </ErrorBoundary>
     </>
