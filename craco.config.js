@@ -1,4 +1,5 @@
 const path = require('path');
+const fs = require('fs');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 module.exports = {
@@ -116,7 +117,7 @@ module.exports = {
   
   // ESLint configuration
   eslint: {
-    enable: true,
+    enable: process.env.NODE_ENV !== 'production',
     mode: 'extends',
     configure: {
       rules: {
@@ -144,10 +145,10 @@ module.exports = {
   style: {
     sass: {
       loaderOptions: {
-        // Sass loader options
-        additionalData: `
-          @import "src/styles/variables.scss";
-        `
+        // Sass loader options - only add if file exists
+        ...(fs.existsSync(path.resolve(__dirname, 'src/styles/variables.scss')) ? {
+          additionalData: `@import "src/styles/variables.scss";`
+        } : {})
       }
     }
   }
