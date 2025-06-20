@@ -1,3 +1,60 @@
+/* Enhanced Loading Spinner */
+.loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.loading-spinner__circle {
+  position: relative;
+  display: inline-block;
+}
+
+.loading-spinner__path {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #0066cc;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.loading-spinner--small .loading-spinner__path {
+  width: 24px;
+  height: 24px;
+  border-width: 2px;
+}
+
+.loading-spinner--large .loading-spinner__path {
+  width: 60px;
+  height: 60px;
+  border-width: 4px;
+}
+
+.loading-spinner__text {
+  font-size: 0.875rem;
+  color: #6c757d;
+  font-weight: 500;
+  text-align: center;
+}
+
+.loading-spinner--small .loading-spinner__text {
+  font-size: 0.75rem;
+}
+
+.loading-spinner--large .loading-spinner__text {
+  font-size: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Backward compatibility */
 .spinner-container {
     display: flex;
     justify-content: center;
@@ -14,8 +71,31 @@
     animation: spin 1s ease-in-out infinite;
 }
 
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .loading-spinner__path {
+    border-color: #4a5568;
+    border-top-color: #0066cc;
+  }
+
+  .loading-spinner__text {
+    color: #cbd5e0;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .loading-spinner__path {
+    animation: none;
+    border-top-color: transparent;
+    border-right-color: #0066cc;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .loading-spinner__path {
+    border-color: #000;
+    border-top-color: #666;
+  }
 }

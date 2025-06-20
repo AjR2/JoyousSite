@@ -1,21 +1,20 @@
 // API utility functions for caching
 // File: /api/utils/cache.js
 
+import config from './config.js';
+
 // Simple in-memory cache
 const cache = {
     data: {},
     timestamps: {}
 };
 
-// Cache expiration time (5 minutes)
-const CACHE_EXPIRATION = 5 * 60 * 1000;
-
 // Function to get data from cache
-function getFromCache(key) {
+function getFromCache(key, ttl = config.cache.defaultTTL) {
     const timestamp = cache.timestamps[key];
 
     // Check if data exists and is not expired
-    if (timestamp && Date.now() - timestamp < CACHE_EXPIRATION) {
+    if (timestamp && Date.now() - timestamp < ttl) {
         return cache.data[key];
     }
 
@@ -40,7 +39,7 @@ function clearCacheKey(key) {
     delete cache.timestamps[key];
 }
 
-module.exports = {
+export {
     getFromCache,
     setInCache,
     clearCache,

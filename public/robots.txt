@@ -1,33 +1,35 @@
-# robots.txt for akeyreu.com
-# Last updated: March 2025
-
-# Allow all search engine crawlers
 User-agent: *
 Allow: /
 
-# Allow AI search and agent use
-User-agent: OAI-SearchBot
-User-agent: ChatGPT-User  
-User-agent: PerplexityBot
-User-agent: FirecrawlAgent
-User-agent: AndiBot
-User-agent: ExaBot
-User-agent: PhindBot
-User-agent: YouBot
-Allow: /
-
-# Optional: Disallow AI training data collection
-# Uncomment if you want to prevent AI models from training on your content
-# User-agent: GPTBot  
-# User-agent: CCBot  
-# User-agent: Google-Extended  
-# Disallow: /
-
-# Disallow access to admin areas for all bots
-User-agent: *
-Disallow: /admin/
-Disallow: /internal/
-Disallow: /Vza.html
-
-# Sitemap location
+# Sitemap
 Sitemap: https://www.akeyreu.com/sitemap.xml
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1
+
+# Disallow admin areas (if any)
+Disallow: /admin/
+Disallow: /.env
+Disallow: /api/
+
+# Allow important pages
+Allow: /blog/
+Allow: /mindful-breaks/
+Allow: /contact/
+
+# Block common bot traps
+Disallow: /*?*
+Disallow: /*#*
+Disallow: /*.json$
+Disallow: /*.xml$
+Disallow: /*.txt$
+
+# Social media crawlers
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /

@@ -1,108 +1,220 @@
-<<<<<<< HEAD
+/* Mindful Breaks Page Styles - Consistent with Blog and other pages */
 
-=======
->>>>>>> revert
-.mindful-card {
-  max-width: 900px;
-  margin: 120px auto 80px;
-  padding: 2rem;
-  text-align: center;
-  backdrop-filter: blur(20px);
-  background: rgba(255, 255, 255, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 24px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.05);
-  animation: fadeInUp 0.4s ease-out;
+.mindful-breaks-container {
+    max-width: 1200px;
+    margin: 80px auto;
+    padding: 20px;
+    text-align: center;
 }
 
-.mindful-card h2 {
-  font-weight: 700;
-  font-size: clamp(1.5rem, 4vw, 2.5rem);
-  margin-bottom: 2rem;
-  background: linear-gradient(90deg, #0066CC, #0596F2);
-  -webkit-background-clip: text;
-  color: transparent;
-  letter-spacing: -0.02em;
+.mindful-breaks-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid #e9ecef;
+}
+
+.mindful-breaks-title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #035aa6;
+    font-weight: 700;
+}
+
+.mindful-breaks-description {
+    font-size: 1.125rem;
+    color: #6c757d;
+    max-width: 600px;
+    margin: 0 auto 2rem auto;
+    line-height: 1.6;
+}
+
+.break-items-section {
+    margin-top: 2rem;
 }
 
 .break-items {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1.5rem;
-<<<<<<< HEAD
-
-.mindful-container {
-  max-width: 700px;
-  margin: 100px auto;
-  padding: 20px;
-  text-align: center;
-  background-color: #ffffff;
-  box-shadow: 0 0 10px #035aa6;
-  border-radius: 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
 }
 
-.mindful-container h2 {
-  margin-bottom: 20px;
-  color: #035aa6;
-}
-
-.mindful-container ul {
-
-=======
->>>>>>> revert
-  list-style: none;
-  padding: 0;
-}
-
-<<<<<<< HEAD
-
-=======
->>>>>>> revert
 .mindful-break-item {
-  backdrop-filter: blur(15px);
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  padding: 1.5rem;
-  transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 12px rgba(3, 90, 166, 0.15);
+    transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid #e9ecef;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
 }
 
 .mindful-break-item:hover {
-  transform: scale(1.02);
-  background: rgba(255, 255, 255, 0.15);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background-color: #035aa6;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(3, 90, 166, 0.3);
 }
 
-.mindful-break-item svg {
-  font-size: 2rem;
-  margin-bottom: 1rem;
+.break-icon {
+    margin-bottom: 1.5rem;
+    color: #035aa6;
+    transition: color 0.2s ease;
 }
 
+.mindful-break-item:hover .break-icon {
+    color: #ffffff;
+}
+
+.break-icon svg {
+    font-size: 2.5rem;
+}
+
+.break-text {
+    font-size: 1.125rem;
+    line-height: 1.6;
+    margin: 0;
+    color: #495057;
+    transition: color 0.2s ease;
+}
+
+.mindful-break-item:hover .break-text {
+    color: #ffffff;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .mindful-breaks-container {
+        margin: 40px auto;
+        padding: 15px;
+    }
+
+    .mindful-breaks-title {
+        font-size: 2rem;
+    }
+
+    .mindful-breaks-description {
+        font-size: 1rem;
+    }
+
+    .break-items {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        max-width: 100%;
+    }
+
+    .mindful-break-item {
+        padding: 1.5rem;
+    }
+
+    .break-icon svg {
+        font-size: 2rem;
+    }
+
+    .break-text {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .mindful-breaks-container {
+        margin: 20px auto;
+        padding: 10px;
+    }
+
+    .mindful-breaks-title {
+        font-size: 1.75rem;
+    }
+
+    .mindful-break-item {
+        padding: 1.25rem;
+    }
+
+    .break-icon svg {
+        font-size: 1.75rem;
+    }
+
+    .break-text {
+        font-size: 0.95rem;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .mindful-break-item {
+        border: 2px solid #000;
+    }
+
+    .mindful-break-item:hover {
+        border-color: #fff;
+    }
+}
+
+/* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
-  .mindful-card,
-  .mindful-break-item {
-    transition: none;
-    animation: none;
-  }
+    .mindful-break-item {
+        transition: none;
+    }
+
+    .mindful-break-item:hover {
+        transform: none;
+    }
+
+    .break-icon,
+    .break-text {
+        transition: none;
+    }
 }
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-<<<<<<< HEAD
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .mindful-break-item {
+        background-color: #2d3748;
+        color: #e2e8f0;
+        border-color: #4a5568;
+    }
 
-.mindful-container li {
-  margin-bottom: 15px;
-  font-size: 1.1rem;
+    .mindful-break-item:hover {
+        background-color: #4a5568;
+    }
 
-=======
->>>>>>> revert
+    .break-text {
+        color: #cbd5e0;
+    }
+
+    .break-icon {
+        color: #63b3ed;
+    }
+
+    .mindful-break-item:hover .break-icon,
+    .mindful-break-item:hover .break-text {
+        color: #ffffff;
+    }
+}
+
+/* Focus styles for accessibility */
+.mindful-break-item:focus {
+    outline: 3px solid #007bff;
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* Screen reader only content */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }

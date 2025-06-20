@@ -1,10 +1,11 @@
 // Updated data.js with caching implementation
 // File: /api/utils/data.js
 
-const fs = require('fs').promises;
-const path = require('path');
-const slugify = require('slugify');
-const { getFromCache, setInCache } = require('./cache');
+import fs from 'fs/promises';
+import path from 'path';
+import slugify from 'slugify';
+import { getFromCache, setInCache } from './cache.js';
+import config from './config.js';
 
 // Path to the posts.json file
 const postsFilePath = path.join(process.cwd(), 'public', 'posts.json');
@@ -43,7 +44,7 @@ async function getAllPosts() {
 async function getPostBySlug(slug) {
     try {
         const cacheKey = CACHE_KEYS.POST_BY_SLUG(slug);
-        const cachedPost = getFromCache(cacheKey);
+        const cachedPost = getFromCache(cacheKey, config.cache.postTTL);
         if (cachedPost) {
             return cachedPost;
         }
@@ -90,26 +91,53 @@ async function getPostBySlug(slug) {
     }
 }
 
-// Function to search posts
-async function searchPosts(query) {
+// Function to search posts with enhanced filtering
+async function searchPosts(query, filters = {}) {
     try {
-        if (!query) return [];
+        if (!query && !filters.category && !filters.tag) return [];
 
         // Check cache first
-        const cacheKey = CACHE_KEYS.SEARCH(query);
-        const cachedResults = getFromCache(cacheKey);
+        const cacheKey = CACHE_KEYS.SEARCH(`${query}_${JSON.stringify(filters)}`);
+        const cachedResults = getFromCache(cacheKey, config.cache.searchTTL);
         if (cachedResults) {
             return cachedResults;
         }
 
         const posts = await getAllPosts();
-        const normalizedQuery = query.toLowerCase();
+        let results = posts;
 
-        const results = posts.filter(post => {
-            const titleMatch = post.title.toLowerCase().includes(normalizedQuery);
-            const contentMatch = post.content.toLowerCase().includes(normalizedQuery);
-            return titleMatch || contentMatch;
-        });
+        // Apply text search if query provided
+        if (query) {
+            const normalizedQuery = query.toLowerCase();
+            results = results.filter(post => {
+                const titleMatch = post.title.toLowerCase().includes(normalizedQuery);
+                const contentMatch = post.content.toLowerCase().includes(normalizedQuery);
+                const summaryMatch = post.summary && post.summary.toLowerCase().includes(normalizedQuery);
+                const tagMatch = post.tags && post.tags.some(tag => tag.toLowerCase().includes(normalizedQuery));
+                const categoryMatch = post.categories && post.categories.some(cat => cat.toLowerCase().includes(normalizedQuery));
+
+                return titleMatch || contentMatch || summaryMatch || tagMatch || categoryMatch;
+            });
+        }
+
+        // Apply category filter
+        if (filters.category) {
+            results = results.filter(post =>
+                post.categories && post.categories.includes(filters.category)
+            );
+        }
+
+        // Apply tag filter
+        if (filters.tag) {
+            results = results.filter(post =>
+                post.tags && post.tags.includes(filters.tag)
+            );
+        }
+
+        // Apply featured filter
+        if (filters.featured !== undefined) {
+            results = results.filter(post => post.featured === filters.featured);
+        }
 
         // Store in cache
         setInCache(cacheKey, results);
@@ -121,12 +149,92 @@ async function searchPosts(query) {
     }
 }
 
+// Function to get all categories
+async function getAllCategories() {
+    try {
+        const posts = await getAllPosts();
+        const categories = new Set();
+
+        posts.forEach(post => {
+            if (post.categories) {
+                post.categories.forEach(category => categories.add(category));
+            }
+        });
+
+        return Array.from(categories).sort();
+    } catch (error) {
+        console.error('Error getting categories:', error);
+        throw new Error('Failed to get categories');
+    }
+}
+
+// Function to get all tags
+async function getAllTags() {
+    try {
+        const posts = await getAllPosts();
+        const tagCounts = new Map();
+
+        posts.forEach(post => {
+            if (post.tags) {
+                post.tags.forEach(tag => {
+                    tagCounts.set(tag, (tagCounts.get(tag) || 0) + 1);
+                });
+            }
+        });
+
+        // Return tags sorted by frequency
+        return Array.from(tagCounts.entries())
+            .sort((a, b) => b[1] - a[1])
+            .map(([tag, count]) => ({ tag, count }));
+    } catch (error) {
+        console.error('Error getting tags:', error);
+        throw new Error('Failed to get tags');
+    }
+}
+
+// Function to get posts by category
+async function getPostsByCategory(category) {
+    try {
+        const posts = await getAllPosts();
+        return posts.filter(post =>
+            post.categories && post.categories.includes(category)
+        );
+    } catch (error) {
+        console.error('Error getting posts by category:', error);
+        throw new Error('Failed to get posts by category');
+    }
+}
+
+// Function to get posts by tag
+async function getPostsByTag(tag) {
+    try {
+        const posts = await getAllPosts();
+        return posts.filter(post =>
+            post.tags && post.tags.includes(tag)
+        );
+    } catch (error) {
+        console.error('Error getting posts by tag:', error);
+        throw new Error('Failed to get posts by tag');
+    }
+}
+
+// Function to get featured posts
+async function getFeaturedPosts() {
+    try {
+        const posts = await getAllPosts();
+        return posts.filter(post => post.featured === true);
+    } catch (error) {
+        console.error('Error getting featured posts:', error);
+        throw new Error('Failed to get featured posts');
+    }
+}
+
 // Function to transform post data to API format
-function transformPostToApiFormat(post) {
+function transformPostToApiFormat(post, includeContent = true) {
     if (!post) return null;
 
-    // Create slug from title
-    const slug = slugify(post.title, {
+    // Use existing ID or create slug from title
+    const slug = post.id || slugify(post.title, {
         lower: true,
         strict: true,
         remove: /[*+~.()'"!:@]/g
@@ -139,16 +247,35 @@ function transformPostToApiFormat(post) {
     const keyPoints = post.key_points || generateKeyPoints(post.content);
 
     // Construct full URL
-    const url = `https://akeyreu.com/blog/${slug}`;
+    const url = `${config.baseUrl}/blog/${slug}`;
 
-    return {
+    const transformed = {
+        id: slug,
         title: post.title,
         summary,
         key_points: keyPoints,
         url,
         date: post.date,
-        content: post.content
+        author: post.author || 'Akeyreu Team',
+        categories: post.categories || [],
+        tags: post.tags || [],
+        featured: post.featured || false,
+        readTime: post.readTime || estimateReadingTime(post.content)
     };
+
+    // Include content only if requested (for individual post views)
+    if (includeContent) {
+        transformed.content = post.content;
+    }
+
+    return transformed;
+}
+
+// Function to estimate reading time (average 200 words per minute)
+function estimateReadingTime(content) {
+    if (!content) return 1;
+    const words = content.split(/\s+/).length;
+    return Math.ceil(words / 200);
 }
 
 // Function to generate a summary from content
@@ -189,9 +316,14 @@ function generateKeyPoints(content) {
     });
 }
 
-module.exports = {
+export {
     getAllPosts,
     getPostBySlug,
     searchPosts,
+    getAllCategories,
+    getAllTags,
+    getPostsByCategory,
+    getPostsByTag,
+    getFeaturedPosts,
     transformPostToApiFormat
 };

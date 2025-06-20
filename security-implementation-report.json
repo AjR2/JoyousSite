@@ -1,0 +1,374 @@
+{
+  "summary": {
+    "total": 50,
+    "passed": 49,
+    "failed": 1,
+    "score": 98,
+    "timestamp": "2025-06-19T14:21:32.436Z"
+  },
+  "details": [
+    {
+      "name": "File exists: securityUtils",
+      "passed": true,
+      "message": "Found at api/utils/security.js",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:32.432Z"
+    },
+    {
+      "name": "File exports: securityUtils",
+      "passed": true,
+      "message": "Has proper exports",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:32.433Z"
+    },
+    {
+      "name": "File exists: config",
+      "passed": true,
+      "message": "Found at api/utils/config.js",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:32.433Z"
+    },
+    {
+      "name": "File exports: config",
+      "passed": true,
+      "message": "Has proper exports",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:32.433Z"
+    },
+    {
+      "name": "File exists: contactAPI",
+      "passed": true,
+      "message": "Found at api/contact.js",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:32.433Z"
+    },
+    {
+      "name": "File exports: contactAPI",
+      "passed": true,
+      "message": "Has proper exports",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:32.434Z"
+    },
+    {
+      "name": "File exists: postsAPI",
+      "passed": true,
+      "message": "Found at api/posts/[slug].js",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:32.434Z"
+    },
+    {
+      "name": "File exports: postsAPI",
+      "passed": true,
+      "message": "Has proper exports",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:32.434Z"
+    },
+    {
+      "name": "File exists: envExample",
+      "passed": true,
+      "message": "Found at .env.example",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:32.434Z"
+    },
+    {
+      "name": "CORS feature: setCORSHeaders",
+      "passed": true,
+      "message": "Implemented",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:32.434Z"
+    },
+    {
+      "name": "CORS feature: validateOrigin",
+      "passed": true,
+      "message": "Implemented",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:32.434Z"
+    },
+    {
+      "name": "CORS feature: CORS_CONFIG",
+      "passed": true,
+      "message": "Implemented",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:32.434Z"
+    },
+    {
+      "name": "Environment-specific CORS",
+      "passed": true,
+      "message": "Environment-aware CORS configured",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:32.434Z"
+    },
+    {
+      "name": "CORS wildcard prevention",
+      "passed": true,
+      "message": "No wildcard origins found",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:32.434Z"
+    },
+    {
+      "name": "Validation feature: validateInput",
+      "passed": true,
+      "message": "Implemented",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:32.435Z"
+    },
+    {
+      "name": "Validation feature: sanitizeInput",
+      "passed": true,
+      "message": "Implemented",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:32.435Z"
+    },
+    {
+      "name": "Validation feature: VALIDATION_PATTERNS",
+      "passed": true,
+      "message": "Implemented",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:32.435Z"
+    },
+    {
+      "name": "XSS prevention",
+      "passed": true,
+      "message": "HTML entity encoding implemented",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:32.435Z"
+    },
+    {
+      "name": "SQL injection prevention",
+      "passed": true,
+      "message": "Input sanitization implemented",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:32.435Z"
+    },
+    {
+      "name": "Rate limit feature: rateLimit",
+      "passed": true,
+      "message": "Implemented",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:32.435Z"
+    },
+    {
+      "name": "Rate limit feature: RATE_LIMITS",
+      "passed": true,
+      "message": "Implemented",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:32.435Z"
+    },
+    {
+      "name": "Multiple rate limit types",
+      "passed": true,
+      "message": "Multiple rate limit configurations",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:32.435Z"
+    },
+    {
+      "name": "Rate limit headers",
+      "passed": true,
+      "message": "Rate limit headers implemented",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:32.435Z"
+    },
+    {
+      "name": "Security header: X-Content-Type-Options",
+      "passed": true,
+      "message": "Implemented",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:32.435Z"
+    },
+    {
+      "name": "Security header: X-Frame-Options",
+      "passed": true,
+      "message": "Implemented",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:32.435Z"
+    },
+    {
+      "name": "Security header: X-XSS-Protection",
+      "passed": true,
+      "message": "Implemented",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:32.435Z"
+    },
+    {
+      "name": "Security header: Content-Security-Policy",
+      "passed": true,
+      "message": "Implemented",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:32.435Z"
+    },
+    {
+      "name": "Security header: Referrer-Policy",
+      "passed": true,
+      "message": "Implemented",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:32.435Z"
+    },
+    {
+      "name": "Content Security Policy",
+      "passed": true,
+      "message": "CSP configured",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:32.435Z"
+    },
+    {
+      "name": "Environment feature: process.env",
+      "passed": true,
+      "message": "Implemented",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:32.435Z"
+    },
+    {
+      "name": "Environment feature: parseEnvArray",
+      "passed": true,
+      "message": "Implemented",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:32.435Z"
+    },
+    {
+      "name": "Environment feature: parseEnvBoolean",
+      "passed": true,
+      "message": "Implemented",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:32.435Z"
+    },
+    {
+      "name": "Hardcoded values check",
+      "passed": false,
+      "message": "Some hardcoded values found (may be fallbacks)",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:32.435Z"
+    },
+    {
+      "name": "Environment variable: NODE_ENV",
+      "passed": true,
+      "message": "Documented in .env.example",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:32.435Z"
+    },
+    {
+      "name": "Environment variable: CORS_ORIGINS",
+      "passed": true,
+      "message": "Documented in .env.example",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:32.435Z"
+    },
+    {
+      "name": "Environment variable: SESSION_SECRET",
+      "passed": true,
+      "message": "Documented in .env.example",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:32.435Z"
+    },
+    {
+      "name": "Environment variable: EMAILJS_SERVICE_ID",
+      "passed": true,
+      "message": "Documented in .env.example",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:32.435Z"
+    },
+    {
+      "name": "Security warnings in .env.example",
+      "passed": true,
+      "message": "Security warnings present",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:32.435Z"
+    },
+    {
+      "name": "Security middleware: contact.js",
+      "passed": true,
+      "message": "Security middleware implemented",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:32.436Z"
+    },
+    {
+      "name": "Input validation: contact.js",
+      "passed": true,
+      "message": "Input validation implemented",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:32.436Z"
+    },
+    {
+      "name": "Error handling: contact.js",
+      "passed": true,
+      "message": "Error handling implemented",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:32.436Z"
+    },
+    {
+      "name": "Method restrictions: contact.js",
+      "passed": true,
+      "message": "HTTP method restrictions implemented",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:32.436Z"
+    },
+    {
+      "name": "Security middleware: [slug].js",
+      "passed": true,
+      "message": "Security middleware implemented",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:32.436Z"
+    },
+    {
+      "name": "Input validation: [slug].js",
+      "passed": true,
+      "message": "Input validation implemented",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:32.436Z"
+    },
+    {
+      "name": "Error handling: [slug].js",
+      "passed": true,
+      "message": "Error handling implemented",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:32.436Z"
+    },
+    {
+      "name": "Method restrictions: [slug].js",
+      "passed": true,
+      "message": "HTTP method restrictions implemented",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:32.436Z"
+    },
+    {
+      "name": "Security configuration section",
+      "passed": true,
+      "message": "Security section found",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:32.436Z"
+    },
+    {
+      "name": "Rate limiting configuration",
+      "passed": true,
+      "message": "Rate limiting configured",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:32.436Z"
+    },
+    {
+      "name": "CORS configuration",
+      "passed": true,
+      "message": "CORS configured",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:32.436Z"
+    },
+    {
+      "name": "Environment-specific settings",
+      "passed": true,
+      "message": "Environment-specific configuration",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:32.436Z"
+    }
+  ],
+  "categories": {
+    "critical": [],
+    "important": [],
+    "minor": [
+      {
+        "name": "Hardcoded values check",
+        "passed": false,
+        "message": "Some hardcoded values found (may be fallbacks)",
+        "details": null,
+        "timestamp": "2025-06-19T14:21:32.435Z"
+      }
+    ]
+  }
+}

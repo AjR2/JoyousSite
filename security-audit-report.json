@@ -1,0 +1,187 @@
+{
+  "summary": {
+    "total": 19,
+    "passed": 16,
+    "failed": 3,
+    "warnings": 0,
+    "score": 84,
+    "timestamp": "2025-06-19T14:21:47.034Z"
+  },
+  "details": [
+    {
+      "name": "Secret scan: api/utils/config.js",
+      "status": "FAIL",
+      "severity": "LOW",
+      "message": "Hardcoded localhost URL: localhost:3000...",
+      "details": {
+        "file": "api/utils/config.js",
+        "matches": [
+          "localhost:3000",
+          "localhost:3000",
+          "localhost:3000"
+        ]
+      },
+      "timestamp": "2025-06-19T14:21:45.355Z"
+    },
+    {
+      "name": "Secret scan: api/utils/config.js",
+      "status": "FAIL",
+      "severity": "LOW",
+      "message": "HTTP URL (should use HTTPS in production): http://localhost:3000...",
+      "details": {
+        "file": "api/utils/config.js",
+        "matches": [
+          "http://localhost:3000",
+          "http://localhost:3000/api",
+          "http://localhost:3000"
+        ]
+      },
+      "timestamp": "2025-06-19T14:21:45.358Z"
+    },
+    {
+      "name": "NPM Audit",
+      "status": "FAIL",
+      "severity": "HIGH",
+      "message": "Found 18 vulnerabilities",
+      "details": {
+        "vulnerabilities": {
+          "info": 0,
+          "low": 1,
+          "moderate": 7,
+          "high": 10,
+          "critical": 0,
+          "total": 18
+        }
+      },
+      "timestamp": "2025-06-19T14:21:47.031Z"
+    },
+    {
+      "name": "Known vulnerable dependencies",
+      "status": "PASS",
+      "severity": "INFO",
+      "message": "No known vulnerable dependencies found",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:47.032Z"
+    },
+    {
+      "name": ".env.example",
+      "status": "PASS",
+      "severity": "INFO",
+      "message": ".env.example file exists",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:47.032Z"
+    },
+    {
+      "name": ".gitignore check",
+      "status": "PASS",
+      "severity": "INFO",
+      "message": ".env files are ignored by git",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:47.032Z"
+    },
+    {
+      "name": "Environment variables usage",
+      "status": "PASS",
+      "severity": "INFO",
+      "message": "Using environment variables in config",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:47.032Z"
+    },
+    {
+      "name": "Security header: X-Content-Type-Options",
+      "status": "PASS",
+      "severity": "INFO",
+      "message": "Header implemented",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:47.033Z"
+    },
+    {
+      "name": "Security header: X-Frame-Options",
+      "status": "PASS",
+      "severity": "INFO",
+      "message": "Header implemented",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:47.033Z"
+    },
+    {
+      "name": "Security header: X-XSS-Protection",
+      "status": "PASS",
+      "severity": "INFO",
+      "message": "Header implemented",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:47.033Z"
+    },
+    {
+      "name": "Security header: Content-Security-Policy",
+      "status": "PASS",
+      "severity": "INFO",
+      "message": "Header implemented",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:47.033Z"
+    },
+    {
+      "name": "Security header: Referrer-Policy",
+      "status": "PASS",
+      "severity": "INFO",
+      "message": "Header implemented",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:47.033Z"
+    },
+    {
+      "name": "Security headers",
+      "status": "PASS",
+      "severity": "INFO",
+      "message": "All required security headers implemented",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:47.033Z"
+    },
+    {
+      "name": "CORS configuration",
+      "status": "PASS",
+      "severity": "INFO",
+      "message": "CORS configuration found",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:47.033Z"
+    },
+    {
+      "name": "CORS wildcard",
+      "status": "PASS",
+      "severity": "INFO",
+      "message": "No wildcard CORS origins",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:47.033Z"
+    },
+    {
+      "name": "Input validation: api/utils/security.js",
+      "status": "PASS",
+      "severity": "INFO",
+      "message": "Input validation implemented",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:47.033Z"
+    },
+    {
+      "name": "Input validation: api/contact.js",
+      "status": "PASS",
+      "severity": "INFO",
+      "message": "Input validation implemented",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:47.033Z"
+    },
+    {
+      "name": "Input validation: api/posts/[slug].js",
+      "status": "PASS",
+      "severity": "INFO",
+      "message": "Input validation implemented",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:47.033Z"
+    },
+    {
+      "name": "Input validation",
+      "status": "PASS",
+      "severity": "INFO",
+      "message": "Input validation found in 3 files",
+      "details": null,
+      "timestamp": "2025-06-19T14:21:47.033Z"
+    }
+  ]
+}

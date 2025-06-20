@@ -1,19 +1,30 @@
-// Updated Blog.js to use ErrorBoundary and proper component organization
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+// Enhanced Blog.js with search, filters, and improved functionality
+import React, { useState, useEffect, useCallback } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import slugify from 'slugify';
 import './Blog.css';
 import MetaTags from './MetaTags';
 import LoadingSpinner from './LoadingSpinner';
 import ErrorBoundary from './ErrorBoundary';
+import BlogSearch from './BlogSearch';
+import BlogFilters from './BlogFilters';
 
 const Blog = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [posts, setPosts] = useState([]);
+  const [allPosts, setAllPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchLoading, setSearchLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [searchQuery, setSearchQuery] = useState(searchParams.get('q') || '');
+  const [filters, setFilters] = useState({
+    category: searchParams.get('category') || '',
+    tag: searchParams.get('tag') || '',
+    featured: searchParams.get('featured') === 'true' ? true : undefined
+  });
 
+  // Fetch all posts on component mount
   useEffect(() => {
-    // Use the API endpoint instead of static JSON file
     fetch('/api/posts')
       .then((res) => {
         if (!res.ok) {
@@ -22,6 +33,7 @@ const Blog = () => {
         return res.json();
       })
       .then((data) => {
+        setAllPosts(data);
         setPosts(data);
         setLoading(false);
       })
@@ -31,6 +43,87 @@ const Blog = () => {
         setLoading(false);
       });
   }, []);
+
+  // Search and filter posts
+  const searchAndFilterPosts = useCallback(async (query = '', filterOptions = {}) => {
+    setSearchLoading(true);
+
+    try {
+      // Build search URL with parameters
+      const params = new URLSearchParams();
+      if (query) params.append('q', query);
+      if (filterOptions.category) params.append('category', filterOptions.category);
+      if (filterOptions.tag) params.append('tag', filterOptions.tag);
+      if (filterOptions.featured !== undefined) params.append('featured', filterOptions.featured.toString());
+
+      let url = '/api/posts';
+      if (params.toString()) {
+        url = `/api/search?${params.toString()}`;
+      }
+
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Search failed: ${response.status} ${response.statusText}`);
+      }
+
+      const data = await response.json();
+
+      // Handle different response formats
+      if (data.results) {
+        setPosts(data.results);
+      } else if (Array.isArray(data)) {
+        setPosts(data);
+      } else {
+        setPosts([]);
+      }
+    } catch (err) {
+      console.error('Error searching posts:', err);
+      setError(err.message);
+      setPosts([]);
+    } finally {
+      setSearchLoading(false);
+    }
+  }, []);
+
+  // Handle search
+  const handleSearch = useCallback((query) => {
+    setSearchQuery(query);
+    const newParams = new URLSearchParams(searchParams);
+
+    if (query) {
+      newParams.set('q', query);
+    } else {
+      newParams.delete('q');
+    }
+
+    setSearchParams(newParams);
+    searchAndFilterPosts(query, filters);
+  }, [searchParams, setSearchParams, filters, searchAndFilterPosts]);
+
+  // Handle filter changes
+  const handleFilterChange = useCallback((newFilters) => {
+    setFilters(newFilters);
+    const newParams = new URLSearchParams(searchParams);
+
+    // Update URL parameters
+    Object.keys(newFilters).forEach(key => {
+      if (newFilters[key] && newFilters[key] !== '') {
+        newParams.set(key, newFilters[key].toString());
+      } else {
+        newParams.delete(key);
+      }
+    });
+
+    setSearchParams(newParams);
+    searchAndFilterPosts(searchQuery, newFilters);
+  }, [searchParams, setSearchParams, searchQuery, searchAndFilterPosts]);
+
+  // Apply initial search/filters from URL
+  useEffect(() => {
+    if (searchQuery || Object.values(filters).some(v => v !== '' && v !== undefined)) {
+      searchAndFilterPosts(searchQuery, filters);
+    }
+  }, [allPosts]); // Only run when allPosts is loaded
 
   // Function to create a proper slug
   const createSlug = (title) => {
@@ -51,27 +144,69 @@ const Blog = () => {
     return plainText.slice(0, maxLength).trim() + '...';
   };
 
+  // Check if we have active search/filters
+  const hasActiveSearch = searchQuery || Object.values(filters).some(v => v !== '' && v !== undefined);
+  const resultCount = posts.length;
+
   return (
     <>
       <MetaTags
         title="Akeyreu: Blog"
-        description="Akeyreu integrates advanced neural technologies with mental wellness practices, making technology-enhanced wellness accessible to everyone through nAura and Vza."
-        keywords="mental wellness, neural technology, sleep analysis, cognitive wellness, AI wellness, nAura, Vza, blog"
+        description="Explore mental wellness insights, personal development tips, and neural technology updates. Discover articles on mindfulness, relationships, self-care, and more."
+        keywords="mental wellness, neural technology, sleep analysis, cognitive wellness, AI wellness, nAura, Vza, blog, mindfulness, personal development, self-care"
         canonicalUrl="https://www.akeyreu.com/blog/"
       />
 
       <ErrorBoundary>
-        <div className="blog-center-container">
-          <h2 className="blog-title">Blog Posts</h2>
+        <main className="blog-center-container" id="main-content" role="main">
+          <header className="blog-header">
+            <h1 className="blog-title">Blog Posts</h1>
+            <p className="blog-description">
+              Mental wellness insights and neural technology updates from Akeyreu
+            </p>
+          </header>
 
-          {loading && <LoadingSpinner />}
+          {/* Search Component */}
+          <BlogSearch
+            onSearch={handleSearch}
+            searchQuery={searchQuery}
+            isLoading={searchLoading}
+          />
+
+          {/* Filters Component */}
+          <BlogFilters
+            onFilterChange={handleFilterChange}
+            activeFilters={filters}
+          />
+
+          {/* Results Summary */}
+          {hasActiveSearch && !loading && (
+            <div className="search-results-summary" role="status" aria-live="polite">
+              <p>
+                {searchLoading ? 'Searching...' : `Found ${resultCount} post${resultCount !== 1 ? 's' : ''}`}
+                {searchQuery && ` for "${searchQuery}"`}
+                {filters.category && ` in category "${filters.category}"`}
+                {filters.tag && ` with tag "${filters.tag}"`}
+                {filters.featured && ` (featured only)`}
+              </p>
+            </div>
+          )}
+
+          {loading && (
+            <div className="loading-container" role="status" aria-live="polite">
+              <LoadingSpinner />
+              <span className="sr-only">Loading blog posts...</span>
+            </div>
+          )}
 
           {error && (
-            <div className="error-message" role="alert">
+            <div className="error-message" role="alert" aria-live="assertive">
+              <h2>Error Loading Blog Posts</h2>
               <p>Error: {error}</p>
               <button
                 onClick={() => window.location.reload()}
                 className="retry-button"
+                aria-label="Retry loading blog posts"
               >
                 Retry
               </button>
@@ -79,32 +214,94 @@ const Blog = () => {
           )}
 
           {!loading && !error && posts.length === 0 && (
-            <div className="no-posts-message">
+            <div className="no-posts-message" role="status">
               <p>No blog posts found. Check back soon for new content!</p>
             </div>
           )}
 
-          <div className="blog-post-preview-list">
-            {posts.map((post, index) => {
-              const slug = createSlug(post.title);
+          <section className="blog-posts-section" aria-labelledby="blog-title">
+            <h2 className="sr-only">List of blog posts</h2>
+            <div className="blog-post-preview-list" role="list">
+              {posts.map((post, index) => {
+                const slug = post.id || createSlug(post.title);
 
-              return (
-                <Link
-                  to={`/blog/${slug}`}
-                  key={index}
-                  className="blog-post-preview"
-                  aria-label={`Read blog post: ${post.title}`}
-                >
-                  <h3>{post.title}</h3>
-                  <p className="blog-date">{post.date || 'No date available'}</p>
-                  <p className="blog-snippet">
-                    {post.summary || createSummary(post.content)}
-                  </p>
-                </Link>
-              );
-            })}
-          </div>
-        </div>
+                return (
+                  <article
+                    key={post.id || index}
+                    className={`blog-post-preview ${post.featured ? 'featured' : ''}`}
+                    role="listitem"
+                  >
+                    <Link
+                      to={`/blog/${slug}`}
+                      className="blog-post-link"
+                      aria-describedby={`post-summary-${index}`}
+                    >
+                      <header className="post-header">
+                        {post.featured && (
+                          <span className="featured-badge" aria-label="Featured post">
+                            ⭐ Featured
+                          </span>
+                        )}
+                        <h3 className="blog-post-title">{post.title}</h3>
+                        <div className="post-meta">
+                          <time
+                            className="blog-date"
+                            dateTime={post.date ? new Date(post.date).toISOString().split('T')[0] : ''}
+                            aria-label={`Published on ${post.date || 'unknown date'}`}
+                          >
+                            {post.date || 'No date available'}
+                          </time>
+                          {post.author && (
+                            <span className="post-author" aria-label={`By ${post.author}`}>
+                              by {post.author}
+                            </span>
+                          )}
+                          {post.readTime && (
+                            <span className="read-time" aria-label={`${post.readTime} minute read`}>
+                              {post.readTime} min read
+                            </span>
+                          )}
+                        </div>
+                      </header>
+
+                      <p
+                        className="blog-snippet"
+                        id={`post-summary-${index}`}
+                        aria-label="Post summary"
+                      >
+                        {post.summary || createSummary(post.content)}
+                      </p>
+
+                      {/* Categories and Tags */}
+                      <div className="post-taxonomy">
+                        {post.categories && post.categories.length > 0 && (
+                          <div className="post-categories">
+                            {post.categories.slice(0, 2).map(category => (
+                              <span key={category} className="category-tag">
+                                {category}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+                        {post.tags && post.tags.length > 0 && (
+                          <div className="post-tags">
+                            {post.tags.slice(0, 3).map(tag => (
+                              <span key={tag} className="tag-item">
+                                #{tag}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+
+                      <span className="sr-only">Read full article: {post.title}</span>
+                    </Link>
+                  </article>
+                );
+              })}
+            </div>
+          </section>
+        </main>
       </ErrorBoundary>
     </>
   );

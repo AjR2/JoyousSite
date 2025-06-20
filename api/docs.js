@@ -1,11 +1,13 @@
 // API documentation endpoint
 // File: /api/docs.js
 
+import config from './utils/config.js';
+
 export default function handler(req, res) {
     // Set CORS headers
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.setHeader('Access-Control-Allow-Origin', config.cors.origin.join(', '));
+    res.setHeader('Access-Control-Allow-Methods', config.cors.methods.join(', '));
+    res.setHeader('Access-Control-Allow-Headers', config.cors.allowedHeaders.join(', '));
 
     // Only allow GET requests
     if (req.method !== 'GET') {
@@ -17,7 +19,7 @@ export default function handler(req, res) {
         name: "Akeyreu Blog API",
         version: "1.0.0",
         description: "API for accessing Akeyreu blog posts",
-        baseUrl: "https://akeyreu.com/api",
+        baseUrl: config.apiBaseUrl,
         endpoints: [
             {
                 path: "/api/posts",
@@ -29,7 +31,7 @@ export default function handler(req, res) {
                         title: "Post title",
                         summary: "Post summary",
                         key_points: ["Key point 1", "Key point 2", "..."],
-                        url: "https://akeyreu.com/blog/post-slug"
+                        url: `${config.baseUrl}/blog/post-slug`
                     }
                 }
             },
@@ -49,7 +51,7 @@ export default function handler(req, res) {
                     title: "Post title",
                     summary: "Post summary",
                     key_points: ["Key point 1", "Key point 2", "..."],
-                    url: "https://akeyreu.com/blog/post-slug"
+                    url: `${config.baseUrl}/blog/post-slug`
                 }
             },
             {
@@ -70,7 +72,7 @@ export default function handler(req, res) {
                         title: "Post title",
                         summary: "Post summary",
                         key_points: ["Key point 1", "Key point 2", "..."],
-                        url: "https://akeyreu.com/blog/post-slug"
+                        url: `${config.baseUrl}/blog/post-slug`
                     }
                 }
             }

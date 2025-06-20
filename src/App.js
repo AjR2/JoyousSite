@@ -1,19 +1,24 @@
-// Updated App.js to use ErrorBoundary and proper component organization
-import React from 'react';
+// Updated App.js to use ErrorBoundary and proper component organization with code splitting
+import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Header from './components/header';
 import Footer from './components/footer';
-import Blog from './components/Blog';
-import BlogPost from './components/BlogPost';
-import Contact from './components/Contact';
-import MindfulBreaks from './components/MindfulBreaks';
 import MetaTags from './components/MetaTags';
 import SchemaMarkup from './components/SchemaMarkup';
 import ErrorBoundary from './components/ErrorBoundary';
+import LoadingSpinner from './components/LoadingSpinner';
+
+// Lazy load components for code splitting
+const Blog = React.lazy(() => import('./components/Blog'));
+const BlogPost = React.lazy(() => import('./components/BlogPost'));
+const Contact = React.lazy(() => import('./components/Contact'));
+const MindfulBreaks = React.lazy(() => import('./components/MindfulBreaks'));
 import readingImage from './assets/readingImage.png';
 import friendsImage from './assets/HappyHumans.png';
+import OptimizedImage from './components/OptimizedImage';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInstagram, faXTwitter, faTiktok } from '@fortawesome/free-brands-svg-icons';
 import { faBlog, faPodcast } from '@fortawesome/free-solid-svg-icons';
@@ -54,149 +59,298 @@ function AppContent() {
           <Route
             path="/"
             element={
-              <div className="main-content">
-                {/* First Card */}
-                <div className="card" id="home">
+              <main className="main-content" id="main-content" role="main">
+                {/* Hero Section */}
+                <section className="card hero-section" id="home" aria-labelledby="hero-heading">
                   <div className="content">
-                    <img
-                      src={readingImage}
-                      alt="Man sitting on a bench reading"
-                      className="image"
-                    />
-                    <div className="text-content">
-                      <h2>What Is Akeyreu?</h2>
-                      <p>
+                    <figure className="hero-image">
+                      <OptimizedImage
+                        src={readingImage}
+                        alt="Person sitting peacefully on a bench reading, representing mental wellness and mindfulness"
+                        className="image"
+                        width={400}
+                        height={300}
+                        loading="eager"
+                      />
+                      <figcaption className="sr-only">
+                        A peaceful scene representing mental wellness and mindfulness
+                      </figcaption>
+                    </figure>
+                    <header className="text-content">
+                      <h1 id="hero-heading">What Is Akeyreu?</h1>
+                      <p className="hero-description">
                         We are not just another wellness company. We're your brain's new best friend. We aim to be the 'Ah-ha!' in your
-                        mental wellness journey. <br /><br />Don't be fooled by the name; it's quite easy to pronounce. When you are searching for
-                        wellness solutions, remember <strong>"Ah-Key-Row"</strong>! Your key to neurological wellbeing.
-                        <br /><br />
-                        <a href="/#learn-more" className="button" onClick={(e) => handleNavClick(e, 'learn-more')}>Subscribe Now!</a>
+                        mental wellness journey.
                       </p>
-                    </div>
+                      <p className="hero-details">
+                        Don't be fooled by the name; it's quite easy to pronounce. When you are searching for
+                        wellness solutions, remember <strong>"Ah-Key-Row"</strong>! Your key to neurological wellbeing.
+                      </p>
+                      <a
+                        href="/#learn-more"
+                        className="button cta-button"
+                        onClick={(e) => handleNavClick(e, 'learn-more')}
+                        aria-describedby="subscribe-description"
+                      >
+                        Subscribe Now!
+                        <span id="subscribe-description" className="sr-only">
+                          Subscribe to our newsletter to learn more about mental wellness
+                        </span>
+                      </a>
+                    </header>
                   </div>
-                </div>
+                </section>
 
-                {/* Second Card */}
-                <div className="card" id="about">
+                {/* About Section */}
+                <section className="card about-section" id="about" aria-labelledby="about-heading">
                   <div className="content">
-                    <img
-                      src={friendsImage}
-                      alt="Group of friends laughing together"
-                      className="image"
-                    />
+                    <figure className="about-image">
+                      <OptimizedImage
+                        src={friendsImage}
+                        alt="Group of diverse friends laughing together, representing community and mental wellness support"
+                        className="image"
+                        width={400}
+                        height={300}
+                        loading="lazy"
+                      />
+                      <figcaption className="sr-only">
+                        A diverse group of friends enjoying each other's company, representing the community aspect of mental wellness
+                      </figcaption>
+                    </figure>
                     <div className="text-content">
-                      <h2>What We Do</h2>
-                      <p>
+                      <h2 id="about-heading">What We Do</h2>
+                      <p className="about-description">
                         Akeyreu is dedicated to pioneering the integration of advanced neural technologies and mental wellness practices,
                         striving to empower individuals with personalized tools that enhance mental clarity, emotional balance, and cognitive
-                        performance. We are dedicated to aiding you in your journey towards mental wellness, so that you can lead a happy and successful life.
+                        performance.
+                      </p>
+                      <p className="about-mission">
+                        We are dedicated to aiding you in your journey towards mental wellness, so that you can lead a happy and successful life.
                       </p>
                     </div>
                   </div>
-                </div>
+                </section>
 
                 {/* Our Values Section */}
-                <div className="card" id="values">
-                  <h2 className="section-title">Our Values</h2>
-                  <div className="values-section">
+                <section className="card values-section" id="values" aria-labelledby="values-heading">
+                  <header>
+                    <h2 id="values-heading" className="section-title">Our Values</h2>
+                  </header>
+                  <div className="values-grid" role="list" aria-label="Our core values">
                     {/* Value Items */}
-                    <div className="value-item">
-                      <h3>Inspiration</h3>
+                    <article className="value-item" role="listitem">
+                      <header>
+                        <h3>Inspiration</h3>
+                      </header>
                       <p>
                         Ignite the spark of innovation, lighting up the path to mental wellness and cognitive wellbeing for you.
                       </p>
-                    </div>
-                    <div className="value-item">
-                      <h3>Transparency</h3>
+                    </article>
+                    <article className="value-item" role="listitem">
+                      <header>
+                        <h3>Transparency</h3>
+                      </header>
                       <p>
                         Akeyreu's commitment to transparency ensures a clear mission in mental wellness, where every step is shared with trust and clarity.
                       </p>
-                    </div>
-                    <div className="value-item">
-                      <h3>Integrity</h3>
+                    </article>
+                    <article className="value-item" role="listitem">
+                      <header>
+                        <h3>Integrity</h3>
+                      </header>
                       <p>
                         At the heart of our neural tech lies integrity-trusted, ethical, and always centered around you, our fellow human.
                       </p>
-                    </div>
-                    <div className="value-item">
-                      <h3>Accessibility</h3>
+                    </article>
+                    <article className="value-item" role="listitem">
+                      <header>
+                        <h3>Accessibility</h3>
+                      </header>
                       <p>
                         Akeyreu is here to open new horizons in mental wellness, making advanced technology accessible to everyone, because everyone deserves to explore this enriching journey.
                       </p>
-                    </div>
+                    </article>
                   </div>
-                </div>
+                </section>
 
                 {/* Products Section */}
-                <div className="card" id="products">
-                  <h2 className="section-title">Products</h2>
-                  <div className="products-section">
+                <section className="card products-section" id="products" aria-labelledby="products-heading">
+                  <header>
+                    <h2 id="products-heading" className="section-title">Products</h2>
+                  </header>
+                  <div className="products-grid" role="list" aria-label="Our mental wellness products">
                     {/* Product Items */}
-                    <div className="product-item">
-                      <h3>nAura</h3>
-                      <p>
-                        nAura warmly welcomes you to a world where understanding your sleep is as comforting as the rest itself. By using your biomedical data, nAura comprehends your unique sleep patterns and leverages Al to offer personalized recommendations tailored just for you.
-                        <br />
-                        <br />
-                        <b>Track and analyze your sleep quality with precision:</b><br />Get cozy with detailed reports and actionable insights that are there to guide you to better nights.
-                        <br />
-                        <b>Easy integration with existing smart home devices:</b><br />We make it simple to blend nAura into your home, ensuring your journey to restorative sleep is smooth and seamless.
-                      </p>
-                    </div>
-                    <div className="product-item">
-                      <h3>Vza</h3>
-                      <p>
-                        Vza is here to support your mental wellness with a proactive CBT approach, wrapping you in a comforting embrace of technology.
-                        <br />
-                        <br />
-                        <b>Utilizes real-time biometric data:</b><br />We adapt our suggestions for mental exercises and relaxation techniques to fit your moment-to-moment needs, like a friend who knows exactly what you need when you need it.
-                        <br />
-                        <b> Monitor your cognitive wellness journey:</b><br />Through personalized reports and milestones, we help you see how far you've come, celebrating every step of your journey with you.
-                      </p>
-                    </div>
+                    <article className="product-item" role="listitem">
+                      <header>
+                        <h3>nAura</h3>
+                        <p className="product-tagline">Sleep Analysis & Optimization</p>
+                      </header>
+                      <div className="product-description">
+                        <p>
+                          nAura warmly welcomes you to a world where understanding your sleep is as comforting as the rest itself. By using your biomedical data, nAura comprehends your unique sleep patterns and leverages AI to offer personalized recommendations tailored just for you.
+                        </p>
+                        <dl className="product-features">
+                          <dt>Track and analyze your sleep quality with precision:</dt>
+                          <dd>Get cozy with detailed reports and actionable insights that are there to guide you to better nights.</dd>
+                          <dt>Easy integration with existing smart home devices:</dt>
+                          <dd>We make it simple to blend nAura into your home, ensuring your journey to restorative sleep is smooth and seamless.</dd>
+                        </dl>
+                      </div>
+                    </article>
+                    <article className="product-item" role="listitem">
+                      <header>
+                        <h3>Vza</h3>
+                        <p className="product-tagline">Proactive CBT & Mental Wellness</p>
+                      </header>
+                      <div className="product-description">
+                        <p>
+                          Vza is here to support your mental wellness with a proactive CBT approach, wrapping you in a comforting embrace of technology.
+                        </p>
+                        <dl className="product-features">
+                          <dt>Utilizes real-time biometric data:</dt>
+                          <dd>We adapt our suggestions for mental exercises and relaxation techniques to fit your moment-to-moment needs, like a friend who knows exactly what you need when you need it.</dd>
+                          <dt>Monitor your cognitive wellness journey:</dt>
+                          <dd>Through personalized reports and milestones, we help you see how far you've come, celebrating every step of your journey with you.</dd>
+                        </dl>
+                      </div>
+                    </article>
                   </div>
-                </div>
+                </section>
 
-                {/* Socials Section */}
-                <div className="card" id="socials">
-                  <h2 className="section-title">Check us out on social media!</h2>
-                  <div className="socials-section">
-                    <a href="/blog" rel="noopener noreferrer" className="social-icon" aria-label="Blog">
-                      <FontAwesomeIcon icon={faBlog} />
-                    </a>
-                    <span className="social-icon disabled-icon" aria-label="Podcast coming soon" aria-disabled="true">
-                      <FontAwesomeIcon icon={faPodcast} />
-                    </span>
-                    <a href="https://instagram.com/a_keyreu/" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="Instagram">
-                      <FontAwesomeIcon icon={faInstagram} />
-                    </a>
-                    <span className="social-icon disabled-icon" aria-label="Twitter coming soon" aria-disabled="true">
-                      <FontAwesomeIcon icon={faXTwitter} />
-                    </span>
-                    <a href="https://tiktok.com/@akeyreu/" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="TikTok">
-                      <FontAwesomeIcon icon={faTiktok} />
+                {/* Social Media Section */}
+                <section className="card social-section" id="socials" aria-labelledby="socials-heading">
+                  <header>
+                    <h2 id="socials-heading" className="section-title">Check us out on social media!</h2>
+                  </header>
+                  <nav className="socials-nav" aria-label="Social media links">
+                    <ul className="socials-list" role="list">
+                      <li role="listitem">
+                        <a href="/blog" rel="noopener noreferrer" className="social-icon" aria-label="Visit our Blog">
+                          <FontAwesomeIcon icon={faBlog} aria-hidden="true" />
+                          <span className="social-label">Blog</span>
+                        </a>
+                      </li>
+                      <li role="listitem">
+                        <span className="social-icon disabled-icon" aria-label="Podcast coming soon" aria-disabled="true">
+                          <FontAwesomeIcon icon={faPodcast} aria-hidden="true" />
+                          <span className="social-label">Podcast (Coming Soon)</span>
+                        </span>
+                      </li>
+                      <li role="listitem">
+                        <a href="https://instagram.com/a_keyreu/" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="Follow us on Instagram">
+                          <FontAwesomeIcon icon={faInstagram} aria-hidden="true" />
+                          <span className="social-label">Instagram</span>
+                        </a>
+                      </li>
+                      <li role="listitem">
+                        <span className="social-icon disabled-icon" aria-label="Twitter coming soon" aria-disabled="true">
+                          <FontAwesomeIcon icon={faXTwitter} aria-hidden="true" />
+                          <span className="social-label">Twitter (Coming Soon)</span>
+                        </span>
+                      </li>
+                      <li role="listitem">
+                        <a href="https://tiktok.com/@akeyreu/" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="Follow us on TikTok">
+                          <FontAwesomeIcon icon={faTiktok} aria-hidden="true" />
+                          <span className="social-label">TikTok</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </nav>
+                </section>
+
+                {/* Newsletter Sign Up Section */}
+                <section className="card newsletter-section" id="learn-more" aria-labelledby="newsletter-heading">
+                  <header>
+                    <h2 id="newsletter-heading" className="section-title">Want to find out more?</h2>
+                    <p className="newsletter-description">
+                      Join our community by signing up for our newsletter and take the first step in control of your mental wellbeing!
+                    </p>
+                  </header>
+                  <div className="newsletter-cta">
+                    <a
+                      href="https://eepurl.com/iMvslY"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="button newsletter-button"
+                      aria-describedby="newsletter-button-description"
+                    >
+                      Subscribe Here!
+                      <span id="newsletter-button-description" className="sr-only">
+                        Opens newsletter signup form in a new tab
+                      </span>
                     </a>
                   </div>
-                </div>
-
-                {/*Sign Up Section*/}
-                <div className="card" id="learn-more">
-                  <h2 className="section-title">Want to find out more?</h2>
-                  <p>Join our community by signing up for our newsletter and take the first step in control of your mental wellbeing!</p>
-                  <a href="https://eepurl.com/iMvslY" target="_blank" rel="noopener noreferrer">
-                    <button type="submit" className="button" name="submit">Subscribe Here!</button>
-                  </a>
-                </div>
+                </section>
 
                 {/* Footer Component*/}
                 <Footer />
-              </div>
+              </main>
             }
           />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/blog/:slug" element={<BlogPost />} />
-          <Route path="/mindful-breaks" element={<MindfulBreaks />} />
-          <Route path="/contact" element={<Contact />} />
+          <Route path="/blog" element={
+            <Suspense fallback={
+              <div className="loading-container" style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                minHeight: '50vh',
+                flexDirection: 'column'
+              }}>
+                <LoadingSpinner />
+                <p style={{ marginTop: '1rem', color: '#666' }}>Loading blog...</p>
+              </div>
+            }>
+              <Blog />
+            </Suspense>
+          } />
+          <Route path="/blog/:slug" element={
+            <Suspense fallback={
+              <div className="loading-container" style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                minHeight: '50vh',
+                flexDirection: 'column'
+              }}>
+                <LoadingSpinner />
+                <p style={{ marginTop: '1rem', color: '#666' }}>Loading post...</p>
+              </div>
+            }>
+              <BlogPost />
+            </Suspense>
+          } />
+          <Route path="/mindful-breaks" element={
+            <Suspense fallback={
+              <div className="loading-container" style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                minHeight: '50vh',
+                flexDirection: 'column'
+              }}>
+                <LoadingSpinner />
+                <p style={{ marginTop: '1rem', color: '#666' }}>Loading...</p>
+              </div>
+            }>
+              <MindfulBreaks />
+            </Suspense>
+          } />
+          <Route path="/contact" element={
+            <Suspense fallback={
+              <div className="loading-container" style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                minHeight: '50vh',
+                flexDirection: 'column'
+              }}>
+                <LoadingSpinner />
+                <p style={{ marginTop: '1rem', color: '#666' }}>Loading contact form...</p>
+              </div>
+            }>
+              <Contact />
+            </Suspense>
+          } />
         </Routes>
       </ErrorBoundary>
     </>
@@ -205,7 +359,7 @@ function AppContent() {
 
 function App() {
   return (
-    <>
+    <HelmetProvider>
       <MetaTags
         title="Akeyreu: Mental Wellness Reimagined Through Neural Technology"
         description="Akeyreu integrates advanced neural technologies with mental wellness practices, making technology-enhanced wellness accessible to everyone through nAura and Vza."
@@ -219,7 +373,7 @@ function App() {
       <Router>
         <AppContent />
       </Router>
-    </>
+    </HelmetProvider>
   );
 }
 

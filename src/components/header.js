@@ -3,6 +3,7 @@ import { Navbar } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import logoImage from './../assets/blacklogo.png';
 import './header.css';
+import '../styles/accessibility.css';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -52,73 +53,163 @@ const Header = () => {
   };
 
   return (
-    <Navbar className="navbar" expand="lg" ref={navRef}>
-      <Navbar.Brand href="/#home">
-        <img
-          src={logoImage}
-          alt="Logo"
-          className="logo-image"
-          onClick={(e) => handleNavClick(e, 'home')}
-        />
-      </Navbar.Brand>
+    <header role="banner">
+      <Navbar className="navbar" expand="lg" ref={navRef} role="navigation" aria-label="Main navigation">
+        <Navbar.Brand href="/#home">
+          <img
+            src={logoImage}
+            alt="Akeyreu - Mental Wellness Through Neural Technology"
+            className="logo-image"
+            onClick={(e) => handleNavClick(e, 'home')}
+          />
+        </Navbar.Brand>
 
-      {/* Hamburger menu */}
-      <div className="hamburger" onClick={handleMenuToggle}>
-        <div className="bar"></div>
-        <div className="bar"></div>
-        <div className="bar"></div>
-      </div>
+        {/* Hamburger menu */}
+        <button
+          className="hamburger"
+          onClick={handleMenuToggle}
+          aria-expanded={isMenuOpen}
+          aria-controls="main-navigation"
+          aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          type="button"
+        >
+          <span className="bar" aria-hidden="true"></span>
+          <span className="bar" aria-hidden="true"></span>
+          <span className="bar" aria-hidden="true"></span>
+          <span className="sr-only">{isMenuOpen ? 'Close menu' : 'Open menu'}</span>
+        </button>
 
-      {/* Navigation Links */}
-      <nav className={`nav ${isMenuOpen ? 'open' : ''}`}>
-        <ul className="nav-list">
-          <li className="nav-item">
-            <a href="/#home" className="nav-link" onClick={(e) => handleNavClick(e, 'home')}>
-              Home
-            </a>
-          </li>
-          <li className="nav-item">
-            <a href="/#about" className="nav-link" onClick={(e) => handleNavClick(e, 'about')}>
-              About
-            </a>
-          </li>
-          <li className="nav-item">
-            <a href="/#values" className="nav-link" onClick={(e) => handleNavClick(e, 'values')}>
-              Our Values
-            </a>
-          </li>
-          <li className="nav-item">
-            <a href="/#products" className="nav-link" onClick={(e) => handleNavClick(e, 'products')}>
-              Products
-            </a>
-          </li>
-          <li className="nav-item">
-            <a href="/#socials" className="nav-link" onClick={(e) => handleNavClick(e, 'socials')}>
-              Socials
-            </a>
-          </li>
-          <li className="nav-item">
-            <a href="/#learn-more" className="nav-link" onClick={(e) => handleNavClick(e, 'learn-more')}>
-              Learn More
-            </a>
-          </li>
-          <li className="nav-item">
-            <a href="/blog" className="nav-link">Blog</a>
-          </li>
-          <li className="nav-item">
-            <a href="/mindful-breaks" className="nav-link">Mindful Breaks</a>
-          </li>
-          <li className="nav-item">
-            <a href="/contact" className="nav-link">Contact Us</a>
-          </li>
-          <li className="nav-item">
-            <a href="https://ajr2.github.io/RoamingMinds/" className="nav-link" rel="noopener noreferrer">
-              Podcast
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </Navbar>
+        {/* Navigation Links */}
+        <nav
+          className={`nav ${isMenuOpen ? 'open' : ''}`}
+          id="main-navigation"
+          aria-hidden={!isMenuOpen}
+          role="navigation"
+          aria-label="Main navigation"
+        >
+          <ul className="nav-list" role="menubar">
+            <li className="nav-item" role="none">
+              <a
+                href="/#home"
+                className="nav-link"
+                onClick={(e) => handleNavClick(e, 'home')}
+                role="menuitem"
+                tabIndex={isMenuOpen ? 0 : -1}
+                aria-label="Navigate to Home section"
+              >
+                Home
+              </a>
+            </li>
+            <li className="nav-item" role="none">
+              <a
+                href="/#about"
+                className="nav-link"
+                onClick={(e) => handleNavClick(e, 'about')}
+                role="menuitem"
+                tabIndex={isMenuOpen ? 0 : -1}
+                aria-label="Navigate to About section"
+              >
+                About
+              </a>
+            </li>
+            <li className="nav-item" role="none">
+              <a
+                href="/#values"
+                className="nav-link"
+                onClick={(e) => handleNavClick(e, 'values')}
+                role="menuitem"
+                tabIndex={isMenuOpen ? 0 : -1}
+                aria-label="Navigate to Our Values section"
+              >
+                Our Values
+              </a>
+            </li>
+            <li className="nav-item" role="none">
+              <a
+                href="/#products"
+                className="nav-link"
+                onClick={(e) => handleNavClick(e, 'products')}
+                role="menuitem"
+                tabIndex={isMenuOpen ? 0 : -1}
+                aria-label="Navigate to Products section"
+              >
+                Products
+              </a>
+            </li>
+            <li className="nav-item" role="none">
+              <a
+                href="/#socials"
+                className="nav-link"
+                onClick={(e) => handleNavClick(e, 'socials')}
+                role="menuitem"
+                tabIndex={isMenuOpen ? 0 : -1}
+                aria-label="Navigate to Social Media section"
+              >
+                Socials
+              </a>
+            </li>
+            <li className="nav-item" role="none">
+              <a
+                href="/#learn-more"
+                className="nav-link"
+                onClick={(e) => handleNavClick(e, 'learn-more')}
+                role="menuitem"
+                tabIndex={isMenuOpen ? 0 : -1}
+                aria-label="Navigate to Learn More section"
+              >
+                Learn More
+              </a>
+            </li>
+            <li className="nav-item" role="none">
+              <a
+                href="/blog"
+                className="nav-link"
+                role="menuitem"
+                tabIndex={isMenuOpen ? 0 : -1}
+                aria-label="Visit our Blog"
+              >
+                Blog
+              </a>
+            </li>
+            <li className="nav-item" role="none">
+              <a
+                href="/mindful-breaks"
+                className="nav-link"
+                role="menuitem"
+                tabIndex={isMenuOpen ? 0 : -1}
+                aria-label="Visit Mindful Breaks page"
+              >
+                Mindful Breaks
+              </a>
+            </li>
+            <li className="nav-item" role="none">
+              <a
+                href="/contact"
+                className="nav-link"
+                role="menuitem"
+                tabIndex={isMenuOpen ? 0 : -1}
+                aria-label="Visit Contact Us page"
+              >
+                Contact Us
+              </a>
+            </li>
+            <li className="nav-item" role="none">
+              <a
+                href="https://ajr2.github.io/RoamingMinds/"
+                className="nav-link"
+                rel="noopener noreferrer"
+                target="_blank"
+                role="menuitem"
+                tabIndex={isMenuOpen ? 0 : -1}
+                aria-label="Visit our Podcast (opens in new tab)"
+              >
+                Podcast
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </Navbar>
+    </header>
   );
 };
 
