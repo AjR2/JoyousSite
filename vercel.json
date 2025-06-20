@@ -19,6 +19,26 @@
       "dest": "/api/posts/[slug].js?slug=$1"
     },
     {
+      "src": "/api/categories$",
+      "dest": "/api/metadata?type=categories"
+    },
+    {
+      "src": "/api/categories/([^/]+)$",
+      "dest": "/api/metadata?category=$1"
+    },
+    {
+      "src": "/api/tags$",
+      "dest": "/api/metadata?type=tags"
+    },
+    {
+      "src": "/api/tags/([^/]+)$",
+      "dest": "/api/metadata?tag=$1"
+    },
+    {
+      "src": "/api/featured$",
+      "dest": "/api/search?featured=true"
+    },
+    {
       "src": "/api/(.*)",
       "dest": "/api/$1"
     },
@@ -40,7 +60,7 @@
     },
     {
       "src": "^/sitemap.xml",
-      "dest": "/sitemap.xml"
+      "dest": "/api/sitemap"
     },
     {
       "handle": "filesystem"
