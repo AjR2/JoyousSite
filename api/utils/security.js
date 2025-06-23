@@ -145,10 +145,23 @@ export function setCORSHeaders(res, environment = 'production', requestOrigin = 
 
 // Validate origin against allowed origins
 export function validateOrigin(origin, environment = 'production') {
-  if (!origin) return false;
-  
+  if (!origin) {
+    console.log('CORS Debug: No origin provided');
+    return false;
+  }
+
   const corsConfig = CORS_CONFIG[environment] || CORS_CONFIG.production;
-  return corsConfig.origin.includes(origin);
+  const isValid = corsConfig.origin.includes(origin);
+
+  // Temporary debug logging
+  console.log('CORS Debug:', {
+    origin,
+    environment,
+    allowedOrigins: corsConfig.origin,
+    isValid
+  });
+
+  return isValid;
 }
 
 // Rate limiting middleware
@@ -291,6 +304,7 @@ export function securityMiddleware(req, res, options = {}) {
   // Validate origin in production (skip for OPTIONS)
   if (requireOrigin && environment === 'production') {
     if (!validateOrigin(origin, environment)) {
+      console.log('CORS Validation Failed:', { origin, environment, requireOrigin });
       return { error: 'Invalid origin', status: 403 };
     }
   }
