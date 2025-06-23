@@ -2,22 +2,37 @@
 // File: /api/search.js
 
 import { searchPosts, transformPostToApiFormat } from './utils/data.js';
+import { securityMiddleware } from './utils/security.js';
 import config from './utils/config.js';
 
 export default async function handler(req, res) {
-    // Set CORS headers
-    res.setHeader('Access-Control-Allow-Origin', config.cors.origin.join(', '));
-    res.setHeader('Access-Control-Allow-Methods', config.cors.methods.join(', '));
-    res.setHeader('Access-Control-Allow-Headers', config.cors.allowedHeaders.join(', '));
+    // Apply security middleware (includes CORS headers and OPTIONS handling)
+    const securityResult = securityMiddleware(req, res, {
+        allowedMethods: ['GET', 'OPTIONS'],
+        requireOrigin: process.env.NODE_ENV === 'production',
+        environment: config.environment
+    });
 
-    // Set caching headers for search (shorter cache due to dynamic nature)
-    res.setHeader('Cache-Control', 'public, max-age=120, s-maxage=300'); // 2 min browser, 5 min CDN
-    res.setHeader('Vary', 'Accept-Encoding, User-Agent');
+    if (securityResult && securityResult.error) {
+        return res.status(securityResult.status).json({
+            error: securityResult.error,
+            timestamp: new Date().toISOString()
+        });
+    }
+
+    // Handle OPTIONS requests
+    if (req.method === 'OPTIONS') {
+        return res.status(200).end();
+    }
 
     // Only allow GET requests
     if (req.method !== 'GET') {
         return res.status(405).json({ error: 'Method not allowed' });
     }
+
+    // Set caching headers for search (shorter cache due to dynamic nature)
+    res.setHeader('Cache-Control', 'public, max-age=120, s-maxage=300'); // 2 min browser, 5 min CDN
+    res.setHeader('Vary', 'Accept-Encoding, User-Agent');
 
     // Get query parameters
     const { q, category, tag, featured } = req.query;

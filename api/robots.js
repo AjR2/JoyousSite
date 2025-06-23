@@ -4,6 +4,7 @@
 
 import config from './utils/config.js';
 import { getAllPosts } from './utils/data.js';
+import { securityMiddleware } from './utils/security.js';
 
 // Helper function to create slug from title
 function createSlug(title) {
@@ -215,31 +216,40 @@ function detectEnvironment(req) {
 }
 
 export default async function handler(req, res) {
-  // Set CORS headers
-  res.setHeader('Access-Control-Allow-Origin', config.cors.origin.join(', '));
-  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', config.cors.allowedHeaders.join(', '));
-  
-  // Set content type for robots.txt
-  res.setHeader('Content-Type', 'text/plain; charset=utf-8');
-  
-  // Set caching headers (cache for 1 hour in production, 5 minutes in development)
+  // Detect environment
   const environment = detectEnvironment(req);
-  const cacheTime = environment === 'production' ? 3600 : 300;
-  res.setHeader('Cache-Control', `public, max-age=${cacheTime}, s-maxage=${cacheTime * 2}`);
-  res.setHeader('Last-Modified', new Date().toUTCString());
 
-  // Handle OPTIONS request
+  // Apply security middleware (includes CORS headers and OPTIONS handling)
+  const securityResult = securityMiddleware(req, res, {
+    allowedMethods: ['GET', 'OPTIONS'],
+    requireOrigin: process.env.NODE_ENV === 'production',
+    environment: environment
+  });
+
+  if (securityResult && securityResult.error) {
+    return res.status(securityResult.status).json({
+      error: securityResult.error,
+      timestamp: new Date().toISOString()
+    });
+  }
+
+  // Handle OPTIONS requests
   if (req.method === 'OPTIONS') {
-    res.status(200).end();
-    return;
+    return res.status(200).end();
   }
 
   // Only allow GET requests
   if (req.method !== 'GET') {
-    res.status(405).json({ error: 'Method not allowed' });
-    return;
+    return res.status(405).json({ error: 'Method not allowed' });
   }
+
+  // Set content type for robots.txt
+  res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+
+  // Set caching headers (cache for 1 hour in production, 5 minutes in development)
+  const cacheTime = environment === 'production' ? 3600 : 300;
+  res.setHeader('Cache-Control', `public, max-age=${cacheTime}, s-maxage=${cacheTime * 2}`);
+  res.setHeader('Last-Modified', new Date().toUTCString());
 
   try {
     // Generate robots.txt content based on environment

@@ -3,6 +3,7 @@
 
 import { getAllPosts } from './utils/data.js';
 import config from './utils/config.js';
+import { securityMiddleware } from './utils/security.js';
 
 // Static pages configuration
 const STATIC_PAGES = [
@@ -87,23 +88,31 @@ ${pages.map(page => `  <url>
 }
 
 export default async function handler(req, res) {
-  // Set CORS headers
-  res.setHeader('Access-Control-Allow-Origin', config.cors.origin.join(', '));
-  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', config.cors.allowedHeaders.join(', '));
-  
+  // Apply security middleware (includes CORS headers and OPTIONS handling)
+  const securityResult = securityMiddleware(req, res, {
+    allowedMethods: ['GET', 'OPTIONS'],
+    requireOrigin: process.env.NODE_ENV === 'production',
+    environment: config.environment
+  });
+
+  if (securityResult && securityResult.error) {
+    return res.status(securityResult.status).json({
+      error: securityResult.error,
+      timestamp: new Date().toISOString()
+    });
+  }
+
+  // Handle OPTIONS requests
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
   // Set content type for XML
   res.setHeader('Content-Type', 'application/xml; charset=utf-8');
-  
+
   // Set caching headers (cache for 1 hour)
   res.setHeader('Cache-Control', 'public, max-age=3600, s-maxage=7200');
   res.setHeader('Last-Modified', new Date().toUTCString());
-
-  // Handle OPTIONS request
-  if (req.method === 'OPTIONS') {
-    res.status(200).end();
-    return;
-  }
 
   // Only allow GET requests
   if (req.method !== 'GET') {
