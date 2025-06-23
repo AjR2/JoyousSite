@@ -133,6 +133,11 @@ export function setCORSHeaders(res, environment = 'production', requestOrigin = 
     allowedOrigin = requestOrigin;
   }
 
+  // For same-origin requests (no origin header), use wildcard or specific domain
+  if (!requestOrigin && environment === 'production') {
+    allowedOrigin = 'https://www.akeyreu.com'; // Use the main domain for same-origin
+  }
+
   res.setHeader('Access-Control-Allow-Origin', allowedOrigin);
   res.setHeader('Access-Control-Allow-Methods', corsConfig.methods.join(', '));
   res.setHeader('Access-Control-Allow-Headers', corsConfig.allowedHeaders.join(', '));
@@ -145,9 +150,12 @@ export function setCORSHeaders(res, environment = 'production', requestOrigin = 
 
 // Validate origin against allowed origins
 export function validateOrigin(origin, environment = 'production') {
+  // If no origin is provided, it might be a same-origin request
+  // In production, same-origin requests from the same domain should be allowed
   if (!origin) {
-    console.log('CORS Debug: No origin provided');
-    return false;
+    console.log('CORS Debug: No origin provided - likely same-origin request');
+    // For same-origin requests in production, we allow them
+    return environment === 'production';
   }
 
   const corsConfig = CORS_CONFIG[environment] || CORS_CONFIG.production;
