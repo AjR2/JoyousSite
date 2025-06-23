@@ -47,6 +47,10 @@
       "dest": "/api/feeds?format=json"
     },
     {
+      "src": "/api/auth$",
+      "dest": "/api/auth"
+    },
+    {
       "src": "/api/(.*)",
       "dest": "/api/$1"
     },
@@ -60,7 +64,17 @@
     },
     {
       "src": "^/manifest.json",
-      "dest": "/manifest.json"
+      "dest": "/manifest.json",
+      "headers": {
+        "Content-Type": "application/json"
+      }
+    },
+    {
+      "src": "^/sw.js",
+      "dest": "/sw.js",
+      "headers": {
+        "Content-Type": "application/javascript"
+      }
     },
     {
       "src": "^/robots.txt",

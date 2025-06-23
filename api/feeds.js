@@ -100,28 +100,28 @@ function createSlug(title) {
 }
 
 export default async function handler(req, res) {
-  // Apply security middleware
-  const securityResult = securityMiddleware(req, res);
-  if (!securityResult.allowed) {
-    return res.status(securityResult.status).json({ 
-      error: securityResult.message,
+  // Apply security middleware (includes CORS headers and OPTIONS handling)
+  const securityResult = securityMiddleware(req, res, {
+    allowedMethods: ['GET', 'OPTIONS'],
+    requireOrigin: process.env.NODE_ENV === 'production',
+    environment: config.environment
+  });
+
+  if (securityResult && securityResult.error) {
+    return res.status(securityResult.status).json({
+      error: securityResult.error,
       timestamp: new Date().toISOString()
     });
   }
 
-  // Set CORS headers
-  res.setHeader('Access-Control-Allow-Origin', config.cors.origin.join(', '));
-  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', config.cors.allowedHeaders.join(', '));
-
-  // Handle preflight requests
+  // Handle OPTIONS requests
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
   }
 
   // Only allow GET requests
   if (req.method !== 'GET') {
-    return res.status(405).json({ 
+    return res.status(405).json({
       error: 'Method not allowed',
       timestamp: new Date().toISOString()
     });

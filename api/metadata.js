@@ -13,37 +13,37 @@ import config from './utils/config.js';
 import { securityMiddleware, validateInput } from './utils/security.js';
 
 export default async function handler(req, res) {
-    // Apply security middleware
-    const securityResult = securityMiddleware(req, res);
-    if (!securityResult.allowed) {
-        return res.status(securityResult.status).json({ 
-            error: securityResult.message,
+    // Apply security middleware (includes CORS headers and OPTIONS handling)
+    const securityResult = securityMiddleware(req, res, {
+        allowedMethods: ['GET', 'OPTIONS'],
+        requireOrigin: process.env.NODE_ENV === 'production',
+        environment: config.environment
+    });
+
+    if (securityResult && securityResult.error) {
+        return res.status(securityResult.status).json({
+            error: securityResult.error,
             timestamp: new Date().toISOString()
         });
     }
 
-    // Set CORS headers
-    res.setHeader('Access-Control-Allow-Origin', config.cors.origin.join(', '));
-    res.setHeader('Access-Control-Allow-Methods', config.cors.methods.join(', '));
-    res.setHeader('Access-Control-Allow-Headers', config.cors.allowedHeaders.join(', '));
-
-    // Set caching headers
-    res.setHeader('Cache-Control', 'public, max-age=600, s-maxage=1800'); // 10 min browser, 30 min CDN
-    res.setHeader('ETag', `"metadata-${Date.now()}"`);
-    res.setHeader('Last-Modified', new Date().toUTCString());
-
-    // Handle preflight requests
+    // Handle OPTIONS requests
     if (req.method === 'OPTIONS') {
         return res.status(200).end();
     }
 
     // Only allow GET requests
     if (req.method !== 'GET') {
-        return res.status(405).json({ 
+        return res.status(405).json({
             error: 'Method not allowed',
             timestamp: new Date().toISOString()
         });
     }
+
+    // Set caching headers
+    res.setHeader('Cache-Control', 'public, max-age=600, s-maxage=1800'); // 10 min browser, 30 min CDN
+    res.setHeader('ETag', `"metadata-${Date.now()}"`);
+    res.setHeader('Last-Modified', new Date().toUTCString());
 
     try {
         const { type, category, tag } = req.query;

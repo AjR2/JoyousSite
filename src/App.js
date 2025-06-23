@@ -1,4 +1,4 @@
-// Updated App.js to use ErrorBoundary and proper component organization with code splitting
+// Clean App.js with proper routing structure
 import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
@@ -18,6 +18,9 @@ const Blog = React.lazy(() => import('./components/Blog'));
 const BlogPost = React.lazy(() => import('./components/BlogPost'));
 const Contact = React.lazy(() => import('./components/Contact'));
 const MindfulBreaks = React.lazy(() => import('./components/MindfulBreaks'));
+
+// Import AdminAuth directly
+import AdminAuth from './components/AdminAuth';
 import readingImage from './assets/readingImage.png';
 import friendsImage from './assets/HappyHumans.png';
 import OptimizedImage from './components/OptimizedImage';
@@ -54,13 +57,17 @@ function AppContent() {
   };
 
   return (
-    <>
-      <Header />
-      <ErrorBoundary>
-        <Routes>
-          <Route
-            path="/"
-            element={
+    <ErrorBoundary>
+      <Routes>
+        {/* Admin route without header */}
+        <Route path="/admin" element={<AdminAuth />} />
+        
+        {/* All other routes with header */}
+        <Route
+          path="/"
+          element={
+            <>
+              <Header />
               <main className="main-content" id="main-content" role="main">
                 {/* Hero Section */}
                 <section className="card hero-section" id="home" aria-labelledby="hero-heading">
@@ -287,75 +294,67 @@ function AppContent() {
                 {/* Footer Component*/}
                 <Footer />
               </main>
-            }
-          />
-          <Route path="/blog" element={
+            </>
+          }
+        />
+
+        <Route path="/blog" element={
+          <>
+            <Header />
             <Suspense fallback={
-              <div className="loading-container" style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                minHeight: '50vh',
-                flexDirection: 'column'
-              }}>
+              <div className="loading-container" role="status" aria-label="Loading blog content">
                 <LoadingSpinner />
-                <p style={{ marginTop: '1rem', color: '#666' }}>Loading blog...</p>
+                <span className="sr-only">Loading blog content...</span>
               </div>
             }>
               <Blog />
             </Suspense>
-          } />
-          <Route path="/blog/:slug" element={
+          </>
+        } />
+
+        <Route path="/blog/:slug" element={
+          <>
+            <Header />
             <Suspense fallback={
-              <div className="loading-container" style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                minHeight: '50vh',
-                flexDirection: 'column'
-              }}>
+              <div className="loading-container" role="status" aria-label="Loading blog post">
                 <LoadingSpinner />
-                <p style={{ marginTop: '1rem', color: '#666' }}>Loading post...</p>
+                <span className="sr-only">Loading blog post...</span>
               </div>
             }>
               <BlogPost />
             </Suspense>
-          } />
-          <Route path="/mindful-breaks" element={
+          </>
+        } />
+
+        <Route path="/mindful-breaks" element={
+          <>
+            <Header />
             <Suspense fallback={
-              <div className="loading-container" style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                minHeight: '50vh',
-                flexDirection: 'column'
-              }}>
+              <div className="loading-container" role="status" aria-label="Loading mindful breaks">
                 <LoadingSpinner />
-                <p style={{ marginTop: '1rem', color: '#666' }}>Loading...</p>
+                <span className="sr-only">Loading mindful breaks...</span>
               </div>
             }>
               <MindfulBreaks />
             </Suspense>
-          } />
-          <Route path="/contact" element={
+          </>
+        } />
+
+        <Route path="/contact" element={
+          <>
+            <Header />
             <Suspense fallback={
-              <div className="loading-container" style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                minHeight: '50vh',
-                flexDirection: 'column'
-              }}>
+              <div className="loading-container" role="status" aria-label="Loading contact page">
                 <LoadingSpinner />
-                <p style={{ marginTop: '1rem', color: '#666' }}>Loading contact form...</p>
+                <span className="sr-only">Loading contact page...</span>
               </div>
             }>
               <Contact />
             </Suspense>
-          } />
-        </Routes>
-      </ErrorBoundary>
-    </>
+          </>
+        } />
+      </Routes>
+    </ErrorBoundary>
   );
 }
 
@@ -363,16 +362,8 @@ function App() {
   return (
     <HelmetProvider>
       <AccessibilityProvider>
-        <MetaTags
-          title="Akeyreu: Mental Wellness Reimagined Through Neural Technology"
-          description="Akeyreu integrates advanced neural technologies with mental wellness practices, making technology-enhanced wellness accessible to everyone through nAura and Vza."
-          keywords="mental wellness, neural technology, sleep analysis, cognitive wellness, AI wellness, nAura, Vza"
-          canonicalUrl="https://www.akeyreu.com/"
-        />
-
-        <SchemaMarkup type="organization" />
-        <SchemaMarkup type="website" />
-
+        <MetaTags />
+        <SchemaMarkup />
         <Router>
           <AppContent />
         </Router>

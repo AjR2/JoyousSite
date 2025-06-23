@@ -124,14 +124,20 @@ export function setSecurityHeaders(res, additionalHeaders = {}) {
 }
 
 // Enhanced CORS handler
-export function setCORSHeaders(res, environment = 'production') {
+export function setCORSHeaders(res, environment = 'production', requestOrigin = null) {
   const corsConfig = CORS_CONFIG[environment] || CORS_CONFIG.production;
-  
-  res.setHeader('Access-Control-Allow-Origin', corsConfig.origin.join(', '));
+
+  // Set origin based on request origin if it's allowed, otherwise use first allowed origin
+  let allowedOrigin = corsConfig.origin[0]; // Default to first allowed origin
+  if (requestOrigin && corsConfig.origin.includes(requestOrigin)) {
+    allowedOrigin = requestOrigin;
+  }
+
+  res.setHeader('Access-Control-Allow-Origin', allowedOrigin);
   res.setHeader('Access-Control-Allow-Methods', corsConfig.methods.join(', '));
   res.setHeader('Access-Control-Allow-Headers', corsConfig.allowedHeaders.join(', '));
   res.setHeader('Access-Control-Max-Age', corsConfig.maxAge.toString());
-  
+
   if (corsConfig.credentials) {
     res.setHeader('Access-Control-Allow-Credentials', 'true');
   }
@@ -268,16 +274,22 @@ export function securityMiddleware(req, res, options = {}) {
     allowedMethods = ['GET'],
     environment = process.env.NODE_ENV || 'development'
   } = options;
-  
+
+  const origin = req.headers.origin;
+
   // Set security headers
   setSecurityHeaders(res);
-  
-  // Set CORS headers
-  setCORSHeaders(res, environment);
-  
-  // Validate origin in production
+
+  // Set CORS headers with request origin
+  setCORSHeaders(res, environment, origin);
+
+  // Handle OPTIONS requests early (preflight)
+  if (req.method === 'OPTIONS') {
+    return { success: true };
+  }
+
+  // Validate origin in production (skip for OPTIONS)
   if (requireOrigin && environment === 'production') {
-    const origin = req.headers.origin;
     if (!validateOrigin(origin, environment)) {
       return { error: 'Invalid origin', status: 403 };
     }

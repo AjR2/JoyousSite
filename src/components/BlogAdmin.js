@@ -119,6 +119,75 @@ const BlogAdmin = () => {
     return plainText.substring(0, lastSpace > 0 ? lastSpace : maxLength) + '...';
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!formData.title || !formData.content) {
+      alert('Please fill in all required fields');
+      return;
+    }
+
+    try {
+      const postData = {
+        ...formData,
+        date: new Date().toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        })
+      };
+
+      const url = editingPost ? `/api/posts/${editingPost.id}` : '/api/posts';
+      const method = editingPost ? 'PUT' : 'POST';
+
+      const response = await fetch(url, {
+        method,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(postData)
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        alert(editingPost ? 'Post updated successfully!' : 'Post created successfully!');
+        resetForm();
+        fetchData(); // Refresh the posts list
+      } else {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to save post');
+      }
+
+    } catch (error) {
+      console.error('Error saving post:', error);
+      alert(`Error saving post: ${error.message}`);
+    }
+  };
+
+  const handleDelete = async (post) => {
+    if (!window.confirm(`Are you sure you want to delete "${post.title}"?`)) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/posts/${post.id}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        alert('Post deleted successfully!');
+        fetchData(); // Refresh the posts list
+      } else {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to delete post');
+      }
+    } catch (error) {
+      console.error('Error deleting post:', error);
+      alert(`Error deleting post: ${error.message}`);
+    }
+  };
+
   if (loading) {
     return (
       <div className="blog-admin loading">
@@ -306,7 +375,7 @@ const BlogAdmin = () => {
               <button type="button" onClick={resetForm} className="btn btn-secondary">
                 Cancel
               </button>
-              <button type="button" className="btn btn-primary">
+              <button type="button" onClick={handleSubmit} className="btn btn-primary">
                 {editingPost ? 'Update Post' : 'Create Post'}
               </button>
             </div>
@@ -358,7 +427,10 @@ const BlogAdmin = () => {
                 >
                   Edit
                 </button>
-                <button className="btn btn-sm btn-danger">
+                <button
+                  onClick={() => handleDelete(post)}
+                  className="btn btn-sm btn-danger"
+                >
                   Delete
                 </button>
               </div>

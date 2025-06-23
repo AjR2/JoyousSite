@@ -1,6 +1,7 @@
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const fs = require('fs');
 const path = require('path');
+const slugify = require('slugify');
 
 // Load blog posts data
 const loadPosts = () => {
@@ -15,6 +16,50 @@ const loadPosts = () => {
     console.error('Error loading posts:', error);
     return [];
   }
+};
+
+// Save blog posts data
+const savePosts = (posts) => {
+  try {
+    const postsPath = path.join(__dirname, '../public/posts.json');
+    const data = JSON.stringify(posts, null, 2);
+    fs.writeFileSync(postsPath, data, 'utf8');
+    return true;
+  } catch (error) {
+    console.error('Error saving posts:', error);
+    return false;
+  }
+};
+
+// Generate slug from title
+const generateSlug = (title) => {
+  return slugify(title, {
+    lower: true,
+    strict: true,
+    remove: /[*+~.()'"!:@]/g
+  });
+};
+
+// Estimate reading time
+const estimateReadTime = (content) => {
+  if (!content) return 1;
+  const words = content.split(/\s+/).length;
+  return Math.ceil(words / 200);
+};
+
+// Generate summary from content
+const generateSummary = (content, maxLength = 200) => {
+  if (!content) return '';
+  const plainText = content.replace(/\n/g, ' ').trim();
+  if (plainText.length <= maxLength) return plainText;
+  const lastSpace = plainText.lastIndexOf(' ', maxLength);
+  return plainText.substring(0, lastSpace > 0 ? lastSpace : maxLength) + '...';
+};
+
+// Admin credentials from environment variables (with fallback for development)
+const ADMIN_CREDENTIALS = {
+  username: process.env.ADMIN_USERNAME || 'admin',
+  password: process.env.ADMIN_PASSWORD || 'dev-password-123'
 };
 
 // Extract categories from posts
@@ -116,10 +161,110 @@ const generateRSS = (posts) => {
 };
 
 module.exports = function(app) {
+  // Enable JSON parsing for POST requests
+  app.use('/api', require('express').json());
+
+  // Authentication endpoint
+  app.post('/api/auth', (req, res) => {
+    const { username, password } = req.body;
+
+    if (!username || !password) {
+      return res.status(400).json({
+        error: 'Username and password are required',
+        timestamp: new Date().toISOString()
+      });
+    }
+
+    if (username === ADMIN_CREDENTIALS.username && password === ADMIN_CREDENTIALS.password) {
+      const token = Buffer.from(`${username}:${Date.now()}`).toString('base64');
+
+      return res.status(200).json({
+        success: true,
+        token,
+        message: 'Authentication successful',
+        timestamp: new Date().toISOString()
+      });
+    } else {
+      return res.status(401).json({
+        error: 'Invalid credentials',
+        timestamp: new Date().toISOString()
+      });
+    }
+  });
+
   // API Routes
   app.get('/api/posts', (req, res) => {
     const posts = loadPosts();
     res.json(posts);
+  });
+
+  // Create new post
+  app.post('/api/posts', (req, res) => {
+    const { title, content, author, categories, tags, featured } = req.body;
+
+    if (!title || !content) {
+      return res.status(400).json({
+        error: 'Title and content are required',
+        timestamp: new Date().toISOString()
+      });
+    }
+
+    try {
+      const posts = loadPosts();
+
+      // Generate ID from title
+      const id = generateSlug(title);
+
+      // Check if post with this ID already exists
+      const existingPost = posts.find(post => post.id === id);
+      if (existingPost) {
+        return res.status(409).json({
+          error: 'A post with this title already exists',
+          timestamp: new Date().toISOString()
+        });
+      }
+
+      // Create new post
+      const newPost = {
+        id,
+        title,
+        date: new Date().toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        }),
+        author: author || 'Akeyreu Team',
+        categories: categories || [],
+        tags: tags || [],
+        summary: generateSummary(content),
+        featured: featured || false,
+        readTime: estimateReadTime(content),
+        content
+      };
+
+      // Add to beginning of posts array (newest first)
+      posts.unshift(newPost);
+
+      // Save to file
+      if (savePosts(posts)) {
+        return res.status(201).json({
+          message: 'Post created successfully',
+          post: newPost,
+          timestamp: new Date().toISOString()
+        });
+      } else {
+        return res.status(500).json({
+          error: 'Failed to save post',
+          timestamp: new Date().toISOString()
+        });
+      }
+    } catch (error) {
+      console.error('Error creating post:', error);
+      return res.status(500).json({
+        error: 'Internal server error',
+        timestamp: new Date().toISOString()
+      });
+    }
   });
 
   app.get('/api/posts/:slug', (req, res) => {
@@ -129,6 +274,109 @@ module.exports = function(app) {
       res.json(post);
     } else {
       res.status(404).json({ error: 'Post not found' });
+    }
+  });
+
+  // Update existing post
+  app.put('/api/posts/:slug', (req, res) => {
+    const { title, content, author, categories, tags, featured } = req.body;
+    const slug = req.params.slug;
+
+    if (!title || !content) {
+      return res.status(400).json({
+        error: 'Title and content are required',
+        timestamp: new Date().toISOString()
+      });
+    }
+
+    try {
+      const posts = loadPosts();
+      const postIndex = posts.findIndex(post => post.id === slug);
+
+      if (postIndex === -1) {
+        return res.status(404).json({
+          error: 'Post not found',
+          timestamp: new Date().toISOString()
+        });
+      }
+
+      // Update post with new data
+      const updatedPost = {
+        ...posts[postIndex],
+        title,
+        content,
+        author: author || posts[postIndex].author,
+        categories: categories || [],
+        tags: tags || [],
+        featured: featured || false,
+        summary: generateSummary(content),
+        readTime: estimateReadTime(content)
+      };
+
+      posts[postIndex] = updatedPost;
+
+      // Save to file
+      if (savePosts(posts)) {
+        return res.status(200).json({
+          message: 'Post updated successfully',
+          post: updatedPost,
+          timestamp: new Date().toISOString()
+        });
+      } else {
+        return res.status(500).json({
+          error: 'Failed to save post',
+          timestamp: new Date().toISOString()
+        });
+      }
+    } catch (error) {
+      console.error('Error updating post:', error);
+      return res.status(500).json({
+        error: 'Internal server error',
+        timestamp: new Date().toISOString()
+      });
+    }
+  });
+
+  // Delete post
+  app.delete('/api/posts/:slug', (req, res) => {
+    const slug = req.params.slug;
+
+    try {
+      const posts = loadPosts();
+      const postIndex = posts.findIndex(post => post.id === slug);
+
+      if (postIndex === -1) {
+        return res.status(404).json({
+          error: 'Post not found',
+          timestamp: new Date().toISOString()
+        });
+      }
+
+      // Remove post from array
+      const deletedPost = posts.splice(postIndex, 1)[0];
+
+      // Save to file
+      if (savePosts(posts)) {
+        return res.status(200).json({
+          message: 'Post deleted successfully',
+          deletedPost: {
+            id: deletedPost.id,
+            title: deletedPost.title
+          },
+          timestamp: new Date().toISOString()
+        });
+      } else {
+        return res.status(500).json({
+          error: 'Failed to save changes',
+          timestamp: new Date().toISOString()
+        });
+      }
+    } catch (error) {
+      console.error('Error deleting post:', error);
+      return res.status(500).json({
+        error: 'Internal server error',
+        timestamp: new Date().toISOString()
+      });
     }
   });
 

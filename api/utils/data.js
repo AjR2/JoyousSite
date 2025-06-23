@@ -316,6 +316,132 @@ function generateKeyPoints(content) {
     });
 }
 
+// Function to save posts to file
+async function savePosts(posts) {
+    try {
+        const data = JSON.stringify(posts, null, 2);
+        await fs.writeFile(postsFilePath, data, 'utf8');
+
+        // Clear cache after saving
+        clearCache();
+
+        return true;
+    } catch (error) {
+        console.error('Error saving posts file:', error);
+        throw new Error('Failed to save posts data');
+    }
+}
+
+// Function to create a new post
+async function createPost(postData) {
+    try {
+        const posts = await getAllPosts();
+
+        // Generate ID from title if not provided
+        const id = postData.id || slugify(postData.title, {
+            lower: true,
+            strict: true,
+            remove: /[*+~.()'"!:@]/g
+        });
+
+        // Check if post with this ID already exists
+        const existingPost = posts.find(post => post.id === id);
+        if (existingPost) {
+            throw new Error('A post with this title already exists');
+        }
+
+        // Create new post with required fields
+        const newPost = {
+            id,
+            title: postData.title,
+            date: postData.date || new Date().toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            }),
+            author: postData.author || 'Akeyreu Team',
+            categories: postData.categories || [],
+            tags: postData.tags || [],
+            summary: postData.summary || generateSummary(postData.content),
+            featured: postData.featured || false,
+            readTime: postData.readTime || estimateReadingTime(postData.content),
+            content: postData.content
+        };
+
+        // Add to beginning of posts array (newest first)
+        posts.unshift(newPost);
+
+        // Save to file
+        await savePosts(posts);
+
+        return newPost;
+    } catch (error) {
+        console.error('Error creating post:', error);
+        throw error;
+    }
+}
+
+// Function to update an existing post
+async function updatePost(id, postData) {
+    try {
+        const posts = await getAllPosts();
+        const postIndex = posts.findIndex(post => post.id === id);
+
+        if (postIndex === -1) {
+            throw new Error('Post not found');
+        }
+
+        // Update post with new data
+        const updatedPost = {
+            ...posts[postIndex],
+            ...postData,
+            id, // Keep original ID
+            summary: postData.summary || generateSummary(postData.content),
+            readTime: postData.readTime || estimateReadingTime(postData.content)
+        };
+
+        posts[postIndex] = updatedPost;
+
+        // Save to file
+        await savePosts(posts);
+
+        return updatedPost;
+    } catch (error) {
+        console.error('Error updating post:', error);
+        throw error;
+    }
+}
+
+// Function to delete a post
+async function deletePost(id) {
+    try {
+        const posts = await getAllPosts();
+        const postIndex = posts.findIndex(post => post.id === id);
+
+        if (postIndex === -1) {
+            throw new Error('Post not found');
+        }
+
+        // Remove post from array
+        const deletedPost = posts.splice(postIndex, 1)[0];
+
+        // Save to file
+        await savePosts(posts);
+
+        return deletedPost;
+    } catch (error) {
+        console.error('Error deleting post:', error);
+        throw error;
+    }
+}
+
+// Function to clear cache
+function clearCache() {
+    // This would clear the cache - implementation depends on your cache system
+    // For now, we'll just log it
+    console.log('Cache cleared after data modification');
+}
+
 export {
     getAllPosts,
     getPostBySlug,
@@ -325,5 +451,9 @@ export {
     getPostsByCategory,
     getPostsByTag,
     getFeaturedPosts,
-    transformPostToApiFormat
+    transformPostToApiFormat,
+    createPost,
+    updatePost,
+    deletePost,
+    savePosts
 };
