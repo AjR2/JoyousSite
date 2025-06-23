@@ -4,11 +4,18 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 1rem;
-  background: #f8f9fa;
-  border-radius: 8px;
+  padding: 2rem;
+  background: #ffffff !important;
+  border-radius: 12px;
   border: 1px solid #e9ecef;
   margin: 2rem 0;
+  box-shadow: 0 4px 12px rgba(3, 90, 166, 0.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.social-share:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(3, 90, 166, 0.2);
 }
 
 .social-share.vertical {
@@ -44,7 +51,7 @@
 
 .share-title {
   font-weight: 600;
-  color: #374151;
+  color: #035aa6;
   font-size: 0.875rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -66,27 +73,28 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  background: white;
-  color: #374151;
+  padding: 0.75rem 1.25rem;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #495057;
   cursor: pointer;
   transition: all 0.2s ease;
   text-decoration: none;
   font-size: 0.875rem;
   font-weight: 500;
-  min-height: 40px;
+  min-height: 44px;
   position: relative;
   overflow: hidden;
+  box-shadow: 0 2px 4px rgba(3, 90, 166, 0.1);
 }
 
 .share-btn:hover {
-  background: var(--share-color, #f3f4f6);
+  background: var(--share-color, #f8f9fa);
   color: white;
-  border-color: var(--share-color, #9ca3af);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-color: var(--share-color, #035aa6);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(3, 90, 166, 0.2);
 }
 
 .share-btn:focus {
@@ -303,36 +311,38 @@
   }
 }
 
-/* Dark mode */
+/* Dark mode - Disabled to maintain consistent white theme */
+/*
 @media (prefers-color-scheme: dark) {
   .social-share {
-    background: #1f2937;
-    border-color: #374151;
+    background: #ffffff !important;
+    border-color: #e9ecef;
   }
-  
+
   .share-title {
-    color: #e5e7eb;
+    color: #035aa6;
   }
-  
+
   .share-btn {
-    background: #374151;
-    color: #e5e7eb;
-    border-color: #4b5563;
+    background: #ffffff;
+    color: #495057;
+    border-color: #e9ecef;
   }
-  
+
   .share-btn:hover {
     color: white;
   }
-  
+
   .floating-share-widget {
-    background: #1f2937;
-    border-color: #374151;
+    background: #ffffff;
+    border-color: #e9ecef;
   }
-  
+
   .share-count-text {
-    color: #9ca3af;
+    color: #6c757d;
   }
 }
+*/
 
 /* Animation for copy feedback */
 @keyframes copySuccess {
