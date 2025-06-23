@@ -6,6 +6,15 @@ import { securityMiddleware, validateInput } from '../utils/security.js';
 import config from '../utils/config.js';
 
 export default async function handler(req, res) {
+    // Debug logging
+    console.log('Posts API Debug:', {
+        method: req.method,
+        origin: req.headers.origin,
+        userAgent: req.headers['user-agent'],
+        environment: config.environment,
+        nodeEnv: process.env.NODE_ENV
+    });
+
     // Apply security middleware (includes CORS headers and OPTIONS handling)
     const securityResult = securityMiddleware(req, res, {
         allowedMethods: ['GET', 'POST', 'OPTIONS'],
@@ -14,6 +23,7 @@ export default async function handler(req, res) {
     });
 
     if (securityResult && securityResult.error) {
+        console.log('Posts API Security Error:', securityResult);
         return res.status(securityResult.status).json({
             error: securityResult.error,
             timestamp: new Date().toISOString()
@@ -23,13 +33,6 @@ export default async function handler(req, res) {
     // Handle OPTIONS requests
     if (req.method === 'OPTIONS') {
         return res.status(200).end();
-    }
-
-    if (securityResult && securityResult.error) {
-        return res.status(securityResult.status).json({
-            error: securityResult.error,
-            timestamp: new Date().toISOString()
-        });
     }
 
     try {
