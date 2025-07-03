@@ -76,6 +76,14 @@ html, body {
   padding: 1rem 2rem;
 }
 
+/* center subscribe button in hero section */
+.text-content .cta-button {
+  display: block;          /* Makes it a block-level element */
+  margin: 2rem auto 0;     /* Top margin + auto centers it */
+  text-align: center;
+  max-width: fit-content;
+}
+
 /* About Section */
 .about-description,
 .about-mission {

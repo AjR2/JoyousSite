@@ -53,13 +53,19 @@
   flex-direction: column;
   cursor: pointer;
   padding: 10px;
+  border: none;
+  background-color: transparent;
 }
 
 .bar {
-  width: 25px;
-  height: 2px;
+  width: 20px;
+  height: 1.5px;
   background-color: black;
-  margin: 4px 0;
+  margin: 3px 0;
+}
+
+.hamburger:hover .bar {
+  background-color: #035aa6;
 }
 
 /* Navigation styles */
