@@ -240,10 +240,10 @@ function AppContent() {
                         </a>
                       </li>
                       <li role="listitem">
-                        <span className="social-icon disabled-icon" aria-label="Podcast coming soon" aria-disabled="true">
+                        <a href="https://mindsthatroam.com" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="Visit our Podcast - Minds That Roam">
                           <FontAwesomeIcon icon={faPodcast} aria-hidden="true" />
-                          <span className="social-label">Podcast (Coming Soon)</span>
-                        </span>
+                          <span className="social-label">Podcast</span>
+                        </a>
                       </li>
                       <li role="listitem">
                         <a href="https://instagram.com/a_keyreu/" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="Follow us on Instagram">
