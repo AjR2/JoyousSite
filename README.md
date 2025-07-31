@@ -5,12 +5,14 @@ A modern React-based website for Akeyreu, a mental wellness company that integra
 ## 🚀 Features
 
 - **Modern React Architecture**: Built with React 18 and React Router
+- **🤖 Nimbus AI Integration**: Multi-agent AI system with GPT-4, Claude, and Grok
 - **Serverless API**: Powered by Vercel serverless functions
 - **Blog System**: Dynamic blog with JSON-based content management
 - **Responsive Design**: Mobile-first design with Bootstrap integration
 - **SEO Optimized**: Meta tags, schema markup, and sitemap
 - **Contact Form**: EmailJS integration for contact functionality
 - **Mental Wellness Tools**: Mindful breaks and wellness content
+- **Admin Panel**: Integrated blog and AI management interface
 
 ## 🛠️ Tech Stack
 
@@ -46,6 +48,11 @@ NEXT_PUBLIC_API_BASE_URL=http://localhost:3000/api
 NEXT_PUBLIC_EMAILJS_SERVICE_ID=your_service_id
 NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=your_template_id
 NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=your_public_key
+
+# Nimbus AI Configuration (Required for AI features)
+OPENAI_API_KEY=your_openai_api_key_here
+ANTHROPIC_API_KEY=your_anthropic_api_key_here
+XAI_GROK_API_KEY=your_grok_api_key_here
 ```
 
 ## 🚀 Development
@@ -56,6 +63,22 @@ npm run dev
 ```
 
 This will start Vercel's development server with both the React app and serverless functions.
+
+## 🤖 Nimbus AI Integration
+
+The website includes a sophisticated multi-agent AI system called Nimbus AI. For detailed setup and usage instructions, see [NIMBUS_AI_INTEGRATION.md](./NIMBUS_AI_INTEGRATION.md).
+
+### Quick Start
+1. Configure AI API keys in `.env.local`
+2. Access admin panel at `/admin`
+3. Navigate to "🤖 Nimbus AI" tab
+4. Test chat functionality and manage agents
+
+### API Endpoints
+- `/api/nimbus/chat` - Main chat interface
+- `/api/nimbus/agents` - Agent management
+- `/api/nimbus/health` - System health checks
+- `/api/nimbus/collaborate` - Multi-agent collaboration
 
 ## 📝 Content Management
 

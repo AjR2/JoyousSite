@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import MarkdownEditor from './MarkdownEditor';
 import BlogAnalytics from './BlogAnalytics';
+import NimbusAdmin from './NimbusAdmin';
 import './BlogAdmin.css';
 
 const BlogAdmin = () => {
@@ -222,6 +223,12 @@ const BlogAdmin = () => {
           onClick={() => setActiveTab('analytics')}
         >
           📈 Analytics
+        </button>
+        <button
+          className={`nav-tab ${activeTab === 'nimbus' ? 'active' : ''}`}
+          onClick={() => setActiveTab('nimbus')}
+        >
+          🤖 Nimbus AI
         </button>
       </nav>
 
@@ -446,6 +453,13 @@ const BlogAdmin = () => {
       {activeTab === 'analytics' && (
         <div className="admin-analytics">
           <BlogAnalytics />
+        </div>
+      )}
+
+      {/* Nimbus AI Tab */}
+      {activeTab === 'nimbus' && (
+        <div className="admin-nimbus">
+          <NimbusAdmin />
         </div>
       )}
     </div>

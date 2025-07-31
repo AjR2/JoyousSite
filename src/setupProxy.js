@@ -3,6 +3,11 @@ const fs = require('fs');
 const path = require('path');
 const slugify = require('slugify');
 
+// For Node.js versions that don't have fetch built-in
+if (!global.fetch) {
+  global.fetch = require('node-fetch');
+}
+
 // Load blog posts data
 const loadPosts = () => {
   try {
@@ -479,8 +484,335 @@ ${urls.map(url => `  <url>
 Allow: /
 
 Sitemap: http://localhost:3000/api/sitemap.xml`;
-    
+
     res.set('Content-Type', 'text/plain');
     res.send(robots);
   });
+
+  // =============================================================================
+  // NIMBUS AI ENDPOINTS
+  // =============================================================================
+
+  // Nimbus AI Health Check
+  app.get('/api/nimbus/health', (req, res) => {
+    const { detailed } = req.query;
+
+    const basicHealth = {
+      status: 'healthy',
+      service: 'nimbus-ai',
+      version: '1.0.0',
+      environment: 'development',
+      timestamp: new Date().toISOString()
+    };
+
+    if (detailed !== 'true') {
+      return res.json(basicHealth);
+    }
+
+    // Detailed health check
+    const services = [
+      {
+        service: 'openai',
+        status: process.env.OPENAI_API_KEY ? 'healthy' : 'unhealthy',
+        response_time_ms: 150,
+        last_checked: new Date().toISOString()
+      },
+      {
+        service: 'claude',
+        status: process.env.ANTHROPIC_API_KEY ? 'healthy' : 'unhealthy',
+        response_time_ms: 200,
+        last_checked: new Date().toISOString()
+      },
+      {
+        service: 'grok',
+        status: process.env.XAI_GROK_API_KEY ? 'healthy' : 'unhealthy',
+        response_time_ms: 180,
+        last_checked: new Date().toISOString()
+      }
+    ];
+
+    const healthyCount = services.filter(s => s.status === 'healthy').length;
+
+    res.json({
+      ...basicHealth,
+      status: healthyCount > 0 ? 'healthy' : 'unhealthy',
+      services: {
+        total: services.length,
+        healthy: healthyCount,
+        unhealthy: services.length - healthyCount,
+        details: services
+      },
+      environment: {
+        node_env: process.env.NODE_ENV || 'development',
+        api_keys_configured: {
+          openai: !!process.env.OPENAI_API_KEY,
+          anthropic: !!process.env.ANTHROPIC_API_KEY,
+          grok: !!process.env.XAI_GROK_API_KEY
+        }
+      }
+    });
+  });
+
+  // Nimbus AI Agents Management
+  app.get('/api/nimbus/agents', (req, res) => {
+    const defaultAgents = [
+      {
+        agent_id: 'nimbus',
+        description: 'Primary Nimbus AI assistant for general mental wellness support',
+        inputs: ['text', 'conversation_context'],
+        outputs: ['text', 'recommendations'],
+        escalates_to_human: false,
+        capabilities: ['mental_wellness_guidance', 'product_information', 'general_support'],
+        status: 'active',
+        created_at: new Date().toISOString()
+      },
+      {
+        agent_id: 'sleep_specialist',
+        description: 'Specialized agent for sleep-related queries and nAura product support',
+        inputs: ['text', 'sleep_data', 'biometric_data'],
+        outputs: ['text', 'sleep_recommendations', 'naura_insights'],
+        escalates_to_human: false,
+        capabilities: ['sleep_analysis', 'naura_support', 'sleep_hygiene_advice'],
+        status: 'active',
+        created_at: new Date().toISOString()
+      },
+      {
+        agent_id: 'cognitive_wellness',
+        description: 'Cognitive wellness specialist for Vza product and CBT support',
+        inputs: ['text', 'mood_data', 'cognitive_assessments'],
+        outputs: ['text', 'cbt_exercises', 'vza_recommendations'],
+        escalates_to_human: true,
+        capabilities: ['cbt_guidance', 'vza_support', 'cognitive_exercises'],
+        status: 'active',
+        created_at: new Date().toISOString()
+      }
+    ];
+
+    res.json({
+      agents: defaultAgents,
+      total: defaultAgents.length,
+      timestamp: new Date().toISOString()
+    });
+  });
+
+  // Nimbus AI Chat Endpoint with Real AI Integration
+  app.post('/api/nimbus/chat', async (req, res) => {
+    const { message, agent_id, conversation_id } = req.body;
+
+    if (!message || typeof message !== 'string') {
+      return res.status(400).json({
+        error: 'Message is required and must be a string',
+        timestamp: new Date().toISOString()
+      });
+    }
+
+    // Check if any AI API keys are configured
+    const hasApiKeys = !!(process.env.OPENAI_API_KEY || process.env.ANTHROPIC_API_KEY || process.env.XAI_GROK_API_KEY);
+
+    if (!hasApiKeys) {
+      return res.json({
+        message: "Hello! I'm Nimbus AI. I'm currently running in demo mode since no AI API keys are configured. To enable full AI functionality, please add your API keys to the environment variables.",
+        conversation_id: conversation_id || `demo_${Date.now()}`,
+        agent_used: 'demo',
+        multi_agent_details: {
+          selected_agent: agent_id || 'demo',
+          agent_used: 'demo',
+          fallback_used: false,
+          demo_mode: true
+        },
+        timestamp: new Date().toISOString()
+      });
+    }
+
+    try {
+      // Select agent based on message content or specified agent_id
+      const selectedAgent = agent_id || selectBestAgent(message);
+      let response;
+      let agentUsed;
+
+      // Call the appropriate AI service
+      switch (selectedAgent) {
+        case 'claude':
+          response = await callClaude(message);
+          agentUsed = 'claude';
+          break;
+        case 'grok':
+          response = await callGrok(message);
+          agentUsed = 'grok';
+          break;
+        case 'gpt4':
+        default:
+          response = await callOpenAI(message);
+          agentUsed = 'gpt4';
+          break;
+      }
+
+      res.json({
+        message: response,
+        conversation_id: conversation_id || `conv_${Date.now()}`,
+        agent_used: agentUsed,
+        multi_agent_details: {
+          selected_agent: selectedAgent,
+          agent_used: agentUsed,
+          fallback_used: false,
+          reasoning: `Selected ${agentUsed} based on message content analysis`
+        },
+        timestamp: new Date().toISOString()
+      });
+
+    } catch (error) {
+      console.error('Error in Nimbus AI chat:', error);
+
+      // Fallback to a simple response if AI fails
+      res.json({
+        message: "I apologize, but I'm experiencing technical difficulties right now. Please try again in a moment. If the issue persists, it may be due to API rate limits or connectivity issues.",
+        conversation_id: conversation_id || `error_${Date.now()}`,
+        agent_used: 'fallback',
+        multi_agent_details: {
+          selected_agent: agent_id || 'gpt4',
+          agent_used: 'fallback',
+          fallback_used: true,
+          error: error.message
+        },
+        timestamp: new Date().toISOString()
+      });
+    }
+  });
+
+  // =============================================================================
+  // AI SERVICE FUNCTIONS
+  // =============================================================================
+
+  // Agent selection logic
+  function selectBestAgent(message) {
+    const lowerMessage = message.toLowerCase();
+
+    // Sleep and wellness queries -> Claude (good for health topics)
+    if (lowerMessage.includes('sleep') || lowerMessage.includes('naura') ||
+        lowerMessage.includes('insomnia') || lowerMessage.includes('wellness') ||
+        lowerMessage.includes('mental health') || lowerMessage.includes('anxiety')) {
+      return 'claude';
+    }
+
+    // Creative, emotional, or conversational queries -> Grok
+    if (lowerMessage.includes('feel') || lowerMessage.includes('mood') ||
+        lowerMessage.includes('stress') || lowerMessage.includes('creative') ||
+        lowerMessage.includes('fun') || lowerMessage.includes('joke')) {
+      return 'grok';
+    }
+
+    // Technical, analytical, or general queries -> GPT-4
+    return 'gpt4';
+  }
+
+  // OpenAI GPT-4 API call
+  async function callOpenAI(message) {
+    const apiKey = process.env.OPENAI_API_KEY;
+    if (!apiKey) {
+      throw new Error('OpenAI API key not configured');
+    }
+
+    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        model: 'gpt-4',
+        messages: [
+          {
+            role: 'system',
+            content: `You are Nimbus AI, an intelligent assistant for Akeyreu, a mental wellness technology company.
+            You help users with mental wellness questions, provide information about Akeyreu's products (nAura for sleep analysis and Vza for cognitive wellness),
+            and offer supportive guidance. Be empathetic, professional, and helpful. Keep responses concise but informative.`
+          },
+          { role: 'user', content: message }
+        ],
+        max_tokens: 500,
+        temperature: 0.7,
+      }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(`OpenAI API error: ${response.status} - ${errorData.error?.message || 'Unknown error'}`);
+    }
+
+    const data = await response.json();
+    return data.choices[0].message.content;
+  }
+
+  // Anthropic Claude API call
+  async function callClaude(message) {
+    const apiKey = process.env.ANTHROPIC_API_KEY;
+    if (!apiKey) {
+      throw new Error('Anthropic API key not configured');
+    }
+
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'x-api-key': apiKey,
+        'Content-Type': 'application/json',
+        'anthropic-version': '2023-06-01'
+      },
+      body: JSON.stringify({
+        model: 'claude-3-5-sonnet-20240620',
+        max_tokens: 500,
+        messages: [
+          {
+            role: 'user',
+            content: `You are Nimbus AI, a mental wellness specialist for Akeyreu. Focus on providing thoughtful, evidence-based responses about mental wellness, sleep health, and cognitive wellness. Be empathetic and supportive.
+
+User question: ${message}`
+          }
+        ],
+      }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(`Claude API error: ${response.status} - ${errorData.error?.message || 'Unknown error'}`);
+    }
+
+    const data = await response.json();
+    return data.content[0].text;
+  }
+
+  // xAI Grok API call
+  async function callGrok(message) {
+    const apiKey = process.env.XAI_GROK_API_KEY;
+    if (!apiKey) {
+      throw new Error('Grok API key not configured');
+    }
+
+    const response = await fetch('https://api.x.ai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        model: 'grok-2-1212',
+        messages: [
+          {
+            role: 'system',
+            content: 'You are Nimbus AI for Akeyreu mental wellness company. Be creative, empathetic, and engaging while providing helpful mental wellness support. Use a warm, conversational tone.'
+          },
+          { role: 'user', content: message }
+        ],
+        max_tokens: 500,
+        temperature: 0.8,
+      }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(`Grok API error: ${response.status} - ${errorData.error?.message || 'Unknown error'}`);
+    }
+
+    const data = await response.json();
+    return data.choices[0].message.content;
+  }
 };

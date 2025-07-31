@@ -51,6 +51,22 @@
       "dest": "/api/auth"
     },
     {
+      "src": "/api/nimbus/chat$",
+      "dest": "/api/nimbus/chat"
+    },
+    {
+      "src": "/api/nimbus/agents$",
+      "dest": "/api/nimbus/agents"
+    },
+    {
+      "src": "/api/nimbus/health$",
+      "dest": "/api/nimbus/health"
+    },
+    {
+      "src": "/api/nimbus/collaborate$",
+      "dest": "/api/nimbus/collaborate"
+    },
+    {
       "src": "/api/(.*)",
       "dest": "/api/$1"
     },
