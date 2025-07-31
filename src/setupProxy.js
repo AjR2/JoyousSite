@@ -601,6 +601,53 @@ Sitemap: http://localhost:3000/api/sitemap.xml`;
     });
   });
 
+  // API Documentation Endpoint
+  app.get('/api/docs', (req, res) => {
+    const documentation = {
+      title: "Nimbus AI API Documentation",
+      version: "1.0.0",
+      description: "Multi-agent AI system for mental wellness and general assistance",
+      base_url: "http://localhost:3000/api",
+      last_updated: new Date().toISOString(),
+
+      endpoints: {
+        blog: {
+          "GET /api/posts": {
+            description: "Get all blog posts",
+            example: "/api/posts"
+          },
+          "GET /api/analytics": {
+            description: "Get blog analytics and statistics",
+            example: "/api/analytics"
+          }
+        },
+        nimbus: {
+          "GET /api/nimbus/health-simple": {
+            description: "Basic health check for Nimbus AI system",
+            example: "/api/nimbus/health-simple?detailed=true"
+          },
+          "GET /api/nimbus/agents": {
+            description: "Get all available AI agents",
+            example: "/api/nimbus/agents"
+          }
+        }
+      },
+
+      environment: {
+        openai_available: !!process.env.OPENAI_API_KEY,
+        anthropic_available: !!process.env.ANTHROPIC_API_KEY,
+        grok_available: !!process.env.XAI_GROK_API_KEY,
+        total_active_agents: [
+          process.env.OPENAI_API_KEY,
+          process.env.ANTHROPIC_API_KEY,
+          process.env.XAI_GROK_API_KEY
+        ].filter(Boolean).length + 1
+      }
+    };
+
+    res.json(documentation);
+  });
+
   // =============================================================================
   // NIMBUS AI ENDPOINTS
   // =============================================================================
