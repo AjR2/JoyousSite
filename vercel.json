@@ -1,59 +1,26 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "build"
-      }
-    },
-    {
-      "src": "api/**/*.js",
-      "use": "@vercel/node"
+  "functions": {
+    "api/**/*.js": {
+      "runtime": "@vercel/node@3"
     }
-  ],
-  "routes": [
+  },
+  "rewrites": [
     {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
+      "source": "/api/(.*)",
+      "destination": "/api/$1"
     },
     {
-      "src": "^/static/(.*)",
-      "dest": "/static/$1"
+      "source": "/robots.txt",
+      "destination": "/api/robots"
     },
     {
-      "src": "^/favicon.ico",
-      "dest": "/favicon.ico"
+      "source": "/sitemap.xml",
+      "destination": "/api/sitemap"
     },
     {
-      "src": "^/manifest.json",
-      "dest": "/manifest.json",
-      "headers": {
-        "Content-Type": "application/json"
-      }
-    },
-    {
-      "src": "^/sw.js",
-      "dest": "/sw.js",
-      "headers": {
-        "Content-Type": "application/javascript"
-      }
-    },
-    {
-      "src": "^/robots.txt",
-      "dest": "/api/robots"
-    },
-    {
-      "src": "^/sitemap.xml",
-      "dest": "/api/sitemap"
-    },
-    {
-      "handle": "filesystem"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
