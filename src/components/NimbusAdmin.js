@@ -38,7 +38,7 @@ const NimbusAdmin = () => {
 
   const fetchSystemStatus = async () => {
     try {
-      const response = await fetch('/api/nimbus/health?detailed=true');
+      const response = await fetch('/api/nimbus/health-simple?detailed=true');
       const data = await response.json();
       
       if (data.services) {
@@ -102,7 +102,7 @@ const NimbusAdmin = () => {
     setChatLoading(true);
 
     try {
-      const response = await fetch('/api/nimbus/chat', {
+      const response = await fetch('/api/nimbus/chat-simple', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
