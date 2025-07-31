@@ -12,6 +12,7 @@ const NimbusAdmin = () => {
   });
   const [agents, setAgents] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   // Chat state
   const [chatMessages, setChatMessages] = useState([]);
@@ -244,6 +245,18 @@ const NimbusAdmin = () => {
       <div className="nimbus-admin-loading">
         <div className="spinner"></div>
         <p>Loading Nimbus AI Admin...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="nimbus-admin-error">
+        <h3>⚠️ Error Loading Nimbus AI</h3>
+        <p>{error}</p>
+        <button onClick={() => { setError(null); setLoading(true); fetchAgents(); }}>
+          Try Again
+        </button>
       </div>
     );
   }
