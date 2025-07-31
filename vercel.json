@@ -15,58 +15,6 @@
   ],
   "routes": [
     {
-      "src": "/api/posts/([^/]+)$",
-      "dest": "/api/posts/[slug].js?slug=$1"
-    },
-    {
-      "src": "/api/categories$",
-      "dest": "/api/metadata?type=categories"
-    },
-    {
-      "src": "/api/categories/([^/]+)$",
-      "dest": "/api/metadata?category=$1"
-    },
-    {
-      "src": "/api/tags$",
-      "dest": "/api/metadata?type=tags"
-    },
-    {
-      "src": "/api/tags/([^/]+)$",
-      "dest": "/api/metadata?tag=$1"
-    },
-    {
-      "src": "/api/featured$",
-      "dest": "/api/search?featured=true"
-    },
-    {
-      "src": "/api/rss$",
-      "dest": "/api/feeds?format=rss"
-    },
-    {
-      "src": "/api/feed.json$",
-      "dest": "/api/feeds?format=json"
-    },
-    {
-      "src": "/api/auth$",
-      "dest": "/api/auth"
-    },
-    {
-      "src": "/api/nimbus/chat$",
-      "dest": "/api/nimbus/chat"
-    },
-    {
-      "src": "/api/nimbus/agents$",
-      "dest": "/api/nimbus/agents"
-    },
-    {
-      "src": "/api/nimbus/health$",
-      "dest": "/api/nimbus/health"
-    },
-    {
-      "src": "/api/nimbus/collaborate$",
-      "dest": "/api/nimbus/collaborate"
-    },
-    {
       "src": "/api/(.*)",
       "dest": "/api/$1"
     },
