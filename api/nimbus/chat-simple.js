@@ -29,35 +29,44 @@ async function callOpenAI(message) {
     throw new Error('OpenAI API key not configured');
   }
 
-  const response = await fetch('https://api.openai.com/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${apiKey}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      model: 'gpt-4',
-      messages: [
-        {
-          role: 'system',
-          content: `You are Nimbus AI, an intelligent assistant for Akeyreu, a mental wellness technology company. 
-          You help users with mental wellness questions, provide information about Akeyreu's products (nAura for sleep analysis and Vza for cognitive wellness), 
-          and offer supportive guidance. Be empathetic, professional, and helpful. Keep responses concise but informative.`
-        },
-        { role: 'user', content: message }
-      ],
-      max_tokens: 500,
-      temperature: 0.7,
-    }),
-  });
+  console.log('Making OpenAI API call...');
 
-  if (!response.ok) {
-    const errorData = await response.json().catch(() => ({}));
-    throw new Error(`OpenAI API error: ${response.status} - ${errorData.error?.message || 'Unknown error'}`);
+  try {
+    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        model: 'gpt-4o-mini', // Use faster, cheaper model for testing
+        messages: [
+          {
+            role: 'system',
+            content: `You are Nimbus AI, a helpful assistant for Akeyreu, a mental wellness company. Be empathetic and supportive.`
+          },
+          { role: 'user', content: message }
+        ],
+        max_tokens: 300,
+        temperature: 0.7,
+      }),
+    });
+
+    console.log('OpenAI response status:', response.status);
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('OpenAI API error:', response.status, errorText);
+      throw new Error(`OpenAI API error: ${response.status} - ${errorText}`);
+    }
+
+    const data = await response.json();
+    console.log('OpenAI response received successfully');
+    return data.choices[0].message.content;
+  } catch (error) {
+    console.error('Error in callOpenAI:', error);
+    throw error;
   }
-
-  const data = await response.json();
-  return data.choices[0].message.content;
 }
 
 module.exports = async function handler(req, res) {
@@ -104,9 +113,13 @@ module.exports = async function handler(req, res) {
   }
 
   try {
-    // For now, just use GPT-4 to ensure it works
+    console.log('Processing chat request:', { message: message.substring(0, 50) + '...', agent_id });
+
+    // Use GPT-4 mini for faster, more reliable responses
     const response = await callOpenAI(message);
-    const agentUsed = 'gpt4';
+    const agentUsed = 'gpt4-mini';
+
+    console.log('Chat response generated successfully');
 
     res.json({
       message: response,
@@ -122,8 +135,9 @@ module.exports = async function handler(req, res) {
     });
 
   } catch (error) {
-    console.error('Error in Nimbus AI chat:', error);
-    
+    console.error('Error in Nimbus AI chat:', error.message);
+    console.error('Full error:', error);
+
     // Fallback to a simple response if AI fails
     res.json({
       message: "I apologize, but I'm experiencing technical difficulties right now. Please try again in a moment. If the issue persists, it may be due to API rate limits or connectivity issues.",
@@ -133,7 +147,8 @@ module.exports = async function handler(req, res) {
         selected_agent: agent_id || 'gpt4',
         agent_used: 'fallback',
         fallback_used: true,
-        error: error.message
+        error: error.message,
+        error_type: error.name || 'Unknown'
       },
       timestamp: new Date().toISOString()
     });
