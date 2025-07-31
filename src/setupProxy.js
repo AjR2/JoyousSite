@@ -490,6 +490,118 @@ Sitemap: http://localhost:3000/api/sitemap.xml`;
   });
 
   // =============================================================================
+  // BLOG API ENDPOINTS
+  // =============================================================================
+
+  // Blog Analytics Endpoint
+  app.get('/api/analytics', (req, res) => {
+    const posts = loadPosts();
+    const analytics = generateAnalytics(posts);
+
+    res.json({
+      ...analytics,
+      timestamp: new Date().toISOString(),
+      generated: true
+    });
+  });
+
+  // Categories Endpoint
+  app.get('/api/categories', (req, res) => {
+    const posts = loadPosts();
+    const categories = new Set();
+    posts.forEach(post => {
+      if (post.categories) {
+        post.categories.forEach(cat => categories.add(cat));
+      }
+    });
+
+    res.json({
+      categories: Array.from(categories).sort(),
+      total: categories.size,
+      timestamp: new Date().toISOString()
+    });
+  });
+
+  // Tags Endpoint
+  app.get('/api/tags', (req, res) => {
+    const posts = loadPosts();
+    const tagCounts = {};
+    posts.forEach(post => {
+      if (post.tags) {
+        post.tags.forEach(tag => {
+          tagCounts[tag] = (tagCounts[tag] || 0) + 1;
+        });
+      }
+    });
+
+    const tags = Object.entries(tagCounts)
+      .map(([tag, count]) => ({ tag, count }))
+      .sort((a, b) => b.count - a.count);
+
+    res.json({
+      tags,
+      total: tags.length,
+      timestamp: new Date().toISOString()
+    });
+  });
+
+  // =============================================================================
+  // BLOG API ENDPOINTS
+  // =============================================================================
+
+  // Blog Analytics Endpoint
+  app.get('/api/analytics', (req, res) => {
+    const posts = loadPosts();
+    const analytics = generateAnalytics(posts);
+
+    res.json({
+      ...analytics,
+      timestamp: new Date().toISOString(),
+      generated: true
+    });
+  });
+
+  // Categories Endpoint
+  app.get('/api/categories', (req, res) => {
+    const posts = loadPosts();
+    const categories = new Set();
+    posts.forEach(post => {
+      if (post.categories) {
+        post.categories.forEach(cat => categories.add(cat));
+      }
+    });
+
+    res.json({
+      categories: Array.from(categories).sort(),
+      total: categories.size,
+      timestamp: new Date().toISOString()
+    });
+  });
+
+  // Tags Endpoint
+  app.get('/api/tags', (req, res) => {
+    const posts = loadPosts();
+    const tagCounts = {};
+    posts.forEach(post => {
+      if (post.tags) {
+        post.tags.forEach(tag => {
+          tagCounts[tag] = (tagCounts[tag] || 0) + 1;
+        });
+      }
+    });
+
+    const tags = Object.entries(tagCounts)
+      .map(([tag, count]) => ({ tag, count }))
+      .sort((a, b) => b.count - a.count);
+
+    res.json({
+      tags,
+      total: tags.length,
+      timestamp: new Date().toISOString()
+    });
+  });
+
+  // =============================================================================
   // NIMBUS AI ENDPOINTS
   // =============================================================================
 
@@ -678,6 +790,87 @@ Sitemap: http://localhost:3000/api/sitemap.xml`;
       });
     }
   });
+
+  // =============================================================================
+  // ANALYTICS HELPER FUNCTIONS
+  // =============================================================================
+
+  // Generate analytics data
+  function generateAnalytics(posts) {
+    const now = new Date();
+    const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+
+    // Recent posts (last 30 days)
+    const recentPosts = posts.filter(post => {
+      const postDate = new Date(post.date);
+      return postDate >= thirtyDaysAgo;
+    });
+
+    // Category distribution
+    const categoryStats = {};
+    posts.forEach(post => {
+      if (post.categories) {
+        post.categories.forEach(category => {
+          categoryStats[category] = (categoryStats[category] || 0) + 1;
+        });
+      }
+    });
+
+    // Tag distribution
+    const tagStats = {};
+    posts.forEach(post => {
+      if (post.tags) {
+        post.tags.forEach(tag => {
+          tagStats[tag] = (tagStats[tag] || 0) + 1;
+        });
+      }
+    });
+
+    // Monthly post distribution (last 12 months)
+    const monthlyStats = {};
+    const twelveMonthsAgo = new Date(now.getTime() - 12 * 30 * 24 * 60 * 60 * 1000);
+
+    posts.forEach(post => {
+      const postDate = new Date(post.date);
+      if (postDate >= twelveMonthsAgo) {
+        const monthKey = postDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short' });
+        monthlyStats[monthKey] = (monthlyStats[monthKey] || 0) + 1;
+      }
+    });
+
+    return {
+      overview: {
+        totalPosts: posts.length,
+        recentPosts: recentPosts.length,
+        featuredPosts: posts.filter(post => post.featured).length,
+        totalCategories: Object.keys(categoryStats).length,
+        totalTags: Object.keys(tagStats).length,
+        averageReadTime: posts.length > 0 ?
+          Math.round(posts.reduce((sum, post) => sum + (post.readTime || 5), 0) / posts.length) : 0
+      },
+      categories: Object.entries(categoryStats)
+        .map(([name, count]) => ({ name, count }))
+        .sort((a, b) => b.count - a.count)
+        .slice(0, 10),
+      tags: Object.entries(tagStats)
+        .map(([name, count]) => ({ name, count }))
+        .sort((a, b) => b.count - a.count)
+        .slice(0, 15),
+      monthlyPosts: Object.entries(monthlyStats)
+        .map(([month, count]) => ({ month, count }))
+        .sort((a, b) => new Date(a.month + ' 1') - new Date(b.month + ' 1')),
+      recentActivity: recentPosts
+        .sort((a, b) => new Date(b.date) - new Date(a.date))
+        .slice(0, 5)
+        .map(post => ({
+          id: post.id,
+          title: post.title,
+          date: post.date,
+          author: post.author,
+          categories: post.categories || []
+        }))
+    };
+  }
 
   // =============================================================================
   // AI SERVICE FUNCTIONS
