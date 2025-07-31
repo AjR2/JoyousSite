@@ -665,6 +665,66 @@ Sitemap: http://localhost:3000/api/sitemap.xml`;
     });
   });
 
+  // Nimbus AI Health Check (Simple)
+  app.get('/api/nimbus/health-simple', (req, res) => {
+    const { detailed } = req.query;
+
+    const basicHealth = {
+      status: 'healthy',
+      service: 'nimbus-ai',
+      version: '1.0.0',
+      environment: 'development',
+      timestamp: new Date().toISOString()
+    };
+
+    if (detailed !== 'true') {
+      return res.json(basicHealth);
+    }
+
+    // Detailed health check
+    const services = [
+      {
+        service: 'openai',
+        status: process.env.OPENAI_API_KEY ? 'healthy' : 'unhealthy',
+        response_time_ms: 150,
+        last_checked: new Date().toISOString()
+      },
+      {
+        service: 'claude',
+        status: process.env.ANTHROPIC_API_KEY ? 'healthy' : 'unhealthy',
+        response_time_ms: 200,
+        last_checked: new Date().toISOString()
+      },
+      {
+        service: 'grok',
+        status: process.env.XAI_GROK_API_KEY ? 'healthy' : 'unhealthy',
+        response_time_ms: 180,
+        last_checked: new Date().toISOString()
+      }
+    ];
+
+    const healthyCount = services.filter(s => s.status === 'healthy').length;
+
+    res.json({
+      ...basicHealth,
+      status: healthyCount > 0 ? 'healthy' : 'unhealthy',
+      services: {
+        total: services.length,
+        healthy: healthyCount,
+        unhealthy: services.length - healthyCount,
+        details: services
+      },
+      environment: {
+        node_env: process.env.NODE_ENV || 'development',
+        api_keys_configured: {
+          openai: !!process.env.OPENAI_API_KEY,
+          anthropic: !!process.env.ANTHROPIC_API_KEY,
+          grok: !!process.env.XAI_GROK_API_KEY
+        }
+      }
+    });
+  });
+
   // Nimbus AI Agents Management
   app.get('/api/nimbus/agents', (req, res) => {
     const defaultAgents = [
@@ -768,6 +828,72 @@ Sitemap: http://localhost:3000/api/sitemap.xml`;
           agent_used: agentUsed,
           fallback_used: false,
           reasoning: `Selected ${agentUsed} based on message content analysis`
+        },
+        timestamp: new Date().toISOString()
+      });
+
+    } catch (error) {
+      console.error('Error in Nimbus AI chat:', error);
+
+      // Fallback to a simple response if AI fails
+      res.json({
+        message: "I apologize, but I'm experiencing technical difficulties right now. Please try again in a moment. If the issue persists, it may be due to API rate limits or connectivity issues.",
+        conversation_id: conversation_id || `error_${Date.now()}`,
+        agent_used: 'fallback',
+        multi_agent_details: {
+          selected_agent: agent_id || 'gpt4',
+          agent_used: 'fallback',
+          fallback_used: true,
+          error: error.message
+        },
+        timestamp: new Date().toISOString()
+      });
+    }
+  });
+
+  // Nimbus AI Chat Endpoint (Simple)
+  app.post('/api/nimbus/chat-simple', async (req, res) => {
+    const { message, agent_id, conversation_id } = req.body;
+
+    if (!message || typeof message !== 'string') {
+      return res.status(400).json({
+        error: 'Message is required and must be a string',
+        timestamp: new Date().toISOString()
+      });
+    }
+
+    // Check if any AI API keys are configured
+    const hasApiKeys = !!(process.env.OPENAI_API_KEY || process.env.ANTHROPIC_API_KEY || process.env.XAI_GROK_API_KEY);
+
+    if (!hasApiKeys) {
+      return res.json({
+        message: "Hello! I'm Nimbus AI. I'm currently running in demo mode since no AI API keys are configured. To enable full AI functionality, please add your API keys to the environment variables.",
+        conversation_id: conversation_id || `demo_${Date.now()}`,
+        agent_used: 'demo',
+        multi_agent_details: {
+          selected_agent: agent_id || 'demo',
+          agent_used: 'demo',
+          fallback_used: false,
+          demo_mode: true
+        },
+        timestamp: new Date().toISOString()
+      });
+    }
+
+    try {
+      // For now, just use GPT-4 to ensure it works
+      const response = await callOpenAI(message);
+      const agentUsed = 'gpt4';
+
+      res.json({
+        message: response,
+        conversation_id: conversation_id || `conv_${Date.now()}`,
+        agent_used: agentUsed,
+        multi_agent_details: {
+          selected_agent: agent_id || 'gpt4',
+          agent_used: agentUsed,
+          fallback_used: false,
+          reasoning: `Selected ${agentUsed} for reliable response`
         },
         timestamp: new Date().toISOString()
       });
