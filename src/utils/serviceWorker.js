@@ -36,13 +36,13 @@ function registerValidSW(swUrl, config) {
     .register(swUrl)
     .then((registration) => {
       console.log('Service Worker: Registered successfully');
-      
+
       registration.onupdatefound = () => {
         const installingWorker = registration.installing;
         if (installingWorker == null) {
           return;
         }
-        
+
         installingWorker.onstatechange = () => {
           if (installingWorker.state === 'installed') {
             if (navigator.serviceWorker.controller) {
@@ -64,6 +64,17 @@ function registerValidSW(swUrl, config) {
     })
     .catch((error) => {
       console.error('Service Worker: Registration failed:', error);
+
+      // Check if it's a MIME type error
+      if (error.message && error.message.includes('MIME type')) {
+        console.error('Service Worker: MIME type error - sw.js may be returning HTML instead of JavaScript');
+        console.error('Service Worker: This usually indicates a routing issue in production deployment');
+      }
+
+      // Notify config callback if provided
+      if (config && config.onError) {
+        config.onError(error);
+      }
     });
 }
 
@@ -77,6 +88,11 @@ function checkValidServiceWorker(swUrl, config) {
         response.status === 404 ||
         (contentType != null && contentType.indexOf('javascript') === -1)
       ) {
+        console.error('Service Worker: Invalid service worker file detected');
+        console.error(`Service Worker: Status: ${response.status}, Content-Type: ${contentType}`);
+        if (contentType && contentType.includes('text/html')) {
+          console.error('Service Worker: Received HTML instead of JavaScript - check deployment routing');
+        }
         navigator.serviceWorker.ready.then((registration) => {
           registration.unregister().then(() => {
             window.location.reload();
