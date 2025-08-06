@@ -13,15 +13,25 @@ root.render(
 );
 
 // Register service worker for offline functionality and performance
-serviceWorker.register({
-  onSuccess: () => {
-    console.log('App: Service worker registered successfully');
-  },
-  onUpdate: () => {
-    console.log('App: New content available, please refresh');
-    // You could show a notification to the user here
-  }
-});
+// Only register in development or when explicitly enabled
+if (process.env.NODE_ENV === 'development' || process.env.REACT_APP_ENABLE_SW === 'true') {
+  serviceWorker.register({
+    onSuccess: () => {
+      console.log('App: Service worker registered successfully');
+    },
+    onUpdate: () => {
+      console.log('App: New content available, please refresh');
+      // You could show a notification to the user here
+    },
+    onError: (error) => {
+      console.error('App: Service worker registration failed:', error);
+    }
+  });
+} else {
+  console.log('App: Service worker disabled in production');
+  // Unregister any existing service worker
+  serviceWorker.unregister();
+}
 
 // Initialize performance monitoring
 initPerformanceMonitoring();

@@ -1,4 +1,6 @@
 {
+  "version": 2,
+  "public": true,
   "functions": {
     "api/**/*.js": {
       "maxDuration": 30
@@ -10,11 +12,15 @@
       "headers": [
         {
           "key": "Content-Type",
-          "value": "application/javascript"
+          "value": "application/javascript; charset=utf-8"
         },
         {
           "key": "Service-Worker-Allowed",
           "value": "/"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
         }
       ]
     },
@@ -23,7 +29,11 @@
       "headers": [
         {
           "key": "Content-Type",
-          "value": "application/manifest+json"
+          "value": "application/manifest+json; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400"
         }
       ]
     }
@@ -34,8 +44,10 @@
       "destination": "/api/$1"
     },
     {
-      "source": "/((?!api|sw\\.js|manifest\\.json|robots\\.txt|sitemap\\.xml|favicon\\.ico|_next|static).*)",
+      "source": "/((?!api|sw\\.js|manifest\\.json|robots\\.txt|sitemap\\.xml|favicon\\.ico|static|_next|llms\\.txt|posts\\.json).*)",
       "destination": "/index.html"
     }
-  ]
+  ],
+  "cleanUrls": false,
+  "trailingSlash": false
 }
