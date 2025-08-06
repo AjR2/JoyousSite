@@ -169,6 +169,86 @@ module.exports = function(app) {
   // Enable JSON parsing for POST requests
   app.use('/api', require('express').json());
 
+  // Serve manifest.json with proper headers
+  app.get('/manifest.json', (req, res) => {
+    res.setHeader('Content-Type', 'application/manifest+json; charset=utf-8');
+    res.setHeader('Cache-Control', 'public, max-age=86400');
+
+    const manifest = {
+      "short_name": "Akeyreu",
+      "name": "Akeyreu - Neural Technology & Mental Wellness",
+      "description": "Akeyreu integrates advanced neural technologies with mental wellness practices, making technology-enhanced wellness accessible to everyone.",
+      "icons": [
+        {
+          "src": "favicon.ico",
+          "sizes": "64x64 32x32 24x24 16x16",
+          "type": "image/x-icon"
+        }
+      ],
+      "start_url": ".",
+      "display": "standalone",
+      "theme_color": "#000000",
+      "background_color": "#ffffff",
+      "orientation": "portrait-primary",
+      "scope": "/",
+      "lang": "en-US",
+      "categories": ["health", "wellness", "technology"],
+      "screenshots": []
+    };
+
+    res.json(manifest);
+  });
+
+  // Serve sw.js with proper headers
+  app.get('/sw.js', (req, res) => {
+    res.setHeader('Content-Type', 'application/javascript; charset=utf-8');
+    res.setHeader('Service-Worker-Allowed', '/');
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+
+    const serviceWorkerCode = \`
+// Minimal Service Worker for Akeyreu Website
+const CACHE_NAME = 'akeyreu-v2';
+
+self.addEventListener('install', function(event) {
+  console.log('Service Worker: Installing');
+  self.skipWaiting();
+});
+
+self.addEventListener('activate', function(event) {
+  console.log('Service Worker: Activating');
+  event.waitUntil(
+    caches.keys().then(function(cacheNames) {
+      return Promise.all(
+        cacheNames.map(function(cacheName) {
+          if (cacheName !== CACHE_NAME) {
+            console.log('Service Worker: Deleting old cache:', cacheName);
+            return caches.delete(cacheName);
+          }
+        })
+      );
+    }).then(function() {
+      return self.clients.claim();
+    })
+  );
+});
+
+self.addEventListener('fetch', function(event) {
+  if (event.request.method !== 'GET') return;
+  if (event.request.url.includes('/api/') || !event.request.url.startsWith(self.location.origin)) return;
+
+  event.respondWith(
+    fetch(event.request).catch(function() {
+      if (event.request.mode === 'navigate') {
+        return caches.match('/');
+      }
+    })
+  );
+});
+\`;
+
+    res.send(serviceWorkerCode.trim());
+  });
+
   // Authentication endpoint
   app.post('/api/auth', (req, res) => {
     const { username, password } = req.body;

@@ -44,6 +44,14 @@
       "destination": "/api/$1"
     },
     {
+      "source": "/manifest.json",
+      "destination": "/api/manifest"
+    },
+    {
+      "source": "/sw.js",
+      "destination": "/api/sw"
+    },
+    {
       "source": "/((?!api|sw\\.js|manifest\\.json|robots\\.txt|sitemap\\.xml|favicon\\.ico|static|_next|llms\\.txt|posts\\.json).*)",
       "destination": "/index.html"
     }
