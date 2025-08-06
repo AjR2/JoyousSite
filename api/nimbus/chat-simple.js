@@ -35,12 +35,17 @@ async function callOpenAI(message) {
   console.log('Making OpenAI API call...');
 
   try {
+    // Add timeout to prevent hanging
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 second timeout
+
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${cleanApiKey}`,
         'Content-Type': 'application/json',
       },
+      signal: controller.signal,
       body: JSON.stringify({
         model: 'gpt-4o-mini', // Use faster, cheaper model for testing
         messages: [
@@ -55,6 +60,7 @@ async function callOpenAI(message) {
       }),
     });
 
+    clearTimeout(timeoutId);
     console.log('OpenAI response status:', response.status);
 
     if (!response.ok) {
@@ -68,6 +74,12 @@ async function callOpenAI(message) {
     return data.choices[0].message.content;
   } catch (error) {
     console.error('Error in callOpenAI:', error);
+
+    // Handle timeout specifically
+    if (error.name === 'AbortError') {
+      throw new Error('OpenAI API request timed out after 15 seconds');
+    }
+
     throw error;
   }
 }
