@@ -894,6 +894,64 @@ Sitemap: http://localhost:3000/api/sitemap.xml`;
     });
   });
 
+  // Test OpenAI API endpoint
+  app.get('/api/nimbus/test-openai', async (req, res) => {
+    const apiKey = process.env.OPENAI_API_KEY;
+
+    if (!apiKey) {
+      return res.status(500).json({
+        error: 'OpenAI API key not configured',
+        hasKey: false,
+        timestamp: new Date().toISOString()
+      });
+    }
+
+    try {
+      console.log('Testing OpenAI API connection...');
+
+      const response = await fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${apiKey}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          model: 'gpt-4o-mini',
+          messages: [{ role: 'user', content: 'Say "Hello" in one word.' }],
+          max_tokens: 10,
+          temperature: 0,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        return res.status(response.status).json({
+          error: 'OpenAI API call failed',
+          status: response.status,
+          errorDetails: errorText,
+          timestamp: new Date().toISOString()
+        });
+      }
+
+      const data = await response.json();
+      return res.json({
+        success: true,
+        message: 'OpenAI API is working correctly',
+        response: data.choices[0].message.content,
+        usage: data.usage,
+        timestamp: new Date().toISOString()
+      });
+
+    } catch (error) {
+      console.error('Error testing OpenAI API:', error);
+      return res.status(500).json({
+        error: 'Failed to test OpenAI API',
+        errorMessage: error.message,
+        timestamp: new Date().toISOString()
+      });
+    }
+  });
+
   // Nimbus AI Chat Endpoint with Real AI Integration
   app.post('/api/nimbus/chat', async (req, res) => {
     const { message, agent_id, conversation_id } = req.body;

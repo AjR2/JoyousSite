@@ -29,13 +29,16 @@ async function callOpenAI(message) {
     throw new Error('OpenAI API key not configured');
   }
 
+  // Clean the API key (remove quotes, whitespace, etc.)
+  const cleanApiKey = apiKey.trim().replace(/^["']|["']$/g, '');
+
   console.log('Making OpenAI API call...');
 
   try {
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${apiKey}`,
+        'Authorization': `Bearer ${cleanApiKey}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
