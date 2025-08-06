@@ -21,20 +21,21 @@ module.exports = async function handler(req, res) {
     });
   }
 
-  // Check API key format and provide detailed info
-  const trimmedKey = apiKey.trim();
+  // Clean the API key (remove quotes, whitespace, etc.)
+  const cleanedKey = apiKey.trim().replace(/^["']|["']$/g, '');
   const keyStart = apiKey.substring(0, 20);
   const keyEnd = apiKey.substring(apiKey.length - 10);
 
-  if (!trimmedKey.startsWith('sk-')) {
+  if (!cleanedKey.startsWith('sk-')) {
     return res.status(500).json({
       error: 'OpenAI API key appears to be malformed',
       hasKey: true,
       keyFormat: 'Invalid (should start with sk-)',
       keyLength: apiKey.length,
-      trimmedLength: trimmedKey.length,
+      cleanedLength: cleanedKey.length,
       keyStart: keyStart,
       keyEnd: keyEnd,
+      cleanedStart: cleanedKey.substring(0, 10),
       hasQuotes: apiKey.includes('"'),
       hasNewlines: apiKey.includes('\n'),
       hasSpaces: apiKey.includes(' '),
@@ -54,7 +55,7 @@ module.exports = async function handler(req, res) {
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${trimmedKey}`,
+        'Authorization': `Bearer ${cleanedKey}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
