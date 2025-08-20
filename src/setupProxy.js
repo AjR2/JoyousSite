@@ -916,7 +916,7 @@ Sitemap: http://localhost:3000/api/sitemap.xml`;
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          model: 'gpt-4o-mini',
+          model: 'gpt-5-nano',
           messages: [{ role: 'user', content: 'Say "Hello" in one word.' }],
           max_tokens: 10,
           temperature: 0,
@@ -1223,7 +1223,7 @@ Sitemap: http://localhost:3000/api/sitemap.xml`;
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'gpt-4',
+        model: 'gpt-5-nano',
         messages: [
           {
             role: 'system',

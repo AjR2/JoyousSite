@@ -22,7 +22,7 @@ function selectBestAgent(message) {
   return 'gpt4';
 }
 
-// OpenAI GPT-4 API call
+// OpenAI GPT-5 nano API call
 async function callOpenAI(message) {
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) {
@@ -47,7 +47,7 @@ async function callOpenAI(message) {
       },
       signal: controller.signal,
       body: JSON.stringify({
-        model: 'gpt-4o-mini', // Use faster, cheaper model for testing
+        model: 'gpt-5-nano', // Use GPT-5 nano for improved performance
         messages: [
           {
             role: 'system',
@@ -130,9 +130,9 @@ module.exports = async function handler(req, res) {
   try {
     console.log('Processing chat request:', { message: message.substring(0, 50) + '...', agent_id });
 
-    // Use GPT-4 mini for faster, more reliable responses
+    // Use GPT-5 nano for improved performance and efficiency
     const response = await callOpenAI(message);
-    const agentUsed = 'gpt4-mini';
+    const agentUsed = 'gpt5-nano';
 
     console.log('Chat response generated successfully');
 
@@ -144,7 +144,7 @@ module.exports = async function handler(req, res) {
         selected_agent: agent_id || 'gpt4',
         agent_used: agentUsed,
         fallback_used: false,
-        reasoning: `Selected ${agentUsed} for reliable response`
+        reasoning: `Selected ${agentUsed} for improved performance and reliability`
       },
       timestamp: new Date().toISOString()
     });
