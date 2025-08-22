@@ -75,35 +75,37 @@ function AppContent() {
                     <figure className="hero-image">
                       <OptimizedImage
                         src={readingImage}
-                        alt="Person sitting peacefully on a bench reading, representing mental wellness and mindfulness"
+                        alt="Person sitting peacefully on a bench reading, representing joyful mental wellness and mindfulness"
                         className="image"
                         width={400}
                         height={300}
                         loading="eager"
                       />
                       <figcaption className="sr-only">
-                        A peaceful scene representing mental wellness and mindfulness
+                        A peaceful scene representing joyful mental wellness and mindfulness
                       </figcaption>
                     </figure>
                     <header className="text-content">
-                      <h1 id="hero-heading">What Is Akeyreu?</h1>
+                      <h1 id="hero-heading">Mental Wellness Starts with Joy</h1>
                       <p className="hero-description">
-                        We are not just another wellness company. We're your brain's new best friend. We aim to be the 'Ah-ha!' in your
-                        mental wellness journey.
+                        Joyous is your path to mental clarity.
                       </p>
                       <p className="hero-details">
-                        Don't be fooled by the name; it's quite easy to pronounce. When you are searching for
-                        wellness solutions, remember <strong>"Ah-Key-Row"</strong>! Your key to neurological wellbeing.
+                        Blending neuroscience and real-time tech with emotional connection, we help you feel seen, supported, and empowered, one joyful moment at a time.
+                      </p>
+                      <p className="hero-tagline">
+                        <strong>Choose Joy. Share Wellness.</strong>
                       </p>
                       <a
-                        href="/#learn-more"
+                        href="https://discord.gg/s9qSQfk2"
                         className="button cta-button"
-                        onClick={(e) => handleNavClick(e, 'learn-more')}
-                        aria-describedby="subscribe-description"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-describedby="discord-description"
                       >
-                        Subscribe Now!
-                        <span id="subscribe-description" className="sr-only">
-                          Subscribe to our newsletter to learn more about mental wellness
+                        Step into Joy
+                        <span id="discord-description" className="sr-only">
+                          Join our Discord community to connect with others on their mental wellness journey
                         </span>
                       </a>
                     </header>
