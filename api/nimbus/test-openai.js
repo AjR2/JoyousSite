@@ -63,7 +63,7 @@ module.exports = async function handler(req, res) {
         messages: [
           { role: 'user', content: 'Say "Hello" in one word.' }
         ],
-        max_tokens: 10,
+        max_completion_tokens: 10,
         temperature: 0,
       }),
       signal: controller.signal
