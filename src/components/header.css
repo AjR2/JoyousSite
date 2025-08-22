@@ -47,6 +47,57 @@
   height: auto;
 }
 
+/* Joyous Logo styles */
+.joyous-logo {
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.2s ease;
+}
+
+.joyous-logo:hover {
+  transform: scale(1.05);
+}
+
+.joyous-text {
+  font-family: 'Arial', 'Helvetica', sans-serif;
+  font-size: 2.5rem;
+  font-weight: bold;
+  display: inline-flex;
+  align-items: center;
+  letter-spacing: -0.05em;
+}
+
+/* Individual letter colors matching your logo */
+.joyous-j {
+  color: #1DA1F2; /* Blue */
+  text-shadow: 0 2px 4px rgba(29, 161, 242, 0.3);
+}
+
+.joyous-o1 {
+  color: #1DA1F2; /* Blue */
+  text-shadow: 0 2px 4px rgba(29, 161, 242, 0.3);
+}
+
+.joyous-y {
+  color: #F1C40F; /* Yellow */
+  text-shadow: 0 2px 4px rgba(241, 196, 15, 0.3);
+}
+
+.joyous-o2 {
+  color: #F1C40F; /* Yellow */
+  text-shadow: 0 2px 4px rgba(241, 196, 15, 0.3);
+}
+
+.joyous-u {
+  color: #F1C40F; /* Yellow */
+  text-shadow: 0 2px 4px rgba(241, 196, 15, 0.3);
+}
+
+.joyous-s {
+  color: #1DA1F2; /* Blue */
+  text-shadow: 0 2px 4px rgba(29, 161, 242, 0.3);
+}
+
 /* Hamburger menu styles */
 .hamburger {
   display: flex;
@@ -117,6 +168,10 @@
 
   .logo-image {
     width: 120px;
+  }
+
+  .joyous-text {
+    font-size: 2rem;
   }
 
   .nav {

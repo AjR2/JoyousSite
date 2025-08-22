@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Navbar } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import logoImage from './../assets/blacklogo.png';
+// import logoImage from './../assets/blacklogo.png'; // Old logo - replaced with CSS version
 import './header.css';
 import '../styles/accessibility.css';
 
@@ -56,12 +56,21 @@ const Header = () => {
     <header role="banner">
       <Navbar className="navbar" expand="lg" ref={navRef} role="navigation" aria-label="Main navigation">
         <Navbar.Brand href="/#home">
-          <img
-            src={logoImage}
-            alt="Akeyreu - Mental Wellness Through Neural Technology"
-            className="logo-image"
+          <div
+            className="joyous-logo"
             onClick={(e) => handleNavClick(e, 'home')}
-          />
+            role="img"
+            aria-label="Joyous - Mental Wellness Through Neural Technology"
+          >
+            <span className="joyous-text">
+              <span className="joyous-j">j</span>
+              <span className="joyous-o1">o</span>
+              <span className="joyous-y">y</span>
+              <span className="joyous-o2">o</span>
+              <span className="joyous-u">u</span>
+              <span className="joyous-s">s</span>
+            </span>
+          </div>
         </Navbar.Brand>
 
         {/* Hamburger menu */}

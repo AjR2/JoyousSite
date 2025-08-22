@@ -36,6 +36,29 @@ body {
   height: auto;
 }
 
+/* Joyous Logo - Critical styles for above-the-fold */
+.joyous-logo {
+  cursor: pointer;
+  user-select: none;
+}
+
+.joyous-text {
+  font-family: 'Arial', 'Helvetica', sans-serif;
+  font-size: 2.5rem;
+  font-weight: bold;
+  display: inline-flex;
+  align-items: center;
+  letter-spacing: -0.05em;
+}
+
+.joyous-j, .joyous-o1, .joyous-s {
+  color: #1DA1F2;
+}
+
+.joyous-y, .joyous-o2, .joyous-u {
+  color: #F1C40F;
+}
+
 /* Main content container */
 .main-content {
   margin-top: 80px; /* Account for fixed header */
