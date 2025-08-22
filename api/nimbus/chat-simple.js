@@ -56,7 +56,7 @@ async function callOpenAI(message) {
           { role: 'user', content: message }
         ],
         max_completion_tokens: 300,
-        temperature: 0.7,
+        temperature: 1,
       }),
     });
 

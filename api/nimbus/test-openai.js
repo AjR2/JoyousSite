@@ -64,7 +64,7 @@ module.exports = async function handler(req, res) {
           { role: 'user', content: 'Say "Hello" in one word.' }
         ],
         max_completion_tokens: 10,
-        temperature: 0,
+        temperature: 1,
       }),
       signal: controller.signal
     });

@@ -919,7 +919,7 @@ Sitemap: http://localhost:3000/api/sitemap.xml`;
           model: 'gpt-5-nano',
           messages: [{ role: 'user', content: 'Say "Hello" in one word.' }],
           max_completion_tokens: 10,
-          temperature: 0,
+          temperature: 1,
         }),
       });
 
@@ -1234,7 +1234,7 @@ Sitemap: http://localhost:3000/api/sitemap.xml`;
           { role: 'user', content: message }
         ],
         max_completion_tokens: 500,
-        temperature: 0.7,
+        temperature: 1,
       }),
     });
 
