@@ -106,6 +106,9 @@ const CountdownTimer = ({ targetDate, className = '' }) => {
     marginTop: '0.25rem'
   };
 
+  // Debug logging
+  console.log('CountdownTimer rendering:', { timeLeft, targetDate });
+
   return (
     <div className={className} style={countdownStyle} role="timer" aria-live="polite">
       <div style={labelStyle}>
@@ -140,6 +143,10 @@ const CountdownTimer = ({ targetDate, className = '' }) => {
           </span>
           <span style={labelUnitStyle}>SECONDS</span>
         </div>
+      </div>
+      {/* Debug info */}
+      <div style={{ fontSize: '12px', color: '#999', marginTop: '10px' }}>
+        Debug: {timeLeft.days}d {timeLeft.hours}h {timeLeft.minutes}m {timeLeft.seconds}s
       </div>
     </div>
   );

@@ -193,10 +193,12 @@ function AppContent() {
                     </p>
                   </header>
 
-                  <CountdownTimer
-                    targetDate="2025-09-08T00:00:00"
-                    className="kindred-countdown"
-                  />
+                  <div style={{ margin: '2rem 0' }}>
+                    <CountdownTimer
+                      targetDate="2025-09-08T00:00:00"
+                      className="kindred-countdown"
+                    />
+                  </div>
 
                   <div className="kindred-cta">
                     <a
