@@ -24,6 +24,7 @@ import AdminAuth from './components/AdminAuth';
 import heroJoyousImage from './assets/hero-joyous.jpg';
 import friendsImage from './assets/HappyHumans.png';
 import OptimizedImage from './components/OptimizedImage';
+import AnimatedCard from './components/AnimatedCard';
 // import CountdownTimer from './components/CountdownTimer'; // Removed - using inline version
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInstagram, faXTwitter, faTiktok } from '@fortawesome/free-brands-svg-icons';
@@ -116,7 +117,15 @@ function AppContent() {
               <Header />
               <main className="main-content" id="main-content" role="main">
                 {/* Hero Section */}
-                <section className="card hero-section" id="home" aria-labelledby="hero-heading">
+                <AnimatedCard
+                  className="card hero-section"
+                  id="home"
+                  aria-labelledby="hero-heading"
+                  circleColor="#1DA1F2"
+                  opacity={0.06}
+                  speed={0.012}
+                  circleSize={80}
+                >
                   <div className="content">
                     <figure className="hero-image">
                       <OptimizedImage
@@ -156,10 +165,18 @@ function AppContent() {
                       </a>
                     </header>
                   </div>
-                </section>
+                </AnimatedCard>
 
                 {/* About Section */}
-                <section className="card about-section" id="about" aria-labelledby="about-heading">
+                <AnimatedCard
+                  className="card about-section"
+                  id="about"
+                  aria-labelledby="about-heading"
+                  circleColor="#F1C40F"
+                  opacity={0.05}
+                  speed={0.018}
+                  circleSize={60}
+                >
                   <div className="content">
                     <figure className="about-image">
                       <OptimizedImage
@@ -184,10 +201,18 @@ function AppContent() {
                       </p>
                     </div>
                   </div>
-                </section>
+                </AnimatedCard>
 
                 {/* Our Values Section */}
-                <section className="card values-section" id="values" aria-labelledby="values-heading">
+                <AnimatedCard
+                  className="card values-section"
+                  id="values"
+                  aria-labelledby="values-heading"
+                  circleColor="#1DA1F2"
+                  opacity={0.04}
+                  speed={0.01}
+                  circleSize={70}
+                >
                   <header>
                     <h2 id="values-heading" className="section-title">Our Values</h2>
                   </header>
@@ -226,10 +251,18 @@ function AppContent() {
                       </p>
                     </article>
                   </div>
-                </section>
+                </AnimatedCard>
 
                 {/* Kindred App Announcement Section */}
-                <section className="card kindred-section" id="products" aria-labelledby="kindred-heading">
+                <AnimatedCard
+                  className="card kindred-section"
+                  id="products"
+                  aria-labelledby="kindred-heading"
+                  circleColor="#F1C40F"
+                  opacity={0.06}
+                  speed={0.014}
+                  circleSize={90}
+                >
                   <header className="kindred-header">
                     <h2 id="kindred-heading" className="section-title">Coming Soon: Kindred by Joyous</h2>
                     <p className="kindred-subheader">A new way to connect, share, and heal—together.</p>
@@ -297,7 +330,7 @@ function AppContent() {
                       Because no one should have to navigate mental wellness alone. Kindred connects you with peers who get it, in a safe, supportive, and emotionally intelligent space.
                     </p>
                   </div>
-                </section>
+                </AnimatedCard>
 
                 {/* Social Media Section */}
                 <section className="card social-section" id="socials" aria-labelledby="socials-heading">
@@ -341,7 +374,15 @@ function AppContent() {
                 </section>
 
                 {/* Discord Community Section */}
-                <section className="card newsletter-section" id="learn-more" aria-labelledby="newsletter-heading">
+                <AnimatedCard
+                  className="card newsletter-section"
+                  id="learn-more"
+                  aria-labelledby="newsletter-heading"
+                  circleColor="#1DA1F2"
+                  opacity={0.07}
+                  speed={0.016}
+                  circleSize={75}
+                >
                   <header>
                     <h2 id="newsletter-heading" className="section-title">Want to learn more and meet the community?</h2>
                     <p className="newsletter-description">
@@ -362,7 +403,7 @@ function AppContent() {
                       </span>
                     </a>
                   </div>
-                </section>
+                </AnimatedCard>
 
                 {/* Footer Component*/}
                 <Footer />

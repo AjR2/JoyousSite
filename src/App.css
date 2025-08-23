@@ -39,7 +39,7 @@ html, body {
   max-width: 1000px;
   background-color: #ffffff !important;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(3, 90, 166, 0.15);
+  box-shadow: 0 4px 12px rgba(29, 161, 242, 0.15);
   border: 1px solid #e9ecef;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   font-size: 1rem;
@@ -47,9 +47,42 @@ html, body {
   color: #495057 !important;
 }
 
+/* Animated Card Styles */
+.animated-card {
+  position: relative;
+  overflow: hidden;
+  will-change: transform; /* Optimize for animations */
+}
+
+.animated-card canvas {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  pointer-events: none !important;
+  z-index: 1 !important;
+  will-change: transform; /* Optimize for animations */
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .animated-card canvas {
+    display: none;
+  }
+}
+
+/* Performance optimizations for mobile */
+@media (max-width: 768px) {
+  .animated-card canvas {
+    transform: scale(0.8); /* Reduce complexity on mobile */
+    opacity: 0.5; /* Reduce visual intensity */
+  }
+}
+
 .card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(3, 90, 166, 0.2);
+  box-shadow: 0 8px 20px rgba(29, 161, 242, 0.2);
 }
 
 /* Hero Section Specific */
