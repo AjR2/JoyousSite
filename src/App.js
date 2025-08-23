@@ -21,7 +21,7 @@ const MindfulBreaks = React.lazy(() => import('./components/MindfulBreaks'));
 
 // Import AdminAuth directly
 import AdminAuth from './components/AdminAuth';
-import readingImage from './assets/readingImage.png';
+import heroJoyousImage from './assets/hero-joyous.jpg';
 import friendsImage from './assets/HappyHumans.png';
 import OptimizedImage from './components/OptimizedImage';
 // import CountdownTimer from './components/CountdownTimer'; // Removed - using inline version
@@ -120,15 +120,15 @@ function AppContent() {
                   <div className="content">
                     <figure className="hero-image">
                       <OptimizedImage
-                        src={readingImage}
-                        alt="Person sitting peacefully on a bench reading, representing joyful mental wellness and mindfulness"
+                        src={heroJoyousImage}
+                        alt="Joyful woman with curly hair smiling warmly, representing mental wellness and happiness"
                         className="image"
                         width={400}
                         height={300}
                         loading="eager"
                       />
                       <figcaption className="sr-only">
-                        A peaceful scene representing joyful mental wellness and mindfulness
+                        A joyful woman representing mental wellness and happiness
                       </figcaption>
                     </figure>
                     <header className="text-content">
