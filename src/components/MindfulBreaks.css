@@ -16,7 +16,7 @@
 .mindful-breaks-title {
     font-size: 2.5rem;
     margin-bottom: 1rem;
-    color: #035aa6;
+    color: #1DA1F2;
     font-weight: 700;
 }
 
@@ -46,7 +46,7 @@
     background-color: #ffffff;
     border-radius: 12px;
     padding: 2rem;
-    box-shadow: 0 4px 12px rgba(3, 90, 166, 0.15);
+    box-shadow: 0 4px 12px rgba(29, 161, 242, 0.15);
     transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
     border: 1px solid #e9ecef;
     display: flex;
@@ -57,15 +57,15 @@
 }
 
 .mindful-break-item:hover {
-    background-color: #035aa6;
+    background-color: #1DA1F2;
     color: #ffffff;
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(3, 90, 166, 0.3);
+    box-shadow: 0 8px 20px rgba(29, 161, 242, 0.3);
 }
 
 .break-icon {
     margin-bottom: 1.5rem;
-    color: #035aa6;
+    color: #1DA1F2;
     transition: color 0.2s ease;
 }
 

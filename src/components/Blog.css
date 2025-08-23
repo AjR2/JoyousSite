@@ -35,7 +35,7 @@
 .blog-title {
     font-size: 2.5rem;
     margin-bottom: 1rem;
-    color: #035aa6;
+    color: #1DA1F2;
 }
 
 .blog-description {
@@ -81,7 +81,7 @@
     border-radius: 12px;
     text-decoration: none;
     color: #000000 !important;
-    box-shadow: 0 4px 12px rgba(3, 90, 166, 0.15);
+    box-shadow: 0 4px 12px rgba(29, 161, 242, 0.15);
     transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
     border: 1px solid #e9ecef;
     position: relative;
@@ -97,7 +97,7 @@
     background-color: #ffffff !important;
     color: #000000 !important;
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(3, 90, 166, 0.3);
+    box-shadow: 0 8px 20px rgba(29, 161, 242, 0.3);
 }
 
 .blog-post-preview.featured:hover {
@@ -215,7 +215,7 @@
 
 .blog-post-preview:hover .category-tag {
     background: #ffffff;
-    color: #035aa6;
+    color: #1DA1F2;
 }
 
 .blog-post-preview:hover .tag-item {
@@ -321,7 +321,7 @@
     /* Improve touch targets on mobile */
     .blog-post-link {
         touch-action: manipulation;
-        -webkit-tap-highlight-color: rgba(3, 90, 166, 0.1);
+        -webkit-tap-highlight-color: rgba(29, 161, 242, 0.1);
     }
 
     .blog-title {
