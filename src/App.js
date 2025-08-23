@@ -5,6 +5,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import './styles/mobile-optimizations.css';
+import './components/CountdownTimer.css';
 import Header from './components/header';
 import Footer from './components/footer';
 import MetaTags from './components/MetaTags';
@@ -194,9 +195,26 @@ function AppContent() {
                   </header>
 
                   <CountdownTimer
-                    targetDate="2025-12-31T00:00:00"
+                    targetDate="2025-09-08T00:00:00"
                     className="kindred-countdown"
                   />
+
+                  {/* Fallback countdown display */}
+                  <div className="countdown-fallback" style={{
+                    textAlign: 'center',
+                    margin: '2rem 0',
+                    padding: '1rem',
+                    background: 'rgba(29, 161, 242, 0.1)',
+                    borderRadius: '12px',
+                    border: '1px solid rgba(29, 161, 242, 0.2)'
+                  }}>
+                    <div style={{ fontSize: '1.25rem', fontWeight: '600', color: '#1DA1F2', marginBottom: '1rem' }}>
+                      🕒 Launches September 8th, 2025
+                    </div>
+                    <div style={{ fontSize: '2rem', fontWeight: 'bold', color: '#1DA1F2' }}>
+                      Coming Soon!
+                    </div>
+                  </div>
 
                   <div className="kindred-cta">
                     <a

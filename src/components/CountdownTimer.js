@@ -11,16 +11,23 @@ const CountdownTimer = ({ targetDate, className = '' }) => {
 
   useEffect(() => {
     const calculateTimeLeft = () => {
-      const difference = new Date(targetDate) - new Date();
-      
+      const now = new Date();
+      const target = new Date(targetDate);
+      const difference = target - now;
+
+      console.log('Countdown Debug:', { now, target, difference, targetDate });
+
       if (difference > 0) {
-        setTimeLeft({
+        const newTimeLeft = {
           days: Math.floor(difference / (1000 * 60 * 60 * 24)),
           hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
           minutes: Math.floor((difference / 1000 / 60) % 60),
           seconds: Math.floor((difference / 1000) % 60)
-        });
+        };
+        console.log('Time left:', newTimeLeft);
+        setTimeLeft(newTimeLeft);
       } else {
+        console.log('Target date has passed');
         setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
       }
     };
@@ -34,6 +41,9 @@ const CountdownTimer = ({ targetDate, className = '' }) => {
   const formatNumber = (num) => {
     return num.toString().padStart(2, '0');
   };
+
+  // Check if all values are zero (might indicate an issue)
+  const allZero = timeLeft.days === 0 && timeLeft.hours === 0 && timeLeft.minutes === 0 && timeLeft.seconds === 0;
 
   return (
     <div className={`countdown-timer ${className}`} role="timer" aria-live="polite">
@@ -70,6 +80,11 @@ const CountdownTimer = ({ targetDate, className = '' }) => {
           <span className="countdown-unit-label">SECONDS</span>
         </div>
       </div>
+      {allZero && (
+        <div style={{ marginTop: '1rem', fontSize: '0.9rem', color: '#6c757d' }}>
+          Target: {targetDate} | Current: {new Date().toISOString()}
+        </div>
+      )}
     </div>
   );
 };
