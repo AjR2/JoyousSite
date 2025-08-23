@@ -1,5 +1,5 @@
 // Clean App.js with proper routing structure
-import React, { Suspense } from 'react';
+import React, { Suspense, useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -24,7 +24,7 @@ import AdminAuth from './components/AdminAuth';
 import readingImage from './assets/readingImage.png';
 import friendsImage from './assets/HappyHumans.png';
 import OptimizedImage from './components/OptimizedImage';
-import CountdownTimer from './components/CountdownTimer';
+// import CountdownTimer from './components/CountdownTimer'; // Removed - using inline version
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInstagram, faXTwitter, faTiktok } from '@fortawesome/free-brands-svg-icons';
 import { faBlog, faPodcast } from '@fortawesome/free-solid-svg-icons';
@@ -32,6 +32,49 @@ import { faBlog, faPodcast } from '@fortawesome/free-solid-svg-icons';
 // Wrapper component to use hooks outside of Router
 function AppContent() {
   const navigate = useNavigate();
+
+  // Inline Countdown Timer State
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0
+  });
+
+  // Countdown Timer Effect
+  useEffect(() => {
+    const targetDate = "2025-09-08T00:00:00";
+
+    const calculateTimeLeft = () => {
+      try {
+        const now = new Date();
+        const target = new Date(targetDate);
+        const difference = target - now;
+
+        console.log('Inline Countdown Debug:', { now, target, difference });
+
+        if (difference > 0) {
+          const newTimeLeft = {
+            days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+            hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+            minutes: Math.floor((difference / 1000 / 60) % 60),
+            seconds: Math.floor((difference / 1000) % 60)
+          };
+          console.log('Inline Time left:', newTimeLeft);
+          setTimeLeft(newTimeLeft);
+        } else {
+          setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+        }
+      } catch (error) {
+        console.error('Inline countdown error:', error);
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+      }
+    };
+
+    calculateTimeLeft();
+    const timer = setInterval(calculateTimeLeft, 1000);
+    return () => clearInterval(timer);
+  }, []);
 
   const handleNavClick = (e, targetId) => {
     e.preventDefault();
@@ -193,11 +236,173 @@ function AppContent() {
                     </p>
                   </header>
 
-                  <div style={{ margin: '2rem 0' }}>
-                    <CountdownTimer
-                      targetDate="2025-09-08T00:00:00"
-                      className="kindred-countdown"
-                    />
+                  {/* Inline Countdown Timer */}
+                  <div style={{
+                    textAlign: 'center',
+                    margin: '2rem 0',
+                    padding: '1.5rem',
+                    background: 'linear-gradient(135deg, rgba(29, 161, 242, 0.1), rgba(241, 196, 15, 0.1))',
+                    borderRadius: '16px',
+                    border: '2px solid rgba(29, 161, 242, 0.2)'
+                  }} role="timer" aria-live="polite">
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '0.5rem',
+                      marginBottom: '1.5rem',
+                      fontSize: '1.25rem',
+                      fontWeight: '600',
+                      color: '#1DA1F2',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.5px'
+                    }}>
+                      <span style={{ fontSize: '1.5rem' }}>🕒</span>
+                      <span>Launches In:</span>
+                    </div>
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '1rem',
+                      flexWrap: 'wrap'
+                    }}>
+                      <div style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        minWidth: '60px'
+                      }}>
+                        <span style={{
+                          fontSize: '2.5rem',
+                          fontWeight: 'bold',
+                          background: 'linear-gradient(135deg, #1DA1F2, #F1C40F)',
+                          WebkitBackgroundClip: 'text',
+                          WebkitTextFillColor: 'transparent',
+                          backgroundClip: 'text',
+                          lineHeight: '1',
+                          marginBottom: '0.25rem'
+                        }} aria-label={`${timeLeft.days} days`}>
+                          {String(timeLeft.days).padStart(2, '0')}
+                        </span>
+                        <span style={{
+                          fontSize: '0.75rem',
+                          fontWeight: '600',
+                          color: '#6c757d',
+                          textTransform: 'uppercase',
+                          letterSpacing: '1px'
+                        }}>DAYS</span>
+                      </div>
+                      <span style={{
+                        fontSize: '2rem',
+                        fontWeight: 'bold',
+                        color: '#1DA1F2',
+                        margin: '0 0.5rem',
+                        lineHeight: '1',
+                        alignSelf: 'flex-start',
+                        marginTop: '0.25rem'
+                      }}>:</span>
+                      <div style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        minWidth: '60px'
+                      }}>
+                        <span style={{
+                          fontSize: '2.5rem',
+                          fontWeight: 'bold',
+                          background: 'linear-gradient(135deg, #1DA1F2, #F1C40F)',
+                          WebkitBackgroundClip: 'text',
+                          WebkitTextFillColor: 'transparent',
+                          backgroundClip: 'text',
+                          lineHeight: '1',
+                          marginBottom: '0.25rem'
+                        }} aria-label={`${timeLeft.hours} hours`}>
+                          {String(timeLeft.hours).padStart(2, '0')}
+                        </span>
+                        <span style={{
+                          fontSize: '0.75rem',
+                          fontWeight: '600',
+                          color: '#6c757d',
+                          textTransform: 'uppercase',
+                          letterSpacing: '1px'
+                        }}>HOURS</span>
+                      </div>
+                      <span style={{
+                        fontSize: '2rem',
+                        fontWeight: 'bold',
+                        color: '#1DA1F2',
+                        margin: '0 0.5rem',
+                        lineHeight: '1',
+                        alignSelf: 'flex-start',
+                        marginTop: '0.25rem'
+                      }}>:</span>
+                      <div style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        minWidth: '60px'
+                      }}>
+                        <span style={{
+                          fontSize: '2.5rem',
+                          fontWeight: 'bold',
+                          background: 'linear-gradient(135deg, #1DA1F2, #F1C40F)',
+                          WebkitBackgroundClip: 'text',
+                          WebkitTextFillColor: 'transparent',
+                          backgroundClip: 'text',
+                          lineHeight: '1',
+                          marginBottom: '0.25rem'
+                        }} aria-label={`${timeLeft.minutes} minutes`}>
+                          {String(timeLeft.minutes).padStart(2, '0')}
+                        </span>
+                        <span style={{
+                          fontSize: '0.75rem',
+                          fontWeight: '600',
+                          color: '#6c757d',
+                          textTransform: 'uppercase',
+                          letterSpacing: '1px'
+                        }}>MINUTES</span>
+                      </div>
+                      <span style={{
+                        fontSize: '2rem',
+                        fontWeight: 'bold',
+                        color: '#1DA1F2',
+                        margin: '0 0.5rem',
+                        lineHeight: '1',
+                        alignSelf: 'flex-start',
+                        marginTop: '0.25rem'
+                      }}>:</span>
+                      <div style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        minWidth: '60px'
+                      }}>
+                        <span style={{
+                          fontSize: '2.5rem',
+                          fontWeight: 'bold',
+                          background: 'linear-gradient(135deg, #1DA1F2, #F1C40F)',
+                          WebkitBackgroundClip: 'text',
+                          WebkitTextFillColor: 'transparent',
+                          backgroundClip: 'text',
+                          lineHeight: '1',
+                          marginBottom: '0.25rem'
+                        }} aria-label={`${timeLeft.seconds} seconds`}>
+                          {String(timeLeft.seconds).padStart(2, '0')}
+                        </span>
+                        <span style={{
+                          fontSize: '0.75rem',
+                          fontWeight: '600',
+                          color: '#6c757d',
+                          textTransform: 'uppercase',
+                          letterSpacing: '1px'
+                        }}>SECONDS</span>
+                      </div>
+                    </div>
+                    {/* Debug info */}
+                    <div style={{ fontSize: '12px', color: '#999', marginTop: '10px' }}>
+                      Debug: {timeLeft.days}d {timeLeft.hours}h {timeLeft.minutes}m {timeLeft.seconds}s
+                    </div>
                   </div>
 
                   <div className="kindred-cta">
