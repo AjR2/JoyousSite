@@ -24,6 +24,7 @@ import AdminAuth from './components/AdminAuth';
 import readingImage from './assets/readingImage.png';
 import friendsImage from './assets/HappyHumans.png';
 import OptimizedImage from './components/OptimizedImage';
+import CountdownTimer from './components/CountdownTimer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInstagram, faXTwitter, faTiktok } from '@fortawesome/free-brands-svg-icons';
 import { faBlog, faPodcast } from '@fortawesome/free-solid-svg-icons';
@@ -182,47 +183,41 @@ function AppContent() {
                   </div>
                 </section>
 
-                {/* Products Section */}
-                <section className="card products-section" id="products" aria-labelledby="products-heading">
-                  <header>
-                    <h2 id="products-heading" className="section-title">Products</h2>
+                {/* Kindred App Announcement Section */}
+                <section className="card kindred-section" id="products" aria-labelledby="kindred-heading">
+                  <header className="kindred-header">
+                    <h2 id="kindred-heading" className="section-title">Coming Soon: Kindred by Joyous</h2>
+                    <p className="kindred-subheader">A new way to connect, share, and heal—together.</p>
+                    <p className="kindred-description">
+                      Kindred is our upcoming peer support app, powered by Joyous tech and built for real, human connection.
+                    </p>
                   </header>
-                  <div className="products-grid" role="list" aria-label="Our mental wellness products">
-                    {/* Product Items */}
-                    <article className="product-item" role="listitem">
-                      <header>
-                        <h3>nAura</h3>
-                        <p className="product-tagline">Sleep Analysis & Optimization</p>
-                      </header>
-                      <div className="product-description">
-                        <p>
-                          nAura warmly welcomes you to a world where understanding your sleep is as comforting as the rest itself. By using your biomedical data, nAura comprehends your unique sleep patterns and leverages AI to offer personalized recommendations tailored just for you.
-                        </p>
-                        <dl className="product-features">
-                          <dt>Track and analyze your sleep quality with precision:</dt>
-                          <dd>Get cozy with detailed reports and actionable insights that are there to guide you to better nights.</dd>
-                          <dt>Easy integration with existing smart home devices:</dt>
-                          <dd>We make it simple to blend nAura into your home, ensuring your journey to restorative sleep is smooth and seamless.</dd>
-                        </dl>
-                      </div>
-                    </article>
-                    <article className="product-item" role="listitem">
-                      <header>
-                        <h3>Vza</h3>
-                        <p className="product-tagline">Proactive CBT & Mental Wellness</p>
-                      </header>
-                      <div className="product-description">
-                        <p>
-                          Vza is here to support your mental wellness with a proactive CBT approach, wrapping you in a comforting embrace of technology.
-                        </p>
-                        <dl className="product-features">
-                          <dt>Utilizes real-time biometric data:</dt>
-                          <dd>We adapt our suggestions for mental exercises and relaxation techniques to fit your moment-to-moment needs, like a friend who knows exactly what you need when you need it.</dd>
-                          <dt>Monitor your cognitive wellness journey:</dt>
-                          <dd>Through personalized reports and milestones, we help you see how far you've come, celebrating every step of your journey with you.</dd>
-                        </dl>
-                      </div>
-                    </article>
+
+                  <CountdownTimer
+                    targetDate="2025-12-31T00:00:00"
+                    className="kindred-countdown"
+                  />
+
+                  <div className="kindred-cta">
+                    <a
+                      href="https://discord.gg/s9qSQfk2"
+                      className="button kindred-button"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-describedby="kindred-button-description"
+                    >
+                      Get Notified
+                      <span id="kindred-button-description" className="sr-only">
+                        Join our Discord community to be notified when Kindred launches
+                      </span>
+                    </a>
+                  </div>
+
+                  <div className="kindred-why">
+                    <h3 className="kindred-why-title">💬 Why Kindred?</h3>
+                    <p className="kindred-why-text">
+                      Because no one should have to navigate mental wellness alone. Kindred connects you with peers who get it, in a safe, supportive, and emotionally intelligent space.
+                    </p>
                   </div>
                 </section>
 
