@@ -149,7 +149,7 @@ function AppContent() {
                         rel="noopener noreferrer"
                         aria-describedby="discord-description"
                       >
-                        Step into Joy
+                        Choose Joy
                         <span id="discord-description" className="sr-only">
                           Join our Discord community to connect with others on their mental wellness journey
                         </span>
