@@ -118,25 +118,23 @@ function AppContent() {
                     <figure className="about-image">
                       <OptimizedImage
                         src={friendsImage}
-                        alt="Group of diverse friends laughing together, representing community and mental wellness support"
+                        alt="Group of diverse friends laughing together, representing joyful community and mental wellness support"
                         className="image"
                         width={400}
                         height={300}
                         loading="lazy"
                       />
                       <figcaption className="sr-only">
-                        A diverse group of friends enjoying each other's company, representing the community aspect of mental wellness
+                        A diverse group of friends enjoying each other's company, representing the joyful community aspect of mental wellness
                       </figcaption>
                     </figure>
                     <div className="text-content">
                       <h2 id="about-heading">What We Do</h2>
                       <p className="about-description">
-                        Akeyreu is dedicated to pioneering the integration of advanced neural technologies and mental wellness practices,
-                        striving to empower individuals with personalized tools that enhance mental clarity, emotional balance, and cognitive
-                        performance.
+                        At Joyous, we bring together science, technology, and community to support your mental wellness—day by day, moment by moment.
                       </p>
                       <p className="about-mission">
-                        We are dedicated to aiding you in your journey towards mental wellness, so that you can lead a happy and successful life.
+                        We design smart tools that respond to your needs in real time, helping you feel lighter, more connected, and in control. Whether you're seeking peace of mind, emotional balance, or just a space to breathe, Joyous is here—with you, and for you.
                       </p>
                     </div>
                   </div>

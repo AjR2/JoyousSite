@@ -121,12 +121,19 @@ html, body {
 .about-mission {
   font-size: 1.125rem;
   line-height: 1.6;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.about-description {
+  font-weight: 500;
+  color: #035aa6;
 }
 
 .about-mission {
-  font-style: italic;
+  font-style: normal;
   color: #6c757d;
+  font-size: 1.1rem;
 }
 
 /* Section Headers */
@@ -183,7 +190,7 @@ html, body {
 /* Text Content */
 .text-content {
   flex: 1;
-  text-align: left;
+  text-align: center;
   min-width: 300px;
   max-width: 600px;
 }
