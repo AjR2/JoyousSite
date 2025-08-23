@@ -488,6 +488,47 @@ html, body {
 
 .newsletter-cta {
   margin-top: 1.5rem;
+  text-align: center;
+}
+
+.newsletter-button {
+  background: linear-gradient(135deg, #1DA1F2, #F1C40F);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 1.25rem 3rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 20px rgba(29, 161, 242, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.newsletter-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.newsletter-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(29, 161, 242, 0.5);
+  color: white;
+  text-decoration: none;
+}
+
+.newsletter-button:hover::before {
+  left: 100%;
 }
 
 /* Responsive Design */
@@ -561,6 +602,11 @@ html, body {
     font-size: 1rem;
   }
 
+  .newsletter-button {
+    padding: 1rem 2rem;
+    font-size: 1.125rem;
+  }
+
   .socials-list {
     gap: 1rem;
   }
@@ -613,6 +659,11 @@ html, body {
 
   .kindred-why {
     padding: 1rem;
+  }
+
+  .newsletter-button {
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
   }
 
   .socials-list {

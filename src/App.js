@@ -340,25 +340,25 @@ function AppContent() {
                   </nav>
                 </section>
 
-                {/* Newsletter Sign Up Section */}
+                {/* Discord Community Section */}
                 <section className="card newsletter-section" id="learn-more" aria-labelledby="newsletter-heading">
                   <header>
-                    <h2 id="newsletter-heading" className="section-title">Want to find out more?</h2>
+                    <h2 id="newsletter-heading" className="section-title">Want to learn more and meet the community?</h2>
                     <p className="newsletter-description">
-                      Join our community by signing up for our newsletter and take the first step in control of your mental wellbeing!
+                      Let's talk in real time—come hang out with us on Discord!
                     </p>
                   </header>
                   <div className="newsletter-cta">
                     <a
-                      href="https://eepurl.com/iMvslY"
+                      href="https://discord.gg/s9qSQfk2"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="button newsletter-button"
                       aria-describedby="newsletter-button-description"
                     >
-                      Subscribe Here!
+                      Choose Joy
                       <span id="newsletter-button-description" className="sr-only">
-                        Opens newsletter signup form in a new tab
+                        Join our Discord community to connect with others on their mental wellness journey
                       </span>
                     </a>
                   </div>
