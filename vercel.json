@@ -1,8 +1,7 @@
 {
   "version": 2,
   "name": "joyous-website",
-  "buildCommand": "cd akeyreusite && npm run build",
-  "installCommand": "cd akeyreusite && npm install",
+  "buildCommand": "cd akeyreusite && npm ci && npm run build",
   "outputDirectory": "akeyreusite/build",
   "public": true,
   "functions": {

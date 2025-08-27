@@ -4,7 +4,8 @@
   "main": "index.js",
   "scripts": {
     "start": "craco start",
-    "build": "craco build && node scripts/vercel-build.js",
+    "build": "react-scripts build",
+    "build:craco": "craco build",
     "dev": "node scripts/dev-server.js",
     "dev:vercel": "npx vercel dev",
     "test": "craco test",
