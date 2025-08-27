@@ -1,0 +1,64 @@
+/* Colors - Using Joyous/Akeyreu color scheme */
+:root {
+  --joyous-primary: #00abff; /* Bright blue from logo */
+  --joyous-secondary: #fec60d; /* Golden yellow from logo */
+  --joyous-accent: #e0f4ff; /* Light blue accent */
+  --joyous-dark: #333333; /* Dark for text */
+  --joyous-light: #f8f9fa; /* Light for backgrounds */
+  --joyous-success: #28a745; /* Success green */
+  --joyous-warning: #ffc107; /* Warning yellow */
+  --joyous-danger: #dc3545; /* Danger red */
+}
+
+/* Global Styles */
+html, body {
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--joyous-light);
+  color: var(--joyous-dark);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* Utility classes */
+.joyous-primary { color: var(--joyous-primary); }
+.joyous-secondary { color: var(--joyous-secondary); }
+.joyous-accent { color: var(--joyous-accent); }
+.joyous-dark { color: var(--joyous-dark); }
+.joyous-light { color: var(--joyous-light); }
+
+.bg-joyous-primary { background-color: var(--joyous-primary); }
+.bg-joyous-secondary { background-color: var(--joyous-secondary); }
+.bg-joyous-accent { background-color: var(--joyous-accent); }
+.bg-joyous-light { background-color: var(--joyous-light); }
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--joyous-light);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--joyous-primary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #0088cc;
+}

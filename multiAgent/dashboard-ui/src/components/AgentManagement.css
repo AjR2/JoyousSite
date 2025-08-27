@@ -1,0 +1,161 @@
+.agent-management {
+  padding: 20px;
+  background-color: var(--joyous-light);
+  min-height: calc(100vh - 60px);
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.page-header h2 {
+  color: var(--joyous-primary);
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.agents-table-card {
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 0 30px rgba(0, 171, 255, 0.2);
+  background-color: white;
+}
+
+.agents-table-card .card-header {
+  background: linear-gradient(135deg, var(--joyous-accent) 0%, #f0f8ff 100%);
+  border-bottom: 2px solid var(--joyous-primary);
+  border-radius: 15px 15px 0 0 !important;
+  color: var(--joyous-primary);
+  font-weight: bold;
+}
+
+.no-agents-message {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--joyous-dark);
+}
+
+.no-agents-icon {
+  font-size: 4rem;
+  color: var(--joyous-primary);
+  margin-bottom: 20px;
+  opacity: 0.5;
+}
+
+.agents-table {
+  margin: 0;
+}
+
+.agents-table th {
+  border-top: none;
+  color: var(--joyous-primary);
+  font-weight: 600;
+  background-color: var(--joyous-accent);
+}
+
+.agents-table td {
+  vertical-align: middle;
+  border-color: #f0f0f0;
+}
+
+.agent-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.agent-table-icon {
+  font-size: 1.5rem;
+  color: var(--joyous-secondary);
+  filter: drop-shadow(0 0 2px var(--joyous-primary));
+}
+
+.agent-name {
+  font-weight: 600;
+  color: var(--joyous-dark);
+}
+
+.agent-description {
+  max-width: 300px;
+  line-height: 1.4;
+  color: var(--joyous-dark);
+  opacity: 0.8;
+}
+
+.capabilities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.capability-badge {
+  font-size: 0.7rem;
+  padding: 3px 8px;
+}
+
+.status-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.status-indicator {
+  font-size: 0.8rem;
+}
+
+.status-indicator.online {
+  color: var(--joyous-success);
+}
+
+.status-indicator.offline {
+  color: #6c757d;
+}
+
+.status-text {
+  text-transform: capitalize;
+  font-weight: 500;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 5px;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .agent-management {
+    padding: 10px;
+  }
+  
+  .page-header {
+    flex-direction: column;
+    gap: 15px;
+    align-items: stretch;
+  }
+  
+  .page-header h2 {
+    font-size: 1.5rem;
+    justify-content: center;
+  }
+  
+  .agents-table {
+    font-size: 0.85rem;
+  }
+  
+  .agent-description {
+    max-width: 200px;
+  }
+  
+  .capabilities {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+  }
+}

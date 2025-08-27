@@ -1,0 +1,44 @@
+.loading-spinner-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  color: var(--joyous-dark);
+}
+
+.loading-spinner {
+  margin-bottom: 15px;
+}
+
+.loading-text {
+  font-size: 0.9rem;
+  color: var(--joyous-dark);
+  opacity: 0.7;
+  text-align: center;
+}
+
+/* Custom spinner colors */
+.spinner-border-primary {
+  color: var(--joyous-primary);
+}
+
+.spinner-border-secondary {
+  color: var(--joyous-secondary);
+}
+
+/* Animation for smooth appearance */
+.loading-spinner-container {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,0 +1,401 @@
+/* SocialShare.css - Styles for social sharing component */
+
+.social-share {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem;
+  background: #ffffff !important;
+  border-radius: 12px;
+  border: 1px solid #e9ecef;
+  margin: 2rem 0;
+  box-shadow: 0 4px 12px rgba(3, 90, 166, 0.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.social-share:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(3, 90, 166, 0.2);
+}
+
+.social-share.vertical {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.social-share.horizontal {
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.social-share.small {
+  padding: 0.5rem;
+  gap: 0.5rem;
+}
+
+.social-share.medium {
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.social-share.large {
+  padding: 1.5rem;
+  gap: 1.5rem;
+}
+
+.share-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.share-title {
+  font-weight: 600;
+  color: #035aa6;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.share-buttons {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.social-share.vertical .share-buttons {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.share-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #495057;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  min-height: 44px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(3, 90, 166, 0.1);
+}
+
+.share-btn:hover {
+  background: var(--share-color, #f8f9fa);
+  color: white;
+  border-color: var(--share-color, #035aa6);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(3, 90, 166, 0.2);
+}
+
+.share-btn:focus {
+  outline: 2px solid var(--share-color, #3b82f6);
+  outline-offset: 2px;
+}
+
+.share-btn:active {
+  transform: translateY(0);
+}
+
+.share-icon {
+  font-size: 1.125rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.share-label {
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* Platform-specific styles */
+.share-btn.twitter:hover {
+  background: #1da1f2;
+  border-color: #1da1f2;
+}
+
+.share-btn.facebook:hover {
+  background: #1877f2;
+  border-color: #1877f2;
+}
+
+.share-btn.linkedin:hover {
+  background: #0077b5;
+  border-color: #0077b5;
+}
+
+.share-btn.reddit:hover {
+  background: #ff4500;
+  border-color: #ff4500;
+}
+
+.share-btn.whatsapp:hover {
+  background: #25d366;
+  border-color: #25d366;
+}
+
+.share-btn.email:hover {
+  background: #6b7280;
+  border-color: #6b7280;
+}
+
+.share-btn.copy-link:hover {
+  background: #059669;
+  border-color: #059669;
+}
+
+.share-btn.copy-link.copied {
+  background: #10b981;
+  border-color: #10b981;
+  color: white;
+}
+
+.share-btn.native-share:hover {
+  background: #8b5cf6;
+  border-color: #8b5cf6;
+}
+
+/* Small size adjustments */
+.social-share.small .share-btn {
+  padding: 0.375rem 0.75rem;
+  font-size: 0.75rem;
+  min-height: 32px;
+}
+
+.social-share.small .share-icon {
+  font-size: 1rem;
+}
+
+/* Large size adjustments */
+.social-share.large .share-btn {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  min-height: 48px;
+}
+
+.social-share.large .share-icon {
+  font-size: 1.25rem;
+}
+
+/* Share stats */
+.share-stats {
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+.share-count-text {
+  color: #6b7280;
+  font-size: 0.75rem;
+  font-style: italic;
+}
+
+/* Floating share widget */
+.floating-share-widget {
+  position: fixed;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1000;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  padding: 0.75rem;
+  border: 1px solid #e5e7eb;
+}
+
+.floating-share-widget .social-share {
+  background: transparent;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.floating-share-widget .share-header {
+  display: none;
+}
+
+.floating-share-widget .share-buttons {
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.floating-share-widget .share-btn {
+  min-width: 40px;
+  min-height: 40px;
+  padding: 0.5rem;
+  justify-content: center;
+  border-radius: 8px;
+}
+
+.floating-share-widget .share-label {
+  display: none;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .social-share {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+  
+  .share-buttons {
+    justify-content: center;
+  }
+  
+  .floating-share-widget {
+    position: static;
+    transform: none;
+    margin: 1rem auto;
+    max-width: 300px;
+  }
+  
+  .floating-share-widget .social-share {
+    flex-direction: row;
+  }
+  
+  .floating-share-widget .share-buttons {
+    flex-direction: row;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .share-btn {
+    flex: 1;
+    justify-content: center;
+    min-width: 0;
+  }
+  
+  .share-label {
+    display: none;
+  }
+  
+  .social-share.small .share-btn,
+  .social-share.medium .share-btn {
+    padding: 0.5rem;
+    min-height: 44px;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .share-btn {
+    border-width: 2px;
+  }
+  
+  .share-btn:hover {
+    border-color: #000;
+    color: #000;
+    background: #fff;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .share-btn {
+    transition: none;
+  }
+  
+  .share-btn:hover {
+    transform: none;
+  }
+}
+
+/* Dark mode - Disabled to maintain consistent white theme */
+/*
+@media (prefers-color-scheme: dark) {
+  .social-share {
+    background: #ffffff !important;
+    border-color: #e9ecef;
+  }
+
+  .share-title {
+    color: #035aa6;
+  }
+
+  .share-btn {
+    background: #ffffff;
+    color: #495057;
+    border-color: #e9ecef;
+  }
+
+  .share-btn:hover {
+    color: white;
+  }
+
+  .floating-share-widget {
+    background: #ffffff;
+    border-color: #e9ecef;
+  }
+
+  .share-count-text {
+    color: #6c757d;
+  }
+}
+*/
+
+/* Animation for copy feedback */
+@keyframes copySuccess {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.share-btn.copy-link.copied {
+  animation: copySuccess 0.3s ease-in-out;
+}
+
+/* Tooltip for share buttons */
+.share-btn::before {
+  content: attr(aria-label);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1f2937;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 1000;
+}
+
+.share-btn::after {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 4px solid transparent;
+  border-top-color: #1f2937;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.share-btn:hover::before,
+.share-btn:hover::after {
+  opacity: 1;
+}
+
+/* Hide tooltips on mobile */
+@media (max-width: 768px) {
+  .share-btn::before,
+  .share-btn::after {
+    display: none;
+  }
+}
