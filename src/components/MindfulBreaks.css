@@ -1,0 +1,220 @@
+/* Mindful Breaks Page Styles - Consistent with Blog and other pages */
+
+.mindful-breaks-container {
+    max-width: 1200px;
+    margin: 80px auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.mindful-breaks-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid #e9ecef;
+}
+
+.mindful-breaks-title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #1DA1F2;
+    font-weight: 700;
+}
+
+.mindful-breaks-description {
+    font-size: 1.125rem;
+    color: #6c757d;
+    max-width: 600px;
+    margin: 0 auto 2rem auto;
+    line-height: 1.6;
+}
+
+.break-items-section {
+    margin-top: 2rem;
+}
+
+.break-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+}
+
+.mindful-break-item {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 12px rgba(29, 161, 242, 0.15);
+    transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid #e9ecef;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+}
+
+.mindful-break-item:hover {
+    background-color: #1DA1F2;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(29, 161, 242, 0.3);
+}
+
+.break-icon {
+    margin-bottom: 1.5rem;
+    color: #1DA1F2;
+    transition: color 0.2s ease;
+}
+
+.mindful-break-item:hover .break-icon {
+    color: #ffffff;
+}
+
+.break-icon svg {
+    font-size: 2.5rem;
+}
+
+.break-text {
+    font-size: 1.125rem;
+    line-height: 1.6;
+    margin: 0;
+    color: #495057;
+    transition: color 0.2s ease;
+}
+
+.mindful-break-item:hover .break-text {
+    color: #ffffff;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .mindful-breaks-container {
+        margin: 40px auto;
+        padding: 15px;
+    }
+
+    .mindful-breaks-title {
+        font-size: 2rem;
+    }
+
+    .mindful-breaks-description {
+        font-size: 1rem;
+    }
+
+    .break-items {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        max-width: 100%;
+    }
+
+    .mindful-break-item {
+        padding: 1.5rem;
+    }
+
+    .break-icon svg {
+        font-size: 2rem;
+    }
+
+    .break-text {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .mindful-breaks-container {
+        margin: 20px auto;
+        padding: 10px;
+    }
+
+    .mindful-breaks-title {
+        font-size: 1.75rem;
+    }
+
+    .mindful-break-item {
+        padding: 1.25rem;
+    }
+
+    .break-icon svg {
+        font-size: 1.75rem;
+    }
+
+    .break-text {
+        font-size: 0.95rem;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .mindful-break-item {
+        border: 2px solid #000;
+    }
+
+    .mindful-break-item:hover {
+        border-color: #fff;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .mindful-break-item {
+        transition: none;
+    }
+
+    .mindful-break-item:hover {
+        transform: none;
+    }
+
+    .break-icon,
+    .break-text {
+        transition: none;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .mindful-break-item {
+        background-color: #2d3748;
+        color: #e2e8f0;
+        border-color: #4a5568;
+    }
+
+    .mindful-break-item:hover {
+        background-color: #4a5568;
+    }
+
+    .break-text {
+        color: #cbd5e0;
+    }
+
+    .break-icon {
+        color: #63b3ed;
+    }
+
+    .mindful-break-item:hover .break-icon,
+    .mindful-break-item:hover .break-text {
+        color: #ffffff;
+    }
+}
+
+/* Focus styles for accessibility */
+.mindful-break-item:focus {
+    outline: 3px solid #007bff;
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* Screen reader only content */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}

@@ -1,0 +1,25 @@
+footer {
+    display: flex; 
+    justify-content: center; /* Center the text horizontally */
+    align-items: center; /* Vertically center content */
+    position: relative; /* Enables positioning for the logo */
+    margin-top: 50px;
+    margin-bottom: 0px;
+    padding: 20px;
+    max-width: 100%;
+}
+
+footer img.small {
+    position: absolute; /* Position the logo independently */
+    bottom: 0; /* Align to the bottom */
+    left: 0; /* Align to the left */
+    max-width: 8%; 
+    height: auto;
+    margin: 10px; 
+}
+
+footer p {
+    margin: 0; 
+    text-align: center;
+    flex-grow: 1; /* Ensure the text takes the remaining space */
+}
