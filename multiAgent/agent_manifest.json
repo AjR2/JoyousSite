@@ -1,9 +1,0 @@
-[
-  {
-    "agent_id": "nimbus",
-    "description": "Nimbus - Your friendly AI assistant for all workplace questions and tasks",
-    "inputs": ["user_message"],
-    "outputs": ["response"],
-    "escalates_to_human": false
-  }
-]
