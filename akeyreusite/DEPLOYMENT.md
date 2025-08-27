@@ -50,7 +50,7 @@ CORS_ORIGINS=https://your-domain.vercel.app
 
 2. **Push to GitHub:**
    ```bash
-   git remote add origin https://github.com/yourusername/akeyreu-website.git
+   git remote add origin https://github.com/AjR2/JoyousSite.git
    git branch -M main
    git push -u origin main
    ```
