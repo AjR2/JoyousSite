@@ -44,7 +44,7 @@ function AppContent() {
     const updateCountdown = () => {
       try {
         const now = new Date();
-        const target = new Date('2025-09-08T00:00:00');
+        const target = new Date('2025-09-14T00:00:00');
         const diff = target - now;
 
         console.log('COUNTDOWN: Calculating...', { now: now.toString(), target: target.toString(), diff });
@@ -316,7 +316,7 @@ function AppContent() {
                       color: '#666',
                       marginTop: '1rem'
                     }}>
-                      September 8th, 2025
+                      September 14th, 2025
                     </div>
                   </div>
 
