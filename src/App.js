@@ -36,6 +36,7 @@ function AppContent() {
 
   // Simple countdown state
   const [countdown, setCountdown] = useState("Loading...");
+  const [isLaunched, setIsLaunched] = useState(false);
 
   // Simple countdown effect
   useEffect(() => {
@@ -58,12 +59,15 @@ function AppContent() {
           const countdownText = `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
           console.log('COUNTDOWN: Setting text to:', countdownText);
           setCountdown(countdownText);
+          setIsLaunched(false);
         } else {
-          setCountdown("Launch time has arrived!");
+          console.log('COUNTDOWN: Launch time has arrived! Setting launched state to true');
+          setIsLaunched(true);
         }
       } catch (error) {
         console.error('COUNTDOWN: Error:', error);
         setCountdown("Error calculating countdown");
+        setIsLaunched(false);
       }
     };
 
@@ -282,58 +286,128 @@ function AppContent() {
                     </p>
                   </header>
 
-                  {/* Simple Countdown Timer */}
-                  <div style={{
-                    textAlign: 'center',
-                    margin: '2rem 0',
-                    padding: '2rem',
-                    background: 'linear-gradient(135deg, rgba(29, 161, 242, 0.1), rgba(241, 196, 15, 0.1))',
-                    borderRadius: '16px',
-                    border: '2px solid rgba(29, 161, 242, 0.2)',
-                    minHeight: '150px'
-                  }}>
+                  {/* Conditional Countdown Timer or Launch Link */}
+                  {!isLaunched ? (
+                    /* Countdown Timer */
                     <div style={{
-                      fontSize: '1.5rem',
-                      fontWeight: '600',
-                      color: '#1DA1F2',
-                      marginBottom: '1rem'
+                      textAlign: 'center',
+                      margin: '2rem 0',
+                      padding: '2rem',
+                      background: 'linear-gradient(135deg, rgba(29, 161, 242, 0.1), rgba(241, 196, 15, 0.1))',
+                      borderRadius: '16px',
+                      border: '2px solid rgba(29, 161, 242, 0.2)',
+                      minHeight: '150px'
                     }}>
-                      🕒 Launches In:
+                      <div style={{
+                        fontSize: '1.5rem',
+                        fontWeight: '600',
+                        color: '#1DA1F2',
+                        marginBottom: '1rem'
+                      }}>
+                        🕒 Launches In:
+                      </div>
+                      <div style={{
+                        fontSize: '1.25rem',
+                        fontWeight: 'bold',
+                        color: '#333',
+                        background: 'white',
+                        padding: '1rem',
+                        borderRadius: '8px',
+                        border: '1px solid #ddd'
+                      }}>
+                        {countdown}
+                      </div>
+                      <div style={{
+                        fontSize: '0.9rem',
+                        color: '#666',
+                        marginTop: '1rem'
+                      }}>
+                        September 14th, 2025
+                      </div>
                     </div>
+                  ) : (
+                    /* Launch Link */
                     <div style={{
-                      fontSize: '1.25rem',
-                      fontWeight: 'bold',
-                      color: '#333',
-                      background: 'white',
-                      padding: '1rem',
-                      borderRadius: '8px',
-                      border: '1px solid #ddd'
+                      textAlign: 'center',
+                      margin: '2rem 0',
+                      padding: '2rem',
+                      background: 'linear-gradient(135deg, rgba(46, 204, 113, 0.1), rgba(241, 196, 15, 0.1))',
+                      borderRadius: '16px',
+                      border: '2px solid rgba(46, 204, 113, 0.3)',
+                      minHeight: '150px',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center'
                     }}>
-                      {countdown}
+                      <div style={{
+                        fontSize: '1.5rem',
+                        fontWeight: '600',
+                        color: '#2ECC71',
+                        marginBottom: '1.5rem'
+                      }}>
+                        🚀 Kindred is Now Live!
+                      </div>
+                      <a
+                        href="https://kindredpeer.com"
+                        className="button"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                          fontSize: '1.25rem',
+                          fontWeight: 'bold',
+                          color: 'white',
+                          background: 'linear-gradient(135deg, #2ECC71, #27AE60)',
+                          padding: '1rem 2rem',
+                          borderRadius: '12px',
+                          border: 'none',
+                          textDecoration: 'none',
+                          display: 'inline-block',
+                          transition: 'all 0.3s ease',
+                          boxShadow: '0 4px 15px rgba(46, 204, 113, 0.3)'
+                        }}
+                        onMouseOver={(e) => {
+                          e.target.style.transform = 'translateY(-2px)';
+                          e.target.style.boxShadow = '0 6px 20px rgba(46, 204, 113, 0.4)';
+                        }}
+                        onMouseOut={(e) => {
+                          e.target.style.transform = 'translateY(0)';
+                          e.target.style.boxShadow = '0 4px 15px rgba(46, 204, 113, 0.3)';
+                        }}
+                        aria-describedby="kindred-launch-description"
+                      >
+                        Visit Kindred Peer →
+                        <span id="kindred-launch-description" className="sr-only">
+                          Visit the newly launched Kindred peer support platform
+                        </span>
+                      </a>
+                      <div style={{
+                        fontSize: '0.9rem',
+                        color: '#666',
+                        marginTop: '1rem'
+                      }}>
+                        Connect, share, and heal together
+                      </div>
                     </div>
-                    <div style={{
-                      fontSize: '0.9rem',
-                      color: '#666',
-                      marginTop: '1rem'
-                    }}>
-                      September 14th, 2025
-                    </div>
-                  </div>
+                  )}
 
-                  <div className="kindred-cta">
-                    <a
-                      href="https://discord.gg/s9qSQfk2"
-                      className="button kindred-button"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-describedby="kindred-button-description"
-                    >
-                      Get Notified
-                      <span id="kindred-button-description" className="sr-only">
-                        Join our Discord community to be notified when Kindred launches
-                      </span>
-                    </a>
-                  </div>
+                  {/* Conditional CTA Button */}
+                  {!isLaunched && (
+                    <div className="kindred-cta">
+                      <a
+                        href="https://discord.gg/s9qSQfk2"
+                        className="button kindred-button"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-describedby="kindred-button-description"
+                      >
+                        Get Notified
+                        <span id="kindred-button-description" className="sr-only">
+                          Join our Discord community to be notified when Kindred launches
+                        </span>
+                      </a>
+                    </div>
+                  )}
 
                   <div className="kindred-why">
                     <h3 className="kindred-why-title">💬 Why Kindred?</h3>
