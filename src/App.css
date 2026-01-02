@@ -287,6 +287,41 @@ html, body {
   margin: 0;
 }
 
+/* Value item short/expanded text toggle */
+.value-item .value-short {
+  display: block;
+  transition: opacity 0.3s ease;
+}
+
+.value-item .value-expanded {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.value-item:hover .value-short,
+.value-item:focus .value-short {
+  display: none;
+}
+
+.value-item:hover .value-expanded,
+.value-item:focus .value-expanded {
+  display: block;
+  opacity: 1;
+}
+
+/* Touch device support - toggle on tap */
+@media (hover: none) {
+  .value-item:active .value-short {
+    display: none;
+  }
+
+  .value-item:active .value-expanded {
+    display: block;
+    opacity: 1;
+  }
+}
+
 /* Kindred Section */
 .kindred-section {
   background: linear-gradient(135deg, rgba(29, 161, 242, 0.05), rgba(241, 196, 15, 0.05));

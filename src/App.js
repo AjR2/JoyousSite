@@ -233,36 +233,59 @@ function AppContent() {
                   </header>
                   <div className="values-grid" role="list" aria-label="Our core values">
                     {/* Value Items */}
-                    <article className="value-item" role="listitem">
+                    <article className="value-item" role="listitem" tabIndex="0">
                       <header>
-                        <h3>Inspiration</h3>
+                        <h3>Human-Centered Agency</h3>
                       </header>
-                      <p>
-                        Ignite the spark of innovation, lighting up the path to mental wellness and cognitive wellbeing for you.
+                      <p className="value-short">
+                        We build tools that grow with you—not tools you depend on.
+                      </p>
+                      <p className="value-expanded">
+                        Joyous strengthens agency by evolving alongside the people who use it. Continued use is earned through relevance, not reliance.
                       </p>
                     </article>
-                    <article className="value-item" role="listitem">
+                    <article className="value-item" role="listitem" tabIndex="0">
                       <header>
-                        <h3>Transparency</h3>
+                        <h3>Psychological Safety by Design</h3>
                       </header>
-                      <p>
-                        Akeyreu's commitment to transparency ensures a clear mission in mental wellness, where every step is shared with trust and clarity.
+                      <p className="value-short">
+                        Safety is built into every interaction—by design.
+                      </p>
+                      <p className="value-expanded">
+                        From UX to AI to human moderation, Joyous prioritizes clarity, consent, and emotional safety at every touchpoint.
                       </p>
                     </article>
-                    <article className="value-item" role="listitem">
+                    <article className="value-item" role="listitem" tabIndex="0">
                       <header>
-                        <h3>Integrity</h3>
+                        <h3>Human First, Technology in Service</h3>
                       </header>
-                      <p>
-                        At the heart of our neural tech lies integrity-trusted, ethical, and always centered around you, our fellow human.
+                      <p className="value-short">
+                        Technology should support humanity, not replace it.
+                      </p>
+                      <p className="value-expanded">
+                        AI at Joyous exists to enhance connection and understanding—never to diagnose, judge, or take authority.
                       </p>
                     </article>
-                    <article className="value-item" role="listitem">
+                    <article className="value-item" role="listitem" tabIndex="0">
                       <header>
-                        <h3>Accessibility</h3>
+                        <h3>Radical Clarity Builds Trust</h3>
                       </header>
-                      <p>
-                        Akeyreu is here to open new horizons in mental wellness, making advanced technology accessible to everyone, because everyone deserves to explore this enriching journey.
+                      <p className="value-short">
+                        Trust comes from honesty—especially about limits.
+                      </p>
+                      <p className="value-expanded">
+                        We communicate openly about how Joyous works, what it can do, and where human support or outside care is needed.
+                      </p>
+                    </article>
+                    <article className="value-item" role="listitem" tabIndex="0">
+                      <header>
+                        <h3>Belonging Without Prescription</h3>
+                      </header>
+                      <p className="value-short">
+                        Connection without conformity.
+                      </p>
+                      <p className="value-expanded">
+                        Joyous welcomes difference. There's no single right way to participate, heal, or grow here.
                       </p>
                     </article>
                   </div>
