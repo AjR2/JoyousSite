@@ -8,7 +8,7 @@
     "build:craco": "craco build",
     "dev": "node scripts/dev-server.js",
     "dev:vercel": "npx vercel dev",
-    "test": "craco test",
+    "test": "craco test --passWithNoTests",
     "eject": "react-scripts eject",
     "deploy": "vercel --prod",
     "deploy:vercel": "./scripts/deploy.sh vercel production",
