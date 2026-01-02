@@ -22,7 +22,7 @@ function selectBestAgent(message) {
   return 'gpt4';
 }
 
-// OpenAI GPT-5 nano API call
+// OpenAI GPT-4o-mini API call
 async function callOpenAI(message) {
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) {
@@ -47,15 +47,15 @@ async function callOpenAI(message) {
       },
       signal: controller.signal,
       body: JSON.stringify({
-        model: 'gpt-5-nano', // Use GPT-5 nano for improved performance
+        model: 'gpt-4o-mini', // Use GPT-4o-mini for cost-effective performance
         messages: [
           {
             role: 'system',
-            content: `You are Nimbus AI, a helpful assistant for Akeyreu, a mental wellness company. Be empathetic and supportive.`
+            content: `You are Nimbus AI, a helpful assistant for Joyous, a mental wellness company. Be empathetic, supportive, and focused on mental wellness topics.`
           },
           { role: 'user', content: message }
         ],
-        max_completion_tokens: 300,
+        max_tokens: 300,
       }),
     });
 
@@ -70,6 +70,11 @@ async function callOpenAI(message) {
 
     const data = await response.json();
     console.log('OpenAI response received successfully');
+
+    if (!data.choices || !data.choices[0] || !data.choices[0].message) {
+      throw new Error('Invalid response structure from OpenAI');
+    }
+
     return data.choices[0].message.content;
   } catch (error) {
     console.error('Error in callOpenAI:', error);
@@ -129,9 +134,9 @@ module.exports = async function handler(req, res) {
   try {
     console.log('Processing chat request:', { message: message.substring(0, 50) + '...', agent_id });
 
-    // Use GPT-5 nano for improved performance and efficiency
+    // Use GPT-4o-mini for cost-effective performance
     const response = await callOpenAI(message);
-    const agentUsed = 'gpt5-nano';
+    const agentUsed = 'gpt-4o-mini';
 
     console.log('Chat response generated successfully');
 
@@ -140,10 +145,10 @@ module.exports = async function handler(req, res) {
       conversation_id: conversation_id || `conv_${Date.now()}`,
       agent_used: agentUsed,
       multi_agent_details: {
-        selected_agent: agent_id || 'gpt4',
+        selected_agent: agent_id || 'gpt-4o-mini',
         agent_used: agentUsed,
         fallback_used: false,
-        reasoning: `Selected ${agentUsed} for improved performance and reliability`
+        reasoning: `Selected ${agentUsed} for cost-effective performance and reliability`
       },
       timestamp: new Date().toISOString()
     });

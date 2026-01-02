@@ -41,21 +41,39 @@ const AdminAuth = () => {
     if (error) setError('');
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     setError('');
 
     console.log('Attempting login with:', credentials.username);
 
-    if (credentials.username === 'admin' && credentials.password === 'akeyreu2024') {
-      console.log('Login successful!');
-      localStorage.setItem('admin_token', 'dev-token-' + Date.now());
-      setIsAuthenticated(true);
-      setIsSubmitting(false);
-    } else {
-      console.log('Login failed - invalid credentials');
-      setError('Invalid credentials. Use username: admin, password: akeyreu2024');
+    try {
+      const response = await fetch('/api/auth', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: credentials.username,
+          password: credentials.password
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        console.log('Login successful!');
+        localStorage.setItem('admin_token', data.token);
+        setIsAuthenticated(true);
+      } else {
+        console.log('Login failed - invalid credentials');
+        setError(data.error || 'Invalid credentials');
+      }
+    } catch (err) {
+      console.error('Login error:', err);
+      setError('An error occurred. Please try again.');
+    } finally {
       setIsSubmitting(false);
     }
   };
