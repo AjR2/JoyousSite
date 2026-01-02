@@ -1,10 +1,8 @@
 name: Deploy JoyousSite
 
+# Disabled: Using Vercel's built-in Git integration for deployments
+# To re-enable, add VERCEL_TOKEN, VERCEL_ORG_ID, and VERCEL_PROJECT_ID secrets
 on:
-  push:
-    branches: [ main, develop ]
-  pull_request:
-    branches: [ main ]
   workflow_dispatch:
     inputs:
       environment:
