@@ -1,19 +1,33 @@
 /**
  * Data Models for Analytics Reporter
  * Uses JSON file storage (consistent with existing blog posts pattern)
+ * Compatible with Vercel serverless environment
  */
 const fs = require('fs');
 const path = require('path');
 
-const DATA_DIR = path.join(__dirname, '../../../public/analytics-data');
+// Use /tmp for Vercel serverless, or local directory for development
+const isVercel = process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME;
+const DATA_DIR = isVercel
+  ? '/tmp/analytics-data'
+  : path.join(__dirname, '../../../public/analytics-data');
+
 const CONFIG_FILE = path.join(DATA_DIR, 'reporter-config.json');
 const HISTORY_FILE = path.join(DATA_DIR, 'run-history.json');
 const METRICS_FILE = path.join(DATA_DIR, 'daily-metrics.json');
 
-// Ensure data directory exists
-if (!fs.existsSync(DATA_DIR)) {
-  fs.mkdirSync(DATA_DIR, { recursive: true });
+// Ensure data directory exists (safe in both environments)
+function ensureDataDir() {
+  try {
+    if (!fs.existsSync(DATA_DIR)) {
+      fs.mkdirSync(DATA_DIR, { recursive: true });
+    }
+  } catch (error) {
+    console.warn('Could not create data directory:', error.message);
+  }
 }
+
+ensureDataDir();
 
 /**
  * Analytics Reporter Configuration Model
@@ -36,13 +50,15 @@ class ReporterConfig {
   }
 
   static load() {
-    if (!fs.existsSync(CONFIG_FILE)) {
-      const defaultConfig = this.getDefault();
-      this.save(defaultConfig);
-      return defaultConfig;
-    }
-
     try {
+      ensureDataDir();
+
+      if (!fs.existsSync(CONFIG_FILE)) {
+        const defaultConfig = this.getDefault();
+        this.save(defaultConfig);
+        return defaultConfig;
+      }
+
       const data = fs.readFileSync(CONFIG_FILE, 'utf8');
       return JSON.parse(data);
     } catch (error) {
@@ -52,9 +68,15 @@ class ReporterConfig {
   }
 
   static save(config) {
-    config.lastUpdated = new Date().toISOString();
-    fs.writeFileSync(CONFIG_FILE, JSON.stringify(config, null, 2));
-    return config;
+    try {
+      ensureDataDir();
+      config.lastUpdated = new Date().toISOString();
+      fs.writeFileSync(CONFIG_FILE, JSON.stringify(config, null, 2));
+      return config;
+    } catch (error) {
+      console.error('Error saving reporter config:', error);
+      return config;
+    }
   }
 
   static update(updates) {
@@ -69,11 +91,13 @@ class ReporterConfig {
  */
 class RunHistory {
   static load() {
-    if (!fs.existsSync(HISTORY_FILE)) {
-      return [];
-    }
-
     try {
+      ensureDataDir();
+
+      if (!fs.existsSync(HISTORY_FILE)) {
+        return [];
+      }
+
       const data = fs.readFileSync(HISTORY_FILE, 'utf8');
       return JSON.parse(data);
     } catch (error) {
@@ -83,7 +107,12 @@ class RunHistory {
   }
 
   static save(history) {
-    fs.writeFileSync(HISTORY_FILE, JSON.stringify(history, null, 2));
+    try {
+      ensureDataDir();
+      fs.writeFileSync(HISTORY_FILE, JSON.stringify(history, null, 2));
+    } catch (error) {
+      console.error('Error saving run history:', error);
+    }
   }
 
   static add(runRecord) {
@@ -167,11 +196,13 @@ class RunHistory {
  */
 class DailyMetrics {
   static load() {
-    if (!fs.existsSync(METRICS_FILE)) {
-      return [];
-    }
-
     try {
+      ensureDataDir();
+
+      if (!fs.existsSync(METRICS_FILE)) {
+        return [];
+      }
+
       const data = fs.readFileSync(METRICS_FILE, 'utf8');
       return JSON.parse(data);
     } catch (error) {
@@ -181,7 +212,12 @@ class DailyMetrics {
   }
 
   static save(metrics) {
-    fs.writeFileSync(METRICS_FILE, JSON.stringify(metrics, null, 2));
+    try {
+      ensureDataDir();
+      fs.writeFileSync(METRICS_FILE, JSON.stringify(metrics, null, 2));
+    } catch (error) {
+      console.error('Error saving daily metrics:', error);
+    }
   }
 
   static add(metricsArray) {
