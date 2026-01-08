@@ -169,6 +169,15 @@ module.exports = function(app) {
   // Enable JSON parsing for POST requests
   app.use('/api', require('express').json());
 
+  // Web Automation Routes (LatentMAS-inspired multi-agent system)
+  try {
+    const { router: automationRouter } = require('../api/automation');
+    app.use('/api/automation', automationRouter);
+    console.log('✅ Web automation routes loaded');
+  } catch (error) {
+    console.warn('⚠️ Web automation routes not loaded:', error.message);
+  }
+
   // Serve manifest.json with proper headers
   app.get('/manifest.json', (req, res) => {
     res.setHeader('Content-Type', 'application/manifest+json; charset=utf-8');

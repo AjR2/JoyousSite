@@ -1,0 +1,9 @@
+node_modules
+
+# Environment variables (never commit secrets!)
+.env
+.env.local
+.env.*.local
+
+# Automation config with credentials
+api/automation/config/automation.config.js

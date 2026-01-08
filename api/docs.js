@@ -14,11 +14,16 @@ module.exports = function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
+  // Get the base URL from the request headers (works for both domains)
+  const protocol = req.headers['x-forwarded-proto'] || 'https';
+  const host = req.headers['x-forwarded-host'] || req.headers.host || 'yourkindredminds.com';
+  const baseUrl = `${protocol}://${host}/api`;
+
   const documentation = {
     title: "Nimbus AI API Documentation",
     version: "1.0.0",
     description: "Multi-agent AI system for mental wellness and general assistance",
-    base_url: "https://www.akeyreu.com/api",
+    base_url: baseUrl,
     last_updated: new Date().toISOString(),
     
     endpoints: {

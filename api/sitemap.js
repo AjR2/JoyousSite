@@ -34,7 +34,11 @@ module.exports = function handler(req, res) {
 
   try {
     const posts = loadPosts();
-    const baseUrl = 'https://www.akeyreu.com';
+
+    // Get the base URL from the request headers (works for both domains)
+    const protocol = req.headers['x-forwarded-proto'] || 'https';
+    const host = req.headers['x-forwarded-host'] || req.headers.host || 'yourkindredminds.com';
+    const baseUrl = `${protocol}://${host}`;
     
     let sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
