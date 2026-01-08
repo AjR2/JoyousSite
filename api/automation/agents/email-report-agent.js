@@ -199,6 +199,8 @@ Failed: ${data.failedFetches || 0}
     switch (emailService) {
       case 'sendgrid':
         return await this.sendViaSendGrid(recipients, subject, html, text);
+      case 'mailgun':
+        return await this.sendViaMailgun(recipients, subject, html, text);
       case 'nodemailer':
         return await this.sendViaNodemailer(recipients, subject, html, text);
       case 'console':
@@ -245,6 +247,59 @@ Failed: ${data.failedFetches || 0}
     return {
       success: true,
       service: 'sendgrid',
+      recipients: to,
+      subject,
+      timestamp: new Date().toISOString()
+    };
+  }
+
+  /**
+   * Send email via Mailgun
+   */
+  async sendViaMailgun(to, subject, html, text) {
+    const apiKey = process.env.MAILGUN_API_KEY;
+    const domain = process.env.MAILGUN_DOMAIN;
+    const from = this.emailConfig.from || process.env.MAILGUN_FROM_EMAIL || `Analytics Reporter <mailgun@${domain}>`;
+
+    if (!apiKey || !domain) {
+      throw new Error('Mailgun not configured. Set MAILGUN_API_KEY and MAILGUN_DOMAIN environment variables.');
+    }
+
+    const fetch = global.fetch || require('node-fetch');
+
+    // Mailgun uses basic auth with "api" as username and API key as password
+    const auth = Buffer.from(`api:${apiKey}`).toString('base64');
+
+    // Prepare form data for Mailgun
+    const formData = new URLSearchParams();
+    formData.append('from', from);
+    formData.append('subject', subject);
+    formData.append('html', html);
+    formData.append('text', text || 'Please view this email in an HTML-capable client.');
+
+    // Add recipients
+    to.forEach(email => formData.append('to', email));
+
+    const response = await fetch(`https://api.mailgun.net/v3/${domain}/messages`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Basic ${auth}`,
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: formData.toString()
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`Mailgun error: ${response.status} - ${errorText}`);
+    }
+
+    const result = await response.json();
+
+    return {
+      success: true,
+      service: 'mailgun',
+      messageId: result.id,
       recipients: to,
       subject,
       timestamp: new Date().toISOString()

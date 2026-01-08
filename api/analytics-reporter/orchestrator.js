@@ -23,14 +23,15 @@ class AnalyticsReporterOrchestrator {
       // Use existing email-report-agent from automation system
       const { EmailReportAgent } = require('../automation/agents/email-report-agent');
       this.emailAgent = new EmailReportAgent({
-        service: process.env.EMAIL_SERVICE || 'console',
-        apiKey: process.env.SENDGRID_API_KEY,
-        fromEmail: process.env.SENDGRID_FROM_EMAIL || process.env.SMTP_FROM,
-        smtpConfig: {
-          host: process.env.SMTP_HOST,
-          port: parseInt(process.env.SMTP_PORT) || 587,
-          user: process.env.SMTP_USER,
-          pass: process.env.SMTP_PASS
+        emailConfig: {
+          service: process.env.EMAIL_SERVICE || 'console',
+          from: process.env.MAILGUN_FROM_EMAIL || process.env.SENDGRID_FROM_EMAIL || process.env.SMTP_FROM,
+          smtp: {
+            host: process.env.SMTP_HOST,
+            port: parseInt(process.env.SMTP_PORT) || 587,
+            user: process.env.SMTP_USER,
+            pass: process.env.SMTP_PASS
+          }
         }
       });
 
