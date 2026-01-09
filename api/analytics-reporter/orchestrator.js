@@ -21,7 +21,7 @@ class AnalyticsReporterOrchestrator {
 
     try {
       // Use existing email-report-agent from automation system
-      const { EmailReportAgent } = require('../automation/agents/email-report-agent');
+      const EmailReportAgent = require('../automation/agents/email-report-agent');
       this.emailAgent = new EmailReportAgent({
         emailConfig: {
           service: process.env.EMAIL_SERVICE || 'console',
