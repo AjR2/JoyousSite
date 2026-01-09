@@ -34,51 +34,8 @@ import { faBlog, faPodcast } from '@fortawesome/free-solid-svg-icons';
 function AppContent() {
   const navigate = useNavigate();
 
-  // Simple countdown state
-  const [countdown, setCountdown] = useState("Loading...");
-  const [isLaunched, setIsLaunched] = useState(false);
-
-  // Simple countdown effect
-  useEffect(() => {
-    console.log('COUNTDOWN: Component mounted, starting countdown...');
-
-    const updateCountdown = () => {
-      try {
-        const now = new Date();
-        const target = new Date('2025-09-14T00:00:00');
-        const diff = target - now;
-
-        console.log('COUNTDOWN: Calculating...', { now: now.toString(), target: target.toString(), diff });
-
-        if (diff > 0) {
-          const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-          const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-          const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-          const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-          const countdownText = `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
-          console.log('COUNTDOWN: Setting text to:', countdownText);
-          setCountdown(countdownText);
-          setIsLaunched(false);
-        } else {
-          console.log('COUNTDOWN: Launch time has arrived! Setting launched state to true');
-          setIsLaunched(true);
-        }
-      } catch (error) {
-        console.error('COUNTDOWN: Error:', error);
-        setCountdown("Error calculating countdown");
-        setIsLaunched(false);
-      }
-    };
-
-    updateCountdown();
-    const interval = setInterval(updateCountdown, 1000);
-
-    return () => {
-      console.log('COUNTDOWN: Cleaning up interval');
-      clearInterval(interval);
-    };
-  }, []);
+  // Kindred has launched - no countdown needed
+  const isLaunched = true;
 
   // Test log to verify component is loading
   console.log('KINDRED: AppContent component is rendering');
