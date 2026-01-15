@@ -17,11 +17,19 @@ class AnalyticsReporterOrchestrator {
    * Initialize email agent (reuse existing infrastructure)
    */
   async initializeEmailAgent() {
-    if (this.emailAgent) return this.emailAgent;
+    if (this.emailAgent) {
+      console.log('[AnalyticsReporter] Email agent already initialized');
+      return this.emailAgent;
+    }
+
+    console.log('[AnalyticsReporter] Initializing email agent...');
+    console.log('[AnalyticsReporter] EMAIL_SERVICE:', process.env.EMAIL_SERVICE || 'console');
 
     try {
       // Use existing email-report-agent from automation system
       const EmailReportAgent = require('../automation/agents/email-report-agent');
+      console.log('[AnalyticsReporter] EmailReportAgent class loaded');
+
       this.emailAgent = new EmailReportAgent({
         emailConfig: {
           service: process.env.EMAIL_SERVICE || 'console',
@@ -35,10 +43,13 @@ class AnalyticsReporterOrchestrator {
         }
       });
 
+      console.log('[AnalyticsReporter] EmailReportAgent instance created, calling initialize...');
       await this.emailAgent.initialize();
+      console.log('[AnalyticsReporter] Email agent initialized successfully');
       return this.emailAgent;
     } catch (error) {
-      console.warn('Email agent initialization failed, using fallback:', error.message);
+      console.error('[AnalyticsReporter] Email agent initialization failed:', error.message);
+      console.error('[AnalyticsReporter] Stack trace:', error.stack);
       // Fallback to simple console logger
       this.emailAgent = {
         sendEmail: async ({ to, subject, html, plaintext }) => {
@@ -203,7 +214,10 @@ class AnalyticsReporterOrchestrator {
     }
 
     if (errors.length > 0 && allMetrics.length === 0) {
-      throw new Error(`All platforms failed: ${errors.map(e => e.platform).join(', ')}`);
+      console.warn(`[AnalyticsReporter] All platforms failed: ${errors.map(e => e.platform).join(', ')}`);
+      console.warn('[AnalyticsReporter] Continuing with empty report');
+      // Don't throw - allow report to continue with no data
+      // This is useful when connectors aren't configured yet
     }
 
     return allMetrics;

@@ -22,15 +22,19 @@ module.exports = async function handler(req, res) {
   try {
     const { sendEmail = true, testRecipient = null, trigger = 'manual' } = req.body || {};
 
+    console.log('[API] Starting analytics report run with options:', { sendEmail, testRecipient, trigger });
+
     const orchestrator = new AnalyticsReporterOrchestrator();
 
-    console.log('[API] Starting analytics report run...');
+    console.log('[API] Orchestrator created, running report...');
 
     const result = await orchestrator.runReport({
       sendEmail,
       testRecipient,
       trigger
     });
+
+    console.log('[API] Report completed, result.success:', result.success);
 
     if (!result.success) {
       return res.status(500).json({

@@ -38,7 +38,7 @@ class ReporterConfig {
       enabled: false,
       primaryRecipient: process.env.ANALYTICS_PRIMARY_RECIPIENT || '',
       secondaryRecipient: process.env.ANALYTICS_SECONDARY_RECIPIENT || '',
-      enabledPlatforms: ['youtube'], // youtube, twitter_x, instagram, tiktok
+      enabledPlatforms: [], // youtube, twitter_x, instagram, tiktok - configure platforms before enabling
       reportWindowDays: 7,
       emailSubjectPrefix: '',
       scheduledSending: false,
