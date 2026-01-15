@@ -45,12 +45,12 @@ module.exports = async function handler(req, res) {
       success: true,
       runId: result.runId,
       run: result.run,
-      summary: result.analysis.summary,
-      narrativeBullets: result.analysis.narrativeBullets,
-      topWins: result.analysis.topWins,
-      topLosses: result.analysis.topLosses,
-      emailResults: result.emailResults,
-      reportSubject: result.report.subject
+      summary: result.analysis?.summary || {},
+      narrativeBullets: result.analysis?.narrativeBullets || [],
+      topWins: result.analysis?.topWins || [],
+      topLosses: result.analysis?.topLosses || [],
+      emailResults: result.emailResults || [],
+      reportSubject: result.report?.subject || 'Analytics Report'
     });
   } catch (error) {
     console.error('Analytics Reporter run error:', error);

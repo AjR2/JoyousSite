@@ -229,10 +229,10 @@ class AnalyticsReporterOrchestrator {
     for (const recipient of recipients) {
       try {
         const result = await this.emailAgent.sendEmail({
-          to: recipient,
+          to: [recipient], // Email agent expects an array
           subject: report.subject,
           html: report.html,
-          plaintext: report.plaintext,
+          text: report.plaintext, // Changed from 'plaintext' to 'text' to match email agent
           attachments: report.attachments ? [report.attachments] : []
         });
 
