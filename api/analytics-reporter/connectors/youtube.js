@@ -49,23 +49,35 @@ class YouTubeConnector extends SocialConnector {
    * Fetch channel statistics using YouTube Data API v3
    */
   async fetchChannelStats() {
+    console.log('[YouTube] Fetching channel stats for:', this.channelId);
+
     const url = new URL('https://www.googleapis.com/youtube/v3/channels');
     url.searchParams.append('part', 'statistics,snippet');
     url.searchParams.append('id', this.channelId);
     url.searchParams.append('key', this.apiKey);
 
+    console.log('[YouTube] API URL:', url.toString().replace(this.apiKey, 'API_KEY_HIDDEN'));
+
     const response = await fetch(url.toString());
 
     if (!response.ok) {
       const error = await response.json().catch(() => ({ error: 'Unknown error' }));
+      console.error('[YouTube] API error:', error);
       throw new Error(`YouTube API error: ${error.error?.message || response.statusText}`);
     }
 
     const data = await response.json();
 
     if (!data.items || data.items.length === 0) {
+      console.error('[YouTube] Channel not found:', this.channelId);
       throw new Error(`Channel not found: ${this.channelId}`);
     }
+
+    console.log('[YouTube] Channel stats fetched successfully:', {
+      title: data.items[0].snippet?.title,
+      subscriberCount: data.items[0].statistics?.subscriberCount,
+      viewCount: data.items[0].statistics?.viewCount
+    });
 
     return data.items[0];
   }
