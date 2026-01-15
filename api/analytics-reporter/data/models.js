@@ -34,17 +34,23 @@ ensureDataDir();
  */
 class ReporterConfig {
   static getDefault() {
+    // Parse enabled platforms from environment variable if set
+    let enabledPlatforms = [];
+    if (process.env.ANALYTICS_ENABLED_PLATFORMS) {
+      enabledPlatforms = process.env.ANALYTICS_ENABLED_PLATFORMS.split(',').map(p => p.trim());
+    }
+
     return {
-      enabled: false,
+      enabled: process.env.ANALYTICS_ENABLED === 'true' || false,
       primaryRecipient: process.env.ANALYTICS_PRIMARY_RECIPIENT || '',
       secondaryRecipient: process.env.ANALYTICS_SECONDARY_RECIPIENT || '',
-      enabledPlatforms: [], // youtube, twitter_x, instagram, tiktok - configure platforms before enabling
-      reportWindowDays: 7,
-      emailSubjectPrefix: '',
-      scheduledSending: false,
-      cronExpression: '0 9 * * *', // Daily at 9 AM
-      timezone: 'America/New_York',
-      includeCSV: false,
+      enabledPlatforms, // youtube, twitter_x, instagram, tiktok - configure via ANALYTICS_ENABLED_PLATFORMS env var
+      reportWindowDays: parseInt(process.env.ANALYTICS_REPORT_WINDOW_DAYS) || 7,
+      emailSubjectPrefix: process.env.ANALYTICS_EMAIL_SUBJECT_PREFIX || '',
+      scheduledSending: process.env.ANALYTICS_SCHEDULED_SENDING === 'true' || false,
+      cronExpression: process.env.ANALYTICS_CRON_EXPRESSION || '0 9 * * *', // Daily at 9 AM
+      timezone: process.env.ANALYTICS_TIMEZONE || 'America/New_York',
+      includeCSV: process.env.ANALYTICS_INCLUDE_CSV === 'true' || false,
       lastUpdated: new Date().toISOString()
     };
   }
