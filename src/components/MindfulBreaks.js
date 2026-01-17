@@ -25,7 +25,7 @@ const MindfulBreaks = () => (
       title="Mindful Breaks | Joyous"
       description="Simple mindfulness exercises you can take throughout the day to improve your mental wellness and mindfulness practice. Choose Joy. Share Wellness."
       keywords="mindfulness, break, wellness, meditation, mental health, stress relief, mindful exercises, joy, joyous"
-      canonicalUrl="https://joyousbound.vercel.app/mindful-breaks/"
+      canonicalUrl="https://www.yourjoyousmind.com/mindful-breaks"
     />
 
     <ErrorBoundary>

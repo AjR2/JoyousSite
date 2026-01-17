@@ -153,7 +153,7 @@ const Blog = () => {
         title="Joyous: Blog"
         description="Explore mental wellness insights, personal development tips, and joyful living. Discover articles on mindfulness, relationships, self-care, and choosing joy."
         keywords="mental wellness, joy, joyous, mindfulness, personal development, self-care, blog, happiness, wellness, emotional health"
-        canonicalUrl="https://joyousbound.vercel.app/blog/"
+        canonicalUrl="https://www.yourjoyousmind.com/blog"
       />
 
       <ErrorBoundary>

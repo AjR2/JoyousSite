@@ -1,29 +1,46 @@
 // Enhanced SchemaMarkup component with comprehensive structured data support
+// Domain: yourjoyousmind.com (Joyous brand)
 
-import React from 'react';
 import { Helmet } from 'react-helmet-async';
+
+// Centralized domain configuration for SEO consistency
+const SITE_CONFIG = {
+    domain: 'https://www.yourjoyousmind.com',
+    name: 'Joyous',
+    alternateName: 'Your Joyous Mind',
+    email: 'info@yourjoyousmind.com',
+    logo: '/assets/logo.png',
+    ogImage: '/assets/og-image.jpg',
+    foundingDate: '2023',
+    social: {
+        instagram: 'https://instagram.com/yourjoyousmind/',
+        tiktok: 'https://tiktok.com/@yourjoyousmind/',
+        linkedin: 'https://www.linkedin.com/company/joyous'
+    }
+};
 
 const SchemaMarkup = ({ type, data = {} }) => {
     let schema = {};
+    const baseUrl = SITE_CONFIG.domain;
 
     switch (type) {
         case 'organization':
             schema = {
                 '@context': 'https://schema.org',
                 '@type': 'Organization',
-                '@id': 'https://www.akeyreu.com/#organization',
-                name: 'Akeyreu',
-                alternateName: 'Akeyreu Mental Wellness',
-                url: 'https://www.akeyreu.com',
+                '@id': `${baseUrl}/#organization`,
+                name: SITE_CONFIG.name,
+                alternateName: SITE_CONFIG.alternateName,
+                url: baseUrl,
                 logo: {
                     '@type': 'ImageObject',
-                    url: 'https://www.akeyreu.com/assets/logo.png',
+                    url: `${baseUrl}${SITE_CONFIG.logo}`,
                     width: 300,
                     height: 100
                 },
-                image: 'https://www.akeyreu.com/assets/og-image.jpg',
-                description: 'Akeyreu integrates advanced neural technologies with mental wellness practices, making technology-enhanced wellness accessible to everyone through nAura and Vza.',
-                foundingDate: '2023',
+                image: `${baseUrl}${SITE_CONFIG.ogImage}`,
+                description: 'Joyous is a human-centered technology platform focused on supporting personal agency, wellbeing, and insight through innovative mental wellness solutions.',
+                foundingDate: SITE_CONFIG.foundingDate,
                 industry: 'Mental Health Technology',
                 numberOfEmployees: '2-10',
                 address: {
@@ -33,36 +50,10 @@ const SchemaMarkup = ({ type, data = {} }) => {
                 contactPoint: {
                     '@type': 'ContactPoint',
                     contactType: 'customer service',
-                    email: 'contact@akeyreu.com',
+                    email: SITE_CONFIG.email,
                     availableLanguage: 'English'
                 },
-                sameAs: [
-                    'https://instagram.com/a_keyreu/',
-                    'https://tiktok.com/@akeyreu/',
-                    'https://www.linkedin.com/company/akeyreu'
-                ],
-                hasOfferCatalog: {
-                    '@type': 'OfferCatalog',
-                    name: 'Mental Wellness Products',
-                    itemListElement: [
-                        {
-                            '@type': 'Offer',
-                            itemOffered: {
-                                '@type': 'Product',
-                                name: 'nAura',
-                                description: 'Sleep analysis and optimization using biomedical data and AI'
-                            }
-                        },
-                        {
-                            '@type': 'Offer',
-                            itemOffered: {
-                                '@type': 'Product',
-                                name: 'Vza',
-                                description: 'Proactive CBT approach for mental wellness with real-time biometric data'
-                            }
-                        }
-                    ]
-                }
+                sameAs: Object.values(SITE_CONFIG.social)
             };
             break;
 
@@ -70,36 +61,28 @@ const SchemaMarkup = ({ type, data = {} }) => {
             schema = {
                 '@context': 'https://schema.org',
                 '@type': 'WebSite',
-                '@id': 'https://www.akeyreu.com/#website',
-                name: 'Akeyreu - Mental Wellness Through Neural Technology',
-                alternateName: 'Akeyreu',
-                url: 'https://www.akeyreu.com',
-                description: 'Pioneering the integration of advanced neural technologies and mental wellness practices for personalized cognitive enhancement.',
+                '@id': `${baseUrl}/#website`,
+                name: `${SITE_CONFIG.name} - Mental Wellness & Personal Growth`,
+                alternateName: SITE_CONFIG.name,
+                url: baseUrl,
+                description: 'Joyous empowers personal agency, wellbeing, and insight through human-centered technology and mental wellness practices.',
                 inLanguage: 'en-US',
-                isPartOf: {
+                publisher: {
                     '@type': 'Organization',
-                    '@id': 'https://www.akeyreu.com/#organization'
-                },
-                about: {
-                    '@type': 'Thing',
-                    name: 'Mental Wellness Technology'
-                },
-                audience: {
-                    '@type': 'Audience',
-                    audienceType: 'Individuals seeking mental wellness solutions'
+                    '@id': `${baseUrl}/#organization`
                 },
                 potentialAction: [
                     {
                         '@type': 'SearchAction',
                         target: {
                             '@type': 'EntryPoint',
-                            urlTemplate: 'https://www.akeyreu.com/blog?search={search_term_string}'
+                            urlTemplate: `${baseUrl}/blog?search={search_term_string}`
                         },
                         'query-input': 'required name=search_term_string'
                     },
                     {
                         '@type': 'ReadAction',
-                        target: 'https://www.akeyreu.com/blog'
+                        target: `${baseUrl}/blog`
                     }
                 ]
             };
@@ -109,48 +92,48 @@ const SchemaMarkup = ({ type, data = {} }) => {
             schema = {
                 '@context': 'https://schema.org',
                 '@type': 'BlogPosting',
-                '@id': data.url || 'https://www.akeyreu.com/blog',
-                headline: data.name || 'Akeyreu Blog Post',
+                '@id': data.url || `${baseUrl}/blog`,
+                headline: data.name || 'Joyous Blog Post',
                 alternativeHeadline: data.alternativeHeadline,
                 description: data.description || '',
                 abstract: data.summary || data.description || '',
                 articleBody: data.content || '',
                 image: {
                     '@type': 'ImageObject',
-                    url: data.image || 'https://www.akeyreu.com/assets/blog-default.jpg',
+                    url: data.image || `${baseUrl}${SITE_CONFIG.ogImage}`,
                     width: 1200,
                     height: 630
                 },
                 datePublished: data.datePublished ? new Date(data.datePublished).toISOString() : new Date().toISOString(),
                 dateModified: data.dateModified ? new Date(data.dateModified).toISOString() : (data.datePublished ? new Date(data.datePublished).toISOString() : new Date().toISOString()),
-                url: data.url || 'https://www.akeyreu.com/blog',
+                url: data.url || `${baseUrl}/blog`,
                 inLanguage: 'en-US',
                 isPartOf: {
                     '@type': 'Blog',
-                    '@id': 'https://www.akeyreu.com/blog#blog',
-                    name: 'Akeyreu Blog',
-                    description: 'Mental wellness insights and neural technology updates'
+                    '@id': `${baseUrl}/blog#blog`,
+                    name: 'Joyous Blog',
+                    description: 'Mental wellness insights and personal growth content'
                 },
                 author: {
                     '@type': 'Organization',
-                    '@id': 'https://www.akeyreu.com/#organization',
-                    name: 'Akeyreu',
-                    url: 'https://www.akeyreu.com'
+                    '@id': `${baseUrl}/#organization`,
+                    name: SITE_CONFIG.name,
+                    url: baseUrl
                 },
                 publisher: {
                     '@type': 'Organization',
-                    '@id': 'https://joyousbound.vercel.app/#organization',
-                    name: 'Joyous',
+                    '@id': `${baseUrl}/#organization`,
+                    name: SITE_CONFIG.name,
                     logo: {
                         '@type': 'ImageObject',
-                        url: 'https://joyousbound.vercel.app/assets/logo.png',
+                        url: `${baseUrl}${SITE_CONFIG.logo}`,
                         width: 300,
                         height: 100
                     }
                 },
                 mainEntityOfPage: {
                     '@type': 'WebPage',
-                    '@id': data.url || 'https://joyousbound.vercel.app/blog'
+                    '@id': data.url || `${baseUrl}/blog`
                 },
                 about: [
                     {
@@ -159,10 +142,10 @@ const SchemaMarkup = ({ type, data = {} }) => {
                     },
                     {
                         '@type': 'Thing',
-                        name: 'Neural Technology'
+                        name: 'Personal Growth'
                     }
                 ],
-                keywords: data.keywords || ['mental wellness', 'joy', 'happiness', 'emotional health'],
+                keywords: data.keywords || ['mental wellness', 'joy', 'happiness', 'emotional health', 'personal growth'],
                 wordCount: data.wordCount || (data.content ? data.content.split(' ').length : 0)
             };
 
@@ -181,29 +164,25 @@ const SchemaMarkup = ({ type, data = {} }) => {
             schema = {
                 '@context': 'https://schema.org',
                 '@type': 'Product',
-                '@id': data.url || `https://www.akeyreu.com/products/${data.name?.toLowerCase()}`,
+                '@id': data.url || `${baseUrl}/products/${data.name?.toLowerCase()}`,
                 name: data.name || '',
                 description: data.description || '',
                 category: 'Mental Wellness Technology',
                 image: {
                     '@type': 'ImageObject',
-                    url: data.image || 'https://www.akeyreu.com/assets/product-default.jpg',
+                    url: data.image || `${baseUrl}${SITE_CONFIG.ogImage}`,
                     width: 800,
                     height: 600
                 },
                 brand: {
                     '@type': 'Brand',
-                    name: 'Akeyreu',
-                    logo: 'https://www.akeyreu.com/assets/logo.png'
+                    name: SITE_CONFIG.name,
+                    logo: `${baseUrl}${SITE_CONFIG.logo}`
                 },
                 manufacturer: {
                     '@type': 'Organization',
-                    '@id': 'https://www.akeyreu.com/#organization',
-                    name: 'Akeyreu'
-                },
-                audience: {
-                    '@type': 'Audience',
-                    audienceType: 'Individuals seeking mental wellness solutions'
+                    '@id': `${baseUrl}/#organization`,
+                    name: SITE_CONFIG.name
                 }
             };
 
@@ -215,7 +194,7 @@ const SchemaMarkup = ({ type, data = {} }) => {
                     priceCurrency: 'USD',
                     seller: {
                         '@type': 'Organization',
-                        '@id': 'https://www.akeyreu.com/#organization'
+                        '@id': `${baseUrl}/#organization`
                     }
                 };
             }
@@ -225,32 +204,23 @@ const SchemaMarkup = ({ type, data = {} }) => {
             schema = {
                 '@context': 'https://schema.org',
                 '@type': 'Blog',
-                '@id': 'https://www.akeyreu.com/blog#blog',
-                name: 'Akeyreu Blog',
-                description: 'Mental wellness insights, neural technology updates, and cognitive health tips',
-                url: 'https://www.akeyreu.com/blog',
+                '@id': `${baseUrl}/blog#blog`,
+                name: 'Joyous Blog',
+                description: 'Mental wellness insights, personal growth tips, and mindfulness practices',
+                url: `${baseUrl}/blog`,
                 inLanguage: 'en-US',
                 author: {
                     '@type': 'Organization',
-                    '@id': 'https://www.akeyreu.com/#organization'
+                    '@id': `${baseUrl}/#organization`
                 },
                 publisher: {
                     '@type': 'Organization',
-                    '@id': 'https://www.akeyreu.com/#organization'
+                    '@id': `${baseUrl}/#organization`
                 },
                 about: [
-                    {
-                        '@type': 'Thing',
-                        name: 'Mental Wellness'
-                    },
-                    {
-                        '@type': 'Thing',
-                        name: 'Neural Technology'
-                    },
-                    {
-                        '@type': 'Thing',
-                        name: 'Cognitive Health'
-                    }
+                    { '@type': 'Thing', name: 'Mental Wellness' },
+                    { '@type': 'Thing', name: 'Mindfulness' },
+                    { '@type': 'Thing', name: 'Personal Growth' }
                 ]
             };
             break;
@@ -278,6 +248,39 @@ const SchemaMarkup = ({ type, data = {} }) => {
             };
             break;
 
+        case 'localBusiness':
+            schema = {
+                '@context': 'https://schema.org',
+                '@type': 'ProfessionalService',
+                '@id': `${baseUrl}/#business`,
+                name: SITE_CONFIG.name,
+                url: baseUrl,
+                image: `${baseUrl}${SITE_CONFIG.ogImage}`,
+                description: 'Human-centered technology platform for mental wellness and personal growth',
+                email: SITE_CONFIG.email,
+                priceRange: '$$',
+                address: {
+                    '@type': 'PostalAddress',
+                    addressCountry: 'US'
+                }
+            };
+            break;
+
+        case 'contactPage':
+            schema = {
+                '@context': 'https://schema.org',
+                '@type': 'ContactPage',
+                '@id': `${baseUrl}/contact`,
+                name: 'Contact Joyous',
+                description: 'Get in touch with the Joyous team',
+                url: `${baseUrl}/contact`,
+                mainEntity: {
+                    '@type': 'Organization',
+                    '@id': `${baseUrl}/#organization`
+                }
+            };
+            break;
+
         default:
             return null;
     }
@@ -291,4 +294,6 @@ const SchemaMarkup = ({ type, data = {} }) => {
     );
 };
 
+// Export site config for use in other components
+export { SITE_CONFIG };
 export default SchemaMarkup;

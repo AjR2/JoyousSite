@@ -1,5 +1,5 @@
 // Clean App.js with proper routing structure
-import React, { Suspense, useState, useEffect } from 'react';
+import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -18,6 +18,8 @@ const Blog = React.lazy(() => import('./components/Blog'));
 const BlogPost = React.lazy(() => import('./components/BlogPost'));
 const Contact = React.lazy(() => import('./components/Contact'));
 const MindfulBreaks = React.lazy(() => import('./components/MindfulBreaks'));
+const TermsOfService = React.lazy(() => import('./components/TermsOfService'));
+const PrivacyPolicy = React.lazy(() => import('./components/PrivacyPolicy'));
 
 // Import AdminAuth directly
 import AdminAuth from './components/AdminAuth';
@@ -532,6 +534,36 @@ function AppContent() {
             </Suspense>
           </>
         } />
+
+        <Route path="/terms" element={
+          <>
+            <Header />
+            <Suspense fallback={
+              <div className="loading-container" role="status" aria-label="Loading terms of service">
+                <LoadingSpinner />
+                <span className="sr-only">Loading terms of service...</span>
+              </div>
+            }>
+              <TermsOfService />
+            </Suspense>
+            <Footer />
+          </>
+        } />
+
+        <Route path="/privacy" element={
+          <>
+            <Header />
+            <Suspense fallback={
+              <div className="loading-container" role="status" aria-label="Loading privacy policy">
+                <LoadingSpinner />
+                <span className="sr-only">Loading privacy policy...</span>
+              </div>
+            }>
+              <PrivacyPolicy />
+            </Suspense>
+            <Footer />
+          </>
+        } />
       </Routes>
     </ErrorBoundary>
   );
@@ -542,12 +574,13 @@ function App() {
     <HelmetProvider>
       <AccessibilityProvider>
         <MetaTags
-          title="Joyous - Choose Joy"
-          description="Mental wellness starts with joy. Joy is the moment your mind exhales. Choose Joy. Share Wellness."
-          keywords="mental wellness, joy, mindfulness, mental health, wellness, choose joy"
-          canonicalUrl="https://joyousbound.vercel.app/"
+          title="Joyous - Choose Joy, Share Wellness"
+          description="Mental wellness starts with joy. Joy is the moment your mind exhales. Joyous is a human-centered technology platform supporting personal agency, wellbeing, and insight."
+          keywords="mental wellness, joy, mindfulness, mental health, wellness, choose joy, personal growth, wellbeing"
+          canonicalUrl="https://www.yourjoyousmind.com/"
         />
-        <SchemaMarkup />
+        <SchemaMarkup type="organization" />
+        <SchemaMarkup type="website" />
         <Router>
           <AppContent />
         </Router>
