@@ -52,6 +52,14 @@
       "destination": "/api/sw"
     },
     {
+      "source": "/sitemap.xml",
+      "destination": "/api/sitemap"
+    },
+    {
+      "source": "/robots.txt",
+      "destination": "/api/robots"
+    },
+    {
       "source": "/((?!api|sw\\.js|manifest\\.json|robots\\.txt|sitemap\\.xml|favicon\\.ico|static|_next|llms\\.txt|posts\\.json).*)",
       "destination": "/index.html"
     }

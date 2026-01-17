@@ -1,4 +1,6 @@
-// Simple sitemap.xml API endpoint
+// Dynamic sitemap.xml API endpoint
+// Generates sitemap with all pages and blog posts
+
 const fs = require('fs');
 const path = require('path');
 
@@ -14,6 +16,15 @@ const loadPosts = () => {
   } catch (error) {
     console.error('Error loading posts:', error);
     return [];
+  }
+};
+
+// Format date for sitemap
+const formatDate = (date) => {
+  try {
+    return new Date(date).toISOString().split('T')[0];
+  } catch {
+    return new Date().toISOString().split('T')[0];
   }
 };
 
@@ -35,57 +46,62 @@ module.exports = function handler(req, res) {
   try {
     const posts = loadPosts();
 
-    // Get the base URL from the request headers (works for both domains)
+    // Get the base URL from the request headers
     const protocol = req.headers['x-forwarded-proto'] || 'https';
-    const host = req.headers['x-forwarded-host'] || req.headers.host || 'yourkindredminds.com';
+    const host = req.headers['x-forwarded-host'] || req.headers.host || 'www.yourjoyousmind.com';
     const baseUrl = `${protocol}://${host}`;
-    
+
+    const today = formatDate(new Date());
+
+    // Static pages with their priorities and change frequencies
+    const staticPages = [
+      { path: '', priority: '1.0', changefreq: 'weekly', lastmod: today },
+      { path: '/blog', priority: '0.9', changefreq: 'daily', lastmod: today },
+      { path: '/mindful-breaks', priority: '0.8', changefreq: 'weekly', lastmod: today },
+      { path: '/contact', priority: '0.7', changefreq: 'monthly', lastmod: today },
+      { path: '/terms', priority: '0.3', changefreq: 'yearly', lastmod: '2026-01-15' },
+      { path: '/privacy', priority: '0.3', changefreq: 'yearly', lastmod: '2026-01-15' }
+    ];
+
     let sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">`;
+
+    // Add static pages
+    staticPages.forEach(page => {
+      sitemap += `
   <url>
-    <loc>${baseUrl}</loc>
-    <lastmod>${new Date().toISOString()}</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>${baseUrl}/blog</loc>
-    <lastmod>${new Date().toISOString()}</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>${baseUrl}/about</loc>
-    <lastmod>${new Date().toISOString()}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>${baseUrl}/contact</loc>
-    <lastmod>${new Date().toISOString()}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <loc>${baseUrl}${page.path}</loc>
+    <lastmod>${page.lastmod}</lastmod>
+    <changefreq>${page.changefreq}</changefreq>
+    <priority>${page.priority}</priority>
   </url>`;
+    });
 
     // Add blog posts
     posts.forEach(post => {
+      const slug = post.id || post.slug || post.url?.split('/').pop();
+      const postDate = formatDate(post.date || post.publishedAt || post.createdAt);
+
       sitemap += `
   <url>
-    <loc>${baseUrl}/blog/${post.id}</loc>
-    <lastmod>${new Date(post.date).toISOString()}</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>${baseUrl}/blog/${slug}</loc>
+    <lastmod>${postDate}</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>`;
     });
 
     sitemap += `
 </urlset>`;
-  
-    res.setHeader('Content-Type', 'application/xml');
-    res.send(sitemap);
+
+    res.setHeader('Content-Type', 'application/xml; charset=utf-8');
+    res.setHeader('Cache-Control', 'public, max-age=3600, s-maxage=3600');
+    res.status(200).send(sitemap);
   } catch (error) {
     console.error('Sitemap API Error:', error);
-    res.status(500).json({ 
+    res.status(500).json({
       error: 'Internal server error',
       timestamp: new Date().toISOString()
     });
