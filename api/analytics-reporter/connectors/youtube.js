@@ -107,8 +107,10 @@ class YouTubeConnector extends SocialConnector {
     const channelStats = await this.fetchChannelStats();
 
     // YouTube Analytics API query
+    // Use 'channel==MINE' for OAuth - this returns analytics for the authenticated user's channel
+    // The channelId is still used for the Data API calls but Analytics API requires MINE
     const url = new URL('https://youtubeanalytics.googleapis.com/v2/reports');
-    url.searchParams.append('ids', `channel==${this.channelId}`);
+    url.searchParams.append('ids', 'channel==MINE');
     url.searchParams.append('startDate', startDate);
     url.searchParams.append('endDate', endDate);
     url.searchParams.append('dimensions', 'day');
@@ -122,7 +124,6 @@ class YouTubeConnector extends SocialConnector {
       'dislikes',
       'comments',
       'shares',
-      'annotationClickThroughRate',
       'averageViewPercentage'
     ].join(','));
     url.searchParams.append('sort', 'day');
@@ -159,7 +160,7 @@ class YouTubeConnector extends SocialConnector {
    */
   async fetchAnalyticsMetricsBasic(startDate, endDate, accessToken, channelStats) {
     const url = new URL('https://youtubeanalytics.googleapis.com/v2/reports');
-    url.searchParams.append('ids', `channel==${this.channelId}`);
+    url.searchParams.append('ids', 'channel==MINE');
     url.searchParams.append('startDate', startDate);
     url.searchParams.append('endDate', endDate);
     url.searchParams.append('dimensions', 'day');
