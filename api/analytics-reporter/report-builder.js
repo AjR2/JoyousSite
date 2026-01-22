@@ -319,16 +319,18 @@ class ReportBuilder {
     ${Object.keys(tables).length > 0 ? `
     <section>
       <h2>📊 Platform Metrics (7-Day View)</h2>
-      ${Object.entries(tables).map(([platform, rows]) => `
+      ${Object.entries(tables).map(([platform, rows]) => {
+        const isYouTube = platform.toLowerCase() === 'youtube';
+        return `
         <h3 style="margin-top: 20px; color: #666; text-transform: capitalize;">${platform}</h3>
         <table>
           <thead>
             <tr>
               <th>Date</th>
               <th>Views</th>
-              <th>Impressions</th>
+              ${isYouTube ? '<th>Watch Time</th>' : '<th>Impressions</th>'}
               <th>Engagement</th>
-              <th>Followers Δ</th>
+              <th>${isYouTube ? 'Subs Δ' : 'Followers Δ'}</th>
             </tr>
           </thead>
           <tbody>
@@ -336,14 +338,17 @@ class ReportBuilder {
               <tr>
                 <td>${row.date}</td>
                 <td>${row.views.toLocaleString()}</td>
-                <td>${row.impressions.toLocaleString()}</td>
+                ${isYouTube
+                  ? `<td>${this.formatWatchTime(row.watch_time_minutes)}</td>`
+                  : `<td>${row.impressions.toLocaleString()}</td>`
+                }
                 <td>${row.engagement.toLocaleString()}</td>
                 <td>${row.followers_delta > 0 ? '+' : ''}${row.followers_delta}</td>
               </tr>
             `).join('')}
           </tbody>
         </table>
-      `).join('')}
+      `}).join('')}
     </section>
     ` : ''}
 
@@ -485,6 +490,19 @@ class ReportBuilder {
       "'": '&#039;'
     };
     return text.replace(/[&<>"']/g, m => map[m]);
+  }
+
+  /**
+   * Format watch time from minutes to human-readable format
+   */
+  formatWatchTime(minutes) {
+    if (!minutes || minutes === 0) return '0m';
+    const hours = Math.floor(minutes / 60);
+    const mins = Math.round(minutes % 60);
+    if (hours > 0) {
+      return `${hours}h ${mins}m`;
+    }
+    return `${mins}m`;
   }
 }
 

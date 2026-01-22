@@ -121,8 +121,16 @@ class LatentMASAnalyzer {
       const metricNames = ['views', 'impressions', 'likes', 'comments', 'followers_delta'];
 
       for (const metricName of metricNames) {
+        // Handle aliased field names (e.g., subscribers_delta vs followers_delta)
         const values = platformMetrics
-          .map(m => m.metrics?.[metricName])
+          .map(m => {
+            const metrics = m.metrics || {};
+            // Try primary name first, then alias
+            if (metricName === 'followers_delta') {
+              return metrics.followers_delta ?? metrics.subscribers_delta;
+            }
+            return metrics[metricName];
+          })
           .filter(v => v !== null && v !== undefined && !isNaN(v));
 
         if (values.length < 3) continue; // Need enough data
@@ -267,13 +275,17 @@ class LatentMASAnalyzer {
     const tables = {};
 
     for (const [platform, platformMetrics] of Object.entries(platformGroups)) {
-      tables[platform] = platformMetrics.map(m => ({
-        date: m.date,
-        views: m.metrics?.views || 0,
-        impressions: m.metrics?.impressions || 0,
-        engagement: ((m.metrics?.likes || 0) + (m.metrics?.comments || 0) + (m.metrics?.shares || 0)),
-        followers_delta: m.metrics?.followers_delta || 0
-      }));
+      tables[platform] = platformMetrics.map(m => {
+        const data = m.metrics || {};
+        return {
+          date: m.date,
+          views: data.views || 0,
+          impressions: data.impressions || 0,
+          engagement: ((data.likes || 0) + (data.comments || 0) + (data.shares || 0)),
+          followers_delta: data.followers_delta ?? data.subscribers_delta ?? 0,
+          watch_time_minutes: data.watch_time_minutes || 0
+        };
+      });
     }
 
     return tables;
@@ -328,10 +340,18 @@ class LatentMASAnalyzer {
     if (metrics.length === 0) return {};
 
     const stats = {};
-    const metricNames = ['views', 'impressions', 'likes', 'comments', 'shares', 'followers_delta'];
+    const metricNames = ['views', 'impressions', 'likes', 'comments', 'shares', 'followers_delta', 'watch_time_minutes'];
 
     metricNames.forEach(name => {
-      const values = metrics.map(m => m.metrics?.[name]).filter(v => v !== null && v !== undefined);
+      const values = metrics.map(m => {
+        const metricData = m.metrics || {};
+        // Handle aliased field names
+        if (name === 'followers_delta') {
+          return metricData.followers_delta ?? metricData.subscribers_delta;
+        }
+        return metricData[name];
+      }).filter(v => v !== null && v !== undefined);
+
       if (values.length > 0) {
         stats[name] = {
           avg: values.reduce((a, b) => a + b, 0) / values.length,

@@ -1,6 +1,9 @@
 /**
  * YouTube Analytics Connector
- * Fetches channel analytics using YouTube Data API v3 and Analytics API
+ * Fetches channel analytics using YouTube Data API v3 and YouTube Analytics API
+ *
+ * With OAuth: Gets detailed daily metrics (views, watch time, impressions, CTR, etc.)
+ * Without OAuth: Gets basic cumulative channel statistics only
  */
 const SocialConnector = require('./base');
 
@@ -10,16 +13,63 @@ class YouTubeConnector extends SocialConnector {
     this.platform = 'youtube';
     this.apiKey = config.apiKey || process.env.YOUTUBE_API_KEY;
     this.channelId = config.channelId || process.env.YOUTUBE_CHANNEL_ID;
-    this.analyticsEnabled = !!process.env.YOUTUBE_OAUTH_REFRESH_TOKEN;
+
+    // OAuth credentials for YouTube Analytics API
+    this.refreshToken = config.refreshToken || process.env.YOUTUBE_OAUTH_REFRESH_TOKEN;
+    this.clientId = config.clientId || process.env.YOUTUBE_OAUTH_CLIENT_ID;
+    this.clientSecret = config.clientSecret || process.env.YOUTUBE_OAUTH_CLIENT_SECRET;
+    this.accessToken = null;
+    this.accessTokenExpiry = null;
   }
 
   isConfigured() {
     return !!(this.apiKey && this.channelId);
   }
 
+  isOAuthConfigured() {
+    return !!(this.refreshToken && this.clientId && this.clientSecret);
+  }
+
+  /**
+   * Get a valid access token, refreshing if necessary
+   */
+  async getAccessToken() {
+    // Return cached token if still valid (with 5 min buffer)
+    if (this.accessToken && this.accessTokenExpiry && Date.now() < this.accessTokenExpiry - 300000) {
+      return this.accessToken;
+    }
+
+    console.log('[YouTube OAuth] Refreshing access token...');
+
+    const response = await fetch('https://oauth2.googleapis.com/token', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
+        client_id: this.clientId,
+        client_secret: this.clientSecret,
+        refresh_token: this.refreshToken,
+        grant_type: 'refresh_token'
+      })
+    });
+
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({}));
+      console.error('[YouTube OAuth] Token refresh failed:', error);
+      throw new Error(`OAuth token refresh failed: ${error.error_description || response.statusText}`);
+    }
+
+    const tokens = await response.json();
+    this.accessToken = tokens.access_token;
+    this.accessTokenExpiry = Date.now() + (tokens.expires_in * 1000);
+
+    console.log('[YouTube OAuth] Access token refreshed successfully');
+    return this.accessToken;
+  }
+
   /**
    * Fetch daily metrics from YouTube
-   * Note: Public API (API key) has limited metrics. OAuth required for full analytics.
+   * Uses YouTube Analytics API with OAuth for detailed metrics,
+   * falls back to basic Data API if OAuth not configured
    */
   async getDailyMetrics(params) {
     const { startDate, endDate } = params;
@@ -28,18 +78,175 @@ class YouTubeConnector extends SocialConnector {
       throw new Error('YouTube connector not configured. Missing API key or channel ID.');
     }
 
+    // If OAuth is configured, use YouTube Analytics API for detailed daily metrics
+    if (this.isOAuthConfigured()) {
+      console.log('[YouTube] Using OAuth for detailed analytics');
+      return this.fetchAnalyticsMetrics(startDate, endDate);
+    }
+
+    // Fallback to basic Data API (cumulative stats only)
+    console.log('[YouTube] OAuth not configured, using basic Data API');
     const metrics = [];
     const dates = this.getDateRange(startDate, endDate);
-
-    // Fetch channel statistics (current snapshot)
     const channelStats = await this.fetchChannelStats();
 
-    // For each date, create a metrics entry
-    // Note: Without YouTube Analytics API (OAuth), we can only get current stats
-    // We'll create daily entries based on current data with estimated deltas
     for (const date of dates) {
       const normalized = this.normalize(channelStats, date);
       metrics.push(normalized);
+    }
+
+    return metrics;
+  }
+
+  /**
+   * Fetch detailed daily metrics from YouTube Analytics API
+   * Requires OAuth authentication
+   */
+  async fetchAnalyticsMetrics(startDate, endDate) {
+    const accessToken = await this.getAccessToken();
+    const channelStats = await this.fetchChannelStats();
+
+    // YouTube Analytics API query
+    const url = new URL('https://youtubeanalytics.googleapis.com/v2/reports');
+    url.searchParams.append('ids', `channel==${this.channelId}`);
+    url.searchParams.append('startDate', startDate);
+    url.searchParams.append('endDate', endDate);
+    url.searchParams.append('dimensions', 'day');
+    url.searchParams.append('metrics', [
+      'views',
+      'estimatedMinutesWatched',
+      'averageViewDuration',
+      'subscribersGained',
+      'subscribersLost',
+      'likes',
+      'dislikes',
+      'comments',
+      'shares',
+      'annotationClickThroughRate',
+      'averageViewPercentage'
+    ].join(','));
+    url.searchParams.append('sort', 'day');
+
+    console.log('[YouTube Analytics] Fetching daily metrics from', startDate, 'to', endDate);
+
+    const response = await fetch(url.toString(), {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Accept': 'application/json'
+      }
+    });
+
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({}));
+      console.error('[YouTube Analytics] API error:', error);
+
+      // If Analytics API fails, try with fewer metrics (some channels don't have all)
+      if (error.error?.code === 400) {
+        return this.fetchAnalyticsMetricsBasic(startDate, endDate, accessToken, channelStats);
+      }
+
+      throw new Error(`YouTube Analytics API error: ${error.error?.message || response.statusText}`);
+    }
+
+    const data = await response.json();
+    console.log('[YouTube Analytics] Received', data.rows?.length || 0, 'days of data');
+
+    return this.normalizeAnalyticsData(data, channelStats);
+  }
+
+  /**
+   * Fallback with basic metrics if full metrics not available
+   */
+  async fetchAnalyticsMetricsBasic(startDate, endDate, accessToken, channelStats) {
+    const url = new URL('https://youtubeanalytics.googleapis.com/v2/reports');
+    url.searchParams.append('ids', `channel==${this.channelId}`);
+    url.searchParams.append('startDate', startDate);
+    url.searchParams.append('endDate', endDate);
+    url.searchParams.append('dimensions', 'day');
+    url.searchParams.append('metrics', 'views,estimatedMinutesWatched,subscribersGained,subscribersLost,likes,comments,shares');
+    url.searchParams.append('sort', 'day');
+
+    console.log('[YouTube Analytics] Retrying with basic metrics...');
+
+    const response = await fetch(url.toString(), {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Accept': 'application/json'
+      }
+    });
+
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({}));
+      throw new Error(`YouTube Analytics API error: ${error.error?.message || response.statusText}`);
+    }
+
+    const data = await response.json();
+    return this.normalizeAnalyticsData(data, channelStats);
+  }
+
+  /**
+   * Normalize YouTube Analytics API data to unified schema
+   */
+  normalizeAnalyticsData(analyticsData, channelStats) {
+    const snippet = channelStats.snippet;
+    const stats = channelStats.statistics;
+    const metrics = [];
+
+    // Column headers tell us what each index represents
+    const headers = analyticsData.columnHeaders?.map(h => h.name) || [];
+
+    for (const row of analyticsData.rows || []) {
+      const dayData = {};
+      headers.forEach((header, index) => {
+        dayData[header] = row[index];
+      });
+
+      const subscribersDelta = (dayData.subscribersGained || 0) - (dayData.subscribersLost || 0);
+      const views = dayData.views || 0;
+      const likes = dayData.likes || 0;
+      const comments = dayData.comments || 0;
+      const shares = dayData.shares || 0;
+
+      // Calculate engagement rate: (likes + comments + shares) / views * 100
+      const engagementRate = views > 0 ? ((likes + comments + shares) / views * 100) : 0;
+
+      metrics.push({
+        date: dayData.day,
+        platform: this.platform,
+        account_id: this.channelId,
+        account_handle: snippet?.customUrl || snippet?.title || this.channelId,
+        metrics: {
+          views: views,
+          watch_time_minutes: dayData.estimatedMinutesWatched || 0,
+          average_view_duration: dayData.averageViewDuration || 0,
+          subscribers: parseInt(stats.subscriberCount) || 0,
+          subscribers_gained: dayData.subscribersGained || 0,
+          subscribers_lost: dayData.subscribersLost || 0,
+          subscribers_delta: subscribersDelta,
+          likes: likes,
+          dislikes: dayData.dislikes || 0,
+          comments: comments,
+          shares: shares,
+          average_view_percentage: dayData.averageViewPercentage || 0,
+          ctr: dayData.annotationClickThroughRate || 0,
+          videos: parseInt(stats.videoCount) || 0
+        },
+        derived: {
+          engagement_rate: Math.round(engagementRate * 100) / 100,
+          watch_time_hours: Math.round((dayData.estimatedMinutesWatched || 0) / 60 * 100) / 100,
+          avg_view_minutes: Math.round((dayData.averageViewDuration || 0) / 60 * 100) / 100
+        },
+        raw_payload: {
+          analytics: dayData,
+          channel: {
+            title: snippet?.title,
+            customUrl: snippet?.customUrl,
+            totalViews: stats?.viewCount,
+            totalSubscribers: stats?.subscriberCount
+          }
+        },
+        data_source: 'youtube_analytics_api'
+      });
     }
 
     return metrics;
@@ -120,53 +327,43 @@ class YouTubeConnector extends SocialConnector {
   }
 
   /**
-   * Normalize YouTube data to unified schema
+   * Normalize YouTube Data API response to unified schema (basic/fallback mode)
    */
   normalize(channelData, date) {
     const stats = channelData.statistics;
     const snippet = channelData.snippet;
 
-    // Note: Without Analytics API, we don't have daily granular data
-    // This provides current totals - in production, implement OAuth for daily metrics
     return {
       date,
       platform: this.platform,
       account_id: this.channelId,
       account_handle: snippet?.customUrl || snippet?.title || this.channelId,
       metrics: {
-        // Cumulative totals (not daily deltas without Analytics API)
+        // Cumulative totals only (not daily metrics)
         views: parseInt(stats.viewCount) || 0,
         subscribers: parseInt(stats.subscriberCount) || 0,
         videos: parseInt(stats.videoCount) || 0,
-        // Estimated daily metrics (would need Analytics API for actuals)
-        impressions: null, // Requires Analytics API
-        watch_time_minutes: null, // Requires Analytics API
-        likes: null, // Aggregate only
-        comments: parseInt(stats.commentCount) || 0,
-        shares: null, // Requires Analytics API
-        followers_delta: null, // Requires historical data
-        clicks: null,
-        engagement_rate: null // Can be calculated with more data
+        watch_time_minutes: null,
+        likes: null,
+        comments: null,
+        shares: null,
+        subscribers_delta: null
       },
       derived: {
         engagement_rate: null,
-        ctr: null,
-        view_velocity: null
+        ctr: null
       },
       raw_payload: {
         statistics: stats,
         snippet: {
           title: snippet?.title,
-          description: snippet?.description?.substring(0, 200),
-          customUrl: snippet?.customUrl,
-          publishedAt: snippet?.publishedAt
+          customUrl: snippet?.customUrl
         }
       },
-      data_source: 'youtube_data_api_v3',
+      data_source: 'youtube_data_api_v3_basic',
       limitations: [
-        'Daily metrics require YouTube Analytics API with OAuth',
-        'Current implementation shows cumulative totals only',
-        'Implement OAuth refresh token for granular daily analytics'
+        'OAuth not configured - showing cumulative totals only',
+        'Add YOUTUBE_OAUTH_REFRESH_TOKEN, CLIENT_ID, CLIENT_SECRET for daily metrics'
       ]
     };
   }
@@ -199,7 +396,8 @@ class YouTubeConnector extends SocialConnector {
           message: 'YouTube connector not configured',
           details: {
             hasApiKey: !!this.apiKey,
-            hasChannelId: !!this.channelId
+            hasChannelId: !!this.channelId,
+            hasOAuth: this.isOAuthConfigured()
           }
         };
       }
@@ -207,16 +405,44 @@ class YouTubeConnector extends SocialConnector {
       const channelData = await this.fetchChannelStats();
       const videos = await this.fetchRecentVideos(5);
 
+      // Test OAuth if configured
+      let oauthStatus = { configured: false };
+      if (this.isOAuthConfigured()) {
+        try {
+          await this.getAccessToken();
+          oauthStatus = {
+            configured: true,
+            working: true,
+            message: 'OAuth working - full analytics available'
+          };
+        } catch (oauthError) {
+          oauthStatus = {
+            configured: true,
+            working: false,
+            message: `OAuth error: ${oauthError.message}`
+          };
+        }
+      } else {
+        oauthStatus = {
+          configured: false,
+          working: false,
+          message: 'OAuth not configured - only basic stats available',
+          required: ['YOUTUBE_OAUTH_REFRESH_TOKEN', 'YOUTUBE_OAUTH_CLIENT_ID', 'YOUTUBE_OAUTH_CLIENT_SECRET']
+        };
+      }
+
       return {
         success: true,
-        message: 'YouTube connection successful',
+        message: oauthStatus.working
+          ? 'YouTube connection successful with full analytics'
+          : 'YouTube connection successful (basic mode)',
         details: {
           channel: channelData.snippet.title,
           subscribers: channelData.statistics.subscriberCount,
           totalViews: channelData.statistics.viewCount,
           videoCount: channelData.statistics.videoCount,
           recentVideos: videos.length,
-          analyticsEnabled: this.analyticsEnabled
+          oauth: oauthStatus
         }
       };
     } catch (error) {
