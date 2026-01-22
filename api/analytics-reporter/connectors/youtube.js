@@ -139,14 +139,17 @@ class YouTubeConnector extends SocialConnector {
 
     if (!response.ok) {
       const error = await response.json().catch(() => ({}));
-      console.error('[YouTube Analytics] API error:', error);
+      console.error('[YouTube Analytics] API error status:', response.status);
+      console.error('[YouTube Analytics] API error details:', JSON.stringify(error, null, 2));
+      console.error('[YouTube Analytics] Error reason:', error.error?.errors?.[0]?.reason);
+      console.error('[YouTube Analytics] Error message:', error.error?.message);
 
       // If Analytics API fails, try with fewer metrics (some channels don't have all)
       if (error.error?.code === 400) {
         return this.fetchAnalyticsMetricsBasic(startDate, endDate, accessToken, channelStats);
       }
 
-      throw new Error(`YouTube Analytics API error: ${error.error?.message || response.statusText}`);
+      throw new Error(`YouTube Analytics API error: ${error.error?.message || response.statusText} (reason: ${error.error?.errors?.[0]?.reason || 'unknown'})`);
     }
 
     const data = await response.json();
