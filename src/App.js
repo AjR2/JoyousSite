@@ -1,5 +1,5 @@
 // Clean App.js with proper routing structure
-import React, { Suspense } from 'react';
+import React, { Suspense, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -12,6 +12,7 @@ import SchemaMarkup from './components/SchemaMarkup';
 import ErrorBoundary from './components/ErrorBoundary';
 import LoadingSpinner from './components/LoadingSpinner';
 import AccessibilityProvider from './components/AccessibilityProvider';
+import ClarityQuestionnaire from './components/ClarityQuestionnaire';
 
 // Lazy load components for code splitting
 const Blog = React.lazy(() => import('./components/Blog'));
@@ -35,6 +36,7 @@ import { faBlog, faPodcast } from '@fortawesome/free-solid-svg-icons';
 // Wrapper component to use hooks outside of Router
 function AppContent() {
   const navigate = useNavigate();
+  const [isQuestionnaireOpen, setIsQuestionnaireOpen] = useState(false);
 
   // Kindred has launched - no countdown needed
   const isLaunched = true;
@@ -125,21 +127,25 @@ function AppContent() {
                       <p className="hero-tagline">
                         <strong>Choose Joy. Share Wellness.</strong>
                       </p>
-                      <a
-                        href="https://discord.gg/s9qSQfk2"
+                      <button
                         className="button cta-button"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-describedby="discord-description"
+                        onClick={() => setIsQuestionnaireOpen(true)}
+                        aria-describedby="clarity-description"
                       >
                         Choose Joy
-                        <span id="discord-description" className="sr-only">
-                          Join our Discord community to connect with others on their mental wellness journey
+                        <span id="clarity-description" className="sr-only">
+                          Open the clarity questionnaire to get personalized guidance
                         </span>
-                      </a>
+                      </button>
                     </header>
                   </div>
                 </AnimatedCard>
+
+                {/* Clarity Questionnaire Modal */}
+                <ClarityQuestionnaire
+                  isOpen={isQuestionnaireOpen}
+                  onClose={() => setIsQuestionnaireOpen(false)}
+                />
 
                 {/* About Section */}
                 <AnimatedCard

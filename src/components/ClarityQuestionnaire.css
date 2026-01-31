@@ -1,0 +1,509 @@
+/* ClarityQuestionnaire Modal Styles */
+
+.questionnaire-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 1rem;
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.questionnaire-modal {
+  background: #ffffff;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(29, 161, 242, 0.25);
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.questionnaire-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: #6c757d;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  z-index: 1;
+}
+
+.questionnaire-close:hover {
+  background-color: #f8f9fa;
+  color: #495057;
+}
+
+.questionnaire-close:focus {
+  outline: 3px solid #1DA1F2;
+  outline-offset: 2px;
+}
+
+/* Progress Indicator */
+.questionnaire-progress {
+  padding: 1.5rem 2rem 0;
+  text-align: center;
+}
+
+.progress-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.progress-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #e9ecef;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.progress-dot.active {
+  background: linear-gradient(135deg, #1DA1F2, #F1C40F);
+  transform: scale(1.1);
+}
+
+/* Step Styles */
+.questionnaire-step {
+  padding: 2rem;
+}
+
+.step-title {
+  font-size: 1.5rem;
+  color: #1DA1F2;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.step-title em {
+  font-style: italic;
+  text-decoration: underline;
+  text-decoration-color: #F1C40F;
+}
+
+.step-content {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.step-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+/* Button Styles */
+.btn-primary {
+  background: linear-gradient(135deg, #1DA1F2, #F1C40F);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(29, 161, 242, 0.3);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(29, 161, 242, 0.4);
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-primary:focus {
+  outline: 3px solid #1DA1F2;
+  outline-offset: 2px;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: #6c757d;
+  border: 1px solid #dee2e6;
+  border-radius: 50px;
+  padding: 0.875rem 1.75rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background-color: #f8f9fa;
+  border-color: #adb5bd;
+  color: #495057;
+}
+
+.btn-secondary:focus {
+  outline: 3px solid #1DA1F2;
+  outline-offset: 2px;
+}
+
+/* Step 0: Entry Gate */
+.step-entry {
+  padding: 3rem 2rem;
+}
+
+.entry-disclaimer {
+  font-size: 1.25rem;
+  color: #495057;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.entry-promise {
+  font-size: 1.125rem;
+  color: #1DA1F2;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+/* Step 1: Context Selection */
+.context-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.context-option {
+  background: #ffffff;
+  border: 2px solid #e9ecef;
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  font-size: 1rem;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #495057;
+}
+
+.context-option:hover {
+  border-color: #1DA1F2;
+  background-color: rgba(29, 161, 242, 0.05);
+}
+
+.context-option.selected {
+  border-color: #1DA1F2;
+  background: linear-gradient(135deg, rgba(29, 161, 242, 0.1), rgba(241, 196, 15, 0.05));
+  color: #1DA1F2;
+  font-weight: 500;
+}
+
+.context-option:focus {
+  outline: 3px solid #1DA1F2;
+  outline-offset: 2px;
+}
+
+/* Step 2: Constraints */
+.constraint-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.constraint-card {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 1.25rem;
+  text-align: left;
+}
+
+.constraint-card label {
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #495057;
+  margin-bottom: 0.25rem;
+}
+
+.constraint-hint {
+  display: block;
+  font-size: 0.875rem;
+  color: #6c757d;
+  margin-bottom: 0.75rem;
+  font-style: italic;
+}
+
+.constraint-card textarea {
+  width: 100%;
+  min-height: 60px;
+  padding: 0.75rem;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: inherit;
+  resize: vertical;
+  transition: border-color 0.2s ease;
+}
+
+.constraint-card textarea:focus {
+  outline: none;
+  border-color: #1DA1F2;
+  box-shadow: 0 0 0 3px rgba(29, 161, 242, 0.1);
+}
+
+.constraint-card textarea::placeholder {
+  color: #adb5bd;
+}
+
+/* Step 3: Permission */
+.step-permission {
+  padding: 3rem 2rem;
+  display: flex;
+  flex-direction: column;
+  min-height: 300px;
+  justify-content: center;
+}
+
+.permission-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 0;
+}
+
+.permission-statement {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #1DA1F2;
+  text-align: center;
+  line-height: 1.4;
+  margin: 0;
+  animation: fadeInScale 0.5s ease-out;
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Step 4: Action */
+.action-container {
+  background: linear-gradient(135deg, rgba(29, 161, 242, 0.08), rgba(241, 196, 15, 0.05));
+  border-radius: 16px;
+  padding: 2rem;
+  margin: 1rem 0;
+  border: 1px solid rgba(29, 161, 242, 0.2);
+}
+
+.action-statement {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #495057;
+  text-align: center;
+  line-height: 1.5;
+  margin: 0;
+  animation: fadeInScale 0.5s ease-out;
+}
+
+/* Step 5: Exit */
+.step-exit {
+  padding: 3rem 2rem;
+  text-align: center;
+}
+
+.exit-content {
+  margin-bottom: 2rem;
+}
+
+.exit-statement {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #495057;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.exit-promise {
+  font-size: 1.125rem;
+  color: #6c757d;
+  line-height: 1.6;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .questionnaire-modal {
+    max-width: 100%;
+    max-height: 100vh;
+    border-radius: 12px;
+    margin: 0.5rem;
+  }
+
+  .questionnaire-step {
+    padding: 1.5rem;
+  }
+
+  .step-entry {
+    padding: 2rem 1.5rem;
+  }
+
+  .step-title {
+    font-size: 1.25rem;
+  }
+
+  .entry-disclaimer {
+    font-size: 1.125rem;
+  }
+
+  .permission-statement {
+    font-size: 1.5rem;
+  }
+
+  .action-statement {
+    font-size: 1.25rem;
+  }
+
+  .exit-statement {
+    font-size: 1.25rem;
+  }
+
+  .btn-primary {
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  .context-option {
+    padding: 1rem 1.25rem;
+    font-size: 0.95rem;
+  }
+
+  .constraint-card {
+    padding: 1rem;
+  }
+
+  .constraint-card label {
+    font-size: 0.95rem;
+  }
+
+  .constraint-hint {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .questionnaire-overlay {
+    padding: 0.5rem;
+  }
+
+  .questionnaire-modal {
+    margin: 0.25rem;
+  }
+
+  .questionnaire-step {
+    padding: 1.25rem;
+  }
+
+  .step-title {
+    font-size: 1.125rem;
+  }
+
+  .permission-statement {
+    font-size: 1.25rem;
+  }
+
+  .action-statement {
+    font-size: 1.125rem;
+  }
+
+  .action-container {
+    padding: 1.5rem;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .questionnaire-overlay,
+  .questionnaire-modal,
+  .permission-statement,
+  .action-statement {
+    animation: none;
+  }
+
+  .btn-primary:hover:not(:disabled),
+  .context-option:hover {
+    transform: none;
+  }
+}
+
+/* High contrast support */
+@media (prefers-contrast: high) {
+  .questionnaire-modal {
+    border: 2px solid #000;
+  }
+
+  .context-option {
+    border-width: 2px;
+  }
+
+  .context-option.selected {
+    border-color: #000;
+    background-color: #e9ecef;
+  }
+
+  .constraint-card textarea {
+    border-width: 2px;
+  }
+}
+
+/* Screen reader only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
