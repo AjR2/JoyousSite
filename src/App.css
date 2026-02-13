@@ -141,6 +141,33 @@ html, body {
   text-decoration: none;
 }
 
+/* Hero CTA button group */
+.hero-cta-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.hero-cta-group .cta-button {
+  margin: 0;
+  text-decoration: none;
+}
+
+.hero-cta-group .primary-cta {
+  background: linear-gradient(135deg, #2ECC71, #27AE60);
+  box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+}
+
+.hero-cta-group .primary-cta:hover {
+  box-shadow: 0 6px 20px rgba(46, 204, 113, 0.4);
+}
+
+.hero-cta-group .secondary-cta {
+  background: linear-gradient(135deg, #1DA1F2, #F1C40F);
+}
+
 /* center subscribe button in hero section */
 .text-content .cta-button {
   display: block;          /* Makes it a block-level element */

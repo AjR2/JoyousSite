@@ -128,16 +128,30 @@ function AppContent() {
                       <p className="hero-tagline">
                         <strong>Choose Joy. Share Wellness.</strong>
                       </p>
-                      <button
-                        className="button cta-button"
-                        onClick={() => setIsQuestionnaireOpen(true)}
-                        aria-describedby="clarity-description"
-                      >
-                        Choose Joy
-                        <span id="clarity-description" className="sr-only">
-                          Open the clarity questionnaire to get personalized guidance
-                        </span>
-                      </button>
+                      <div className="hero-cta-group">
+                        <a
+                          href="https://buy.stripe.com/dRm6oGeMQ5KZbwC76sdjO00"
+                          className="button cta-button primary-cta"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-describedby="get-started-description"
+                        >
+                          Get Started
+                          <span id="get-started-description" className="sr-only">
+                            Start your wellness journey with Joyous
+                          </span>
+                        </a>
+                        <button
+                          className="button cta-button secondary-cta"
+                          onClick={() => setIsQuestionnaireOpen(true)}
+                          aria-describedby="clarity-description"
+                        >
+                          Take the Quiz
+                          <span id="clarity-description" className="sr-only">
+                            Open the clarity questionnaire to get personalized guidance
+                          </span>
+                        </button>
+                      </div>
                     </header>
                   </div>
                 </AnimatedCard>
