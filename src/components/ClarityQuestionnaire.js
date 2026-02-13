@@ -375,6 +375,18 @@ function ClarityQuestionnaire({ isOpen, onClose }) {
                 Save this for later
               </button>
             </div>
+            <div className="extra-assistance">
+              <p className="extra-assistance-text">
+                Need more support clearing mental weight?
+              </p>
+              <a
+                href="/cognitive-offload-sprint"
+                className="btn-link"
+                onClick={onClose}
+              >
+                Explore our Cognitive Offload Sprint
+              </a>
+            </div>
           </div>
         );
 

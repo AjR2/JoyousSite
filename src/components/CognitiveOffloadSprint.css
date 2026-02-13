@@ -1,0 +1,257 @@
+/* Cognitive Offload Sprint Landing Page Styles */
+/* Follows existing site design system */
+
+.offload-page {
+  padding-top: 20px;
+}
+
+/* Hero Section */
+.offload-hero {
+  padding: 3rem 2rem;
+  text-align: center;
+}
+
+.offload-hero .text-content {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.offload-hero h1 {
+  font-size: 2.5rem;
+  color: #1DA1F2;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+}
+
+.offload-headline {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #495057;
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+}
+
+.offload-subheadline {
+  font-size: 1.25rem;
+  color: #1DA1F2;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+.offload-description {
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: #6c757d;
+  margin-bottom: 2rem;
+}
+
+/* Section Styles */
+.offload-section {
+  padding: 2.5rem 2rem;
+}
+
+.offload-section .section-title {
+  margin-bottom: 1.5rem;
+}
+
+.section-intro {
+  font-size: 1.125rem;
+  color: #495057;
+  margin-bottom: 1.25rem;
+  font-weight: 500;
+}
+
+.section-closing {
+  font-size: 1.125rem;
+  color: #1DA1F2;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  font-style: italic;
+}
+
+/* List Styles */
+.offload-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.offload-list li {
+  position: relative;
+  padding-left: 1.75rem;
+  margin-bottom: 0.875rem;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: #495057;
+}
+
+.offload-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.5rem;
+  width: 8px;
+  height: 8px;
+  background: linear-gradient(135deg, #1DA1F2, #F1C40F);
+  border-radius: 50%;
+}
+
+/* Session Details Grid */
+.offload-details {
+  background: linear-gradient(135deg, rgba(29, 161, 242, 0.05), rgba(241, 196, 15, 0.05));
+  border: 2px solid rgba(29, 161, 242, 0.1);
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  max-width: 800px;
+  margin: 0 auto 1.5rem;
+}
+
+.detail-item {
+  background: #ffffff;
+  border: 1px solid #e9ecef;
+  border-radius: 12px;
+  padding: 1.25rem;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(3, 90, 166, 0.1);
+}
+
+.detail-label {
+  display: block;
+  font-size: 0.875rem;
+  color: #6c757d;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.detail-value {
+  display: block;
+  font-size: 1.125rem;
+  color: #1DA1F2;
+  font-weight: 600;
+}
+
+.detail-note {
+  font-size: 1rem;
+  color: #495057;
+  font-weight: 500;
+  text-align: center;
+  padding: 1rem;
+  background: rgba(241, 196, 15, 0.1);
+  border-radius: 8px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* Final CTA Section */
+.offload-final-cta {
+  text-align: center;
+  padding: 3rem 2rem;
+}
+
+.final-cta-text {
+  font-size: 1.5rem;
+  color: #495057;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .offload-hero {
+    padding: 2rem 1.5rem;
+  }
+
+  .offload-hero h1 {
+    font-size: 2rem;
+  }
+
+  .offload-headline {
+    font-size: 1.25rem;
+  }
+
+  .offload-subheadline {
+    font-size: 1.125rem;
+  }
+
+  .offload-description {
+    font-size: 1rem;
+  }
+
+  .offload-section {
+    padding: 2rem 1.5rem;
+  }
+
+  .offload-list li {
+    font-size: 1rem;
+  }
+
+  .details-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .detail-item {
+    padding: 1rem;
+  }
+
+  .detail-value {
+    font-size: 1rem;
+  }
+
+  .final-cta-text {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .offload-hero {
+    padding: 1.5rem 1rem;
+  }
+
+  .offload-hero h1 {
+    font-size: 1.75rem;
+  }
+
+  .offload-headline {
+    font-size: 1.125rem;
+  }
+
+  .offload-section {
+    padding: 1.5rem 1rem;
+  }
+
+  .details-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .final-cta-text {
+    font-size: 1.125rem;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .detail-item {
+    transition: none;
+  }
+}
+
+/* High contrast support */
+@media (prefers-contrast: high) {
+  .offload-details {
+    border: 2px solid #000;
+  }
+
+  .detail-item {
+    border: 2px solid #000;
+  }
+}

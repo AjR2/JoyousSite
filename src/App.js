@@ -21,6 +21,7 @@ const Contact = React.lazy(() => import('./components/Contact'));
 const MindfulBreaks = React.lazy(() => import('./components/MindfulBreaks'));
 const TermsOfService = React.lazy(() => import('./components/TermsOfService'));
 const PrivacyPolicy = React.lazy(() => import('./components/PrivacyPolicy'));
+const CognitiveOffloadSprint = React.lazy(() => import('./components/CognitiveOffloadSprint'));
 
 // Import AdminAuth directly
 import AdminAuth from './components/AdminAuth';
@@ -566,6 +567,21 @@ function AppContent() {
               </div>
             }>
               <PrivacyPolicy />
+            </Suspense>
+            <Footer />
+          </>
+        } />
+
+        <Route path="/cognitive-offload-sprint" element={
+          <>
+            <Header />
+            <Suspense fallback={
+              <div className="loading-container" role="status" aria-label="Loading cognitive offload sprint">
+                <LoadingSpinner />
+                <span className="sr-only">Loading cognitive offload sprint...</span>
+              </div>
+            }>
+              <CognitiveOffloadSprint />
             </Suspense>
             <Footer />
           </>
