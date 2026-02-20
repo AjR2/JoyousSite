@@ -1,15 +1,15 @@
 // Enhanced MetaTags component with comprehensive SEO and social media support
-// Domain: yourjoyousmind.com (Joyous brand)
+// Domain: joyous.com (Joyous Cognitive Systems)
 
 import { Helmet } from 'react-helmet-async';
 
 // Centralized SEO configuration
 const SEO_CONFIG = {
-    domain: 'https://www.yourjoyousmind.com',
+    domain: 'https://www.joyous.com',
     siteName: 'Joyous',
-    twitterHandle: '@yourjoyousmind',
+    twitterHandle: '@joyouscognitive',
     defaultImage: '/assets/og-image.jpg',
-    themeColor: '#4A90A4'
+    themeColor: '#1DA1F2'
 };
 
 const MetaTags = ({
@@ -21,7 +21,7 @@ const MetaTags = ({
     publishDate = null,
     modifiedDate = null,
     ogImage = `${SEO_CONFIG.domain}${SEO_CONFIG.defaultImage}`,
-    ogImageAlt = 'Joyous - Choose Joy, Share Wellness',
+    ogImageAlt = 'Joyous - Cognitive Systems for Execution Integrity',
     author = 'Joyous',
     section = null,
     tags = [],
@@ -182,8 +182,8 @@ const MetaTags = ({
         // Return a minimal Helmet as fallback
         return (
             <Helmet>
-                <title>Joyous - Choose Joy, Share Wellness</title>
-                <meta name="description" content="Mental wellness starts with joy. Choose Joy. Share Wellness." />
+                <title>Joyous - Cognitive Systems for Execution Integrity</title>
+                <meta name="description" content="Structural interventions for operators who cannot afford execution failure. Pre-collapse prevention and founder performance stabilization." />
             </Helmet>
         );
     }

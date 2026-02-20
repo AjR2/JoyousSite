@@ -1,6 +1,6 @@
 // Clean App.js with proper routing structure
 import React, { Suspense, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -31,43 +31,13 @@ import OptimizedImage from './components/OptimizedImage';
 import AnimatedCard from './components/AnimatedCard';
 // import CountdownTimer from './components/CountdownTimer'; // Removed - using inline version
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faInstagram, faXTwitter, faTiktok } from '@fortawesome/free-brands-svg-icons';
+import { faXTwitter } from '@fortawesome/free-brands-svg-icons';
 import { faBlog, faPodcast } from '@fortawesome/free-solid-svg-icons';
 
 // Wrapper component to use hooks outside of Router
 function AppContent() {
-  const navigate = useNavigate();
   const [isQuestionnaireOpen, setIsQuestionnaireOpen] = useState(false);
 
-  // Kindred has launched - no countdown needed
-  const isLaunched = true;
-
-  // Test log to verify component is loading
-  console.log('KINDRED: AppContent component is rendering');
-
-  const handleNavClick = (e, targetId) => {
-    e.preventDefault();
-
-    // Navigate to the main page first
-    if (window.location.pathname !== '/') {
-      navigate('/', { replace: false });
-    }
-
-    // Scroll to the target section after navigation
-    setTimeout(() => {
-      const target = document.getElementById(targetId);
-
-      if (target) {
-        const yOffset = -100; // Offset for the height of the navbar
-        const yPosition = target.getBoundingClientRect().top + window.scrollY + yOffset;
-
-        window.scrollTo({
-          top: yPosition,
-          behavior: 'smooth',
-        });
-      }
-    }, 100);
-  };
 
   return (
     <ErrorBoundary>
@@ -96,49 +66,45 @@ function AppContent() {
                     <figure className="hero-image">
                       <OptimizedImage
                         src={heroJoyousImage}
-                        alt="Joyful woman with curly hair smiling warmly, representing mental wellness and happiness"
+                        alt="Founder maintaining execution clarity under pressure"
                         className="image"
                         width={400}
                         height={300}
                         loading="eager"
                       />
                       <figcaption className="sr-only">
-                        A joyful woman representing mental wellness and happiness
+                        Visual representation of cognitive systems and execution integrity
                       </figcaption>
                     </figure>
                     <header className="text-content">
-                      <h1 id="hero-heading">💫 How we define Joy?</h1>
+                      <h1 id="hero-heading">Execution Degrades Before It Fails</h1>
                       <p className="hero-description">
-                        Joy is the moment your mind exhales.
+                        You don't lose capacity overnight. You lose it in increments.
                       </p>
                       <p className="hero-details">
-                        It's the quiet shift from anxious spirals to grounded presence.
-                        It's not about fixing everything — it's about remembering you have a choice.
-                        To pause. To breathe. To move.
-                        To feel connected, even in chaos.
+                        Decision drift. Threshold erosion. Containment failure.
+                        The signals appear before the collapse — but most operators don't have systems to detect them.
                       </p>
                       <p className="hero-details">
-                        Joy is not a destination — it's a return to agency.
-                        It's the emotional experience of freedom from attachment.
-                        And it's always available — even in small moments.
+                        Joyous is a cognitive systems company.
+                        We build structural interventions that stabilize execution integrity
+                        before degradation becomes visible to anyone else.
                       </p>
                       <p className="hero-details">
-                        At Joyous, we don't promise perfection. We create space for you to choose joy — again and again.
+                        No frameworks. No theory. Just applied containment architecture for high-stakes operators.
                       </p>
                       <p className="hero-tagline">
-                        <strong>Choose Joy. Share Wellness.</strong>
+                        <strong>Pre-Collapse Prevention. Execution Integrity. Structural Containment.</strong>
                       </p>
                       <div className="hero-cta-group">
                         <a
-                          href="https://buy.stripe.com/dRm6oGeMQ5KZbwC76sdjO00"
+                          href="#founder"
                           className="button cta-button primary-cta"
-                          target="_blank"
-                          rel="noopener noreferrer"
                           aria-describedby="get-started-description"
                         >
-                          Get Started
+                          Explore Joyous Founder
                           <span id="get-started-description" className="sr-only">
-                            Start your wellness journey with Joyous
+                            Learn about founder performance stabilization
                           </span>
                         </a>
                         <button
@@ -146,9 +112,9 @@ function AppContent() {
                           onClick={() => setIsQuestionnaireOpen(true)}
                           aria-describedby="clarity-description"
                         >
-                          Take the Quiz
+                          Run Drift Diagnostic
                           <span id="clarity-description" className="sr-only">
-                            Open the clarity questionnaire to get personalized guidance
+                            Assess your current execution integrity status
                           </span>
                         </button>
                       </div>
@@ -162,7 +128,7 @@ function AppContent() {
                   onClose={() => setIsQuestionnaireOpen(false)}
                 />
 
-                {/* About Section */}
+                {/* About Section - Cognitive Systems */}
                 <AnimatedCard
                   className="card about-section"
                   id="about"
@@ -176,29 +142,32 @@ function AppContent() {
                     <figure className="about-image">
                       <OptimizedImage
                         src={friendsImage}
-                        alt="Group of diverse friends laughing together, representing joyful community and mental wellness support"
+                        alt="Cognitive systems architecture visualization"
                         className="image"
                         width={400}
                         height={300}
                         loading="lazy"
                       />
                       <figcaption className="sr-only">
-                        A diverse group of friends enjoying each other's company, representing the joyful community aspect of mental wellness
+                        Representation of cognitive containment systems
                       </figcaption>
                     </figure>
                     <div className="text-content">
-                      <h2 id="about-heading">What We Do</h2>
+                      <h2 id="about-heading">Cognitive Systems, Not Coping Mechanisms</h2>
                       <p className="about-description">
-                        At Joyous, we bring together science, technology, and community to support your mental wellness—day by day, moment by moment.
+                        Joyous builds structural interventions for operators who cannot afford execution failure.
+                        We don't teach resilience. We install containment.
                       </p>
                       <p className="about-mission">
-                        We design smart tools that respond to your needs in real time, helping you feel lighter, more connected, and in control. Whether you're seeking peace of mind, emotional balance, or just a space to breathe, Joyous is here—with you, and for you.
+                        Our approach treats decision-making capacity as infrastructure — not a personality trait.
+                        When that infrastructure degrades, performance collapses. We detect threshold signals early,
+                        isolate drift vectors, and restore structural integrity before breakdown becomes public.
                       </p>
                     </div>
                   </div>
                 </AnimatedCard>
 
-                {/* Our Values Section */}
+                {/* Operating Principles Section */}
                 <AnimatedCard
                   className="card values-section"
                   id="values"
@@ -209,259 +178,198 @@ function AppContent() {
                   circleSize={70}
                 >
                   <header>
-                    <h2 id="values-heading" className="section-title">Our Values</h2>
+                    <h2 id="values-heading" className="section-title">Operating Principles</h2>
                   </header>
-                  <div className="values-grid" role="list" aria-label="Our core values">
-                    {/* Value Items */}
+                  <div className="values-grid" role="list" aria-label="Our operating principles">
+                    {/* Principle Items */}
                     <article className="value-item" role="listitem" tabIndex="0">
                       <header>
-                        <h3>Human-Centered Agency</h3>
+                        <h3>Containment Over Coping</h3>
                       </header>
                       <p className="value-short">
-                        We build tools that grow with you—not tools you depend on.
+                        We don't teach you to manage chaos. We help you contain it.
                       </p>
                       <p className="value-expanded">
-                        Joyous strengthens agency by evolving alongside the people who use it. Continued use is earned through relevance, not reliance.
+                        Structural interventions isolate drift before it propagates. The goal is not adaptation — it's architectural repair.
                       </p>
                     </article>
                     <article className="value-item" role="listitem" tabIndex="0">
                       <header>
-                        <h3>Psychological Safety by Design</h3>
+                        <h3>Threshold Detection</h3>
                       </header>
                       <p className="value-short">
-                        Safety is built into every interaction—by design.
+                        Signals precede symptoms. We track the signals.
                       </p>
                       <p className="value-expanded">
-                        From UX to AI to human moderation, Joyous prioritizes clarity, consent, and emotional safety at every touchpoint.
+                        Execution degradation follows predictable threshold patterns. Our systems detect when capacity limits approach — before visible failure.
                       </p>
                     </article>
                     <article className="value-item" role="listitem" tabIndex="0">
                       <header>
-                        <h3>Human First, Technology in Service</h3>
+                        <h3>Tactical Intervention Architecture</h3>
                       </header>
                       <p className="value-short">
-                        Technology should support humanity, not replace it.
+                        Every engagement has a defined scope, deliverable, and exit.
                       </p>
                       <p className="value-expanded">
-                        AI at Joyous exists to enhance connection and understanding—never to diagnose, judge, or take authority.
+                        No open-ended engagements. Acute interventions restore function. Structural sprints rebuild integrity. Then you operate independently.
                       </p>
                     </article>
                     <article className="value-item" role="listitem" tabIndex="0">
                       <header>
-                        <h3>Radical Clarity Builds Trust</h3>
+                        <h3>Decision Infrastructure</h3>
                       </header>
                       <p className="value-short">
-                        Trust comes from honesty—especially about limits.
+                        Decisions are architecture, not willpower.
                       </p>
                       <p className="value-expanded">
-                        We communicate openly about how Joyous works, what it can do, and where human support or outside care is needed.
+                        We treat decision-making capacity as load-bearing structure. When it degrades, we don't ask you to try harder — we repair the system.
                       </p>
                     </article>
                     <article className="value-item" role="listitem" tabIndex="0">
                       <header>
-                        <h3>Belonging Without Prescription</h3>
+                        <h3>Pre-Collapse Prevention</h3>
                       </header>
                       <p className="value-short">
-                        Connection without conformity.
+                        Intervention before the board notices.
                       </p>
                       <p className="value-expanded">
-                        Joyous welcomes difference. There's no single right way to participate, heal, or grow here.
+                        The best time to stabilize execution is before degradation becomes externally visible. We work in the window where correction is still private.
                       </p>
                     </article>
                   </div>
                 </AnimatedCard>
 
-                {/* Kindred App Announcement Section */}
+                {/* Joyous Founder Vertical Section */}
                 <AnimatedCard
                   className="card kindred-section"
-                  id="products"
-                  aria-labelledby="kindred-heading"
+                  id="founder"
+                  aria-labelledby="founder-heading"
                   circleColor="#F1C40F"
                   opacity={0.06}
                   speed={0.014}
                   circleSize={90}
                 >
                   <header className="kindred-header">
-                    <h2 id="kindred-heading" className="section-title">Coming Soon: Kindred by Joyous</h2>
-                    <p className="kindred-subheader">A new way to connect, share, and heal—together.</p>
+                    <h2 id="founder-heading" className="section-title">Joyous Founder</h2>
+                    <p className="kindred-subheader">Founder Performance Stabilization</p>
                     <p className="kindred-description">
-                      Kindred is our upcoming peer support app, powered by Joyous tech and built for real, human connection.
+                      The first applied vertical of Joyous cognitive systems.
+                      Designed for founders operating at capacity limits where execution failure carries existential stakes.
                     </p>
                   </header>
 
-                  {/* Conditional Countdown Timer or Launch Link */}
-                  {!isLaunched ? (
-                    /* Countdown Timer */
-                    <div style={{
-                      textAlign: 'center',
-                      margin: '2rem 0',
-                      padding: '2rem',
-                      background: 'linear-gradient(135deg, rgba(29, 161, 242, 0.1), rgba(241, 196, 15, 0.1))',
-                      borderRadius: '16px',
-                      border: '2px solid rgba(29, 161, 242, 0.2)',
-                      minHeight: '150px'
-                    }}>
-                      <div style={{
-                        fontSize: '1.5rem',
-                        fontWeight: '600',
-                        color: '#1DA1F2',
-                        marginBottom: '1rem'
-                      }}>
-                        🕒 Launches In:
-                      </div>
-                      <div style={{
-                        fontSize: '1.25rem',
-                        fontWeight: 'bold',
-                        color: '#333',
-                        background: 'white',
-                        padding: '1rem',
-                        borderRadius: '8px',
-                        border: '1px solid #ddd'
-                      }}>
-                        {countdown}
-                      </div>
-                      <div style={{
-                        fontSize: '0.9rem',
-                        color: '#666',
-                        marginTop: '1rem'
-                      }}>
-                        September 14th, 2025
-                      </div>
-                    </div>
-                  ) : (
-                    /* Launch Link */
-                    <div style={{
-                      textAlign: 'center',
-                      margin: '2rem 0',
-                      padding: '2rem',
-                      background: 'linear-gradient(135deg, rgba(46, 204, 113, 0.1), rgba(241, 196, 15, 0.1))',
-                      borderRadius: '16px',
-                      border: '2px solid rgba(46, 204, 113, 0.3)',
-                      minHeight: '150px',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'center',
-                      justifyContent: 'center'
-                    }}>
-                      <div style={{
-                        fontSize: '1.5rem',
-                        fontWeight: '600',
-                        color: '#2ECC71',
-                        marginBottom: '1.5rem'
-                      }}>
-                        🚀 Kindred is Now Live!
-                      </div>
-                      <a
-                        href="https://kindredpeer.com"
-                        className="button"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        style={{
-                          fontSize: '1.25rem',
-                          fontWeight: 'bold',
-                          color: 'white',
-                          background: 'linear-gradient(135deg, #2ECC71, #27AE60)',
-                          padding: '1rem 2rem',
-                          borderRadius: '12px',
-                          border: 'none',
-                          textDecoration: 'none',
-                          display: 'inline-block',
-                          transition: 'all 0.3s ease',
-                          boxShadow: '0 4px 15px rgba(46, 204, 113, 0.3)'
-                        }}
-                        onMouseOver={(e) => {
-                          e.target.style.transform = 'translateY(-2px)';
-                          e.target.style.boxShadow = '0 6px 20px rgba(46, 204, 113, 0.4)';
-                        }}
-                        onMouseOut={(e) => {
-                          e.target.style.transform = 'translateY(0)';
-                          e.target.style.boxShadow = '0 4px 15px rgba(46, 204, 113, 0.3)';
-                        }}
-                        aria-describedby="kindred-launch-description"
-                      >
-                        Visit Kindred Peer →
-                        <span id="kindred-launch-description" className="sr-only">
-                          Visit the newly launched Kindred peer support platform
-                        </span>
-                      </a>
-                      <div style={{
-                        fontSize: '0.9rem',
-                        color: '#666',
-                        marginTop: '1rem'
-                      }}>
-                        Connect, share, and heal together
-                      </div>
-                    </div>
-                  )}
+                  {/* Three Interventions Grid */}
+                  <div className="values-grid" role="list" aria-label="Founder intervention services" style={{ marginTop: '2rem' }}>
 
-                  {/* Conditional CTA Button */}
-                  {!isLaunched && (
-                    <div className="kindred-cta">
-                      <a
-                        href="https://discord.gg/s9qSQfk2"
-                        className="button kindred-button"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-describedby="kindred-button-description"
-                      >
-                        Get Notified
-                        <span id="kindred-button-description" className="sr-only">
-                          Join our Discord community to be notified when Kindred launches
-                        </span>
-                      </a>
-                    </div>
-                  )}
+                    {/* Founder Execution Reset */}
+                    <article className="value-item" role="listitem" tabIndex="0">
+                      <header>
+                        <h3>Founder Execution Reset</h3>
+                        <span style={{ fontSize: '0.9rem', color: '#666', display: 'block', marginTop: '0.25rem' }}>60-Minute Acute Tactical Intervention</span>
+                      </header>
+                      <p className="value-short">
+                        When execution has already degraded. Rapid containment and restoration.
+                      </p>
+                      <p className="value-expanded">
+                        A single session designed for founders who have crossed a threshold and need immediate structural repair.
+                        We isolate the drift vector, establish containment perimeter, and restore decision-making capacity within 60 minutes.
+                        Includes written artifact: context snapshot, decisions externalized, immediate next actions (max 3).
+                      </p>
+                      <p style={{ marginTop: '1rem', fontWeight: '600' }}>$250 | 60 minutes | Zoom</p>
+                    </article>
+
+                    {/* Founder Cognitive Integrity Sprint */}
+                    <article className="value-item" role="listitem" tabIndex="0">
+                      <header>
+                        <h3>Founder Cognitive Integrity Sprint</h3>
+                        <span style={{ fontSize: '0.9rem', color: '#666', display: 'block', marginTop: '0.25rem' }}>2-Week Structural Intervention</span>
+                      </header>
+                      <p className="value-short">
+                        When the degradation is systemic. Structural rebuild over two weeks.
+                      </p>
+                      <p className="value-expanded">
+                        For founders whose execution infrastructure has sustained cumulative damage.
+                        Four sessions across 14 days. We map your decision architecture, identify load-bearing failures,
+                        rebuild containment systems, and install threshold monitoring.
+                        You exit with documented operating protocols and drift detection triggers.
+                      </p>
+                      <p style={{ marginTop: '1rem', fontWeight: '600' }}>$1,500 | 4 sessions over 2 weeks</p>
+                    </article>
+
+                    {/* Founder Drift Monitor */}
+                    <article className="value-item" role="listitem" tabIndex="0">
+                      <header>
+                        <h3>Founder Drift Monitor</h3>
+                        <span style={{ fontSize: '0.9rem', color: '#666', display: 'block', marginTop: '0.25rem' }}>Gated Diagnostic Tool</span>
+                      </header>
+                      <p className="value-short">
+                        Continuous threshold signal tracking. Know before you cross.
+                      </p>
+                      <p className="value-expanded">
+                        A structured self-assessment protocol that tracks your execution integrity markers over time.
+                        Surfaces decision drift, containment erosion, and capacity threshold signals before they become visible failures.
+                        Access granted after completing a Cognitive Integrity Sprint.
+                      </p>
+                      <p style={{ marginTop: '1rem', fontWeight: '600' }}>Available post-Sprint | Included</p>
+                    </article>
+                  </div>
+
+                  {/* CTA */}
+                  <div className="kindred-cta" style={{ marginTop: '2rem' }}>
+                    <a
+                      href="/cognitive-offload-sprint"
+                      className="button kindred-button"
+                      aria-describedby="founder-cta-description"
+                    >
+                      Book Founder Execution Reset
+                      <span id="founder-cta-description" className="sr-only">
+                        Book a 60-minute founder execution reset session
+                      </span>
+                    </a>
+                  </div>
 
                   <div className="kindred-why">
-                    <h3 className="kindred-why-title">💬 Why Kindred?</h3>
+                    <h3 className="kindred-why-title">Why Founders?</h3>
                     <p className="kindred-why-text">
-                      Because no one should have to navigate mental wellness alone. Kindred connects you with peers who get it, in a safe, supportive, and emotionally intelligent space.
+                      Founders operate in environments where execution failure cascades immediately.
+                      No buffer. No recovery time. No one to hand it off to.
+                      When cognitive infrastructure degrades, the entire system is at risk.
+                      Joyous Founder exists because pre-collapse prevention is the only intervention that matters.
                     </p>
                   </div>
                 </AnimatedCard>
 
-                {/* Social Media Section */}
+                {/* Resources Section */}
                 <section className="card social-section" id="socials" aria-labelledby="socials-heading">
                   <header>
-                    <h2 id="socials-heading" className="section-title">Check us out on social media!</h2>
+                    <h2 id="socials-heading" className="section-title">Resources</h2>
                   </header>
-                  <nav className="socials-nav" aria-label="Social media links">
+                  <nav className="socials-nav" aria-label="Resource links">
                     <ul className="socials-list" role="list">
                       <li role="listitem">
-                        <a href="/blog" rel="noopener noreferrer" className="social-icon" aria-label="Visit our Blog">
+                        <a href="/blog" rel="noopener noreferrer" className="social-icon" aria-label="Read our research and analysis">
                           <FontAwesomeIcon icon={faBlog} aria-hidden="true" />
-                          <span className="social-label">Blog</span>
+                          <span className="social-label">Research</span>
                         </a>
                       </li>
                       <li role="listitem">
-                        <a href="https://mindsthatroam.com" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="Visit our Podcast - Minds That Roam">
+                        <a href="https://mindsthatroam.com" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="Listen to Minds That Roam podcast">
                           <FontAwesomeIcon icon={faPodcast} aria-hidden="true" />
                           <span className="social-label">Podcast</span>
                         </a>
                       </li>
                       <li role="listitem">
-                        <a href="https://instagram.com/a_keyreu/" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="Follow us on Instagram">
-                          <FontAwesomeIcon icon={faInstagram} aria-hidden="true" />
-                          <span className="social-label">Instagram</span>
-                        </a>
-                      </li>
-                      <li role="listitem">
-                        <span className="social-icon disabled-icon" aria-label="Twitter coming soon" aria-disabled="true">
+                        <a href="https://twitter.com/joyouscognitive" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="Follow on X/Twitter">
                           <FontAwesomeIcon icon={faXTwitter} aria-hidden="true" />
-                          <span className="social-label">Twitter (Coming Soon)</span>
-                        </span>
-                      </li>
-                      <li role="listitem">
-                        <a href="https://tiktok.com/@akeyreu/" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="Follow us on TikTok">
-                          <FontAwesomeIcon icon={faTiktok} aria-hidden="true" />
-                          <span className="social-label">TikTok</span>
+                          <span className="social-label">X / Twitter</span>
                         </a>
                       </li>
                     </ul>
                   </nav>
                 </section>
 
-                {/* Discord Community Section */}
+                {/* Contact Section */}
                 <AnimatedCard
                   className="card newsletter-section"
                   id="learn-more"
@@ -472,22 +380,20 @@ function AppContent() {
                   circleSize={75}
                 >
                   <header>
-                    <h2 id="newsletter-heading" className="section-title">Want to learn more and meet the community?</h2>
+                    <h2 id="newsletter-heading" className="section-title">Inquiries</h2>
                     <p className="newsletter-description">
-                      Let's talk in real time—come hang out with us on Discord!
+                      For enterprise engagements, custom intervention protocols, or partnership discussions.
                     </p>
                   </header>
                   <div className="newsletter-cta">
                     <a
-                      href="https://discord.gg/s9qSQfk2"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      href="/contact"
                       className="button newsletter-button"
                       aria-describedby="newsletter-button-description"
                     >
-                      Choose Joy
+                      Contact
                       <span id="newsletter-button-description" className="sr-only">
-                        Join our Discord community to connect with others on their mental wellness journey
+                        Contact Joyous for enterprise or partnership inquiries
                       </span>
                     </a>
                   </div>
@@ -610,10 +516,10 @@ function App() {
     <HelmetProvider>
       <AccessibilityProvider>
         <MetaTags
-          title="Joyous - Choose Joy, Share Wellness"
-          description="Mental wellness starts with joy. Joy is the moment your mind exhales. Joyous is a human-centered technology platform supporting personal agency, wellbeing, and insight."
-          keywords="mental wellness, joy, mindfulness, mental health, wellness, choose joy, personal growth, wellbeing"
-          canonicalUrl="https://www.yourjoyousmind.com/"
+          title="Joyous - Cognitive Systems for Execution Integrity"
+          description="Structural interventions for operators who cannot afford execution failure. Pre-collapse prevention, decision drift containment, and founder performance stabilization."
+          keywords="cognitive systems, execution integrity, founder performance, decision drift, containment, tactical intervention, pre-collapse prevention"
+          canonicalUrl="https://www.joyous.com/"
         />
         <SchemaMarkup type="organization" />
         <SchemaMarkup type="website" />

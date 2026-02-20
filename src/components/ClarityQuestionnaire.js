@@ -1,101 +1,101 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import './ClarityQuestionnaire.css';
 
-// Permission statements based on context patterns
-const PERMISSION_STATEMENTS = {
-  stuck: [
-    "You are allowed to act imperfectly here.",
-    "Choosing a small step is not avoidance.",
-    "You do not need to see the whole path to take one step."
+// Containment directives based on drift patterns
+const CONTAINMENT_DIRECTIVES = {
+  decision_drift: [
+    "Isolate the decision. Do not expand scope.",
+    "Name the single constraint that matters most. Ignore the rest.",
+    "The drift stops when you commit to one path. Commit now, adjust later."
   ],
-  pressure: [
-    "You do not need to prove anything to move forward.",
-    "You are allowed to prioritize yourself here.",
-    "Your worth is not determined by this outcome."
+  threshold_erosion: [
+    "You have already crossed a threshold. Acknowledge it.",
+    "Capacity limits are structural, not personal. Respect the architecture.",
+    "Reduce load now. Do not wait for permission."
   ],
-  avoiding: [
-    "You are allowed to start before you feel ready.",
-    "Choosing a small step is not avoidance.",
-    "You do not need to resolve everything to move forward."
+  containment_failure: [
+    "The perimeter has expanded beyond what you can hold. Contract it.",
+    "You cannot contain everything. Choose what stays inside the boundary.",
+    "Containment failure is not a character flaw. It's a structural signal."
   ],
-  overwhelmed: [
-    "You are allowed to do less than you think you should.",
-    "You do not need to resolve everything to move forward.",
-    "One thing at a time is enough."
+  capacity_overload: [
+    "You are operating beyond sustainable load. This is a system state, not a choice.",
+    "Shed load now. The system will not stabilize until you do.",
+    "Three priorities maximum. Everything else exits working memory."
   ],
-  transition: [
-    "You are not required to explain this decision yet.",
-    "Uncertainty is not the same as being lost.",
-    "You are allowed to be in between."
+  execution_stall: [
+    "Execution has stopped. The cause is structural, not motivational.",
+    "Identify the single blocker. Remove it or route around it.",
+    "Movement restores function. Take one action. Any action."
   ]
 };
 
-// Action step templates based on context
-const ACTION_TEMPLATES = {
-  stuck: [
-    "Draft the message. Do not send it.",
-    "Write down the two options you're weighing. Choose neither yet.",
-    "Block 20 minutes. Decide nothing else.",
-    "Remove one option from consideration."
+// Tactical actions based on drift type
+const TACTICAL_ACTIONS = {
+  decision_drift: [
+    "Write the decision. Set a 24-hour deadline. Do not revisit before then.",
+    "Eliminate one option permanently. Now.",
+    "State what you would decide if no one was watching. That's the decision.",
+    "Block 30 minutes. Make the call. Move on."
   ],
-  pressure: [
-    "Name one thing you will not do today.",
-    "Take the smallest public step that doesn't require explanation.",
-    "Write what you would say if you didn't have to impress anyone.",
-    "Block 20 minutes. Decide nothing else."
+  threshold_erosion: [
+    "Cancel one commitment in the next 48 hours.",
+    "Identify what you're protecting that no longer needs protection. Drop it.",
+    "Name the threshold you crossed. Document when it happened.",
+    "Reduce your active project count by one. Today."
   ],
-  avoiding: [
-    "Open the thing. Look at it for 2 minutes. Close it.",
-    "Write one sentence about what you're avoiding.",
-    "Set a timer for 10 minutes. Start anywhere.",
-    "Draft the message. Do not send it."
+  containment_failure: [
+    "List everything currently inside your perimeter. Remove three items.",
+    "Define what is explicitly outside your responsibility. Enforce the boundary.",
+    "Delegate one thing you've been holding. No conditions.",
+    "Say no to the next request. Practice the muscle."
   ],
-  overwhelmed: [
-    "Write down everything. Choose only one.",
-    "Remove one option from consideration.",
-    "Block 20 minutes. Decide nothing else.",
-    "Name one thing you will not do today."
+  capacity_overload: [
+    "Write down all open loops. Close three by deciding or delegating.",
+    "Block 2 hours tomorrow with no inputs. Protect it.",
+    "Identify your highest-leverage action. Do only that for the next 4 hours.",
+    "Exit one recurring meeting permanently."
   ],
-  transition: [
-    "Write what you know is true right now.",
-    "Take the smallest public step that doesn't require explanation.",
-    "Name one thing that hasn't changed.",
-    "Block 20 minutes. Decide nothing else."
+  execution_stall: [
+    "Open the blocked item. Work on it for exactly 10 minutes. Stop.",
+    "Send the message you've been drafting. Imperfect is acceptable.",
+    "Schedule the conversation you've been avoiding. This week.",
+    "Ship the thing at 80%. Done beats perfect."
   ]
 };
 
-const CONTEXT_OPTIONS = [
-  { id: 'stuck', label: "I'm stuck deciding what to do next" },
-  { id: 'pressure', label: "I feel pressure to perform or prove myself" },
-  { id: 'avoiding', label: "I'm avoiding something I know matters" },
-  { id: 'overwhelmed', label: "I'm overwhelmed and can't prioritize" },
-  { id: 'transition', label: "I'm in a transition and feel ungrounded" }
+const DRIFT_PATTERNS = [
+  { id: 'decision_drift', label: "Decisions keep expanding instead of resolving" },
+  { id: 'threshold_erosion', label: "Operating beyond sustainable capacity limits" },
+  { id: 'containment_failure', label: "Boundaries are leaking — too much is inside the perimeter" },
+  { id: 'capacity_overload', label: "Cognitive load exceeds processing bandwidth" },
+  { id: 'execution_stall', label: "Movement has stopped on critical items" }
 ];
 
 function ClarityQuestionnaire({ isOpen, onClose }) {
   const [currentStep, setCurrentStep] = useState(0);
-  const [selectedContext, setSelectedContext] = useState(null);
+  const [selectedDriftPattern, setSelectedDriftPattern] = useState(null);
   const [constraints, setConstraints] = useState({
     cannotRisk: '',
-    mustRemainTrue: '',
+    mustProtect: '',
     alreadyDecided: ''
   });
-  const [permission, setPermission] = useState('');
-  const [actionStep, setActionStep] = useState('');
+  const [directive, setDirective] = useState('');
+  const [tacticalAction, setTacticalAction] = useState('');
   const [retryUsed, setRetryUsed] = useState(false);
 
   const modalRef = useRef(null);
   const firstFocusableRef = useRef(null);
 
-  // Generate permission based on context
-  const generatePermission = useCallback((context) => {
-    const statements = PERMISSION_STATEMENTS[context] || PERMISSION_STATEMENTS.stuck;
-    return statements[Math.floor(Math.random() * statements.length)];
+  // Generate containment directive based on drift pattern
+  const generateDirective = useCallback((pattern) => {
+    const directives = CONTAINMENT_DIRECTIVES[pattern] || CONTAINMENT_DIRECTIVES.decision_drift;
+    return directives[Math.floor(Math.random() * directives.length)];
   }, []);
 
-  // Generate action step based on context
-  const generateActionStep = useCallback((context) => {
-    const actions = ACTION_TEMPLATES[context] || ACTION_TEMPLATES.stuck;
+  // Generate tactical action based on drift pattern
+  const generateTacticalAction = useCallback((pattern) => {
+    const actions = TACTICAL_ACTIONS[pattern] || TACTICAL_ACTIONS.decision_drift;
     return actions[Math.floor(Math.random() * actions.length)];
   }, []);
 
@@ -129,16 +129,16 @@ function ClarityQuestionnaire({ isOpen, onClose }) {
   useEffect(() => {
     if (!isOpen) {
       setCurrentStep(0);
-      setSelectedContext(null);
-      setConstraints({ cannotRisk: '', mustRemainTrue: '', alreadyDecided: '' });
-      setPermission('');
-      setActionStep('');
+      setSelectedDriftPattern(null);
+      setConstraints({ cannotRisk: '', mustProtect: '', alreadyDecided: '' });
+      setDirective('');
+      setTacticalAction('');
       setRetryUsed(false);
     }
   }, [isOpen]);
 
-  const handleContextSelect = (contextId) => {
-    setSelectedContext(contextId);
+  const handlePatternSelect = (patternId) => {
+    setSelectedDriftPattern(patternId);
   };
 
   const handleConstraintChange = (field, value) => {
@@ -146,15 +146,15 @@ function ClarityQuestionnaire({ isOpen, onClose }) {
   };
 
   const handleNext = () => {
-    if (currentStep === 1 && selectedContext) {
+    if (currentStep === 1 && selectedDriftPattern) {
       setCurrentStep(2);
     } else if (currentStep === 2) {
-      // Generate permission before showing step 3
-      setPermission(generatePermission(selectedContext));
+      // Generate containment directive before showing step 3
+      setDirective(generateDirective(selectedDriftPattern));
       setCurrentStep(3);
     } else if (currentStep === 3) {
-      // Generate action before showing step 4
-      setActionStep(generateActionStep(selectedContext));
+      // Generate tactical action before showing step 4
+      setTacticalAction(generateTacticalAction(selectedDriftPattern));
       setCurrentStep(4);
     } else if (currentStep < 5) {
       setCurrentStep(prev => prev + 1);
@@ -164,7 +164,7 @@ function ClarityQuestionnaire({ isOpen, onClose }) {
   const handleRetry = () => {
     if (!retryUsed) {
       setRetryUsed(true);
-      setActionStep(generateActionStep(selectedContext));
+      setTacticalAction(generateTacticalAction(selectedDriftPattern));
     }
   };
 
@@ -191,11 +191,11 @@ function ClarityQuestionnaire({ isOpen, onClose }) {
           <div className="questionnaire-step step-entry">
             <div className="step-content">
               <p className="entry-disclaimer">
-                Joyous is not therapy.<br />
-                We don't fix, diagnose, or decide for you.
+                This is not therapy.<br />
+                This is a drift diagnostic.
               </p>
               <p className="entry-promise">
-                We help you take one clear step when acting alone feels risky.
+                Identify your current execution degradation pattern and receive a tactical containment directive.
               </p>
             </div>
             <div className="step-actions">
@@ -204,13 +204,13 @@ function ClarityQuestionnaire({ isOpen, onClose }) {
                 onClick={handleNext}
                 ref={firstFocusableRef}
               >
-                Get clarity now (3–5 min)
+                Run Diagnostic (3–5 min)
               </button>
               <button
                 className="btn-secondary"
                 onClick={onClose}
               >
-                Learn what Joyous is / isn't
+                Learn about Joyous Founder
               </button>
             </div>
           </div>
@@ -219,16 +219,16 @@ function ClarityQuestionnaire({ isOpen, onClose }) {
       case 1:
         return (
           <div className="questionnaire-step step-context">
-            <h2 className="step-title">What are you navigating <em>right now</em>?</h2>
+            <h2 className="step-title">Identify the primary drift pattern:</h2>
             <div className="context-options">
-              {CONTEXT_OPTIONS.map((option) => (
+              {DRIFT_PATTERNS.map((pattern) => (
                 <button
-                  key={option.id}
-                  className={`context-option ${selectedContext === option.id ? 'selected' : ''}`}
-                  onClick={() => handleContextSelect(option.id)}
-                  ref={option.id === 'stuck' ? firstFocusableRef : null}
+                  key={pattern.id}
+                  className={`context-option ${selectedDriftPattern === pattern.id ? 'selected' : ''}`}
+                  onClick={() => handlePatternSelect(pattern.id)}
+                  ref={pattern.id === 'decision_drift' ? firstFocusableRef : null}
                 >
-                  {option.label}
+                  {pattern.label}
                 </button>
               ))}
             </div>
@@ -236,7 +236,7 @@ function ClarityQuestionnaire({ isOpen, onClose }) {
               <button
                 className="btn-primary"
                 onClick={handleNext}
-                disabled={!selectedContext}
+                disabled={!selectedDriftPattern}
               >
                 Continue
               </button>
@@ -247,47 +247,47 @@ function ClarityQuestionnaire({ isOpen, onClose }) {
       case 2:
         return (
           <div className="questionnaire-step step-constraints">
-            <h2 className="step-title">Before choosing a next step, let's set boundaries.</h2>
+            <h2 className="step-title">Define containment parameters:</h2>
             <div className="constraint-cards">
               <div className="constraint-card">
                 <label htmlFor="cannotRisk">
-                  What cannot be risked right now?
+                  What cannot be risked in the current operating environment?
                 </label>
-                <span className="constraint-hint">(e.g., reputation, time, money, relationship, energy)</span>
+                <span className="constraint-hint">(e.g., runway, key relationship, team stability, deal momentum)</span>
                 <textarea
                   id="cannotRisk"
                   value={constraints.cannotRisk}
                   onChange={(e) => handleConstraintChange('cannotRisk', e.target.value)}
-                  placeholder="Type 1–2 lines..."
+                  placeholder="State the constraint..."
                   maxLength={200}
                   ref={firstFocusableRef}
                 />
               </div>
 
               <div className="constraint-card">
-                <label htmlFor="mustRemainTrue">
-                  What must remain true for you to respect this choice later?
+                <label htmlFor="mustProtect">
+                  What must remain protected for long-term execution capacity?
                 </label>
-                <span className="constraint-hint">(e.g., integrity, growth, rest, independence)</span>
+                <span className="constraint-hint">(e.g., decision authority, strategic focus, operational bandwidth)</span>
                 <textarea
-                  id="mustRemainTrue"
-                  value={constraints.mustRemainTrue}
-                  onChange={(e) => handleConstraintChange('mustRemainTrue', e.target.value)}
-                  placeholder="Type 1–2 lines..."
+                  id="mustProtect"
+                  value={constraints.mustProtect}
+                  onChange={(e) => handleConstraintChange('mustProtect', e.target.value)}
+                  placeholder="State what must be protected..."
                   maxLength={200}
                 />
               </div>
 
               <div className="constraint-card">
                 <label htmlFor="alreadyDecided">
-                  What is already decided — even if you don't like it?
+                  What is already fixed in the current context?
                 </label>
-                <span className="constraint-hint">(e.g., deadline exists, conversation is coming, resource is limited)</span>
+                <span className="constraint-hint">(e.g., deadline immovable, resource ceiling hit, commitment made)</span>
                 <textarea
                   id="alreadyDecided"
                   value={constraints.alreadyDecided}
                   onChange={(e) => handleConstraintChange('alreadyDecided', e.target.value)}
-                  placeholder="Type 1–2 lines..."
+                  placeholder="State the fixed constraints..."
                   maxLength={200}
                 />
               </div>
@@ -297,7 +297,7 @@ function ClarityQuestionnaire({ isOpen, onClose }) {
                 className="btn-primary"
                 onClick={handleNext}
               >
-                Continue
+                Generate Directive
               </button>
             </div>
           </div>
@@ -306,9 +306,10 @@ function ClarityQuestionnaire({ isOpen, onClose }) {
       case 3:
         return (
           <div className="questionnaire-step step-permission">
+            <h2 className="step-title" style={{ marginBottom: '1rem', fontSize: '1rem', opacity: 0.7 }}>Containment Directive:</h2>
             <div className="permission-container">
               <p className="permission-statement" ref={firstFocusableRef} tabIndex={0}>
-                {permission}
+                {directive}
               </p>
             </div>
             <div className="step-actions">
@@ -316,7 +317,7 @@ function ClarityQuestionnaire({ isOpen, onClose }) {
                 className="btn-primary"
                 onClick={handleNext}
               >
-                Okay. What's my next step?
+                Generate Tactical Action
               </button>
             </div>
           </div>
@@ -325,10 +326,10 @@ function ClarityQuestionnaire({ isOpen, onClose }) {
       case 4:
         return (
           <div className="questionnaire-step step-action">
-            <h2 className="step-title">Based on your constraints, here is a defensible next step:</h2>
+            <h2 className="step-title">Tactical action for immediate execution:</h2>
             <div className="action-container">
               <p className="action-statement" ref={firstFocusableRef} tabIndex={0}>
-                {actionStep}
+                {tacticalAction}
               </p>
             </div>
             <div className="step-actions">
@@ -343,7 +344,7 @@ function ClarityQuestionnaire({ isOpen, onClose }) {
                   className="btn-secondary"
                   onClick={handleRetry}
                 >
-                  Show me a different step
+                  Generate Alternative
                 </button>
               )}
             </div>
@@ -355,10 +356,10 @@ function ClarityQuestionnaire({ isOpen, onClose }) {
           <div className="questionnaire-step step-exit">
             <div className="exit-content">
               <p className="exit-statement" ref={firstFocusableRef} tabIndex={0}>
-                If you never come back, this was still a success.
+                Diagnostic complete. Execute the action.
               </p>
               <p className="exit-promise">
-                Joyous exists to help you trust yourself — not depend on us.
+                If this resolved the immediate drift, no further intervention required.
               </p>
             </div>
             <div className="step-actions">
@@ -366,25 +367,25 @@ function ClarityQuestionnaire({ isOpen, onClose }) {
                 className="btn-primary"
                 onClick={handleTakeStep}
               >
-                I'll take the next step
+                Execute Now
               </button>
               <button
                 className="btn-secondary"
                 onClick={handleSaveForLater}
               >
-                Save this for later
+                Save Directive
               </button>
             </div>
             <div className="extra-assistance">
               <p className="extra-assistance-text">
-                Need more support clearing mental weight?
+                Drift pattern systemic? Structural intervention recommended.
               </p>
               <a
                 href="/cognitive-offload-sprint"
                 className="btn-link"
                 onClick={onClose}
               >
-                Explore our Cognitive Offload Sprint
+                Book Founder Execution Reset
               </a>
             </div>
           </div>
@@ -427,7 +428,7 @@ function ClarityQuestionnaire({ isOpen, onClose }) {
           </div>
         )}
 
-        <h1 id="questionnaire-title" className="sr-only">Joyous Clarity Questionnaire</h1>
+        <h1 id="questionnaire-title" className="sr-only">Founder Drift Diagnostic</h1>
         {renderStep()}
       </div>
     </div>
