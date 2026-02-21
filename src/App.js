@@ -31,7 +31,7 @@ import OptimizedImage from './components/OptimizedImage';
 import AnimatedCard from './components/AnimatedCard';
 // import CountdownTimer from './components/CountdownTimer'; // Removed - using inline version
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faXTwitter } from '@fortawesome/free-brands-svg-icons';
+import { faInstagram, faXTwitter, faTiktok } from '@fortawesome/free-brands-svg-icons';
 import { faBlog, faPodcast } from '@fortawesome/free-solid-svg-icons';
 
 // Wrapper component to use hooks outside of Router
@@ -82,16 +82,13 @@ function AppContent() {
                         You don't lose capacity overnight. You lose it in increments.
                       </p>
                       <p className="hero-details">
-                        Decision drift. Threshold erosion. Containment failure.
-                        The signals appear before the collapse — but most operators don't have systems to detect them.
+                        Decision drift. Threshold erosion. Containment failure. The signals appear long before the collapse, but most high-performers don't have systems in place to catch them.
                       </p>
                       <p className="hero-details">
-                        Joyous is a cognitive systems company.
-                        We build structural interventions that stabilize execution integrity
-                        before degradation becomes visible to anyone else.
+                        Joyous builds structural interventions for cognitive flexibility and execution integrity. We help people in high-stakes environments detect and correct degradation patterns before they become visible to their teams, their work, or themselves.
                       </p>
                       <p className="hero-details">
-                        No frameworks. No theory. Just applied containment architecture for high-stakes operators.
+                        No frameworks. No theory. Just applied tools for staying sharp when the pressure compounds.
                       </p>
                       <p className="hero-tagline">
                         <strong>Pre-Collapse Prevention. Execution Integrity. Structural Containment.</strong>
@@ -259,11 +256,9 @@ function AppContent() {
                     </p>
                   </header>
 
-                  {/* Three Interventions Grid */}
-                  <div className="values-grid" role="list" aria-label="Founder intervention services" style={{ marginTop: '2rem' }}>
-
-                    {/* Founder Execution Reset */}
-                    <article className="value-item" role="listitem" tabIndex="0">
+                  {/* Founder Execution Reset */}
+                  <div style={{ marginTop: '2rem', maxWidth: '600px' }}>
+                    <article className="value-item" role="article" tabIndex="0" style={{ textAlign: 'left' }}>
                       <header>
                         <h3>Founder Execution Reset</h3>
                         <span style={{ fontSize: '0.9rem', color: '#666', display: 'block', marginTop: '0.25rem' }}>60-Minute Acute Tactical Intervention</span>
@@ -278,48 +273,15 @@ function AppContent() {
                       </p>
                       <p style={{ marginTop: '1rem', fontWeight: '600' }}>$250 | 60 minutes | Zoom</p>
                     </article>
-
-                    {/* Founder Cognitive Integrity Sprint */}
-                    <article className="value-item" role="listitem" tabIndex="0">
-                      <header>
-                        <h3>Founder Cognitive Integrity Sprint</h3>
-                        <span style={{ fontSize: '0.9rem', color: '#666', display: 'block', marginTop: '0.25rem' }}>2-Week Structural Intervention</span>
-                      </header>
-                      <p className="value-short">
-                        When the degradation is systemic. Structural rebuild over two weeks.
-                      </p>
-                      <p className="value-expanded">
-                        For founders whose execution infrastructure has sustained cumulative damage.
-                        Four sessions across 14 days. We map your decision architecture, identify load-bearing failures,
-                        rebuild containment systems, and install threshold monitoring.
-                        You exit with documented operating protocols and drift detection triggers.
-                      </p>
-                      <p style={{ marginTop: '1rem', fontWeight: '600' }}>$1,500 | 4 sessions over 2 weeks</p>
-                    </article>
-
-                    {/* Founder Drift Monitor */}
-                    <article className="value-item" role="listitem" tabIndex="0">
-                      <header>
-                        <h3>Founder Drift Monitor</h3>
-                        <span style={{ fontSize: '0.9rem', color: '#666', display: 'block', marginTop: '0.25rem' }}>Gated Diagnostic Tool</span>
-                      </header>
-                      <p className="value-short">
-                        Continuous threshold signal tracking. Know before you cross.
-                      </p>
-                      <p className="value-expanded">
-                        A structured self-assessment protocol that tracks your execution integrity markers over time.
-                        Surfaces decision drift, containment erosion, and capacity threshold signals before they become visible failures.
-                        Access granted after completing a Cognitive Integrity Sprint.
-                      </p>
-                      <p style={{ marginTop: '1rem', fontWeight: '600' }}>Available post-Sprint | Included</p>
-                    </article>
                   </div>
 
                   {/* CTA */}
                   <div className="kindred-cta" style={{ marginTop: '2rem' }}>
                     <a
-                      href="/cognitive-offload-sprint"
+                      href="https://founder.yourjoyousmind.com"
                       className="button kindred-button"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       aria-describedby="founder-cta-description"
                     >
                       Book Founder Execution Reset
@@ -340,17 +302,17 @@ function AppContent() {
                   </div>
                 </AnimatedCard>
 
-                {/* Resources Section */}
+                {/* Social Media Section */}
                 <section className="card social-section" id="socials" aria-labelledby="socials-heading">
                   <header>
-                    <h2 id="socials-heading" className="section-title">Resources</h2>
+                    <h2 id="socials-heading" className="section-title">Connect</h2>
                   </header>
-                  <nav className="socials-nav" aria-label="Resource links">
+                  <nav className="socials-nav" aria-label="Social media links">
                     <ul className="socials-list" role="list">
                       <li role="listitem">
-                        <a href="/blog" rel="noopener noreferrer" className="social-icon" aria-label="Read our research and analysis">
+                        <a href="/blog" rel="noopener noreferrer" className="social-icon" aria-label="Read our blog">
                           <FontAwesomeIcon icon={faBlog} aria-hidden="true" />
-                          <span className="social-label">Research</span>
+                          <span className="social-label">Blog</span>
                         </a>
                       </li>
                       <li role="listitem">
@@ -360,9 +322,21 @@ function AppContent() {
                         </a>
                       </li>
                       <li role="listitem">
+                        <a href="https://instagram.com/a_keyreu/" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="Follow us on Instagram">
+                          <FontAwesomeIcon icon={faInstagram} aria-hidden="true" />
+                          <span className="social-label">Instagram</span>
+                        </a>
+                      </li>
+                      <li role="listitem">
                         <a href="https://twitter.com/joyouscognitive" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="Follow on X/Twitter">
                           <FontAwesomeIcon icon={faXTwitter} aria-hidden="true" />
                           <span className="social-label">X / Twitter</span>
+                        </a>
+                      </li>
+                      <li role="listitem">
+                        <a href="https://tiktok.com/@akeyreu/" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="Follow us on TikTok">
+                          <FontAwesomeIcon icon={faTiktok} aria-hidden="true" />
+                          <span className="social-label">TikTok</span>
                         </a>
                       </li>
                     </ul>

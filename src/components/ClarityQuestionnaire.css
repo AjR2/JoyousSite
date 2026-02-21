@@ -28,7 +28,7 @@
   max-height: 90vh;
   overflow-y: auto;
   position: relative;
-  box-shadow: 0 20px 60px rgba(29, 161, 242, 0.25);
+  box-shadow: 0 20px 60px rgba(26, 26, 46, 0.2);
   animation: slideUp 0.3s ease-out;
 }
 
@@ -68,7 +68,7 @@
 }
 
 .questionnaire-close:focus {
-  outline: 3px solid #1DA1F2;
+  outline: 3px solid #1a1a2e;
   outline-offset: 2px;
 }
 
@@ -93,7 +93,7 @@
 }
 
 .progress-dot.active {
-  background: linear-gradient(135deg, #1DA1F2, #F1C40F);
+  background: #1a1a2e;
   transform: scale(1.1);
 }
 
@@ -104,7 +104,7 @@
 
 .step-title {
   font-size: 1.5rem;
-  color: #1DA1F2;
+  color: #1a1a2e;
   margin-bottom: 1.5rem;
   text-align: center;
   font-weight: 600;
@@ -114,7 +114,7 @@
 .step-title em {
   font-style: italic;
   text-decoration: underline;
-  text-decoration-color: #F1C40F;
+  text-decoration-color: #495057;
 }
 
 .step-content {
@@ -131,23 +131,24 @@
 
 /* Button Styles */
 .btn-primary {
-  background: linear-gradient(135deg, #1DA1F2, #F1C40F);
+  background: #1a1a2e;
   color: white;
   border: none;
-  border-radius: 50px;
+  border-radius: 8px;
   padding: 1rem 2rem;
   font-size: 1.125rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(29, 161, 242, 0.3);
+  box-shadow: 0 4px 15px rgba(26, 26, 46, 0.25);
   text-transform: none;
   letter-spacing: 0;
 }
 
 .btn-primary:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(29, 161, 242, 0.4);
+  background: #2d2d4a;
+  box-shadow: 0 6px 20px rgba(26, 26, 46, 0.35);
 }
 
 .btn-primary:disabled {
@@ -156,7 +157,7 @@
 }
 
 .btn-primary:focus {
-  outline: 3px solid #1DA1F2;
+  outline: 3px solid #1a1a2e;
   outline-offset: 2px;
 }
 
@@ -178,7 +179,7 @@
 }
 
 .btn-secondary:focus {
-  outline: 3px solid #1DA1F2;
+  outline: 3px solid #1a1a2e;
   outline-offset: 2px;
 }
 
@@ -196,7 +197,7 @@
 
 .entry-promise {
   font-size: 1.125rem;
-  color: #1DA1F2;
+  color: #495057;
   font-weight: 500;
   line-height: 1.6;
 }
@@ -221,19 +222,19 @@
 }
 
 .context-option:hover {
-  border-color: #1DA1F2;
-  background-color: rgba(29, 161, 242, 0.05);
+  border-color: #1a1a2e;
+  background-color: rgba(26, 26, 46, 0.03);
 }
 
 .context-option.selected {
-  border-color: #1DA1F2;
-  background: linear-gradient(135deg, rgba(29, 161, 242, 0.1), rgba(241, 196, 15, 0.05));
-  color: #1DA1F2;
+  border-color: #1a1a2e;
+  background: rgba(26, 26, 46, 0.05);
+  color: #1a1a2e;
   font-weight: 500;
 }
 
 .context-option:focus {
-  outline: 3px solid #1DA1F2;
+  outline: 3px solid #1a1a2e;
   outline-offset: 2px;
 }
 
@@ -281,8 +282,8 @@
 
 .constraint-card textarea:focus {
   outline: none;
-  border-color: #1DA1F2;
-  box-shadow: 0 0 0 3px rgba(29, 161, 242, 0.1);
+  border-color: #1a1a2e;
+  box-shadow: 0 0 0 3px rgba(26, 26, 46, 0.08);
 }
 
 .constraint-card textarea::placeholder {
@@ -309,7 +310,7 @@
 .permission-statement {
   font-size: 1.75rem;
   font-weight: 600;
-  color: #1DA1F2;
+  color: #1a1a2e;
   text-align: center;
   line-height: 1.4;
   margin: 0;
@@ -329,11 +330,11 @@
 
 /* Step 4: Action */
 .action-container {
-  background: linear-gradient(135deg, rgba(29, 161, 242, 0.08), rgba(241, 196, 15, 0.05));
+  background: #fafafa;
   border-radius: 16px;
   padding: 2rem;
   margin: 1rem 0;
-  border: 1px solid rgba(29, 161, 242, 0.2);
+  border: 1px solid #e9ecef;
 }
 
 .action-statement {
@@ -513,7 +514,7 @@
   display: inline-block;
   background: none;
   border: none;
-  color: #1DA1F2;
+  color: #1a1a2e;
   font-size: 0.95rem;
   font-weight: 500;
   text-decoration: underline;
@@ -522,11 +523,11 @@
 }
 
 .btn-link:hover {
-  color: #0596F2;
+  color: #2d2d4a;
 }
 
 .btn-link:focus {
-  outline: 3px solid #1DA1F2;
+  outline: 3px solid #1a1a2e;
   outline-offset: 2px;
 }
 
