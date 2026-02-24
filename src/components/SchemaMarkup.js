@@ -1,21 +1,21 @@
 // Enhanced SchemaMarkup component with comprehensive structured data support
-// Domain: yourjoyousmind.com (Joyous brand)
+// Domain: enactive.ai (Enactive brand)
 
 import { Helmet } from 'react-helmet-async';
 
 // Centralized domain configuration for SEO consistency
 const SITE_CONFIG = {
-    domain: 'https://www.yourjoyousmind.com',
-    name: 'Joyous',
-    alternateName: 'Your Joyous Mind',
-    email: 'info@yourjoyousmind.com',
+    domain: 'https://www.enactive.ai',
+    name: 'Enactive',
+    alternateName: 'Enactive Cognitive Systems',
+    email: 'info@enactive.ai',
     logo: '/assets/logo.png',
     ogImage: '/assets/og-image.jpg',
     foundingDate: '2023',
     social: {
-        instagram: 'https://instagram.com/yourjoyousmind/',
-        tiktok: 'https://tiktok.com/@yourjoyousmind/',
-        linkedin: 'https://www.linkedin.com/company/joyous'
+        instagram: 'https://instagram.com/a_keyreu/',
+        tiktok: 'https://tiktok.com/@akeyreu/',
+        linkedin: 'https://www.linkedin.com/company/enactive'
     }
 };
 
@@ -39,9 +39,9 @@ const SchemaMarkup = ({ type, data = {} }) => {
                     height: 100
                 },
                 image: `${baseUrl}${SITE_CONFIG.ogImage}`,
-                description: 'Joyous is a human-centered technology platform focused on supporting personal agency, wellbeing, and insight through innovative mental wellness solutions.',
+                description: 'Enactive builds structural interventions for cognitive flexibility and execution integrity. We help operators in high-stakes environments detect and correct degradation patterns.',
                 foundingDate: SITE_CONFIG.foundingDate,
-                industry: 'Mental Health Technology',
+                industry: 'Cognitive Systems Technology',
                 numberOfEmployees: '2-10',
                 address: {
                     '@type': 'PostalAddress',
@@ -62,10 +62,10 @@ const SchemaMarkup = ({ type, data = {} }) => {
                 '@context': 'https://schema.org',
                 '@type': 'WebSite',
                 '@id': `${baseUrl}/#website`,
-                name: `${SITE_CONFIG.name} - Mental Wellness & Personal Growth`,
+                name: `${SITE_CONFIG.name} - Cognitive Systems for Execution Integrity`,
                 alternateName: SITE_CONFIG.name,
                 url: baseUrl,
-                description: 'Joyous empowers personal agency, wellbeing, and insight through human-centered technology and mental wellness practices.',
+                description: 'Enactive builds structural interventions for operators who cannot afford execution failure. Pre-collapse prevention and founder performance stabilization.',
                 inLanguage: 'en-US',
                 publisher: {
                     '@type': 'Organization',
@@ -93,7 +93,7 @@ const SchemaMarkup = ({ type, data = {} }) => {
                 '@context': 'https://schema.org',
                 '@type': 'BlogPosting',
                 '@id': data.url || `${baseUrl}/blog`,
-                headline: data.name || 'Joyous Blog Post',
+                headline: data.name || 'Enactive Blog Post',
                 alternativeHeadline: data.alternativeHeadline,
                 description: data.description || '',
                 abstract: data.summary || data.description || '',
@@ -111,8 +111,8 @@ const SchemaMarkup = ({ type, data = {} }) => {
                 isPartOf: {
                     '@type': 'Blog',
                     '@id': `${baseUrl}/blog#blog`,
-                    name: 'Joyous Blog',
-                    description: 'Mental wellness insights and personal growth content'
+                    name: 'Enactive Blog',
+                    description: 'Cognitive systems insights and execution integrity content'
                 },
                 author: {
                     '@type': 'Organization',
@@ -138,14 +138,14 @@ const SchemaMarkup = ({ type, data = {} }) => {
                 about: [
                     {
                         '@type': 'Thing',
-                        name: 'Mental Wellness'
+                        name: 'Cognitive Systems'
                     },
                     {
                         '@type': 'Thing',
-                        name: 'Personal Growth'
+                        name: 'Execution Integrity'
                     }
                 ],
-                keywords: data.keywords || ['mental wellness', 'joy', 'happiness', 'emotional health', 'personal growth'],
+                keywords: data.keywords || ['cognitive systems', 'execution integrity', 'founder performance', 'decision drift', 'containment'],
                 wordCount: data.wordCount || (data.content ? data.content.split(' ').length : 0)
             };
 
@@ -167,7 +167,7 @@ const SchemaMarkup = ({ type, data = {} }) => {
                 '@id': data.url || `${baseUrl}/products/${data.name?.toLowerCase()}`,
                 name: data.name || '',
                 description: data.description || '',
-                category: 'Mental Wellness Technology',
+                category: 'Cognitive Systems Technology',
                 image: {
                     '@type': 'ImageObject',
                     url: data.image || `${baseUrl}${SITE_CONFIG.ogImage}`,
@@ -205,8 +205,8 @@ const SchemaMarkup = ({ type, data = {} }) => {
                 '@context': 'https://schema.org',
                 '@type': 'Blog',
                 '@id': `${baseUrl}/blog#blog`,
-                name: 'Joyous Blog',
-                description: 'Mental wellness insights, personal growth tips, and mindfulness practices',
+                name: 'Enactive Blog',
+                description: 'Cognitive systems insights, execution integrity, and founder performance content',
                 url: `${baseUrl}/blog`,
                 inLanguage: 'en-US',
                 author: {
@@ -218,9 +218,9 @@ const SchemaMarkup = ({ type, data = {} }) => {
                     '@id': `${baseUrl}/#organization`
                 },
                 about: [
-                    { '@type': 'Thing', name: 'Mental Wellness' },
-                    { '@type': 'Thing', name: 'Mindfulness' },
-                    { '@type': 'Thing', name: 'Personal Growth' }
+                    { '@type': 'Thing', name: 'Cognitive Systems' },
+                    { '@type': 'Thing', name: 'Execution Integrity' },
+                    { '@type': 'Thing', name: 'Founder Performance' }
                 ]
             };
             break;
@@ -256,7 +256,7 @@ const SchemaMarkup = ({ type, data = {} }) => {
                 name: SITE_CONFIG.name,
                 url: baseUrl,
                 image: `${baseUrl}${SITE_CONFIG.ogImage}`,
-                description: 'Human-centered technology platform for mental wellness and personal growth',
+                description: 'Cognitive systems platform for execution integrity and founder performance',
                 email: SITE_CONFIG.email,
                 priceRange: '$$',
                 address: {
@@ -271,8 +271,8 @@ const SchemaMarkup = ({ type, data = {} }) => {
                 '@context': 'https://schema.org',
                 '@type': 'ContactPage',
                 '@id': `${baseUrl}/contact`,
-                name: 'Contact Joyous',
-                description: 'Get in touch with the Joyous team',
+                name: 'Contact Enactive',
+                description: 'Get in touch with the Enactive team',
                 url: `${baseUrl}/contact`,
                 mainEntity: {
                     '@type': 'Organization',

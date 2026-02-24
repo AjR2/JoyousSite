@@ -6,7 +6,7 @@ function CognitiveOffloadSprint() {
   return (
     <>
       <Helmet>
-        <title>Founder Execution Reset | Joyous Founder</title>
+        <title>Founder Execution Reset | Enactive Founder</title>
         <meta
           name="description"
           content="A 60-minute acute tactical intervention for founders experiencing execution degradation. Isolate drift vectors, establish containment, restore decision-making capacity."

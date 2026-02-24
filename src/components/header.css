@@ -47,18 +47,18 @@
   height: auto;
 }
 
-/* Joyous Logo styles */
-.joyous-logo {
+/* Enactive Logo styles */
+.enactive-logo {
   cursor: pointer;
   user-select: none;
   transition: transform 0.2s ease;
 }
 
-.joyous-logo:hover {
+.enactive-logo:hover {
   transform: scale(1.05);
 }
 
-.joyous-text {
+.enactive-text {
   font-family: 'Arial', 'Helvetica', sans-serif;
   font-size: 2.5rem;
   font-weight: bold;
@@ -67,33 +67,43 @@
   letter-spacing: -0.05em;
 }
 
-/* Individual letter colors matching your logo */
-.joyous-j {
+/* Individual letter colors for Enactive logo */
+.enactive-e {
   color: #1DA1F2; /* Blue */
   text-shadow: 0 2px 4px rgba(29, 161, 242, 0.3);
 }
 
-.joyous-o1 {
+.enactive-n {
   color: #1DA1F2; /* Blue */
   text-shadow: 0 2px 4px rgba(29, 161, 242, 0.3);
 }
 
-.joyous-y {
+.enactive-a {
   color: #F1C40F; /* Yellow */
   text-shadow: 0 2px 4px rgba(241, 196, 15, 0.3);
 }
 
-.joyous-o2 {
+.enactive-c {
   color: #F1C40F; /* Yellow */
   text-shadow: 0 2px 4px rgba(241, 196, 15, 0.3);
 }
 
-.joyous-u {
+.enactive-t {
+  color: #1DA1F2; /* Blue */
+  text-shadow: 0 2px 4px rgba(29, 161, 242, 0.3);
+}
+
+.enactive-i {
+  color: #1DA1F2; /* Blue */
+  text-shadow: 0 2px 4px rgba(29, 161, 242, 0.3);
+}
+
+.enactive-v {
   color: #F1C40F; /* Yellow */
   text-shadow: 0 2px 4px rgba(241, 196, 15, 0.3);
 }
 
-.joyous-s {
+.enactive-e2 {
   color: #1DA1F2; /* Blue */
   text-shadow: 0 2px 4px rgba(29, 161, 242, 0.3);
 }
@@ -170,7 +180,7 @@
     width: 120px;
   }
 
-  .joyous-text {
+  .enactive-text {
     font-size: 2rem;
   }
 

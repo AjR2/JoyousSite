@@ -22,10 +22,10 @@ const breaks = [
 const MindfulBreaks = () => (
   <>
     <MetaTags
-      title="Mindful Breaks | Joyous"
-      description="Simple mindfulness exercises you can take throughout the day to improve your mental wellness and mindfulness practice. Choose Joy. Share Wellness."
-      keywords="mindfulness, break, wellness, meditation, mental health, stress relief, mindful exercises, joy, joyous"
-      canonicalUrl="https://www.yourjoyousmind.com/mindful-breaks"
+      title="Mindful Breaks | Enactive"
+      description="Simple mindfulness exercises you can take throughout the day to restore cognitive capacity and reduce decision fatigue."
+      keywords="mindfulness, break, cognitive capacity, focus, stress relief, mindful exercises, execution integrity"
+      canonicalUrl="https://www.enactive.ai/mindful-breaks"
     />
 
     <ErrorBoundary>

@@ -85,7 +85,7 @@ function AppContent() {
                         Decision drift. Threshold erosion. Containment failure. The signals appear long before the collapse, but most high-performers don't have systems in place to catch them.
                       </p>
                       <p className="hero-details">
-                        Joyous builds structural interventions for cognitive flexibility and execution integrity. We help people in high-stakes environments detect and correct degradation patterns before they become visible to their teams, their work, or themselves.
+                        Enactive builds structural interventions for cognitive flexibility and execution integrity. We help people in high-stakes environments detect and correct degradation patterns before they become visible to their teams, their work, or themselves.
                       </p>
                       <p className="hero-details">
                         No frameworks. No theory. Just applied tools for staying sharp when the pressure compounds.
@@ -99,7 +99,7 @@ function AppContent() {
                           className="button cta-button primary-cta"
                           aria-describedby="get-started-description"
                         >
-                          Explore Joyous Founder
+                          Explore Enactive Founder
                           <span id="get-started-description" className="sr-only">
                             Learn about founder performance stabilization
                           </span>
@@ -152,7 +152,7 @@ function AppContent() {
                     <div className="text-content">
                       <h2 id="about-heading">Cognitive Systems, Not Coping Mechanisms</h2>
                       <p className="about-description">
-                        Joyous builds structural interventions for operators who cannot afford execution failure.
+                        Enactive builds structural interventions for operators who cannot afford execution failure.
                         We don't teach resilience. We install containment.
                       </p>
                       <p className="about-mission">
@@ -237,7 +237,7 @@ function AppContent() {
                   </div>
                 </AnimatedCard>
 
-                {/* Joyous Founder Vertical Section */}
+                {/* Enactive Founder Vertical Section */}
                 <AnimatedCard
                   className="card kindred-section"
                   id="founder"
@@ -248,10 +248,10 @@ function AppContent() {
                   circleSize={90}
                 >
                   <header className="kindred-header">
-                    <h2 id="founder-heading" className="section-title">Joyous Founder</h2>
+                    <h2 id="founder-heading" className="section-title">Enactive Founder</h2>
                     <p className="kindred-subheader">Founder Performance Stabilization</p>
                     <p className="kindred-description">
-                      The first applied vertical of Joyous cognitive systems.
+                      The first applied vertical of Enactive cognitive systems.
                       Designed for founders operating at capacity limits where execution failure carries existential stakes.
                     </p>
                   </header>
@@ -278,7 +278,7 @@ function AppContent() {
                   {/* CTA */}
                   <div className="kindred-cta" style={{ marginTop: '2rem' }}>
                     <a
-                      href="https://founder.yourjoyousmind.com"
+                      href="https://founder.enactive.ai"
                       className="button kindred-button"
                       target="_blank"
                       rel="noopener noreferrer"
@@ -297,7 +297,7 @@ function AppContent() {
                       Founders operate in environments where execution failure cascades immediately.
                       No buffer. No recovery time. No one to hand it off to.
                       When cognitive infrastructure degrades, the entire system is at risk.
-                      Joyous Founder exists because pre-collapse prevention is the only intervention that matters.
+                      Enactive Founder exists because pre-collapse prevention is the only intervention that matters.
                     </p>
                   </div>
                 </AnimatedCard>
@@ -328,7 +328,7 @@ function AppContent() {
                         </a>
                       </li>
                       <li role="listitem">
-                        <a href="https://twitter.com/joyouscognitive" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="Follow on X/Twitter">
+                        <a href="https://twitter.com/enaboratehq" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="Follow on X/Twitter">
                           <FontAwesomeIcon icon={faXTwitter} aria-hidden="true" />
                           <span className="social-label">X / Twitter</span>
                         </a>
@@ -367,7 +367,7 @@ function AppContent() {
                     >
                       Contact
                       <span id="newsletter-button-description" className="sr-only">
-                        Contact Joyous for enterprise or partnership inquiries
+                        Contact Enactive for enterprise or partnership inquiries
                       </span>
                     </a>
                   </div>
@@ -490,10 +490,10 @@ function App() {
     <HelmetProvider>
       <AccessibilityProvider>
         <MetaTags
-          title="Joyous - Cognitive Systems for Execution Integrity"
+          title="Enactive - Cognitive Systems for Execution Integrity"
           description="Structural interventions for operators who cannot afford execution failure. Pre-collapse prevention, decision drift containment, and founder performance stabilization."
           keywords="cognitive systems, execution integrity, founder performance, decision drift, containment, tactical intervention, pre-collapse prevention"
-          canonicalUrl="https://www.joyous.com/"
+          canonicalUrl="https://www.enactive.ai/"
         />
         <SchemaMarkup type="organization" />
         <SchemaMarkup type="website" />

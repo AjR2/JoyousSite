@@ -150,10 +150,10 @@ const Blog = () => {
   return (
     <>
       <MetaTags
-        title="Joyous: Blog"
-        description="Explore mental wellness insights, personal development tips, and joyful living. Discover articles on mindfulness, relationships, self-care, and choosing joy."
-        keywords="mental wellness, joy, joyous, mindfulness, personal development, self-care, blog, happiness, wellness, emotional health"
-        canonicalUrl="https://www.yourjoyousmind.com/blog"
+        title="Enactive: Blog"
+        description="Explore cognitive systems insights, execution integrity, and founder performance content. Discover articles on decision-making, containment, and structural interventions."
+        keywords="cognitive systems, execution integrity, founder performance, decision drift, containment, tactical intervention, blog"
+        canonicalUrl="https://www.enactive.ai/blog"
       />
 
       <ErrorBoundary>
@@ -161,7 +161,7 @@ const Blog = () => {
           <header className="blog-header">
             <h1 className="blog-title">Blog Posts</h1>
             <p className="blog-description">
-              Mental wellness insights and joyful living tips from Joyous
+              Cognitive systems insights and execution integrity content from Enactive
             </p>
           </header>
 

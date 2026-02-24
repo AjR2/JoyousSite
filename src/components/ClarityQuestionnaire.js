@@ -210,7 +210,7 @@ function ClarityQuestionnaire({ isOpen, onClose }) {
                 className="btn-secondary"
                 onClick={onClose}
               >
-                Learn about Joyous Founder
+                Learn about Enactive Founder
               </button>
             </div>
           </div>

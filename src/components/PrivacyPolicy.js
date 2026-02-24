@@ -5,9 +5,9 @@ function PrivacyPolicy() {
   return (
     <div className="legal-page">
       <Helmet>
-        <title>Privacy Policy - Joyous</title>
-        <meta name="description" content="Privacy Policy for Joyous platform and OAuth integrations" />
-        <link rel="canonical" href="https://www.yourjoyousmind.com/privacy" />
+        <title>Privacy Policy - Enactive</title>
+        <meta name="description" content="Privacy Policy for Enactive platform and OAuth integrations" />
+        <link rel="canonical" href="https://www.enactive.ai/privacy" />
       </Helmet>
 
       <div className="legal-container">
@@ -17,25 +17,25 @@ function PrivacyPolicy() {
         <section>
           <h2>1. Overview</h2>
           <p>
-            This Privacy Policy explains how Joyous collects, uses, stores, and protects information
+            This Privacy Policy explains how Enactive collects, uses, stores, and protects information
             obtained through our platform and OAuth-based integrations with third-party services
             such as Google and YouTube.
           </p>
           <p>
-            Joyous is designed to respect user agency, minimize data collection, and prioritize
+            Enactive is designed to respect user agency, minimize data collection, and prioritize
             privacy by design.
           </p>
         </section>
 
         <section>
           <h2>2. Information We Access</h2>
-          <p>With your explicit consent, Joyous may access:</p>
+          <p>With your explicit consent, Enactive may access:</p>
           <ul>
             <li>Account identifiers (e.g., channel ID)</li>
             <li>Usage or analytics data (e.g., views, watch time, engagement metrics)</li>
             <li>Basic metadata necessary to provide summaries or reports</li>
           </ul>
-          <p><strong>Joyous does not access:</strong></p>
+          <p><strong>Enactive does not access:</strong></p>
           <ul>
             <li>Private messages or emails</li>
             <li>Passwords or login credentials</li>
@@ -49,7 +49,7 @@ function PrivacyPolicy() {
           <ul>
             <li>Generate analytics summaries</li>
             <li>Produce internal or emailed reports</li>
-            <li>Improve Joyous features related to insight and reflection</li>
+            <li>Improve Enactive features related to cognitive systems and execution integrity</li>
           </ul>
           <p><strong>We do not sell OAuth data or use it for advertising.</strong></p>
         </section>
@@ -59,7 +59,7 @@ function PrivacyPolicy() {
           <ul>
             <li>Access tokens are short-lived and not stored long-term</li>
             <li>Refresh tokens, if used, are stored securely and encrypted</li>
-            <li>Data is accessible only to authorized Joyous systems</li>
+            <li>Data is accessible only to authorized Enactive systems</li>
             <li>We use industry-standard security measures to protect your information</li>
           </ul>
         </section>
@@ -76,7 +76,7 @@ function PrivacyPolicy() {
         <section>
           <h2>6. Third-Party Services</h2>
           <p>
-            Joyous integrates with third-party services such as Google and YouTube. These services
+            Enactive integrates with third-party services such as Google and YouTube. These services
             have their own privacy policies:
           </p>
           <ul>
@@ -105,14 +105,14 @@ function PrivacyPolicy() {
           </ul>
           <p>
             To exercise these rights, contact us at{' '}
-            <a href="mailto:info@yourjoyousmind.com">info@yourjoyousmind.com</a>.
+            <a href="mailto:info@enactive.ai">info@enactive.ai</a>.
           </p>
         </section>
 
         <section>
           <h2>8. Cookies and Tracking</h2>
           <p>
-            Joyous uses minimal cookies necessary for functionality. We do not use third-party
+            Enactive uses minimal cookies necessary for functionality. We do not use third-party
             tracking cookies or sell your browsing data. Analytics, if collected, are aggregated
             and anonymized.
           </p>
@@ -121,7 +121,7 @@ function PrivacyPolicy() {
         <section>
           <h2>9. Children's Privacy</h2>
           <p>
-            Joyous is not intended for children under 13 years of age. We do not knowingly collect
+            Enactive is not intended for children under 13 years of age. We do not knowingly collect
             personal information from children. If you believe we have collected information from
             a child, please contact us immediately.
           </p>
@@ -131,7 +131,7 @@ function PrivacyPolicy() {
           <h2>10. Changes to This Policy</h2>
           <p>
             We may update this Privacy Policy from time to time. Material changes will be posted
-            on this page with an updated effective date. Your continued use of Joyous after changes
+            on this page with an updated effective date. Your continued use of Enactive after changes
             constitutes acceptance of the updated policy.
           </p>
         </section>
@@ -142,7 +142,7 @@ function PrivacyPolicy() {
             If you have questions about this Privacy Policy or our data practices, please contact us:
           </p>
           <p>
-            Email: <a href="mailto:info@yourjoyousmind.com">info@yourjoyousmind.com</a>
+            Email: <a href="mailto:info@enactive.ai">info@enactive.ai</a>
           </p>
         </section>
       </div>

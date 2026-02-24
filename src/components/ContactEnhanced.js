@@ -173,7 +173,7 @@ const ContactEnhanced = () => {
       from_email: formData.email,
       message: formData.message,
       subject: formData.subject,
-      to_name: "Joyous Team",
+      to_name: "Enactive Team",
       reply_to: formData.email
     };
 

@@ -36,13 +36,13 @@ body {
   height: auto;
 }
 
-/* Joyous Logo - Critical styles for above-the-fold */
-.joyous-logo {
+/* Enactive Logo - Critical styles for above-the-fold */
+.enactive-logo {
   cursor: pointer;
   user-select: none;
 }
 
-.joyous-text {
+.enactive-text {
   font-family: 'Arial', 'Helvetica', sans-serif;
   font-size: 2.5rem;
   font-weight: bold;
@@ -51,11 +51,11 @@ body {
   letter-spacing: -0.05em;
 }
 
-.joyous-j, .joyous-o1, .joyous-s {
+.enactive-e, .enactive-n, .enactive-t, .enactive-i, .enactive-e2 {
   color: #1DA1F2;
 }
 
-.joyous-y, .joyous-o2, .joyous-u {
+.enactive-a, .enactive-c, .enactive-v {
   color: #F1C40F;
 }
 

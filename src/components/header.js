@@ -57,18 +57,20 @@ const Header = () => {
       <Navbar className="navbar" expand="lg" ref={navRef} role="navigation" aria-label="Main navigation">
         <Navbar.Brand href="/#home">
           <div
-            className="joyous-logo"
+            className="enactive-logo"
             onClick={(e) => handleNavClick(e, 'home')}
             role="img"
-            aria-label="Joyous - Mental Wellness Through Neural Technology"
+            aria-label="Enactive - Cognitive Systems for Execution Integrity"
           >
-            <span className="joyous-text">
-              <span className="joyous-j">j</span>
-              <span className="joyous-o1">o</span>
-              <span className="joyous-y">y</span>
-              <span className="joyous-o2">o</span>
-              <span className="joyous-u">u</span>
-              <span className="joyous-s">s</span>
+            <span className="enactive-text">
+              <span className="enactive-e">e</span>
+              <span className="enactive-n">n</span>
+              <span className="enactive-a">a</span>
+              <span className="enactive-c">c</span>
+              <span className="enactive-t">t</span>
+              <span className="enactive-i">i</span>
+              <span className="enactive-v">v</span>
+              <span className="enactive-e2">e</span>
             </span>
           </div>
         </Navbar.Brand>

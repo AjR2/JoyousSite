@@ -1,13 +1,13 @@
 // Enhanced MetaTags component with comprehensive SEO and social media support
-// Domain: joyous.com (Joyous Cognitive Systems)
+// Domain: enactive.ai (Enactive Cognitive Systems)
 
 import { Helmet } from 'react-helmet-async';
 
 // Centralized SEO configuration
 const SEO_CONFIG = {
-    domain: 'https://www.joyous.com',
-    siteName: 'Joyous',
-    twitterHandle: '@joyouscognitive',
+    domain: 'https://www.enactive.ai',
+    siteName: 'Enactive',
+    twitterHandle: '@enaboratehq',
     defaultImage: '/assets/og-image.jpg',
     themeColor: '#1DA1F2'
 };
@@ -21,8 +21,8 @@ const MetaTags = ({
     publishDate = null,
     modifiedDate = null,
     ogImage = `${SEO_CONFIG.domain}${SEO_CONFIG.defaultImage}`,
-    ogImageAlt = 'Joyous - Cognitive Systems for Execution Integrity',
-    author = 'Joyous',
+    ogImageAlt = 'Enactive - Cognitive Systems for Execution Integrity',
+    author = 'Enactive',
     section = null,
     tags = [],
     locale = 'en_US',
@@ -182,7 +182,7 @@ const MetaTags = ({
         // Return a minimal Helmet as fallback
         return (
             <Helmet>
-                <title>Joyous - Cognitive Systems for Execution Integrity</title>
+                <title>Enactive - Cognitive Systems for Execution Integrity</title>
                 <meta name="description" content="Structural interventions for operators who cannot afford execution failure. Pre-collapse prevention and founder performance stabilization." />
             </Helmet>
         );

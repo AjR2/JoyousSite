@@ -125,15 +125,15 @@ const BlogPost = () => {
   const canonicalSlug = post.url
     ? post.url.split('/').pop()
     : slugify(safeTitle, { lower: true, strict: true, remove: /[*+~.()'"!:@]/g });
-  const canonicalUrl = `https://www.yourjoyousmind.com/blog/${canonicalSlug}`;
+  const canonicalUrl = `https://www.enactive.ai/blog/${canonicalSlug}`;
 
   // Create safe description
-  const safeDescription = safeSummary || (safeContent ? safeContent.slice(0, 175).trim() : 'Read this blog post on Joyous');
+  const safeDescription = safeSummary || (safeContent ? safeContent.slice(0, 175).trim() : 'Read this blog post on Enactive');
 
   return (
     <>
       <MetaTags
-        title={`${safeTitle} | Joyous Blog`}
+        title={`${safeTitle} | Enactive Blog`}
         description={safeDescription}
         canonicalUrl={canonicalUrl}
         ogType="article"
