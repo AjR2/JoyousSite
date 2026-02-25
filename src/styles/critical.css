@@ -51,12 +51,12 @@ body {
   letter-spacing: -0.05em;
 }
 
-.enactive-e, .enactive-n, .enactive-t, .enactive-i, .enactive-e2 {
-  color: #1DA1F2;
+.enactive-e, .enactive-n, .enactive-i, .enactive-v, .enactive-e2 {
+  color: #1a1a2e; /* Dark Navy */
 }
 
-.enactive-a, .enactive-c, .enactive-v {
-  color: #F1C40F;
+.enactive-a, .enactive-c, .enactive-t {
+  color: #0596F2; /* Electric Blue */
 }
 
 /* Main content container */

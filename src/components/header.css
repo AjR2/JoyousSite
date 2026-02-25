@@ -68,44 +68,21 @@
 }
 
 /* Individual letter colors for Enactive logo */
-.enactive-e {
-  color: #1DA1F2; /* Blue */
-  text-shadow: 0 2px 4px rgba(29, 161, 242, 0.3);
-}
-
-.enactive-n {
-  color: #1DA1F2; /* Blue */
-  text-shadow: 0 2px 4px rgba(29, 161, 242, 0.3);
-}
-
-.enactive-a {
-  color: #F1C40F; /* Yellow */
-  text-shadow: 0 2px 4px rgba(241, 196, 15, 0.3);
-}
-
-.enactive-c {
-  color: #F1C40F; /* Yellow */
-  text-shadow: 0 2px 4px rgba(241, 196, 15, 0.3);
-}
-
-.enactive-t {
-  color: #1DA1F2; /* Blue */
-  text-shadow: 0 2px 4px rgba(29, 161, 242, 0.3);
-}
-
-.enactive-i {
-  color: #1DA1F2; /* Blue */
-  text-shadow: 0 2px 4px rgba(29, 161, 242, 0.3);
-}
-
-.enactive-v {
-  color: #F1C40F; /* Yellow */
-  text-shadow: 0 2px 4px rgba(241, 196, 15, 0.3);
-}
-
+/* "en" = dark navy, "act" = electric blue (highlights action), "ive" = dark navy */
+.enactive-e,
+.enactive-n,
+.enactive-i,
+.enactive-v,
 .enactive-e2 {
-  color: #1DA1F2; /* Blue */
-  text-shadow: 0 2px 4px rgba(29, 161, 242, 0.3);
+  color: #1a1a2e; /* Dark Navy */
+  text-shadow: none;
+}
+
+.enactive-a,
+.enactive-c,
+.enactive-t {
+  color: #0596F2; /* Electric Blue */
+  text-shadow: 0 2px 4px rgba(5, 150, 242, 0.25);
 }
 
 /* Hamburger menu styles */
