@@ -63,7 +63,7 @@ const Header = () => {
             aria-label="Enactive - Cognitive Systems for Execution Integrity"
           >
             <span className="enactive-text">
-              <span className="enactive-e">e</span>
+              <span className="enactive-e">E</span>
               <span className="enactive-n">n</span>
               <span className="enactive-a">a</span>
               <span className="enactive-c">c</span>

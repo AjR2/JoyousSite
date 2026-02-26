@@ -1,7 +1,7 @@
 {
-  "short_name": "Akeyreu",
-  "name": "Akeyreu - Neural Technology & Mental Wellness",
-  "description": "Akeyreu integrates advanced neural technologies with mental wellness practices, making technology-enhanced wellness accessible to everyone.",
+  "short_name": "Enactive",
+  "name": "Enactive - Cognitive Systems for Execution Integrity",
+  "description": "Enactive builds structural interventions for cognitive flexibility and execution integrity. Pre-collapse prevention for operators who cannot afford execution failure.",
   "icons": [
     {
       "src": "favicon.ico",
@@ -11,11 +11,11 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
+  "theme_color": "#1a1a2e",
   "background_color": "#ffffff",
   "orientation": "portrait-primary",
   "scope": "/",
   "lang": "en-US",
-  "categories": ["health", "wellness", "technology"],
+  "categories": ["business", "productivity", "technology"],
   "screenshots": []
 }
