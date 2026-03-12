@@ -12,7 +12,7 @@ function Footer() {
                     className="small"
                 />
 
-                <p>&copy; 2024 Akeyreu LLC. All rights reserved.</p>
+                <p>&copy; {new Date().getFullYear()} Enactive. All rights reserved.</p>
           
         </footer>
     );

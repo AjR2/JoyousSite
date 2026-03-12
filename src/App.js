@@ -77,7 +77,8 @@ function AppContent() {
                       </figcaption>
                     </figure>
                     <header className="text-content">
-                      <h1 id="hero-heading">Execution Degrades Before It Fails</h1>
+                      <span className="hero-eyebrow">Cognitive Systems for High-Stakes Operators</span>
+                      <h1 id="hero-heading">Execution Degrades<br />Before It Fails</h1>
                       <p className="hero-description">
                         You don't lose capacity overnight. You lose it in increments.
                       </p>
@@ -181,6 +182,7 @@ function AppContent() {
                     {/* Principle Items */}
                     <article className="value-item" role="listitem" tabIndex="0">
                       <header>
+                        <span className="value-number">01</span>
                         <h3>Containment Over Coping</h3>
                       </header>
                       <p className="value-short">
@@ -192,6 +194,7 @@ function AppContent() {
                     </article>
                     <article className="value-item" role="listitem" tabIndex="0">
                       <header>
+                        <span className="value-number">02</span>
                         <h3>Threshold Detection</h3>
                       </header>
                       <p className="value-short">
@@ -203,6 +206,7 @@ function AppContent() {
                     </article>
                     <article className="value-item" role="listitem" tabIndex="0">
                       <header>
+                        <span className="value-number">03</span>
                         <h3>Tactical Intervention Architecture</h3>
                       </header>
                       <p className="value-short">
@@ -214,6 +218,7 @@ function AppContent() {
                     </article>
                     <article className="value-item" role="listitem" tabIndex="0">
                       <header>
+                        <span className="value-number">04</span>
                         <h3>Decision Infrastructure</h3>
                       </header>
                       <p className="value-short">
@@ -225,6 +230,7 @@ function AppContent() {
                     </article>
                     <article className="value-item" role="listitem" tabIndex="0">
                       <header>
+                        <span className="value-number">05</span>
                         <h3>Pre-Collapse Prevention</h3>
                       </header>
                       <p className="value-short">
@@ -257,11 +263,11 @@ function AppContent() {
                   </header>
 
                   {/* Founder Execution Reset */}
-                  <div style={{ marginTop: '2rem', maxWidth: '600px' }}>
-                    <article className="value-item" role="article" tabIndex="0" style={{ textAlign: 'left' }}>
+                  <div className="founder-service-wrapper">
+                    <article className="founder-service-card value-item" role="article" tabIndex="0">
                       <header>
                         <h3>Founder Execution Reset</h3>
-                        <span style={{ fontSize: '0.9rem', color: '#666', display: 'block', marginTop: '0.25rem' }}>60-Minute Acute Tactical Intervention</span>
+                        <span className="founder-service-type">60-Minute Acute Tactical Intervention</span>
                       </header>
                       <p className="value-short">
                         When execution has already degraded. Rapid containment and restoration.
@@ -271,7 +277,7 @@ function AppContent() {
                         We isolate the drift vector, establish containment perimeter, and restore decision-making capacity within 60 minutes.
                         Includes written artifact: context snapshot, decisions externalized, immediate next actions (max 3).
                       </p>
-                      <p style={{ marginTop: '1rem', fontWeight: '600' }}>$250 | 60 minutes | Zoom</p>
+                      <p className="founder-price">$250 &middot; 60 minutes &middot; Zoom</p>
                     </article>
                   </div>
 
