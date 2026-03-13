@@ -13,7 +13,7 @@
 }
 
 .nav-link {
-  color: #1a1a2e !important;
+  color: #0F172A !important;
   text-decoration: none;
   font-size: 15px;
   font-weight: 500;
@@ -21,12 +21,12 @@
 }
 
 .nav-link:hover {
-  color: #0596F2 !important;
+  color: #2563EB !important;
 }
 
 /* Contact CTA nav link */
 .nav-link-cta {
-  color: #0596F2 !important;
+  color: #2563EB !important;
   font-weight: 600;
 }
 
@@ -67,14 +67,14 @@
 .enactive-i,
 .enactive-v,
 .enactive-e2 {
-  color: #1a1a2e; /* Dark Navy */
+  color: #0F172A; /* Dark Navy */
   text-shadow: none;
 }
 
 .enactive-a,
 .enactive-c,
 .enactive-t {
-  color: #0596F2; /* Electric Blue */
+  color: #2563EB; /* Electric Blue */
   text-shadow: 0 2px 4px rgba(5, 150, 242, 0.25);
 }
 
@@ -96,7 +96,7 @@
 }
 
 .hamburger:hover .bar {
-  background-color: #1DA1F2;
+  background-color: #2563EB;
 }
 
 /* Navigation styles */
