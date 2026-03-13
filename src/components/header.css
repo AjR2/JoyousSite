@@ -9,25 +9,7 @@
   width: 100%;
   top: 0;
   z-index: 100;
-}
-
-/* Header line (added as a pseudo-element) */
-.navbar::after {
-  content: '';
-  display: block;
-  width: 20%;
-  /* Adjust width as needed */
-  height: 1px;
-  /* Thickness of the line */
-  background-color: black;
-  /* Line color */
-  margin: 0 auto;
-  /* Center the line */
-  position: absolute;
-  bottom: .0;
-  /* Position at the bottom of the header */
-  left: 0;
-  right: 0;
+  border-bottom: 1px solid #f0f0f0;
 }
 
 .nav-link {
@@ -38,7 +20,7 @@
 }
 
 .nav-link:hover {
-  color: #1DA1F2 !important;
+  color: #0596F2 !important;
 }
 
 /* Logo styles */
