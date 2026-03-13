@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.c760b3fb.css",
-    "main.js": "/static/js/main.a926949f.js",
+    "main.css": "/static/css/main.a3a85e73.css",
+    "main.js": "/static/js/main.7de4ebdf.js",
     "static/css/45.1308238e.chunk.css": "/static/css/45.1308238e.chunk.css",
     "static/js/45.bf3e19b8.chunk.js": "/static/js/45.bf3e19b8.chunk.js",
     "static/css/694.55d4c119.chunk.css": "/static/css/694.55d4c119.chunk.css",
@@ -19,8 +19,8 @@
     "static/js/488.ffd66c2a.chunk.js": "/static/js/488.ffd66c2a.chunk.js",
     "static/media/nvidia-badge.jpg": "/static/media/nvidia-badge.b18bc55f53db6f273959.jpg",
     "index.html": "/index.html",
-    "main.c760b3fb.css.map": "/static/css/main.c760b3fb.css.map",
-    "main.a926949f.js.map": "/static/js/main.a926949f.js.map",
+    "main.a3a85e73.css.map": "/static/css/main.a3a85e73.css.map",
+    "main.7de4ebdf.js.map": "/static/js/main.7de4ebdf.js.map",
     "45.1308238e.chunk.css.map": "/static/css/45.1308238e.chunk.css.map",
     "45.bf3e19b8.chunk.js.map": "/static/js/45.bf3e19b8.chunk.js.map",
     "694.55d4c119.chunk.css.map": "/static/css/694.55d4c119.chunk.css.map",
@@ -38,7 +38,7 @@
     "488.ffd66c2a.chunk.js.map": "/static/js/488.ffd66c2a.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.c760b3fb.css",
-    "static/js/main.a926949f.js"
+    "static/css/main.a3a85e73.css",
+    "static/js/main.7de4ebdf.js"
   ]
 }

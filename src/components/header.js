@@ -94,64 +94,53 @@ const Header = () => {
         <nav
           className={`nav ${isMenuOpen ? 'open' : ''}`}
           id="main-navigation"
-          aria-hidden={!isMenuOpen}
           role="navigation"
           aria-label="Main navigation"
         >
-          <ul className="nav-list" role="menubar">
-            <li className="nav-item" role="none">
+          <ul className="nav-list" role="list">
+            <li className="nav-item">
               <a
                 href="/#about"
                 className="nav-link"
                 onClick={(e) => handleNavClick(e, 'about')}
-                role="menuitem"
-                tabIndex={isMenuOpen ? 0 : -1}
                 aria-label="Navigate to About section"
               >
                 About
               </a>
             </li>
-            <li className="nav-item" role="none">
+            <li className="nav-item">
               <a
                 href="/#values"
                 className="nav-link"
                 onClick={(e) => handleNavClick(e, 'values')}
-                role="menuitem"
-                tabIndex={isMenuOpen ? 0 : -1}
                 aria-label="Navigate to Principles section"
               >
                 Principles
               </a>
             </li>
-            <li className="nav-item" role="none">
+            <li className="nav-item">
               <a
                 href="/#founder"
                 className="nav-link"
                 onClick={(e) => handleNavClick(e, 'founder')}
-                role="menuitem"
-                tabIndex={isMenuOpen ? 0 : -1}
                 aria-label="Navigate to Founder section"
               >
                 Founder
               </a>
             </li>
-            <li className="nav-item" role="none">
+            <li className="nav-item">
               <a
                 href="/blog"
                 className="nav-link"
-                role="menuitem"
-                tabIndex={isMenuOpen ? 0 : -1}
                 aria-label="Visit our Blog"
               >
                 Blog
               </a>
             </li>
-            <li className="nav-item" role="none">
+            <li className="nav-item">
               <a
                 href="/contact"
                 className="nav-link nav-link-cta"
-                role="menuitem"
-                tabIndex={isMenuOpen ? 0 : -1}
                 aria-label="Contact Enactive"
               >
                 Contact

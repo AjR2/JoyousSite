@@ -3,87 +3,53 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 20px;
-  background-color: #FFFFFF;
+  padding: 0 2rem;
+  height: 64px;
+  background-color: #ffffff;
   position: fixed;
   width: 100%;
   top: 0;
   z-index: 100;
-  border-bottom: 1px solid #f0f0f0;
-}
-
-.nav-link {
-  color: #0F172A !important;
-  text-decoration: none;
-  font-size: 15px;
-  font-weight: 500;
-  transition: color 0.2s;
-}
-
-.nav-link:hover {
-  color: #2563EB !important;
-}
-
-/* Contact CTA nav link */
-.nav-link-cta {
-  color: #2563EB !important;
-  font-weight: 600;
-}
-
-.nav-link-cta:hover {
-  color: #035aa6 !important;
-}
-
-/* Logo styles */
-.logo-image {
-  width: 150px;
-  height: auto;
+  border-bottom: 1px solid #E2E8F0;
 }
 
 /* Enactive Logo styles */
 .enactive-logo {
   cursor: pointer;
   user-select: none;
-  transition: transform 0.2s ease;
-}
-
-.enactive-logo:hover {
-  transform: scale(1.05);
 }
 
 .enactive-text {
   font-family: 'Arial', 'Helvetica', sans-serif;
-  font-size: 2.5rem;
+  font-size: 1.6rem;
   font-weight: bold;
   display: inline-flex;
   align-items: center;
   letter-spacing: -0.05em;
+  line-height: 1;
 }
 
-/* Individual letter colors for Enactive logo */
-/* "en" = dark navy, "act" = electric blue (highlights action), "ive" = dark navy */
+/* Individual letter colors — "en" + "ive" = dark navy, "act" = electric blue */
 .enactive-e,
 .enactive-n,
 .enactive-i,
 .enactive-v,
 .enactive-e2 {
-  color: #0F172A; /* Dark Navy */
-  text-shadow: none;
+  color: #0F172A;
 }
 
 .enactive-a,
 .enactive-c,
 .enactive-t {
-  color: #2563EB; /* Electric Blue */
-  text-shadow: 0 2px 4px rgba(5, 150, 242, 0.25);
+  color: #2563EB;
 }
 
-/* Hamburger menu styles */
+/* Hamburger menu — mobile only */
 .hamburger {
-  display: flex;
+  display: none;
   flex-direction: column;
   cursor: pointer;
-  padding: 10px;
+  padding: 8px;
   border: none;
   background-color: transparent;
 }
@@ -91,86 +57,101 @@
 .bar {
   width: 20px;
   height: 1.5px;
-  background-color: black;
+  background-color: #0F172A;
   margin: 3px 0;
+  transition: background-color 0.2s;
 }
 
 .hamburger:hover .bar {
   background-color: #2563EB;
 }
 
-/* Navigation styles */
+/* ── Desktop navigation (always visible) ── */
 .nav {
-  display: none;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.nav.open {
   display: flex;
-  position: absolute;
-  top: 80px;
-  right: 20px;
-  background-color: white;
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: 0px 0px 3px rgb(0, 0, 0);
+  flex-direction: row;
+  align-items: center;
 }
 
 .nav-list {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
   list-style: none;
   margin: 0;
   padding: 0;
+  gap: 0.125rem;
 }
 
 .nav-list .nav-item {
-  margin-left: 20px;
+  margin: 0;
 }
 
-.nav.open .nav-item {
-  margin: 10px 0;
-  display: flex;
+.nav-link {
+  color: #0F172A !important;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 0.4rem 0.75rem;
+  border-radius: 6px;
+  display: inline-block;
+  transition: color 0.2s, background-color 0.2s;
 }
 
+.nav-link:hover {
+  color: #2563EB !important;
+  background-color: rgba(37, 99, 235, 0.06);
+}
+
+/* Contact CTA nav link */
+.nav-link-cta {
+  color: #2563EB !important;
+  font-weight: 600;
+  border: 1px solid rgba(37, 99, 235, 0.3);
+  padding: 0.35rem 0.875rem;
+}
+
+.nav-link-cta:hover {
+  color: #ffffff !important;
+  background-color: #2563EB;
+  border-color: #2563EB;
+}
+
+/* Unused legacy style */
+.logo-image {
+  width: 150px;
+  height: auto;
+}
+
+/* ── Mobile navigation ── */
 @media (max-width: 768px) {
   .navbar {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background-color: #fff;
-    z-index: 1000;
-  }
-
-  .logo-image {
-    width: 120px;
+    padding: 0 1rem;
+    height: 56px;
   }
 
   .enactive-text {
-    font-size: 2rem;
+    font-size: 1.5rem;
+  }
+
+  .hamburger {
+    display: flex;
   }
 
   .nav {
     display: none;
     flex-direction: column;
     align-items: flex-start;
-    width: auto;
-    max-width: 90%;
     position: absolute;
-    top: 70px;
-    right: 10px;
+    top: 56px;
+    right: 1rem;
+    left: 1rem;
     background-color: #fff;
     z-index: 999;
-    padding: 10px 20px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    padding: 0.75rem 1rem;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
     border-radius: 8px;
-    overflow-y: auto;
-    max-height: 60vh;
-    /* Prevents it from blocking entire screen */
+    border: 1px solid #E2E8F0;
   }
 
   .nav.open {
@@ -178,22 +159,45 @@
   }
 
   .nav-list {
+    flex-direction: column;
     width: 100%;
+    gap: 0;
   }
 
   .nav-list .nav-item {
-    margin: 10px 0;
     width: 100%;
   }
 
   .nav-link {
-    font-size: 18px;
-    padding: 10px 0;
+    font-size: 16px;
+    padding: 0.75rem 0.5rem;
     width: 100%;
     display: block;
+    border-radius: 0;
+    border-bottom: 1px solid #F1F5F9;
   }
 
-  .hamburger {
-    display: flex;
+  .nav-list .nav-item:last-child .nav-link {
+    border-bottom: none;
   }
+
+  .nav-link-cta {
+    border: none;
+    margin-top: 0.25rem;
+    border-radius: 6px;
+    padding: 0.625rem 0.5rem;
+  }
+}
+
+/* Screen reader only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
