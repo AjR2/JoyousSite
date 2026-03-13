@@ -40,19 +40,108 @@ html, body {
   box-sizing: border-box;
 }
 
-/* Main Content - Updated to match other pages */
+/* Main Content */
 .main-content {
   margin-top: 70px;
-  padding: 20px;
-  background-color: #FFFFFF !important;
+  background-color: #FFFFFF;
   color: #000000;
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
   min-height: 100vh;
 }
 
-/* Card - Updated to match other pages */
+/* Page Section Layout */
+.page-section {
+  width: 100%;
+  padding: 5rem 2rem;
+}
+
+.section-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.page-section h2 {
+  color: var(--color-primary);
+  font-size: 2.25rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+}
+
+/* Section background alternation */
+.about-section    { background: var(--color-surface-alt); }
+.values-section   { background: var(--color-surface); }
+.founder-section  { background: var(--color-surface-alt); }
+.social-section   { background: var(--color-surface); }
+.inquiries-section { background: var(--color-surface); }
+
+/* Hero Section - Full-width dark navy */
+.hero-section {
+  background: var(--color-primary);
+  padding: 8rem 2rem 7rem;
+  text-align: center;
+  width: 100%;
+}
+
+.hero-inner {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.hero-section h1 {
+  color: #ffffff;
+  font-size: 3.5rem;
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+  margin-bottom: 1.5rem;
+}
+
+.hero-section .hero-eyebrow {
+  color: var(--color-accent);
+  background: rgba(5, 150, 242, 0.15);
+  border-color: rgba(5, 150, 242, 0.35);
+  margin-bottom: 1.5rem;
+}
+
+.hero-section .hero-description {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1.2rem;
+  font-weight: 400;
+  margin-bottom: 1.5rem;
+}
+
+.hero-section .hero-tagline {
+  background: rgba(255, 255, 255, 0.07);
+  border-left: 3px solid var(--color-accent);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 1rem 1.25rem;
+  text-align: left;
+  margin-bottom: 0;
+}
+
+.hero-section .hero-tagline strong {
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.3px;
+}
+
+.hero-section .hero-cta-group .secondary-cta {
+  color: rgba(255, 255, 255, 0.9);
+  border-color: rgba(255, 255, 255, 0.45);
+  background: transparent;
+}
+
+.hero-section .hero-cta-group .secondary-cta:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.8);
+  box-shadow: none;
+}
+
+/* Card - kept for backward compat with other routes */
 .card {
   text-align: center;
   margin: 40px auto;
@@ -711,7 +800,23 @@ html, body {
 @media (max-width: 768px) {
   .main-content {
     margin-top: 60px;
-    padding: 15px;
+  }
+
+  .page-section {
+    padding: 3.5rem 1.5rem;
+  }
+
+  .hero-section {
+    padding: 5rem 1.5rem 4.5rem;
+  }
+
+  .hero-section h1 {
+    font-size: 2.25rem;
+  }
+
+  .page-section h2,
+  .section-title {
+    font-size: 1.75rem;
   }
 
   .card {
@@ -723,29 +828,8 @@ html, body {
     font-size: 2rem;
   }
 
-  .card h2,
-  .section-title {
+  .card h2 {
     font-size: 1.75rem;
-  }
-
-  .content {
-    flex-direction: column;
-    gap: 1.5rem;
-    text-align: center;
-  }
-
-  .text-content {
-    text-align: center;
-    min-width: auto;
-  }
-
-  .text-content p {
-    font-size: 1rem;
-  }
-
-  .image {
-    max-width: 250px;
-    margin-bottom: 1rem;
   }
 
   .values-grid {
@@ -798,8 +882,21 @@ html, body {
 }
 
 @media (max-width: 480px) {
-  .main-content {
-    padding: 10px;
+  .page-section {
+    padding: 2.5rem 1rem;
+  }
+
+  .hero-section {
+    padding: 3.5rem 1rem 3rem;
+  }
+
+  .hero-section h1 {
+    font-size: 1.875rem;
+  }
+
+  .page-section h2,
+  .section-title {
+    font-size: 1.5rem;
   }
 
   .card {
@@ -811,17 +908,8 @@ html, body {
     font-size: 1.75rem;
   }
 
-  .card h2,
-  .section-title {
+  .card h2 {
     font-size: 1.5rem;
-  }
-
-  .text-content p {
-    font-size: 0.95rem;
-  }
-
-  .image {
-    max-width: 200px;
   }
 
   .value-item {

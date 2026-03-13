@@ -101,18 +101,6 @@ const Header = () => {
           <ul className="nav-list" role="menubar">
             <li className="nav-item" role="none">
               <a
-                href="/#home"
-                className="nav-link"
-                onClick={(e) => handleNavClick(e, 'home')}
-                role="menuitem"
-                tabIndex={isMenuOpen ? 0 : -1}
-                aria-label="Navigate to Home section"
-              >
-                Home
-              </a>
-            </li>
-            <li className="nav-item" role="none">
-              <a
                 href="/#about"
                 className="nav-link"
                 onClick={(e) => handleNavClick(e, 'about')}
@@ -130,45 +118,21 @@ const Header = () => {
                 onClick={(e) => handleNavClick(e, 'values')}
                 role="menuitem"
                 tabIndex={isMenuOpen ? 0 : -1}
-                aria-label="Navigate to Our Values section"
+                aria-label="Navigate to Principles section"
               >
-                Our Values
+                Principles
               </a>
             </li>
             <li className="nav-item" role="none">
               <a
-                href="/#products"
+                href="/#founder"
                 className="nav-link"
-                onClick={(e) => handleNavClick(e, 'products')}
+                onClick={(e) => handleNavClick(e, 'founder')}
                 role="menuitem"
                 tabIndex={isMenuOpen ? 0 : -1}
-                aria-label="Navigate to Products section"
+                aria-label="Navigate to Founder section"
               >
-                Products
-              </a>
-            </li>
-            <li className="nav-item" role="none">
-              <a
-                href="/#socials"
-                className="nav-link"
-                onClick={(e) => handleNavClick(e, 'socials')}
-                role="menuitem"
-                tabIndex={isMenuOpen ? 0 : -1}
-                aria-label="Navigate to Social Media section"
-              >
-                Socials
-              </a>
-            </li>
-            <li className="nav-item" role="none">
-              <a
-                href="/#learn-more"
-                className="nav-link"
-                onClick={(e) => handleNavClick(e, 'learn-more')}
-                role="menuitem"
-                tabIndex={isMenuOpen ? 0 : -1}
-                aria-label="Navigate to Learn More section"
-              >
-                Learn More
+                Founder
               </a>
             </li>
             <li className="nav-item" role="none">
@@ -184,37 +148,13 @@ const Header = () => {
             </li>
             <li className="nav-item" role="none">
               <a
-                href="/mindful-breaks"
-                className="nav-link"
-                role="menuitem"
-                tabIndex={isMenuOpen ? 0 : -1}
-                aria-label="Visit Mindful Breaks page"
-              >
-                Mindful Breaks
-              </a>
-            </li>
-            <li className="nav-item" role="none">
-              <a
                 href="/contact"
-                className="nav-link"
+                className="nav-link nav-link-cta"
                 role="menuitem"
                 tabIndex={isMenuOpen ? 0 : -1}
-                aria-label="Visit Contact Us page"
+                aria-label="Contact Enactive"
               >
-                Contact Us
-              </a>
-            </li>
-            <li className="nav-item" role="none">
-              <a
-                href="https://ajr2.github.io/RoamingMinds/"
-                className="nav-link"
-                rel="noopener noreferrer"
-                target="_blank"
-                role="menuitem"
-                tabIndex={isMenuOpen ? 0 : -1}
-                aria-label="Visit our Podcast (opens in new tab)"
-              >
-                Podcast
+                Contact
               </a>
             </li>
           </ul>

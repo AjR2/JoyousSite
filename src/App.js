@@ -25,11 +25,6 @@ const CognitiveOffloadSprint = React.lazy(() => import('./components/CognitiveOf
 
 // Import AdminAuth directly
 import AdminAuth from './components/AdminAuth';
-import heroJoyousImage from './assets/hero-joyous.jpg';
-import friendsImage from './assets/HappyHumans.png';
-import OptimizedImage from './components/OptimizedImage';
-import AnimatedCard from './components/AnimatedCard';
-// import CountdownTimer from './components/CountdownTimer'; // Removed - using inline version
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInstagram, faXTwitter, faTiktok } from '@fortawesome/free-brands-svg-icons';
 import { faBlog, faPodcast } from '@fortawesome/free-solid-svg-icons';
@@ -38,13 +33,12 @@ import { faBlog, faPodcast } from '@fortawesome/free-solid-svg-icons';
 function AppContent() {
   const [isQuestionnaireOpen, setIsQuestionnaireOpen] = useState(false);
 
-
   return (
     <ErrorBoundary>
       <Routes>
         {/* Admin route without header */}
         <Route path="/admin" element={<AdminAuth />} />
-        
+
         {/* All other routes with header */}
         <Route
           path="/"
@@ -52,73 +46,42 @@ function AppContent() {
             <>
               <Header />
               <main className="main-content" id="main-content" role="main">
+
                 {/* Hero Section */}
-                <AnimatedCard
-                  className="card hero-section"
-                  id="home"
-                  aria-labelledby="hero-heading"
-                  circleColor="#1DA1F2"
-                  opacity={0.06}
-                  speed={0.012}
-                  circleSize={80}
-                >
-                  <div className="content">
-                    <figure className="hero-image">
-                      <OptimizedImage
-                        src={heroJoyousImage}
-                        alt="Founder maintaining execution clarity under pressure"
-                        className="image"
-                        width={400}
-                        height={300}
-                        loading="eager"
-                      />
-                      <figcaption className="sr-only">
-                        Visual representation of cognitive systems and execution integrity
-                      </figcaption>
-                    </figure>
-                    <header className="text-content">
-                      <span className="hero-eyebrow">Cognitive Systems for High-Stakes Operators</span>
-                      <h1 id="hero-heading">Execution Degrades<br />Before It Fails</h1>
-                      <p className="hero-description">
-                        You don't lose capacity overnight. You lose it in increments.
-                      </p>
-                      <p className="hero-details">
-                        Decision drift. Threshold erosion. Containment failure. The signals appear long before the collapse, but most high-performers don't have systems in place to catch them.
-                      </p>
-                      <p className="hero-details">
-                        Enactive builds structural interventions for cognitive flexibility and execution integrity. We help people in high-stakes environments detect and correct degradation patterns before they become visible to their teams, their work, or themselves.
-                      </p>
-                      <p className="hero-details">
-                        No frameworks. No theory. Just applied tools for staying sharp when the pressure compounds.
-                      </p>
-                      <p className="hero-tagline">
-                        <strong>Pre-Collapse Prevention. Execution Integrity. Structural Containment.</strong>
-                      </p>
-                      <div className="hero-cta-group">
-                        <a
-                          href="#founder"
-                          className="button cta-button primary-cta"
-                          aria-describedby="get-started-description"
-                        >
-                          Explore Enactive Founder
-                          <span id="get-started-description" className="sr-only">
-                            Learn about founder performance stabilization
-                          </span>
-                        </a>
-                        <button
-                          className="button cta-button secondary-cta"
-                          onClick={() => setIsQuestionnaireOpen(true)}
-                          aria-describedby="clarity-description"
-                        >
-                          Run Drift Diagnostic
-                          <span id="clarity-description" className="sr-only">
-                            Assess your current execution integrity status
-                          </span>
-                        </button>
-                      </div>
-                    </header>
+                <section className="hero-section" id="home" aria-labelledby="hero-heading">
+                  <div className="hero-inner">
+                    <span className="hero-eyebrow">Cognitive Systems for High-Stakes Operators</span>
+                    <h1 id="hero-heading">Execution Degrades<br />Before It Fails</h1>
+                    <p className="hero-description">
+                      Decision drift. Threshold erosion. Containment failure. The signals appear long before the collapse—but most high-performers don't have systems to catch them.
+                    </p>
+                    <p className="hero-tagline">
+                      <strong>Pre-Collapse Prevention · Execution Integrity · Structural Containment</strong>
+                    </p>
+                    <div className="hero-cta-group">
+                      <a
+                        href="#founder"
+                        className="button cta-button primary-cta"
+                        aria-describedby="get-started-description"
+                      >
+                        Explore Enactive Founder
+                        <span id="get-started-description" className="sr-only">
+                          Learn about founder performance stabilization
+                        </span>
+                      </a>
+                      <button
+                        className="button cta-button secondary-cta"
+                        onClick={() => setIsQuestionnaireOpen(true)}
+                        aria-describedby="clarity-description"
+                      >
+                        Run Drift Diagnostic
+                        <span id="clarity-description" className="sr-only">
+                          Assess your current execution integrity status
+                        </span>
+                      </button>
+                    </div>
                   </div>
-                </AnimatedCard>
+                </section>
 
                 {/* Clarity Questionnaire Modal */}
                 <ClarityQuestionnaire
@@ -126,260 +89,212 @@ function AppContent() {
                   onClose={() => setIsQuestionnaireOpen(false)}
                 />
 
-                {/* About Section - Cognitive Systems */}
-                <AnimatedCard
-                  className="card about-section"
-                  id="about"
-                  aria-labelledby="about-heading"
-                  circleColor="#F1C40F"
-                  opacity={0.05}
-                  speed={0.018}
-                  circleSize={60}
-                >
-                  <div className="content">
-                    <figure className="about-image">
-                      <OptimizedImage
-                        src={friendsImage}
-                        alt="Cognitive systems architecture visualization"
-                        className="image"
-                        width={400}
-                        height={300}
-                        loading="lazy"
-                      />
-                      <figcaption className="sr-only">
-                        Representation of cognitive containment systems
-                      </figcaption>
-                    </figure>
-                    <div className="text-content">
-                      <h2 id="about-heading">Cognitive Systems, Not Coping Mechanisms</h2>
-                      <p className="about-description">
-                        Enactive builds structural interventions for operators who cannot afford execution failure.
-                        We don't teach resilience. We install containment.
+                {/* About Section */}
+                <section className="page-section about-section" id="about" aria-labelledby="about-heading">
+                  <div className="section-inner">
+                    <h2 id="about-heading">Cognitive Systems, Not Coping Mechanisms</h2>
+                    <p className="about-description">
+                      Enactive builds structural interventions for operators who cannot afford execution failure.
+                      We don't teach resilience. We install containment.
+                    </p>
+                    <p className="about-mission">
+                      Our approach treats decision-making capacity as infrastructure — not a personality trait.
+                      When that infrastructure degrades, performance collapses. We detect threshold signals early,
+                      isolate drift vectors, and restore structural integrity before breakdown becomes public.
+                    </p>
+                  </div>
+                </section>
+
+                {/* Operating Principles Section */}
+                <section className="page-section values-section" id="values" aria-labelledby="values-heading">
+                  <div className="section-inner">
+                    <h2 id="values-heading" className="section-title">Operating Principles</h2>
+                    <div className="values-grid" role="list" aria-label="Our operating principles">
+                      <article className="value-item" role="listitem" tabIndex="0">
+                        <header>
+                          <span className="value-number">01</span>
+                          <h3>Containment Over Coping</h3>
+                        </header>
+                        <p className="value-short">
+                          We don't teach you to manage chaos. We help you contain it.
+                        </p>
+                        <p className="value-expanded">
+                          Structural interventions isolate drift before it propagates. The goal is not adaptation — it's architectural repair.
+                        </p>
+                      </article>
+                      <article className="value-item" role="listitem" tabIndex="0">
+                        <header>
+                          <span className="value-number">02</span>
+                          <h3>Threshold Detection</h3>
+                        </header>
+                        <p className="value-short">
+                          Signals precede symptoms. We track the signals.
+                        </p>
+                        <p className="value-expanded">
+                          Execution degradation follows predictable threshold patterns. Our systems detect when capacity limits approach — before visible failure.
+                        </p>
+                      </article>
+                      <article className="value-item" role="listitem" tabIndex="0">
+                        <header>
+                          <span className="value-number">03</span>
+                          <h3>Tactical Intervention Architecture</h3>
+                        </header>
+                        <p className="value-short">
+                          Every engagement has a defined scope, deliverable, and exit.
+                        </p>
+                        <p className="value-expanded">
+                          No open-ended engagements. Acute interventions restore function. Structural sprints rebuild integrity. Then you operate independently.
+                        </p>
+                      </article>
+                      <article className="value-item" role="listitem" tabIndex="0">
+                        <header>
+                          <span className="value-number">04</span>
+                          <h3>Decision Infrastructure</h3>
+                        </header>
+                        <p className="value-short">
+                          Decisions are architecture, not willpower.
+                        </p>
+                        <p className="value-expanded">
+                          We treat decision-making capacity as load-bearing structure. When it degrades, we don't ask you to try harder — we repair the system.
+                        </p>
+                      </article>
+                      <article className="value-item" role="listitem" tabIndex="0">
+                        <header>
+                          <span className="value-number">05</span>
+                          <h3>Pre-Collapse Prevention</h3>
+                        </header>
+                        <p className="value-short">
+                          Intervention before the board notices.
+                        </p>
+                        <p className="value-expanded">
+                          The best time to stabilize execution is before degradation becomes externally visible. We work in the window where correction is still private.
+                        </p>
+                      </article>
+                    </div>
+                  </div>
+                </section>
+
+                {/* Enactive Founder Section */}
+                <section className="page-section founder-section" id="founder" aria-labelledby="founder-heading">
+                  <div className="section-inner">
+                    <header className="kindred-header">
+                      <h2 id="founder-heading" className="section-title">Enactive Founder</h2>
+                      <p className="kindred-subheader">Founder Performance Stabilization</p>
+                      <p className="kindred-description">
+                        The first applied vertical of Enactive cognitive systems.
+                        Designed for founders operating at capacity limits where execution failure carries existential stakes.
                       </p>
-                      <p className="about-mission">
-                        Our approach treats decision-making capacity as infrastructure — not a personality trait.
-                        When that infrastructure degrades, performance collapses. We detect threshold signals early,
-                        isolate drift vectors, and restore structural integrity before breakdown becomes public.
+                    </header>
+
+                    <div className="founder-service-wrapper">
+                      <article className="founder-service-card value-item" role="article" tabIndex="0">
+                        <header>
+                          <h3>Founder Execution Reset</h3>
+                          <span className="founder-service-type">60-Minute Acute Tactical Intervention</span>
+                        </header>
+                        <p className="value-short">
+                          When execution has already degraded. Rapid containment and restoration.
+                        </p>
+                        <p className="value-expanded">
+                          A single session designed for founders who have crossed a threshold and need immediate structural repair.
+                          We isolate the drift vector, establish containment perimeter, and restore decision-making capacity within 60 minutes.
+                          Includes written artifact: context snapshot, decisions externalized, immediate next actions (max 3).
+                        </p>
+                        <p className="founder-price">$250 &middot; 60 minutes &middot; Zoom</p>
+                      </article>
+                    </div>
+
+                    <div className="kindred-cta" style={{ marginTop: '2rem' }}>
+                      <a
+                        href="https://founder.enactive.ai"
+                        className="button kindred-button"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-describedby="founder-cta-description"
+                      >
+                        Book Founder Execution Reset
+                        <span id="founder-cta-description" className="sr-only">
+                          Book a 60-minute founder execution reset session
+                        </span>
+                      </a>
+                    </div>
+
+                    <div className="kindred-why">
+                      <h3 className="kindred-why-title">Why Founders?</h3>
+                      <p className="kindred-why-text">
+                        Founders operate in environments where execution failure cascades immediately.
+                        No buffer. No recovery time. No one to hand it off to.
+                        When cognitive infrastructure degrades, the entire system is at risk.
+                        Enactive Founder exists because pre-collapse prevention is the only intervention that matters.
                       </p>
                     </div>
                   </div>
-                </AnimatedCard>
-
-                {/* Operating Principles Section */}
-                <AnimatedCard
-                  className="card values-section"
-                  id="values"
-                  aria-labelledby="values-heading"
-                  circleColor="#1DA1F2"
-                  opacity={0.04}
-                  speed={0.01}
-                  circleSize={70}
-                >
-                  <header>
-                    <h2 id="values-heading" className="section-title">Operating Principles</h2>
-                  </header>
-                  <div className="values-grid" role="list" aria-label="Our operating principles">
-                    {/* Principle Items */}
-                    <article className="value-item" role="listitem" tabIndex="0">
-                      <header>
-                        <span className="value-number">01</span>
-                        <h3>Containment Over Coping</h3>
-                      </header>
-                      <p className="value-short">
-                        We don't teach you to manage chaos. We help you contain it.
-                      </p>
-                      <p className="value-expanded">
-                        Structural interventions isolate drift before it propagates. The goal is not adaptation — it's architectural repair.
-                      </p>
-                    </article>
-                    <article className="value-item" role="listitem" tabIndex="0">
-                      <header>
-                        <span className="value-number">02</span>
-                        <h3>Threshold Detection</h3>
-                      </header>
-                      <p className="value-short">
-                        Signals precede symptoms. We track the signals.
-                      </p>
-                      <p className="value-expanded">
-                        Execution degradation follows predictable threshold patterns. Our systems detect when capacity limits approach — before visible failure.
-                      </p>
-                    </article>
-                    <article className="value-item" role="listitem" tabIndex="0">
-                      <header>
-                        <span className="value-number">03</span>
-                        <h3>Tactical Intervention Architecture</h3>
-                      </header>
-                      <p className="value-short">
-                        Every engagement has a defined scope, deliverable, and exit.
-                      </p>
-                      <p className="value-expanded">
-                        No open-ended engagements. Acute interventions restore function. Structural sprints rebuild integrity. Then you operate independently.
-                      </p>
-                    </article>
-                    <article className="value-item" role="listitem" tabIndex="0">
-                      <header>
-                        <span className="value-number">04</span>
-                        <h3>Decision Infrastructure</h3>
-                      </header>
-                      <p className="value-short">
-                        Decisions are architecture, not willpower.
-                      </p>
-                      <p className="value-expanded">
-                        We treat decision-making capacity as load-bearing structure. When it degrades, we don't ask you to try harder — we repair the system.
-                      </p>
-                    </article>
-                    <article className="value-item" role="listitem" tabIndex="0">
-                      <header>
-                        <span className="value-number">05</span>
-                        <h3>Pre-Collapse Prevention</h3>
-                      </header>
-                      <p className="value-short">
-                        Intervention before the board notices.
-                      </p>
-                      <p className="value-expanded">
-                        The best time to stabilize execution is before degradation becomes externally visible. We work in the window where correction is still private.
-                      </p>
-                    </article>
-                  </div>
-                </AnimatedCard>
-
-                {/* Enactive Founder Vertical Section */}
-                <AnimatedCard
-                  className="card kindred-section"
-                  id="founder"
-                  aria-labelledby="founder-heading"
-                  circleColor="#F1C40F"
-                  opacity={0.06}
-                  speed={0.014}
-                  circleSize={90}
-                >
-                  <header className="kindred-header">
-                    <h2 id="founder-heading" className="section-title">Enactive Founder</h2>
-                    <p className="kindred-subheader">Founder Performance Stabilization</p>
-                    <p className="kindred-description">
-                      The first applied vertical of Enactive cognitive systems.
-                      Designed for founders operating at capacity limits where execution failure carries existential stakes.
-                    </p>
-                  </header>
-
-                  {/* Founder Execution Reset */}
-                  <div className="founder-service-wrapper">
-                    <article className="founder-service-card value-item" role="article" tabIndex="0">
-                      <header>
-                        <h3>Founder Execution Reset</h3>
-                        <span className="founder-service-type">60-Minute Acute Tactical Intervention</span>
-                      </header>
-                      <p className="value-short">
-                        When execution has already degraded. Rapid containment and restoration.
-                      </p>
-                      <p className="value-expanded">
-                        A single session designed for founders who have crossed a threshold and need immediate structural repair.
-                        We isolate the drift vector, establish containment perimeter, and restore decision-making capacity within 60 minutes.
-                        Includes written artifact: context snapshot, decisions externalized, immediate next actions (max 3).
-                      </p>
-                      <p className="founder-price">$250 &middot; 60 minutes &middot; Zoom</p>
-                    </article>
-                  </div>
-
-                  {/* CTA */}
-                  <div className="kindred-cta" style={{ marginTop: '2rem' }}>
-                    <a
-                      href="https://founder.enactive.ai"
-                      className="button kindred-button"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-describedby="founder-cta-description"
-                    >
-                      Book Founder Execution Reset
-                      <span id="founder-cta-description" className="sr-only">
-                        Book a 60-minute founder execution reset session
-                      </span>
-                    </a>
-                  </div>
-
-                  <div className="kindred-why">
-                    <h3 className="kindred-why-title">Why Founders?</h3>
-                    <p className="kindred-why-text">
-                      Founders operate in environments where execution failure cascades immediately.
-                      No buffer. No recovery time. No one to hand it off to.
-                      When cognitive infrastructure degrades, the entire system is at risk.
-                      Enactive Founder exists because pre-collapse prevention is the only intervention that matters.
-                    </p>
-                  </div>
-                </AnimatedCard>
-
-                {/* Social Media Section */}
-                <section className="card social-section" id="socials" aria-labelledby="socials-heading">
-                  <header>
-                    <h2 id="socials-heading" className="section-title">Connect</h2>
-                  </header>
-                  <nav className="socials-nav" aria-label="Social media links">
-                    <ul className="socials-list" role="list">
-                      <li role="listitem">
-                        <a href="/blog" rel="noopener noreferrer" className="social-icon" aria-label="Read our blog">
-                          <FontAwesomeIcon icon={faBlog} aria-hidden="true" />
-                          <span className="social-label">Blog</span>
-                        </a>
-                      </li>
-                      <li role="listitem">
-                        <a href="https://mindsthatroam.com" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="Listen to Minds That Roam podcast">
-                          <FontAwesomeIcon icon={faPodcast} aria-hidden="true" />
-                          <span className="social-label">Podcast</span>
-                        </a>
-                      </li>
-                      <li role="listitem">
-                        <a href="https://instagram.com/a_keyreu/" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="Follow us on Instagram">
-                          <FontAwesomeIcon icon={faInstagram} aria-hidden="true" />
-                          <span className="social-label">Instagram</span>
-                        </a>
-                      </li>
-                      <li role="listitem">
-                        <a href="https://twitter.com/enaboratehq" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="Follow on X/Twitter">
-                          <FontAwesomeIcon icon={faXTwitter} aria-hidden="true" />
-                          <span className="social-label">X / Twitter</span>
-                        </a>
-                      </li>
-                      <li role="listitem">
-                        <a href="https://tiktok.com/@akeyreu/" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="Follow us on TikTok">
-                          <FontAwesomeIcon icon={faTiktok} aria-hidden="true" />
-                          <span className="social-label">TikTok</span>
-                        </a>
-                      </li>
-                    </ul>
-                  </nav>
                 </section>
 
-                {/* Contact Section */}
-                <AnimatedCard
-                  className="card newsletter-section"
-                  id="learn-more"
-                  aria-labelledby="newsletter-heading"
-                  circleColor="#1DA1F2"
-                  opacity={0.07}
-                  speed={0.016}
-                  circleSize={75}
-                >
-                  <header>
+                {/* Social Media Section */}
+                <section className="page-section social-section" id="socials" aria-labelledby="socials-heading">
+                  <div className="section-inner">
+                    <h2 id="socials-heading" className="section-title">Connect</h2>
+                    <nav className="socials-nav" aria-label="Social media links">
+                      <ul className="socials-list" role="list">
+                        <li role="listitem">
+                          <a href="/blog" rel="noopener noreferrer" className="social-icon" aria-label="Read our blog">
+                            <FontAwesomeIcon icon={faBlog} aria-hidden="true" />
+                            <span className="social-label">Blog</span>
+                          </a>
+                        </li>
+                        <li role="listitem">
+                          <a href="https://mindsthatroam.com" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="Listen to Minds That Roam podcast">
+                            <FontAwesomeIcon icon={faPodcast} aria-hidden="true" />
+                            <span className="social-label">Podcast</span>
+                          </a>
+                        </li>
+                        <li role="listitem">
+                          <a href="https://instagram.com/a_keyreu/" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="Follow us on Instagram">
+                            <FontAwesomeIcon icon={faInstagram} aria-hidden="true" />
+                            <span className="social-label">Instagram</span>
+                          </a>
+                        </li>
+                        <li role="listitem">
+                          <a href="https://twitter.com/enaboratehq" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="Follow on X/Twitter">
+                            <FontAwesomeIcon icon={faXTwitter} aria-hidden="true" />
+                            <span className="social-label">X / Twitter</span>
+                          </a>
+                        </li>
+                        <li role="listitem">
+                          <a href="https://tiktok.com/@akeyreu/" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="Follow us on TikTok">
+                            <FontAwesomeIcon icon={faTiktok} aria-hidden="true" />
+                            <span className="social-label">TikTok</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </nav>
+                  </div>
+                </section>
+
+                {/* Inquiries Section */}
+                <section className="page-section inquiries-section" id="learn-more" aria-labelledby="newsletter-heading">
+                  <div className="section-inner">
                     <h2 id="newsletter-heading" className="section-title">Inquiries</h2>
                     <p className="newsletter-description">
                       For enterprise engagements, custom intervention protocols, or partnership discussions.
                     </p>
-                  </header>
-                  <div className="newsletter-cta">
-                    <a
-                      href="/contact"
-                      className="button newsletter-button"
-                      aria-describedby="newsletter-button-description"
-                    >
-                      Contact
-                      <span id="newsletter-button-description" className="sr-only">
-                        Contact Enactive for enterprise or partnership inquiries
-                      </span>
-                    </a>
+                    <div className="newsletter-cta">
+                      <a
+                        href="/contact"
+                        className="button newsletter-button"
+                        aria-describedby="newsletter-button-description"
+                      >
+                        Contact
+                        <span id="newsletter-button-description" className="sr-only">
+                          Contact Enactive for enterprise or partnership inquiries
+                        </span>
+                      </a>
+                    </div>
                   </div>
-                </AnimatedCard>
+                </section>
 
-                {/* Footer Component*/}
+                {/* Footer Component */}
                 <Footer />
               </main>
             </>
