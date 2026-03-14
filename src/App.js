@@ -18,17 +18,12 @@ import ClarityQuestionnaire from './components/ClarityQuestionnaire';
 const Blog = React.lazy(() => import('./components/Blog'));
 const BlogPost = React.lazy(() => import('./components/BlogPost'));
 const Contact = React.lazy(() => import('./components/Contact'));
-const MindfulBreaks = React.lazy(() => import('./components/MindfulBreaks'));
 const TermsOfService = React.lazy(() => import('./components/TermsOfService'));
 const PrivacyPolicy = React.lazy(() => import('./components/PrivacyPolicy'));
 const CognitiveOffloadSprint = React.lazy(() => import('./components/CognitiveOffloadSprint'));
 
 // Import AdminAuth directly
 import AdminAuth from './components/AdminAuth';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faInstagram, faXTwitter, faTiktok } from '@fortawesome/free-brands-svg-icons';
-import { faBlog, faPodcast } from '@fortawesome/free-solid-svg-icons';
-
 // Wrapper component to use hooks outside of Router
 function AppContent() {
   const [isQuestionnaireOpen, setIsQuestionnaireOpen] = useState(false);
@@ -271,66 +266,18 @@ function AppContent() {
                   </div>
                 </section>
 
-                {/* Social Media Section */}
-                <section className="page-section social-section" id="socials" aria-labelledby="socials-heading">
-                  <div className="section-inner">
-                    <h2 id="socials-heading" className="section-title">Connect</h2>
-                    <nav className="socials-nav" aria-label="Social media links">
-                      <ul className="socials-list" role="list">
-                        <li role="listitem">
-                          <a href="/blog" rel="noopener noreferrer" className="social-icon" aria-label="Read our blog">
-                            <FontAwesomeIcon icon={faBlog} aria-hidden="true" />
-                            <span className="social-label">Blog</span>
-                          </a>
-                        </li>
-                        <li role="listitem">
-                          <a href="https://mindsthatroam.com" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="Listen to Minds That Roam podcast">
-                            <FontAwesomeIcon icon={faPodcast} aria-hidden="true" />
-                            <span className="social-label">Podcast</span>
-                          </a>
-                        </li>
-                        <li role="listitem">
-                          <a href="https://instagram.com/a_keyreu/" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="Follow us on Instagram">
-                            <FontAwesomeIcon icon={faInstagram} aria-hidden="true" />
-                            <span className="social-label">Instagram</span>
-                          </a>
-                        </li>
-                        <li role="listitem">
-                          <a href="https://twitter.com/enaboratehq" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="Follow on X/Twitter">
-                            <FontAwesomeIcon icon={faXTwitter} aria-hidden="true" />
-                            <span className="social-label">X / Twitter</span>
-                          </a>
-                        </li>
-                        <li role="listitem">
-                          <a href="https://tiktok.com/@akeyreu/" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="Follow us on TikTok">
-                            <FontAwesomeIcon icon={faTiktok} aria-hidden="true" />
-                            <span className="social-label">TikTok</span>
-                          </a>
-                        </li>
-                      </ul>
-                    </nav>
-                  </div>
-                </section>
-
-                {/* Inquiries Section */}
-                <section className="page-section inquiries-section" id="learn-more" aria-labelledby="newsletter-heading">
-                  <div className="section-inner">
-                    <h2 id="newsletter-heading" className="section-title">Inquiries</h2>
-                    <p className="newsletter-description">
-                      For enterprise engagements, custom intervention protocols, or partnership discussions.
-                    </p>
-                    <div className="newsletter-cta">
-                      <a
-                        href="/contact"
-                        className="button newsletter-button"
-                        aria-describedby="newsletter-button-description"
-                      >
-                        Contact
-                        <span id="newsletter-button-description" className="sr-only">
-                          Contact Enactive for enterprise or partnership inquiries
-                        </span>
-                      </a>
-                    </div>
+                {/* CTA Band */}
+                <section className="cta-band" aria-labelledby="cta-band-heading">
+                  <div className="cta-band-inner">
+                    <h2 id="cta-band-heading">Execution failure doesn't announce itself.</h2>
+                    <p className="cta-band-sub">Enterprise engagements, custom intervention protocols, and partnership discussions welcome.</p>
+                    <a
+                      href="/contact"
+                      className="button cta-band-button"
+                      aria-label="Contact Enactive"
+                    >
+                      Contact Enactive
+                    </a>
                   </div>
                 </section>
 
@@ -365,20 +312,6 @@ function AppContent() {
               </div>
             }>
               <BlogPost />
-            </Suspense>
-          </>
-        } />
-
-        <Route path="/mindful-breaks" element={
-          <>
-            <Header />
-            <Suspense fallback={
-              <div className="loading-container" role="status" aria-label="Loading mindful breaks">
-                <LoadingSpinner />
-                <span className="sr-only">Loading mindful breaks...</span>
-              </div>
-            }>
-              <MindfulBreaks />
             </Suspense>
           </>
         } />
