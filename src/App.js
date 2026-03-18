@@ -241,7 +241,7 @@ function AppContent() {
 
                     <div className="kindred-cta" style={{ marginTop: '2rem' }}>
                       <a
-                        href="https://founder.enactive.ai"
+                        href="https://calendly.com/ajrudd-theenactive/new-meeting"
                         className="button kindred-button"
                         target="_blank"
                         rel="noopener noreferrer"
