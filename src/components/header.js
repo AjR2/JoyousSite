@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Navbar } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-// import logoImage from './../assets/blacklogo.png'; // Old logo - replaced with CSS version
+import EnactiveLogo from './EnactiveLogo';
 import './header.css';
 import '../styles/accessibility.css';
 
@@ -59,19 +59,8 @@ const Header = () => {
           <div
             className="enactive-logo"
             onClick={(e) => handleNavClick(e, 'home')}
-            role="img"
-            aria-label="Enactive - Cognitive Systems for Execution Integrity"
           >
-            <span className="enactive-text">
-              <span className="enactive-e">E</span>
-              <span className="enactive-n">n</span>
-              <span className="enactive-a">a</span>
-              <span className="enactive-c">c</span>
-              <span className="enactive-t">t</span>
-              <span className="enactive-i">i</span>
-              <span className="enactive-v">v</span>
-              <span className="enactive-e2">e</span>
-            </span>
+            <EnactiveLogo variant="light" style={{ height: '28px', width: 'auto' }} />
           </div>
         </Navbar.Brand>
 

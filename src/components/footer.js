@@ -1,15 +1,14 @@
 import React from 'react';
 import './footer.css';
 import nvidia from './../assets/nvidia-badge.jpg';
+import EnactiveLogo from './EnactiveLogo';
 
 function Footer() {
   return (
     <footer className="site-footer">
       <div className="footer-inner">
         <div className="footer-brand">
-          <span className="footer-logo">
-            <span className="footer-logo-dark">En</span><span className="footer-logo-accent">act</span><span className="footer-logo-dark">ive</span>
-          </span>
+          <EnactiveLogo variant="light" style={{ height: '26px', width: 'auto', marginBottom: '0.75rem' }} />
           <p className="footer-tagline">
             Structural interventions for cognitive flexibility and execution integrity.
           </p>

@@ -13,35 +13,12 @@
   border-bottom: 1px solid #E2E8F0;
 }
 
-/* Enactive Logo styles */
+/* Enactive Logo */
 .enactive-logo {
   cursor: pointer;
   user-select: none;
-}
-
-.enactive-text {
-  font-family: 'Arial', 'Helvetica', sans-serif;
-  font-size: 1.6rem;
-  font-weight: bold;
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  letter-spacing: -0.05em;
-  line-height: 1;
-}
-
-/* Individual letter colors — "en" + "ive" = dark navy, "act" = electric blue */
-.enactive-e,
-.enactive-n,
-.enactive-i,
-.enactive-v,
-.enactive-e2 {
-  color: #0F172A;
-}
-
-.enactive-a,
-.enactive-c,
-.enactive-t {
-  color: #2563EB;
 }
 
 /* Hamburger menu — mobile only */
