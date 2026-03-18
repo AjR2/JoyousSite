@@ -1,14 +1,14 @@
 import React from 'react';
 import './footer.css';
 import nvidia from './../assets/nvidia-badge.jpg';
-import enactiveLogo from '../assets/enactive-logo.svg';
+import { ReactComponent as EnactiveLogo } from '../assets/enactive-logo.svg';
 
 function Footer() {
   return (
     <footer className="site-footer">
       <div className="footer-inner">
         <div className="footer-brand">
-          <img src={enactiveLogo} alt="Enactive" height="26" style={{ display: 'block', marginBottom: '0.75rem' }} />
+          <EnactiveLogo height="26" aria-label="Enactive" style={{ display: 'block', marginBottom: '0.75rem' }} />
           <p className="footer-tagline">
             Structural interventions for cognitive flexibility and execution integrity.
           </p>

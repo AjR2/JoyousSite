@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Navbar } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import enactiveLogo from '../assets/enactive-logo.svg';
+import { ReactComponent as EnactiveLogo } from '../assets/enactive-logo.svg';
 import './header.css';
 import '../styles/accessibility.css';
 
@@ -60,7 +60,7 @@ const Header = () => {
             className="enactive-logo"
             onClick={(e) => handleNavClick(e, 'home')}
           >
-            <img src={enactiveLogo} alt="Enactive" height="28" style={{ display: 'block' }} />
+            <EnactiveLogo height="28" aria-label="Enactive" style={{ display: 'block' }} />
           </div>
         </Navbar.Brand>
 

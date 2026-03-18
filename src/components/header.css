@@ -19,6 +19,7 @@
   user-select: none;
   display: flex;
   align-items: center;
+  color: #0F172A; /* currentColor base for SVG on light header */
 }
 
 /* Hamburger menu — mobile only */
