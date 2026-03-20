@@ -149,13 +149,19 @@ html, body {
   letter-spacing: 0.3px;
 }
 
-.hero-credibility {
-  margin-top: 1.75rem;
-  font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.35);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  margin-bottom: 0;
+/* Hero secondary link — plain text, no button competition */
+.hero-secondary-link {
+  display: block;
+  margin-top: 1.25rem;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.5);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: color 0.2s ease;
+}
+
+.hero-secondary-link:hover {
+  color: rgba(255, 255, 255, 0.85);
 }
 
 /* ── CTA Buttons ── */
@@ -189,9 +195,9 @@ html, body {
 
 .hero-cta-group {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.875rem;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
   margin-top: 2rem;
 }
 
@@ -248,6 +254,22 @@ html, body {
   color: var(--color-text-muted);
   font-size: 1.05rem;
   margin-bottom: 0;
+}
+
+/* About pillars — structured signal words */
+.about-pillars {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+.about-pillars span {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-accent);
 }
 
 /* ── Values / Principles Grid ── */
@@ -428,12 +450,31 @@ html, body {
   font-weight: 700;
 }
 
-.kindred-why-text {
-  font-size: 1rem;
-  line-height: 1.7;
-  color: var(--color-text-muted);
+.kindred-why-list {
+  list-style: none;
+  padding: 0;
   margin: 0 auto;
-  max-width: 650px;
+  max-width: 560px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  text-align: left;
+}
+
+.kindred-why-list li {
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+  padding-left: 1.25rem;
+  position: relative;
+}
+
+.kindred-why-list li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--color-accent);
+  font-weight: 700;
 }
 
 /* ── Dark CTA Band ── */

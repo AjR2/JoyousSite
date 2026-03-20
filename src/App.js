@@ -93,28 +93,16 @@ function AppContent() {
                       <strong>Pre-Collapse Prevention · Execution Integrity · Structural Containment</strong>
                     </p>
                     <div className="hero-cta-group">
-                      <a
-                        href="#founder"
-                        className="button cta-button primary-cta"
-                        aria-describedby="get-started-description"
-                      >
-                        Explore Enactive Founder
-                        <span id="get-started-description" className="sr-only">
-                          Learn about founder performance stabilization
-                        </span>
-                      </a>
                       <button
-                        className="button cta-button secondary-cta"
+                        className="button cta-button primary-cta"
                         onClick={() => setIsQuestionnaireOpen(true)}
-                        aria-describedby="clarity-description"
                       >
                         Run Drift Diagnostic
-                        <span id="clarity-description" className="sr-only">
-                          Assess your current execution integrity status
-                        </span>
                       </button>
+                      <a href="#founder" className="hero-secondary-link">
+                        Explore Enactive Founder ↓
+                      </a>
                     </div>
-                    <p className="hero-credibility">Structural cognitive systems for high-stakes operators</p>
                   </div>
                 </section>
 
@@ -130,13 +118,14 @@ function AppContent() {
                     <h2 id="about-heading">Cognitive Systems, Not Coping Mechanisms</h2>
                     <p className="about-description">
                       Enactive builds structural interventions for operators who cannot afford execution failure.
-                      We don't teach resilience. We install containment.
+                      We detect threshold signals early, isolate drift vectors, and restore structural integrity
+                      before breakdown becomes public.
                     </p>
-                    <p className="about-mission">
-                      Our approach treats decision-making capacity as infrastructure — not a personality trait.
-                      When that infrastructure degrades, performance collapses. We detect threshold signals early,
-                      isolate drift vectors, and restore structural integrity before breakdown becomes public.
-                    </p>
+                    <div className="about-pillars">
+                      <span>Detect</span>
+                      <span>Isolate</span>
+                      <span>Restore</span>
+                    </div>
                   </div>
                 </section>
 
@@ -256,12 +245,11 @@ function AppContent() {
 
                     <div className="kindred-why">
                       <h3 className="kindred-why-title">Why Founders?</h3>
-                      <p className="kindred-why-text">
-                        Founders operate in environments where execution failure cascades immediately.
-                        No buffer. No recovery time. No one to hand it off to.
-                        When cognitive infrastructure degrades, the entire system is at risk.
-                        Enactive Founder exists because pre-collapse prevention is the only intervention that matters.
-                      </p>
+                      <ul className="kindred-why-list">
+                        <li>Execution failure cascades with no buffer and no handoff</li>
+                        <li>Cognitive infrastructure degradation puts the entire system at risk</li>
+                        <li>Pre-collapse prevention is the only intervention window that matters</li>
+                      </ul>
                     </div>
                   </div>
                 </section>
@@ -270,7 +258,7 @@ function AppContent() {
                 <section className="cta-band" aria-labelledby="cta-band-heading">
                   <div className="cta-band-inner">
                     <h2 id="cta-band-heading">Execution failure doesn't announce itself.</h2>
-                    <p className="cta-band-sub">Enterprise engagements, custom intervention protocols, and partnership discussions welcome.</p>
+                    <p className="cta-band-sub">Enterprise engagements and custom protocols available.</p>
                     <a
                       href="/contact"
                       className="button cta-band-button"
