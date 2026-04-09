@@ -25,7 +25,6 @@ function Footer() {
             <li><a href="/#about">About</a></li>
             <li><a href="/#values">Principles</a></li>
             <li><a href="/#founder">Enactive Founder</a></li>
-            <li><a href="/blog">Blog</a></li>
             <li><a href="https://mindsthatroam.com" target="_blank" rel="noopener noreferrer">Podcast</a></li>
           </ul>
         </div>

@@ -119,15 +119,6 @@ const Header = () => {
             </li>
             <li className="nav-item">
               <a
-                href="/blog"
-                className="nav-link"
-                aria-label="Visit our Blog"
-              >
-                Blog
-              </a>
-            </li>
-            <li className="nav-item">
-              <a
                 href="/contact"
                 className="nav-link nav-link-cta"
                 aria-label="Contact Enactive"

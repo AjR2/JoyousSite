@@ -15,8 +15,6 @@ import AccessibilityProvider from './components/AccessibilityProvider';
 import ClarityQuestionnaire from './components/ClarityQuestionnaire';
 
 // Lazy load components for code splitting
-const Blog = React.lazy(() => import('./components/Blog'));
-const BlogPost = React.lazy(() => import('./components/BlogPost'));
 const Contact = React.lazy(() => import('./components/Contact'));
 const TermsOfService = React.lazy(() => import('./components/TermsOfService'));
 const PrivacyPolicy = React.lazy(() => import('./components/PrivacyPolicy'));
@@ -276,33 +274,6 @@ function AppContent() {
           }
         />
 
-        <Route path="/blog" element={
-          <>
-            <Header />
-            <Suspense fallback={
-              <div className="loading-container" role="status" aria-label="Loading blog content">
-                <LoadingSpinner />
-                <span className="sr-only">Loading blog content...</span>
-              </div>
-            }>
-              <Blog />
-            </Suspense>
-          </>
-        } />
-
-        <Route path="/blog/:slug" element={
-          <>
-            <Header />
-            <Suspense fallback={
-              <div className="loading-container" role="status" aria-label="Loading blog post">
-                <LoadingSpinner />
-                <span className="sr-only">Loading blog post...</span>
-              </div>
-            }>
-              <BlogPost />
-            </Suspense>
-          </>
-        } />
 
         <Route path="/contact" element={
           <>
