@@ -477,6 +477,84 @@ html, body {
   font-weight: 700;
 }
 
+/* ── Offer Grid ── */
+.offer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+  text-align: left;
+}
+
+.offer-card {
+  background: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05);
+  transition: box-shadow 0.22s ease, transform 0.22s ease;
+  border-top: 3px solid var(--color-accent);
+}
+
+.offer-card:hover {
+  box-shadow: 0 8px 28px rgba(15, 23, 42, 0.1);
+  transform: translateY(-2px);
+}
+
+.offer-card h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin: 0;
+}
+
+.offer-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  background: rgba(37, 99, 235, 0.08);
+  border-radius: 999px;
+  padding: 0.25rem 0.75rem;
+  display: inline-block;
+  align-self: flex-start;
+}
+
+.offer-body {
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+  line-height: 1.65;
+  flex: 1;
+  margin: 0;
+}
+
+.offer-cta-primary {
+  background: var(--color-accent);
+  padding: 0.75rem 1.5rem;
+  font-size: 0.95rem;
+  align-self: flex-start;
+  margin-top: 0.5rem;
+}
+
+.offer-cta-secondary {
+  background: transparent;
+  color: var(--color-accent);
+  border: 1.5px solid var(--color-accent);
+  padding: 0.75rem 1.5rem;
+  font-size: 0.95rem;
+  align-self: flex-start;
+  margin-top: 0.5rem;
+}
+
+.offer-cta-secondary:hover {
+  background: var(--color-accent);
+  color: white;
+}
+
 /* ── Dark CTA Band ── */
 .cta-band {
   background: var(--color-primary);
@@ -492,11 +570,19 @@ html, body {
 
 .cta-band h2 {
   color: #ffffff;
-  font-size: 2rem;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  line-height: 1.2;
-  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.4;
+  margin-bottom: 2rem;
+}
+
+.cta-band-trust {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  font-style: italic;
 }
 
 .cta-band-sub {

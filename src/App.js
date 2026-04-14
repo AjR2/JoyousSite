@@ -82,13 +82,10 @@ function AppContent() {
                     <circle cx="780" cy="530" r="3" fill="white" stroke="none"/>
                   </svg>
                   <div className="hero-inner">
-                    <span className="hero-eyebrow">Cognitive Systems for High-Stakes Operators</span>
-                    <h1 id="hero-heading">Execution Degrades<br />Before It Fails</h1>
+                    <span className="hero-eyebrow">For founders and operators who are still functioning — but feeling the weight of everything that hasn't closed yet.</span>
+                    <h1 id="hero-heading">Your brain is still running<br />decisions you already made.</h1>
                     <p className="hero-description">
-                      Decision drift. Threshold erosion. Containment failure. The signals appear long before the collapse—but most high-performers don't have systems to catch them.
-                    </p>
-                    <p className="hero-tagline">
-                      <strong>Pre-Collapse Prevention · Execution Integrity · Structural Containment</strong>
+                      When too many things stay mentally open, focus degrades — not because you're doing too much, but because nothing fully closes. Enactive builds the structure to change that.
                     </p>
                     <div className="hero-cta-group">
                       <button
@@ -97,8 +94,8 @@ function AppContent() {
                       >
                         Run Drift Diagnostic
                       </button>
-                      <a href="#founder" className="hero-secondary-link">
-                        Explore Enactive Founder ↓
+                      <a href="#offer" className="hero-secondary-link">
+                        See the offer ↓
                       </a>
                     </div>
                   </div>
@@ -113,17 +110,16 @@ function AppContent() {
                 {/* About Section */}
                 <section className="page-section about-section" id="about" aria-labelledby="about-heading">
                   <div className="section-inner">
-                    <h2 id="about-heading">Cognitive Systems, Not Coping Mechanisms</h2>
+                    <h2 id="about-heading">The real drain isn't the workload.</h2>
                     <p className="about-description">
-                      Enactive builds structural interventions for operators who cannot afford execution failure.
-                      We detect threshold signals early, isolate drift vectors, and restore structural integrity
-                      before breakdown becomes public.
+                      It's the decisions that never fully resolve. The questions that run in the background.
+                      The identity loops, the relationship monitoring, the timelines you've already set
+                      but keep internally re-negotiating.
                     </p>
-                    <div className="about-pillars">
-                      <span>Detect</span>
-                      <span>Isolate</span>
-                      <span>Restore</span>
-                    </div>
+                    <p className="about-mission">
+                      You're not burned out. You're cognitively overloaded by things that feel like they should be closed — but aren't.
+                      That distinction matters. Because the solution isn't doing less. It's building the structure to close what's open.
+                    </p>
                   </div>
                 </section>
 
@@ -135,119 +131,114 @@ function AppContent() {
                       <article className="value-item" role="listitem" tabIndex="0">
                         <header>
                           <span className="value-number">01</span>
-                          <h3>Containment Over Coping</h3>
+                          <h3>Decisions are architecture, not willpower</h3>
                         </header>
                         <p className="value-short">
-                          We don't teach you to manage chaos. We help you contain it.
+                          Open loops aren't a discipline problem. They're a structural one.
                         </p>
                         <p className="value-expanded">
-                          Structural interventions isolate drift before it propagates. The goal is not adaptation — it's architectural repair.
+                          We build the rules that close them — not frameworks to remember, not motivation. Rules that run automatically so your brain stops re-running what's already been decided.
                         </p>
                       </article>
                       <article className="value-item" role="listitem" tabIndex="0">
                         <header>
                           <span className="value-number">02</span>
-                          <h3>Threshold Detection</h3>
+                          <h3>Signals precede symptoms</h3>
                         </header>
                         <p className="value-short">
-                          Signals precede symptoms. We track the signals.
+                          Irritation, narrowing focus, sharpening humor — these aren't personality.
                         </p>
                         <p className="value-expanded">
-                          Execution degradation follows predictable threshold patterns. Our systems detect when capacity limits approach — before visible failure.
+                          They're load indicators. Execution degradation follows predictable threshold patterns. We catch them early — before visible failure, before the people around you notice.
                         </p>
                       </article>
                       <article className="value-item" role="listitem" tabIndex="0">
                         <header>
                           <span className="value-number">03</span>
-                          <h3>Tactical Intervention Architecture</h3>
+                          <h3>Containment over coping</h3>
                         </header>
                         <p className="value-short">
-                          Every engagement has a defined scope, deliverable, and exit.
+                          We don't teach you to manage the chaos.
                         </p>
                         <p className="value-expanded">
-                          No open-ended engagements. Acute interventions restore function. Structural sprints rebuild integrity. Then you operate independently.
+                          We build the structure that stops it from accumulating. The goal is not adaptation — it's architectural repair that removes the source of the load.
                         </p>
                       </article>
                       <article className="value-item" role="listitem" tabIndex="0">
                         <header>
                           <span className="value-number">04</span>
-                          <h3>Decision Infrastructure</h3>
+                          <h3>Closure rules, not motivation</h3>
                         </header>
                         <p className="value-short">
-                          Decisions are architecture, not willpower.
+                          Every open loop gets a rule for when it closes.
                         </p>
                         <p className="value-expanded">
-                          We treat decision-making capacity as load-bearing structure. When it degrades, we don't ask you to try harder — we repair the system.
-                        </p>
-                      </article>
-                      <article className="value-item" role="listitem" tabIndex="0">
-                        <header>
-                          <span className="value-number">05</span>
-                          <h3>Pre-Collapse Prevention</h3>
-                        </header>
-                        <p className="value-short">
-                          Intervention before the board notices.
-                        </p>
-                        <p className="value-expanded">
-                          The best time to stabilize execution is before degradation becomes externally visible. We work in the window where correction is still private.
+                          Not a pep talk. Not a framework to remember. A rule. You leave every session with a written closure map — something your brain can actually use.
                         </p>
                       </article>
                     </div>
                   </div>
                 </section>
 
-                {/* Enactive Founder Section */}
-                <section className="page-section founder-section" id="founder" aria-labelledby="founder-heading">
+                {/* Offer Section */}
+                <section className="page-section founder-section" id="offer" aria-labelledby="offer-heading">
                   <div className="section-inner">
                     <header className="kindred-header">
-                      <h2 id="founder-heading" className="section-title">Enactive Founder</h2>
-                      <p className="kindred-subheader">Founder Performance Stabilization</p>
+                      <h2 id="offer-heading" className="section-title">Built for founders who are still in the window.</h2>
                       <p className="kindred-description">
-                        The first applied vertical of Enactive cognitive systems.
-                        Designed for founders operating at capacity limits where execution failure carries existential stakes.
+                        Not in crisis. Not collapsed. But carrying more than the work itself — and starting to feel it in the margins.
+                        Less patience. Shorter tolerance. The sense that something is quietly draining focus even when nothing looks wrong.
+                        That window is where this works. Before withdrawal. Before the cascade.
                       </p>
                     </header>
 
-                    <div className="founder-service-wrapper">
-                      <article className="founder-service-card value-item" role="article" tabIndex="0">
-                        <header>
-                          <h3>Founder Execution Reset</h3>
-                          <span className="founder-service-type">60-Minute Acute Tactical Intervention</span>
-                        </header>
-                        <p className="value-short">
-                          When execution has already degraded. Rapid containment and restoration.
+                    <div className="offer-grid">
+
+                      <article className="offer-card" tabIndex="0">
+                        <div className="offer-badge">Beta — limited spots</div>
+                        <h3>Cognitive Offload Session</h3>
+                        <span className="founder-service-type">Single session · 60 minutes · Zoom</span>
+                        <p className="offer-body">
+                          We identify the specific decision loops that are currently open and draining focus.
+                          You leave with a written closure map — the rules your brain needs to stop re-running what's already been decided.
                         </p>
-                        <p className="value-expanded">
-                          A single session designed for founders who have crossed a threshold and need immediate structural repair.
-                          We isolate the drift vector, establish containment perimeter, and restore decision-making capacity within 60 minutes.
-                          Includes written artifact: context snapshot, decisions externalized, immediate next actions (max 3).
-                        </p>
-                        <p className="founder-price">$250 &middot; 60 minutes &middot; Zoom</p>
+                        <p className="founder-price">$250 / session</p>
+                        <a
+                          href="https://calendly.com/ajrudd-theenactive/new-meeting"
+                          className="button offer-cta-primary"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Book a session
+                        </a>
                       </article>
-                    </div>
 
-                    <div className="kindred-cta" style={{ marginTop: '2rem' }}>
-                      <a
-                        href="https://calendly.com/ajrudd-theenactive/new-meeting"
-                        className="button kindred-button"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-describedby="founder-cta-description"
-                      >
-                        Book Founder Execution Reset
-                        <span id="founder-cta-description" className="sr-only">
-                          Book a 60-minute founder execution reset session
-                        </span>
-                      </a>
-                    </div>
+                      <article className="offer-card" tabIndex="0">
+                        <h3>Two-Week Offload Sprint</h3>
+                        <span className="founder-service-type">2 weeks · Async support included</span>
+                        <p className="offer-body">
+                          Multiple loop identification sessions across two weeks. Includes text access between sessions
+                          when a loop resurfaces or a new one opens. Built for founders managing multiple simultaneous stressors.
+                        </p>
+                        <p className="founder-price">$1,000</p>
+                        <a href="/contact" className="button offer-cta-secondary">
+                          Learn more
+                        </a>
+                      </article>
 
-                    <div className="kindred-why">
-                      <h3 className="kindred-why-title">Why Founders?</h3>
-                      <ul className="kindred-why-list">
-                        <li>Execution failure cascades with no buffer and no handoff</li>
-                        <li>Cognitive infrastructure degradation puts the entire system at risk</li>
-                        <li>Pre-collapse prevention is the only intervention window that matters</li>
-                      </ul>
+                      <article className="offer-card" tabIndex="0">
+                        <h3>Monthly Containment</h3>
+                        <span className="founder-service-type">1 month · Full async access</span>
+                        <p className="offer-body">
+                          The full sprint extended across a month with continuous access. For founders who need sustained
+                          structural support while building — not periodic check-ins, but an ongoing containment system.
+                        </p>
+                        <p className="founder-price">$1,750</p>
+                        <a href="/contact" className="button offer-cta-secondary">
+                          Learn more
+                        </a>
+                      </article>
+
                     </div>
                   </div>
                 </section>
@@ -255,14 +246,15 @@ function AppContent() {
                 {/* CTA Band */}
                 <section className="cta-band" aria-labelledby="cta-band-heading">
                   <div className="cta-band-inner">
-                    <h2 id="cta-band-heading">Execution failure doesn't announce itself.</h2>
-                    <p className="cta-band-sub">Enterprise engagements and custom protocols available.</p>
+                    <p className="cta-band-trust">This isn't therapy. It isn't coaching. It's structural cognitive work — the kind that produces a document you can actually use the next time the load spikes.</p>
+                    <h2 id="cta-band-heading">If you're a founder who's still functioning but starting to feel the ceiling — this is the window. Not after the collapse. Now.</h2>
                     <a
-                      href="/contact"
+                      href="https://calendly.com/ajrudd-theenactive/new-meeting"
                       className="button cta-band-button"
-                      aria-label="Contact Enactive"
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
-                      Contact Enactive
+                      Book a session
                     </a>
                   </div>
                 </section>
