@@ -1,11 +1,11 @@
-# Enactive - www.enactive.ai
+# Enactive - theenactive.com
 # robots.txt
 
 User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://www.enactive.ai/sitemap.xml
+Sitemap: https://theenactive.com/sitemap.xml
 
 # Crawl-delay for respectful crawling
 Crawl-delay: 1
@@ -24,7 +24,7 @@ Allow: /privacy
 Allow: /cognitive-offload-sprint
 
 # Block common bot traps and unnecessary files
-Disallow: /*?*
+Disallow: /search?
 Disallow: /*#*
 
 # Social media crawlers - full access
