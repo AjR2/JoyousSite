@@ -1,11 +1,11 @@
-# Joyous - www.yourjoyousmind.com
+# Enactive - www.enactive.ai
 # robots.txt
 
 User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://www.yourjoyousmind.com/sitemap.xml
+Sitemap: https://www.enactive.ai/sitemap.xml
 
 # Crawl-delay for respectful crawling
 Crawl-delay: 1
@@ -17,14 +17,11 @@ Disallow: /.env
 Disallow: /api/
 
 # Allow important pages explicitly
-Allow: /blog/
-Allow: /blog
-Allow: /mindful-breaks/
-Allow: /mindful-breaks
 Allow: /contact/
 Allow: /contact
 Allow: /terms
 Allow: /privacy
+Allow: /cognitive-offload-sprint
 
 # Block common bot traps and unnecessary files
 Disallow: /*?*
@@ -58,4 +55,32 @@ Allow: /
 
 # Bing crawler
 User-agent: Bingbot
+Allow: /
+
+# AI crawlers — explicitly allowed
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
+User-agent: cohere-ai
 Allow: /
