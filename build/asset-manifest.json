@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/static/css/main.0bb4cb39.css",
+    "main.css": "/static/css/main.81a0f32a.css",
     "main.js": "/static/js/main.fa76b784.js",
     "static/css/922.5ca32b55.chunk.css": "/static/css/922.5ca32b55.chunk.css",
     "static/js/922.c3cad40b.chunk.js": "/static/js/922.c3cad40b.chunk.js",
@@ -17,7 +17,7 @@
     "static/media/nvidia-badge.jpg": "/static/media/nvidia-badge.b18bc55f53db6f273959.jpg",
     "index.html": "/index.html",
     "static/media/enactive-logo.svg": "/static/media/enactive-logo.92bb6c3f3916e294f5950e3200631955.svg",
-    "main.0bb4cb39.css.map": "/static/css/main.0bb4cb39.css.map",
+    "main.81a0f32a.css.map": "/static/css/main.81a0f32a.css.map",
     "main.fa76b784.js.map": "/static/js/main.fa76b784.js.map",
     "922.5ca32b55.chunk.css.map": "/static/css/922.5ca32b55.chunk.css.map",
     "922.c3cad40b.chunk.js.map": "/static/js/922.c3cad40b.chunk.js.map",
@@ -30,7 +30,7 @@
     "488.4d6b2944.chunk.js.map": "/static/js/488.4d6b2944.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.0bb4cb39.css",
+    "static/css/main.81a0f32a.css",
     "static/js/main.fa76b784.js"
   ]
 }
