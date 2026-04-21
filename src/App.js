@@ -20,6 +20,10 @@ const TermsOfService = React.lazy(() => import('./components/TermsOfService'));
 const PrivacyPolicy = React.lazy(() => import('./components/PrivacyPolicy'));
 const CognitiveOffloadSprint = React.lazy(() => import('./components/CognitiveOffloadSprint'));
 
+import web1 from './assets/web1.png';
+import web2 from './assets/web2.png';
+import web3 from './assets/web3.png';
+
 // Import AdminAuth directly
 import AdminAuth from './components/AdminAuth';
 // Wrapper component to use hooks outside of Router
@@ -42,45 +46,8 @@ function AppContent() {
 
                 {/* Hero Section */}
                 <section className="hero-section" id="home" aria-labelledby="hero-heading">
-                  {/* Cognitive infrastructure background layer */}
-                  <svg className="hero-bg-svg" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false" stroke="white" fill="none">
-                    <line x1="80" y1="90" x2="280" y2="180" strokeWidth="0.8"/>
-                    <line x1="280" y1="180" x2="480" y2="100" strokeWidth="0.8"/>
-                    <line x1="480" y1="100" x2="680" y2="220" strokeWidth="0.8"/>
-                    <line x1="680" y1="220" x2="880" y2="120" strokeWidth="0.8"/>
-                    <line x1="880" y1="120" x2="1100" y2="190" strokeWidth="0.8"/>
-                    <line x1="280" y1="180" x2="360" y2="340" strokeWidth="0.7"/>
-                    <line x1="480" y1="100" x2="560" y2="290" strokeWidth="0.7"/>
-                    <line x1="680" y1="220" x2="720" y2="390" strokeWidth="0.7"/>
-                    <line x1="880" y1="120" x2="920" y2="330" strokeWidth="0.7"/>
-                    <line x1="160" y1="330" x2="360" y2="340" strokeWidth="0.7"/>
-                    <line x1="360" y1="340" x2="560" y2="290" strokeWidth="0.7"/>
-                    <line x1="560" y1="290" x2="720" y2="390" strokeWidth="0.7"/>
-                    <line x1="720" y1="390" x2="920" y2="330" strokeWidth="0.7"/>
-                    <line x1="920" y1="330" x2="1100" y2="420" strokeWidth="0.7"/>
-                    <line x1="360" y1="340" x2="300" y2="510" strokeWidth="0.6"/>
-                    <line x1="560" y1="290" x2="620" y2="510" strokeWidth="0.6"/>
-                    <line x1="720" y1="390" x2="780" y2="530" strokeWidth="0.6"/>
-                    <line x1="80" y1="90" x2="160" y2="330" strokeDasharray="3 7" strokeWidth="0.5"/>
-                    <line x1="1100" y1="190" x2="1100" y2="420" strokeDasharray="3 7" strokeWidth="0.5"/>
-                    <line x1="120" y1="510" x2="300" y2="510" strokeDasharray="3 7" strokeWidth="0.5"/>
-                    <circle cx="80" cy="90" r="4" fill="white" stroke="none"/>
-                    <circle cx="280" cy="180" r="5" fill="white" stroke="none"/>
-                    <circle cx="480" cy="100" r="3.5" fill="white" stroke="none"/>
-                    <circle cx="680" cy="220" r="6" fill="white" stroke="none"/>
-                    <circle cx="880" cy="120" r="4" fill="white" stroke="none"/>
-                    <circle cx="1100" cy="190" r="3" fill="white" stroke="none"/>
-                    <circle cx="160" cy="330" r="3.5" fill="white" stroke="none"/>
-                    <circle cx="360" cy="340" r="5" fill="white" stroke="none"/>
-                    <circle cx="560" cy="290" r="4" fill="white" stroke="none"/>
-                    <circle cx="720" cy="390" r="6" fill="white" stroke="none"/>
-                    <circle cx="920" cy="330" r="4.5" fill="white" stroke="none"/>
-                    <circle cx="1100" cy="420" r="3" fill="white" stroke="none"/>
-                    <circle cx="300" cy="510" r="3" fill="white" stroke="none"/>
-                    <circle cx="120" cy="510" r="2.5" fill="white" stroke="none"/>
-                    <circle cx="620" cy="510" r="3.5" fill="white" stroke="none"/>
-                    <circle cx="780" cy="530" r="3" fill="white" stroke="none"/>
-                  </svg>
+                  <img src={web1} className="hero-bg-photo" alt="" aria-hidden="true" />
+                  <div className="hero-photo-overlay" aria-hidden="true" />
                   <div className="hero-inner">
                     <span className="hero-eyebrow">For founders and operators who are still functioning — but feeling the weight of everything that hasn't closed yet.</span>
                     <h1 id="hero-heading">Your brain is still running<br />decisions you already made.</h1>
@@ -109,17 +76,22 @@ function AppContent() {
 
                 {/* About Section */}
                 <section className="page-section about-section" id="about" aria-labelledby="about-heading">
-                  <div className="section-inner">
-                    <h2 id="about-heading">The real drain isn't the workload.</h2>
-                    <p className="about-description">
-                      It's the decisions that never fully resolve. The questions that run in the background.
-                      The identity loops, the relationship monitoring, the timelines you've already set
-                      but keep internally re-negotiating.
-                    </p>
-                    <p className="about-mission">
-                      You're not burned out. You're cognitively overloaded by things that feel like they should be closed — but aren't.
-                      That distinction matters. Because the solution isn't doing less. It's building the structure to close what's open.
-                    </p>
+                  <div className="about-split">
+                    <div className="about-split-text">
+                      <h2 id="about-heading">The real drain isn't the workload.</h2>
+                      <p className="about-description">
+                        It's the decisions that never fully resolve. The questions that run in the background.
+                        The identity loops, the relationship monitoring, the timelines you've already set
+                        but keep internally re-negotiating.
+                      </p>
+                      <p className="about-mission">
+                        You're not burned out. You're cognitively overloaded by things that feel like they should be closed — but aren't.
+                        That distinction matters. Because the solution isn't doing less. It's building the structure to close what's open.
+                      </p>
+                    </div>
+                    <div className="about-split-photo">
+                      <img src={web2} alt="Founder mid-thought, working late" className="about-photo" />
+                    </div>
                   </div>
                 </section>
 
@@ -181,7 +153,7 @@ function AppContent() {
                 </section>
 
                 {/* Offer Section */}
-                <section className="page-section founder-section" id="offer" aria-labelledby="offer-heading">
+                <section className="page-section founder-section offer-section" id="offer" aria-labelledby="offer-heading" style={{'--offer-bg-photo': `url(${web3})`}}>
                   <div className="section-inner">
                     <header className="kindred-header">
                       <h2 id="offer-heading" className="section-title">Built for founders who are still in the window.</h2>

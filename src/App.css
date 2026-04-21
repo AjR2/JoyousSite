@@ -73,6 +73,31 @@ html, body {
 .values-section  { background: var(--color-surface); }
 .founder-section { background: #F1F5F9; }
 
+.offer-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.offer-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 340px;
+  height: 100%;
+  background-image: var(--offer-bg-photo);
+  background-size: cover;
+  background-position: center;
+  opacity: 0.18;
+  filter: grayscale(30%);
+  pointer-events: none;
+}
+
+.offer-section .section-inner {
+  position: relative;
+  z-index: 1;
+}
+
 /* ── Hero Section ── */
 .hero-section {
   background: var(--color-primary);
@@ -83,13 +108,30 @@ html, body {
   overflow: hidden;
 }
 
-.hero-bg-svg {
+/* Hero photo background */
+.hero-bg-photo {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  opacity: 0.06;
+  object-fit: cover;
+  object-position: center 30%;
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.hero-photo-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(15, 23, 42, 0.85) 40%,
+    rgba(15, 23, 42, 0.5) 100%
+  );
   pointer-events: none;
 }
 
@@ -234,15 +276,48 @@ html, body {
 }
 
 /* ── About Section ── */
+.about-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.about-split-text {
+  text-align: left;
+}
+
+.about-split-text h2 {
+  text-align: left;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.about-split-photo {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.15);
+}
+
+.about-photo {
+  width: 100%;
+  height: 480px;
+  object-fit: cover;
+  object-position: center 20%;
+  display: block;
+  border-radius: var(--radius-lg);
+}
+
 .about-description,
 .about-mission {
   font-size: 1.125rem;
-  line-height: 1.65;
-  margin-bottom: 1.75rem;
-  text-align: center;
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+  text-align: left;
+  max-width: 100%;
 }
 
 .about-description {
@@ -626,6 +701,17 @@ html, body {
 
   .hero-section { padding: 5rem 1.5rem 4.5rem; }
   .hero-section h1 { font-size: 2.25rem; }
+  .hero-bg-photo { opacity: 0.25; }
+
+  .about-split {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  .about-split-text h2 { font-size: 1.6rem; }
+  .about-photo { height: 300px; }
+  .about-description, .about-mission { text-align: left; }
+
+  .offer-section::before { width: 100%; height: 300px; top: 0; opacity: 0.1; }
 
   .page-section h2,
   .section-title { font-size: 1.75rem; }
