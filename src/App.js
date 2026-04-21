@@ -49,7 +49,7 @@ function AppContent() {
                   <img src={web1} className="hero-bg-photo" alt="" aria-hidden="true" />
                   <div className="hero-photo-overlay" aria-hidden="true" />
                   <div className="hero-inner">
-                    <span className="hero-eyebrow">For founders and operators who are still functioning — but feeling the weight of everything that hasn't closed yet.</span>
+                    <span className="hero-eyebrow">Cognitive Systems · Founder Performance</span>
                     <h1 id="hero-heading">Your brain is still running<br />decisions you already made.</h1>
                     <p className="hero-description">
                       When too many things stay mentally open, focus degrades — not because you're doing too much, but because nothing fully closes. Enactive builds the structure to change that.
