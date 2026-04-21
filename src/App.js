@@ -153,7 +153,8 @@ function AppContent() {
                 </section>
 
                 {/* Offer Section */}
-                <section className="page-section founder-section offer-section" id="offer" aria-labelledby="offer-heading" style={{'--offer-bg-photo': `url(${web3})`}}>
+                <section className="page-section founder-section offer-section" id="offer" aria-labelledby="offer-heading">
+                  <img src={web3} className="offer-bg-photo" alt="" aria-hidden="true" />
                   <div className="section-inner">
                     <header className="kindred-header">
                       <h2 id="offer-heading" className="section-title">Built for founders who are still in the window.</h2>
