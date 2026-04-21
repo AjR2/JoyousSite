@@ -338,7 +338,7 @@ function App() {
           title="Enactive - Cognitive Systems for Execution Integrity"
           description="Structural interventions for operators who cannot afford execution failure. Pre-collapse prevention, decision drift containment, and founder performance stabilization."
           keywords="cognitive systems, execution integrity, founder performance, decision drift, containment, tactical intervention, pre-collapse prevention"
-          canonicalUrl="https://www.enactive.ai/"
+          canonicalUrl="https://theenactive.com/"
         />
         <SchemaMarkup type="organization" />
         <SchemaMarkup type="website" />

@@ -7,7 +7,7 @@ function TermsOfService() {
       <Helmet>
         <title>Terms of Service - Enactive</title>
         <meta name="description" content="Terms of Service for Enactive platform and OAuth integrations" />
-        <link rel="canonical" href="https://www.enactive.ai/terms" />
+        <link rel="canonical" href="https://theenactive.com/terms" />
       </Helmet>
 
       <div className="legal-container">

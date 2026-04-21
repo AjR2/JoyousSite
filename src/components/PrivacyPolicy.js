@@ -7,7 +7,7 @@ function PrivacyPolicy() {
       <Helmet>
         <title>Privacy Policy - Enactive</title>
         <meta name="description" content="Privacy Policy for Enactive platform and OAuth integrations" />
-        <link rel="canonical" href="https://www.enactive.ai/privacy" />
+        <link rel="canonical" href="https://theenactive.com/privacy" />
       </Helmet>
 
       <div className="legal-container">

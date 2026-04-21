@@ -48,17 +48,15 @@ module.exports = function handler(req, res) {
 
     // Get the base URL from the request headers
     const protocol = req.headers['x-forwarded-proto'] || 'https';
-    const host = req.headers['x-forwarded-host'] || req.headers.host || 'www.yourjoyousmind.com';
-    const baseUrl = `${protocol}://${host}`;
+    const baseUrl = 'https://theenactive.com';
 
     const today = formatDate(new Date());
 
     // Static pages with their priorities and change frequencies
     const staticPages = [
       { path: '', priority: '1.0', changefreq: 'weekly', lastmod: today },
-      { path: '/blog', priority: '0.9', changefreq: 'daily', lastmod: today },
-      { path: '/mindful-breaks', priority: '0.8', changefreq: 'weekly', lastmod: today },
       { path: '/contact', priority: '0.7', changefreq: 'monthly', lastmod: today },
+      { path: '/cognitive-offload-sprint', priority: '0.8', changefreq: 'monthly', lastmod: today },
       { path: '/terms', priority: '0.3', changefreq: 'yearly', lastmod: '2026-01-15' },
       { path: '/privacy', priority: '0.3', changefreq: 'yearly', lastmod: '2026-01-15' }
     ];
@@ -76,20 +74,6 @@ module.exports = function handler(req, res) {
     <lastmod>${page.lastmod}</lastmod>
     <changefreq>${page.changefreq}</changefreq>
     <priority>${page.priority}</priority>
-  </url>`;
-    });
-
-    // Add blog posts
-    posts.forEach(post => {
-      const slug = post.id || post.slug || post.url?.split('/').pop();
-      const postDate = formatDate(post.date || post.publishedAt || post.createdAt);
-
-      sitemap += `
-  <url>
-    <loc>${baseUrl}/blog/${slug}</loc>
-    <lastmod>${postDate}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
   </url>`;
     });
 
