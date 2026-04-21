@@ -204,7 +204,7 @@ function AppContent() {
                         </p>
                         <p className="founder-price">$250 / session</p>
                         <a
-                          href="https://calendly.com/ajrudd-theenactive/new-meeting"
+                          href="https://calendly.com/ajrudd-theenactive/new-meeting-1"
                           className="button offer-cta-primary"
                           target="_blank"
                           rel="noopener noreferrer"
@@ -249,7 +249,7 @@ function AppContent() {
                     <p className="cta-band-trust">This isn't therapy. It isn't coaching. It's structural cognitive work — the kind that produces a document you can actually use the next time the load spikes.</p>
                     <h2 id="cta-band-heading">If you're a founder who's still functioning but starting to feel the ceiling — this is the window. Not after the collapse. Now.</h2>
                     <a
-                      href="https://calendly.com/ajrudd-theenactive/new-meeting"
+                      href="https://calendly.com/ajrudd-theenactive/new-meeting-1"
                       className="button cta-band-button"
                       target="_blank"
                       rel="noopener noreferrer"
