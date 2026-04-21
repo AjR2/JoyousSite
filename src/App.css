@@ -71,7 +71,7 @@ html, body {
 /* Section backgrounds */
 .about-section   { background: var(--color-surface-alt); border-top: 1px solid var(--color-border); padding-left: 4rem; padding-right: 4rem; }
 .values-section  { background: var(--color-surface); }
-.founder-section { background: #F1F5F9; }
+.founder-section { background: #0F172A; }
 
 .offer-section {
   position: relative;
@@ -95,6 +95,11 @@ html, body {
 .offer-section .section-inner {
   position: relative;
   z-index: 1;
+}
+
+.offer-section .section-title,
+.offer-section h2 {
+  color: #ffffff;
 }
 
 /* ── Hero Section ── */
@@ -452,7 +457,7 @@ html, body {
 
 .kindred-description {
   font-size: 1.05rem;
-  color: var(--color-text-muted);
+  color: rgba(255, 255, 255, 0.75);
   line-height: 1.7;
   max-width: 580px;
   margin: 0 auto 2rem;
