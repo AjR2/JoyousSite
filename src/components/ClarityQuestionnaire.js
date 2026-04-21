@@ -345,30 +345,22 @@ function ClarityQuestionnaire({ isOpen, onClose }) {
                 Diagnostic complete. Execute the action.
               </p>
               <p className="exit-promise">
-                If this resolved the immediate drift, no further intervention required.
+                If the drift is systemic, a structured session will close what the diagnostic surfaced.
               </p>
             </div>
             <div className="step-actions">
-              <button
+              <a
                 className="btn-primary"
-                onClick={() => {
-                  window.open('https://calendly.com/ajrudd-theenactive/new-meeting', '_blank', 'noopener,noreferrer');
-                  onClose();
-                }}
+                href="https://calendly.com/ajrudd-theenactive/new-meeting-1"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={onClose}
               >
-                Execute Now
-              </button>
-              <button className="btn-secondary" onClick={onClose}>
-                Close
-              </button>
-            </div>
-            <div className="extra-assistance">
-              <p className="extra-assistance-text">
-                Drift pattern systemic? Structural intervention recommended.
-              </p>
-              <a href="/#founder" className="btn-link" onClick={onClose}>
-                Book Founder Execution Reset
+                Book a Session
               </a>
+              <button className="btn-secondary" onClick={onClose}>
+                Leave Diagnostic
+              </button>
             </div>
           </div>
         );
