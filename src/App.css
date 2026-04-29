@@ -930,7 +930,6 @@ html, body {
   border-radius: var(--radius-pill);
   padding: 0.3rem 0.75rem;
   display: inline-block;
-  align-self: flex-start;
 }
 
 .offer-body {
