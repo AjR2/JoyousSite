@@ -783,7 +783,6 @@ html, body {
   padding: 0.4rem 1rem;
   display: inline-block;
   letter-spacing: 0.02em;
-  align-self: flex-start;
 }
 
 .kindred-cta {
@@ -873,6 +872,8 @@ html, body {
   padding: 2rem 1.75rem;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  text-align: center;
   gap: 0.85rem;
   box-shadow: var(--shadow-sm);
   transition: box-shadow var(--dur-base) var(--ease-out),
@@ -943,7 +944,6 @@ html, body {
 .offer-cta-primary {
   padding: 0.8rem 1.5rem;
   font-size: 0.95rem;
-  align-self: flex-start;
   margin-top: 0.5rem;
 }
 
@@ -953,7 +953,6 @@ html, body {
   border: 1px solid var(--color-border-strong);
   padding: 0.8rem 1.5rem;
   font-size: 0.95rem;
-  align-self: flex-start;
   margin-top: 0.5rem;
   box-shadow: none;
 }
