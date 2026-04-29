@@ -117,7 +117,17 @@ function ClarityQuestionnaire({ isOpen, onClose }) {
   const handleNext = () => setCurrentStep(prev => prev + 1);
 
   const handleCommit = () => {
-    setCurrentStep(5);
+    onClose();
+    if (typeof window !== 'undefined') {
+      requestAnimationFrame(() => {
+        const offerEl = document.getElementById('offer');
+        if (offerEl) {
+          offerEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+          window.location.hash = '#offer';
+        }
+      });
+    }
   };
 
   const buildConstraintsList = useCallback(() => {

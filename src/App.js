@@ -50,24 +50,20 @@ function AppContent() {
                   <img src={web1} className="hero-bg-photo" alt="" aria-hidden="true" />
                   <div className="hero-photo-overlay" aria-hidden="true" />
                   <div className="hero-inner">
-                    <span className="hero-mtr-pill">
-                      <img src={mtrLogo} alt="" aria-hidden="true" className="hero-mtr-logo" />
-                      <span className="hero-mtr-text">The structural work behind <strong>Minds That Roam</strong></span>
-                    </span>
-                    <span className="hero-eyebrow">Cognitive Systems · Founder Performance</span>
+                    <div className="hero-pill-stack">
+                      <span className="hero-mtr-pill">
+                        <img src={mtrLogo} alt="" aria-hidden="true" className="hero-mtr-logo" />
+                        <span className="hero-mtr-text">The structural work behind <strong>Minds That Roam</strong></span>
+                      </span>
+                      <span className="hero-eyebrow">Cognitive Systems · Founder Performance</span>
+                    </div>
                     <h1 id="hero-heading">Your brain is still running<br />decisions you already made.</h1>
                     <p className="hero-description">
                       When too many things stay mentally open, focus degrades — not because you're doing too much, but because nothing fully closes. Enactive builds the structure to change that.
                     </p>
                     <div className="hero-cta-group">
-                      <button
-                        className="button cta-button primary-cta"
-                        onClick={() => setIsQuestionnaireOpen(true)}
-                      >
-                        Run Drift Diagnostic
-                      </button>
-                      <a href="#offer" className="hero-secondary-link">
-                        See the offer ↓
+                      <a href="#offer" className="button cta-button primary-cta">
+                        See the offer
                       </a>
                     </div>
                   </div>
@@ -96,6 +92,36 @@ function AppContent() {
                     </div>
                     <div className="about-split-photo">
                       <img src={web2} alt="Founder mid-thought, working late" className="about-photo" />
+                    </div>
+                  </div>
+                </section>
+
+                {/* Drift Diagnostic Section */}
+                <section className="page-section diagnostic-section" id="diagnostic" aria-labelledby="diagnostic-heading">
+                  <div className="about-split diagnostic-split">
+                    <div className="diagnostic-cta-block">
+                      <button
+                        className="button cta-button primary-cta diagnostic-cta-button"
+                        onClick={() => setIsQuestionnaireOpen(true)}
+                      >
+                        Run Drift Diagnostic
+                      </button>
+                      <span className="diagnostic-meta">Less than 5 minutes · No signup</span>
+                    </div>
+                    <div className="about-split-text diagnostic-split-text">
+                      <h2 id="diagnostic-heading">Drift diagnostic</h2>
+                      <p className="about-description">
+                        Most founders know something is off before they can name it. Shorter patience. Slower decisions. The sense that more effort is producing less movement.
+                      </p>
+                      <p className="about-description">
+                        That is drift. And it has a structure.
+                      </p>
+                      <p className="about-mission">
+                        The diagnostic identifies which decision loops are currently open, what they are costing you in execution capacity, and what needs to close first. It takes less than five minutes. You leave with a written Execution Directive — your problem named, your constraints mapped, your next two actions specified.
+                      </p>
+                      <p className="about-mission diagnostic-finisher">
+                        Not a score. Not a category. A document you can use today.
+                      </p>
                     </div>
                   </div>
                 </section>

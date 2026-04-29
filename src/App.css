@@ -272,12 +272,24 @@ html, body {
   box-shadow: 0 0 10px var(--color-accent-soft);
 }
 
+.hero-pill-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1.5rem;
+}
+
+.hero-pill-stack .hero-eyebrow,
+.hero-pill-stack .hero-mtr-pill {
+  margin-bottom: 0;
+}
+
 .hero-mtr-pill {
   display: inline-flex;
   align-items: center;
   gap: 0.55rem;
   padding: 0.35rem 0.95rem 0.35rem 0.4rem;
-  margin-bottom: 0.9rem;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: var(--radius-pill);
@@ -503,6 +515,70 @@ html, body {
   color: var(--color-text-muted);
   font-size: 1.05rem;
   margin-bottom: 0;
+}
+
+/* ── Drift Diagnostic Section ── */
+.diagnostic-section {
+  background: linear-gradient(180deg, #FAFBFD 0%, #F4F6FB 100%);
+  position: relative;
+}
+
+.diagnostic-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(60% 50% at 80% 10%, rgba(37,99,235,0.06) 0%, rgba(255,255,255,0) 70%);
+  pointer-events: none;
+}
+
+.diagnostic-section .diagnostic-split { position: relative; z-index: 1; }
+
+.diagnostic-cta-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.diagnostic-cta-button {
+  padding: 1.05rem 2.25rem;
+  font-size: 1.05rem;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 10px 30px rgba(37, 99, 235, 0.35), inset 0 1px 0 rgba(255,255,255,0.18);
+}
+
+.diagnostic-cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 40px rgba(37, 99, 235, 0.45), inset 0 1px 0 rgba(255,255,255,0.22);
+}
+
+.diagnostic-meta {
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+.diagnostic-split-text h2 {
+  text-align: left;
+  font-size: clamp(1.75rem, 2.2vw + 1rem, 2.4rem);
+  letter-spacing: -0.035em;
+  margin-bottom: 1.25rem;
+}
+
+.diagnostic-finisher {
+  font-style: italic;
+  color: var(--color-primary);
+  font-weight: 500;
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .diagnostic-split { grid-template-columns: 1fr; gap: 2rem; }
+  .diagnostic-cta-block { align-items: stretch; }
+  .diagnostic-cta-button { width: 100%; }
 }
 
 /* About pillars — structured signal words */
