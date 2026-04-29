@@ -227,11 +227,11 @@ function AppContent() {
                         <p className="founder-price">$1,000</p>
                         <a
                           href="https://calendly.com/ajrudd-theenactive/offload-sprint-clone"
-                          className="button offer-cta-secondary"
+                          className="button offer-cta-primary"
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          Learn more
+                          Book a session
                         </a>
                       </article>
 
@@ -246,11 +246,11 @@ function AppContent() {
                         <p className="founder-price">$1,750</p>
                         <a
                           href="https://calendly.com/ajrudd-theenactive/offload-sprint-2-week-clone"
-                          className="button offer-cta-secondary"
+                          className="button offer-cta-primary"
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          Learn more
+                          Book a session
                         </a>
                       </article>
 
