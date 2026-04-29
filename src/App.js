@@ -23,6 +23,7 @@ const CognitiveOffloadSprint = React.lazy(() => import('./components/CognitiveOf
 import web1 from './assets/web1.png';
 import web2 from './assets/web2.png';
 import web3 from './assets/web3.png';
+import mtrLogo from './assets/minds-that-roam-logo.png';
 
 // Import AdminAuth directly
 import AdminAuth from './components/AdminAuth';
@@ -49,6 +50,10 @@ function AppContent() {
                   <img src={web1} className="hero-bg-photo" alt="" aria-hidden="true" />
                   <div className="hero-photo-overlay" aria-hidden="true" />
                   <div className="hero-inner">
+                    <span className="hero-mtr-pill">
+                      <img src={mtrLogo} alt="" aria-hidden="true" className="hero-mtr-logo" />
+                      <span className="hero-mtr-text">The structural work behind <strong>Minds That Roam</strong></span>
+                    </span>
                     <span className="hero-eyebrow">Cognitive Systems · Founder Performance</span>
                     <h1 id="hero-heading">Your brain is still running<br />decisions you already made.</h1>
                     <p className="hero-description">
@@ -194,12 +199,18 @@ function AppContent() {
                           when a loop resurfaces or a new one opens. Built for founders managing multiple simultaneous stressors.
                         </p>
                         <p className="founder-price">$1,000</p>
-                        <a href="/contact" className="button offer-cta-secondary">
+                        <a
+                          href="https://calendly.com/ajrudd-theenactive/offload-sprint-clone"
+                          className="button offer-cta-secondary"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
                           Learn more
                         </a>
                       </article>
 
                       <article className="offer-card" tabIndex="0">
+                        <div className="offer-badge">5 spots open</div>
                         <h3>Monthly Containment</h3>
                         <span className="founder-service-type">1 month · Full async access</span>
                         <p className="offer-body">
@@ -207,7 +218,12 @@ function AppContent() {
                           structural support while building — not periodic check-ins, but an ongoing containment system.
                         </p>
                         <p className="founder-price">$1,750</p>
-                        <a href="/contact" className="button offer-cta-secondary">
+                        <a
+                          href="https://calendly.com/ajrudd-theenactive/offload-sprint-2-week-clone"
+                          className="button offer-cta-secondary"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
                           Learn more
                         </a>
                       </article>
