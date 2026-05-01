@@ -53,7 +53,7 @@ function AppContent() {
                     <div className="hero-pill-stack">
                       <span className="hero-mtr-pill">
                         <img src={mtrLogo} alt="" aria-hidden="true" className="hero-mtr-logo" />
-                        <span className="hero-mtr-text">The structural work behind <strong>Minds That Roam</strong></span>
+                        <span className="hero-mtr-text">The structural work behind <strong>Roaming Minds</strong></span>
                       </span>
                       <span className="hero-eyebrow">Cognitive Systems · Founder Performance</span>
                     </div>
