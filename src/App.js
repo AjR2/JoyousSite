@@ -63,7 +63,7 @@ function AppContent() {
                     </p>
                     <div className="hero-cta-group">
                       <a href="#offer" className="button cta-button primary-cta">
-                        See the offer
+                        Close the open loops
                       </a>
                     </div>
                   </div>
