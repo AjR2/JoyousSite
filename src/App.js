@@ -213,7 +213,7 @@ function AppContent() {
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          Book a session
+                          Get your closure map
                         </a>
                       </article>
 
@@ -231,7 +231,7 @@ function AppContent() {
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          Book a session
+                          Get your closure map
                         </a>
                       </article>
 
@@ -250,7 +250,7 @@ function AppContent() {
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          Book a session
+                          Get your closure map
                         </a>
                       </article>
 
