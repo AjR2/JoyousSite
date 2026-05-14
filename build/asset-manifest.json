@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/static/css/main.65aaa46b.css",
-    "main.js": "/static/js/main.ef18a9ea.js",
-    "static/css/922.5ca32b55.chunk.css": "/static/css/922.5ca32b55.chunk.css",
+    "main.css": "/static/css/main.b98d6d9f.css",
+    "main.js": "/static/js/main.3f12d58c.js",
+    "static/css/922.15c6833a.chunk.css": "/static/css/922.15c6833a.chunk.css",
     "static/js/922.c3cad40b.chunk.js": "/static/js/922.c3cad40b.chunk.js",
     "static/css/848.e42950f5.chunk.css": "/static/css/848.e42950f5.chunk.css",
     "static/js/848.bb99b595.chunk.js": "/static/js/848.bb99b595.chunk.js",
@@ -14,12 +14,13 @@
     "static/media/web3.png": "/static/media/web3.c42c04da25fbd8d93301.png",
     "static/media/web2.png": "/static/media/web2.53d771d3dc1e7db9a200.png",
     "static/media/web1.png": "/static/media/web1.f8e0dcd2d0a64f9ab1f1.png",
+    "static/media/minds-that-roam-logo.png": "/static/media/minds-that-roam-logo.f2acb8b8d0be6692579e.png",
     "static/media/nvidia-badge.jpg": "/static/media/nvidia-badge.b18bc55f53db6f273959.jpg",
     "index.html": "/index.html",
     "static/media/enactive-logo.svg": "/static/media/enactive-logo.92bb6c3f3916e294f5950e3200631955.svg",
-    "main.65aaa46b.css.map": "/static/css/main.65aaa46b.css.map",
-    "main.ef18a9ea.js.map": "/static/js/main.ef18a9ea.js.map",
-    "922.5ca32b55.chunk.css.map": "/static/css/922.5ca32b55.chunk.css.map",
+    "main.b98d6d9f.css.map": "/static/css/main.b98d6d9f.css.map",
+    "main.3f12d58c.js.map": "/static/js/main.3f12d58c.js.map",
+    "922.15c6833a.chunk.css.map": "/static/css/922.15c6833a.chunk.css.map",
     "922.c3cad40b.chunk.js.map": "/static/js/922.c3cad40b.chunk.js.map",
     "848.e42950f5.chunk.css.map": "/static/css/848.e42950f5.chunk.css.map",
     "848.bb99b595.chunk.js.map": "/static/js/848.bb99b595.chunk.js.map",
@@ -30,7 +31,7 @@
     "488.4d6b2944.chunk.js.map": "/static/js/488.4d6b2944.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.65aaa46b.css",
-    "static/js/main.ef18a9ea.js"
+    "static/css/main.b98d6d9f.css",
+    "static/js/main.3f12d58c.js"
   ]
 }
