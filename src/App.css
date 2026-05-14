@@ -155,7 +155,7 @@ html, body {
 
 /* Section backgrounds */
 .about-section {
-  background: linear-gradient(180deg, #F8FAFD 0%, var(--color-surface-alt) 100%);
+  background: var(--color-surface);
   padding-left: 4rem;
   padding-right: 4rem;
   position: relative;
@@ -195,6 +195,7 @@ html, body {
 .offer-section {
   position: relative;
   overflow: hidden;
+  border-radius: 4rem 4rem 0 0;
 }
 
 .offer-bg-photo {
@@ -224,12 +225,13 @@ html, body {
 /* ── Hero Section ── */
 .hero-section {
   background: var(--color-primary);
-  padding: 9rem 2rem 7.5rem;
+  padding: 9rem 2rem 10rem;
   text-align: center;
   width: 100%;
   position: relative;
   overflow: hidden;
   isolation: isolate;
+  border-radius: 0 0 50% 50% / 0 0 5rem 5rem;
 }
 
 /* Hero photo background */
@@ -1032,7 +1034,6 @@ html, body {
   background: var(--gradient-cta);
   padding: 6rem 2rem;
   text-align: center;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
   position: relative;
   overflow: hidden;
   isolation: isolate;
@@ -1111,9 +1112,13 @@ html, body {
 
   .page-section { padding: 3.5rem 1.5rem; }
 
-  .hero-section { padding: 5rem 1.5rem 4.5rem; }
+  .hero-section {
+    padding: 5rem 1.5rem 6rem;
+    border-radius: 0 0 50% 50% / 0 0 2.5rem 2.5rem;
+  }
   .hero-section h1 { font-size: 2.25rem; }
   .hero-bg-photo { opacity: 0.25; }
+  .offer-section { border-radius: 2rem 2rem 0 0; }
 
   .about-split {
     grid-template-columns: 1fr;
@@ -1253,9 +1258,9 @@ html, body {
   border-top: none;
 }
 
-/* Smoother diagnostic section */
+/* Diagnostic section matches unified white canvas */
 .diagnostic-section {
-  background: linear-gradient(180deg, var(--color-surface-alt) 0%, #F0F4FB 100%);
+  background: var(--color-surface);
 }
 
 .diagnostic-section::before {
