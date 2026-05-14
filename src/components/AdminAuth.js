@@ -1,6 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import BlogAdmin from './BlogAdmin';
+import EnactiveAgents from './EnactiveAgents';
 import './AdminAuth.css';
+
+const ADMIN_TABS = [
+  { id: 'agents', label: 'Agent Ops' },
+  { id: 'blog',   label: 'Blog' },
+];
+
+function AdminDashboard({ onLogout }) {
+  const [activeTab, setActiveTab] = useState('agents');
+
+  return (
+    <div className="admin-authenticated">
+      <div className="admin-header-bar">
+        <div className="admin-tab-bar">
+          {ADMIN_TABS.map(tab => (
+            <button
+              key={tab.id}
+              className={`admin-tab-btn${activeTab === tab.id ? ' admin-tab-btn--active' : ''}`}
+              onClick={() => setActiveTab(tab.id)}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+        <button onClick={onLogout} className="logout-btn">Logout</button>
+      </div>
+
+      {activeTab === 'agents' && <EnactiveAgents />}
+      {activeTab === 'blog'   && <BlogAdmin />}
+    </div>
+  );
+}
 
 const AdminAuth = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -94,17 +126,7 @@ const AdminAuth = () => {
   }
 
   if (isAuthenticated) {
-    return (
-      <div className="admin-authenticated">
-        <div className="admin-header-bar">
-          <h1>Blog Administration</h1>
-          <button onClick={handleLogout} className="logout-btn">
-            Logout
-          </button>
-        </div>
-        <BlogAdmin />
-      </div>
-    );
+    return <AdminDashboard onLogout={handleLogout} />;
   }
 
   return (
