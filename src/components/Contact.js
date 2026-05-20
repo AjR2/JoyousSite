@@ -1,5 +1,4 @@
 import React, { useState, useCallback, useRef } from "react";
-import emailjs from "emailjs-com";
 import { InlineLoader } from "./SkeletonLoader";
 import "./Contact.css";
 
@@ -135,31 +134,45 @@ const Contact = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const templateParams = {
-      from_name: formData.name,
-      from_email: formData.email,
-      message: formData.message,
-      subject: formData.subject
-    };
+    // Run full validation before submitting
+    const allErrors = {};
+    Object.keys(formData).forEach((field) => {
+      const err = validateField(field, formData[field]);
+      if (err) allErrors[field] = err;
+    });
+    if (Object.keys(allErrors).length > 0) {
+      setErrors(allErrors);
+      setTouched({ name: true, email: true, subject: true, message: true });
+      return;
+    }
 
-    emailjs
-      .send(
-        process.env.REACT_APP_EMAILJS_SERVICE_ID || "service_jpewjm8",
-        process.env.REACT_APP_EMAILJS_TEMPLATE_ID || "template_lmr1i7v",
-        templateParams,
-        process.env.REACT_APP_EMAILJS_PUBLIC_KEY || "Rc8h7uEQIYsCp9F2L"
-      )
-      .then(() => {
-        alert("Message Sent! We’ll get back to you soon.");
-        setFormData({ name: "", email: "", message: "", subject: "" });
-      })
-      .catch((err) => {
-        console.error("Failed to send message:", err);
-        alert("Something went wrong. Please try again.");
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
       });
+      const data = await res.json();
+
+      if (!res.ok) throw new Error(data.error || 'Failed to send.');
+
+      setSubmitStatus('success');
+      setSubmitMessage("Message sent. We'll be in touch soon.");
+      setFormData({ name: '', email: '', subject: '', message: '' });
+      setTouched({});
+    } catch (err) {
+      console.error('Contact submit error:', err);
+      setSubmitStatus('error');
+      setSubmitMessage(err.message || 'Something went wrong. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
