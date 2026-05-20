@@ -27,6 +27,55 @@ import mtrLogo from './assets/minds-that-roam-logo.png';
 
 // Import AdminAuth directly
 import AdminAuth from './components/AdminAuth';
+const PRINCIPLES = [
+  {
+    number: '01',
+    title: 'Decisions are architecture, not willpower',
+    short: "Open loops aren't a discipline problem. They're a structural one.",
+    expanded: "We build the rules that close them — not frameworks to remember, not motivation. Rules that run automatically so your brain stops re-running what's already been decided.",
+  },
+  {
+    number: '02',
+    title: 'Signals precede symptoms',
+    short: "Irritation, narrowing focus, sharpening humor — these aren't personality.",
+    expanded: "They're load indicators. Execution degradation follows predictable threshold patterns. We catch them early — before visible failure, before the people around you notice.",
+  },
+  {
+    number: '03',
+    title: 'Containment over coping',
+    short: "We don't teach you to manage the chaos.",
+    expanded: "We build the structure that stops it from accumulating. The goal is not adaptation — it's architectural repair that removes the source of the load.",
+  },
+  {
+    number: '04',
+    title: 'Closure rules, not motivation',
+    short: 'Every open loop gets a rule for when it closes.',
+    expanded: "Not a pep talk. Not a framework to remember. A rule. You leave every session with a written Execution Directive — something your brain can actually use.",
+  },
+];
+
+function PrincipleCard({ number, title, short, expanded }) {
+  const [isExpanded, setIsExpanded] = React.useState(false);
+  const toggle = () => setIsExpanded(prev => !prev);
+  return (
+    <article
+      className={`value-item${isExpanded ? ' value-item--expanded' : ''}`}
+      role="button"
+      tabIndex="0"
+      aria-expanded={isExpanded}
+      onClick={toggle}
+      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } }}
+    >
+      <header>
+        <span className="value-number">{number}</span>
+        <h3>{title}</h3>
+      </header>
+      <p className="value-short" aria-hidden={isExpanded}>{short}</p>
+      <p className="value-expanded" aria-hidden={!isExpanded}>{expanded}</p>
+    </article>
+  );
+}
+
 // Wrapper component to use hooks outside of Router
 function AppContent() {
   const [isQuestionnaireOpen, setIsQuestionnaireOpen] = useState(false);
@@ -62,9 +111,16 @@ function AppContent() {
                       When too many things stay mentally open, focus degrades — not because you're doing too much, but because nothing fully closes. Enactive builds the structure to change that.
                     </p>
                     <div className="hero-cta-group">
-                      <a href="#offer" className="button cta-button primary-cta">
-                        Close the open loops
-                      </a>
+                      <p className="hero-diagnostic-promise">
+                        5 minutes. You leave with a written Execution Directive — your drift pattern named, your constraints mapped, your next two actions specified.
+                      </p>
+                      <button
+                        className="button cta-button primary-cta"
+                        onClick={() => setIsQuestionnaireOpen(true)}
+                      >
+                        Run the Drift Diagnostic
+                      </button>
+                      <span className="hero-cta-meta">Free · No signup · Less than 5 minutes</span>
                     </div>
                   </div>
                 </section>
@@ -89,6 +145,12 @@ function AppContent() {
                         You're not burned out. You're cognitively overloaded by things that feel like they should be closed — but aren't.
                         That distinction matters. Because the solution isn't doing less. It's building the structure to close what's open.
                       </p>
+                      <button
+                        className="about-nudge-cta"
+                        onClick={() => setIsQuestionnaireOpen(true)}
+                      >
+                        Not sure if this applies? Run the free diagnostic →
+                      </button>
                     </div>
                     <div className="about-split-photo">
                       <img src={web2} alt="Founder mid-thought, working late" className="about-photo" />
@@ -122,6 +184,22 @@ function AppContent() {
                       <p className="about-mission diagnostic-finisher">
                         Not a score. Not a category. A document you can use today.
                       </p>
+
+                      <div className="sample-directive" aria-label="Sample Execution Directive">
+                        <span className="sample-directive-label">Sample output</span>
+                        <div className="sample-directive-block">
+                          <span className="sample-tag">PROBLEM</span>
+                          <p>Three decisions are structurally unresolved, creating recursive loops that activate outside work hours.</p>
+                        </div>
+                        <div className="sample-directive-block sample-directive-block--accent">
+                          <span className="sample-tag">NEXT ACTIONS</span>
+                          <ol>
+                            <li>Set a closure rule for the hiring decision by Friday — no further deliberation after that date.</li>
+                            <li>Remove the partnership question from active consideration until Q3.</li>
+                          </ol>
+                        </div>
+                        <p className="sample-directive-note">Redacted from a real session. Your directive reflects your specific pattern.</p>
+                      </div>
                     </div>
                   </div>
                 </section>
@@ -131,54 +209,62 @@ function AppContent() {
                   <div className="section-inner">
                     <h2 id="values-heading" className="section-title">Operating Principles</h2>
                     <div className="values-grid" role="list" aria-label="Our operating principles">
-                      <article className="value-item" role="listitem" tabIndex="0">
-                        <header>
-                          <span className="value-number">01</span>
-                          <h3>Decisions are architecture, not willpower</h3>
-                        </header>
-                        <p className="value-short">
-                          Open loops aren't a discipline problem. They're a structural one.
-                        </p>
-                        <p className="value-expanded">
-                          We build the rules that close them — not frameworks to remember, not motivation. Rules that run automatically so your brain stops re-running what's already been decided.
-                        </p>
-                      </article>
-                      <article className="value-item" role="listitem" tabIndex="0">
-                        <header>
-                          <span className="value-number">02</span>
-                          <h3>Signals precede symptoms</h3>
-                        </header>
-                        <p className="value-short">
-                          Irritation, narrowing focus, sharpening humor — these aren't personality.
-                        </p>
-                        <p className="value-expanded">
-                          They're load indicators. Execution degradation follows predictable threshold patterns. We catch them early — before visible failure, before the people around you notice.
-                        </p>
-                      </article>
-                      <article className="value-item" role="listitem" tabIndex="0">
-                        <header>
-                          <span className="value-number">03</span>
-                          <h3>Containment over coping</h3>
-                        </header>
-                        <p className="value-short">
-                          We don't teach you to manage the chaos.
-                        </p>
-                        <p className="value-expanded">
-                          We build the structure that stops it from accumulating. The goal is not adaptation — it's architectural repair that removes the source of the load.
-                        </p>
-                      </article>
-                      <article className="value-item" role="listitem" tabIndex="0">
-                        <header>
-                          <span className="value-number">04</span>
-                          <h3>Closure rules, not motivation</h3>
-                        </header>
-                        <p className="value-short">
-                          Every open loop gets a rule for when it closes.
-                        </p>
-                        <p className="value-expanded">
-                          Not a pep talk. Not a framework to remember. A rule. You leave every session with a written closure map — something your brain can actually use.
-                        </p>
-                      </article>
+                      {PRINCIPLES.map(p => (
+                        <PrincipleCard key={p.number} {...p} />
+                      ))}
+                    </div>
+                  </div>
+                </section>
+
+                {/* Who This Is For Section */}
+                <section className="page-section icp-section" id="who" aria-labelledby="icp-heading">
+                  <div className="section-inner">
+                    <h2 id="icp-heading" className="section-title">Who this is for</h2>
+                    <div className="icp-grid">
+                      <div className="icp-col icp-col--yes">
+                        <h3 className="icp-col-heading">This works if you are</h3>
+                        <ul className="icp-list">
+                          <li>An early-stage founder — pre-seed to Series A</li>
+                          <li>Running a solo or small team (1–5 people)</li>
+                          <li>Already naming the problem: decision fatigue, cognitive overload, work that follows you mentally after hours</li>
+                          <li>Still functioning — not collapsed, but feeling the ceiling</li>
+                        </ul>
+                      </div>
+                      <div className="icp-col icp-col--no">
+                        <h3 className="icp-col-heading">This is not for</h3>
+                        <ul className="icp-list icp-list--no">
+                          <li>Employees, students, or freelancers</li>
+                          <li>Founders seeking therapy or coaching</li>
+                          <li>Executives at established companies</li>
+                          <li>People who haven't yet named the problem</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                {/* Founder Credibility Section */}
+                <section className="page-section founder-cred-section" id="founder" aria-labelledby="founder-cred-heading">
+                  <div className="section-inner founder-cred-inner">
+                    <div className="founder-cred-text">
+                      <span className="section-eyebrow">Who runs the sessions</span>
+                      <h2 id="founder-cred-heading">AJ Rudd</h2>
+                      <p className="founder-cred-body">
+                        AJ built the Spatial Influence framework — a structural model for mapping and closing the open decision loops that degrade founder execution. That framework underlies every diagnostic and every session.
+                      </p>
+                      <p className="founder-cred-body">
+                        He also hosts <strong>Roaming Minds</strong>, a podcast on the cognitive architecture of high-performance operators, and is an Nvidia Inception Program member.
+                      </p>
+                      <p className="founder-cred-note">Sessions are 1:1. No team. No hand-offs.</p>
+                    </div>
+                    <div className="founder-cred-cta">
+                      <button
+                        className="button founder-cred-diagnostic-btn"
+                        onClick={() => setIsQuestionnaireOpen(true)}
+                      >
+                        Run the Drift Diagnostic
+                      </button>
+                      <span className="founder-cred-meta">Free · 5 minutes · No signup</span>
                     </div>
                   </div>
                 </section>
@@ -204,7 +290,7 @@ function AppContent() {
                         <span className="founder-service-type">Single session · 60 minutes · Zoom</span>
                         <p className="offer-body">
                           We identify the specific decision loops that are currently open and draining focus.
-                          You leave with a written closure map — the rules your brain needs to stop re-running what's already been decided.
+                          You leave with a written Execution Directive — the rules your brain needs to stop re-running what's already been decided.
                         </p>
                         <p className="founder-price">$250 / session</p>
                         <a
@@ -213,7 +299,7 @@ function AppContent() {
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          Get your closure map
+                          Get your Execution Directive
                         </a>
                       </article>
 
@@ -231,7 +317,7 @@ function AppContent() {
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          Get your closure map
+                          Get your Execution Directive
                         </a>
                       </article>
 
@@ -250,7 +336,7 @@ function AppContent() {
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          Get your closure map
+                          Get your Execution Directive
                         </a>
                       </article>
 

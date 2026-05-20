@@ -170,6 +170,7 @@ function ClarityQuestionnaire({ isOpen, onClose }) {
       case 1:
         return (
           <div className="questionnaire-step step-context">
+            <p className="step-counter">Step 1 of 4</p>
             <h2 className="step-title">Identify the primary drift pattern:</h2>
             <div className="context-options">
               {DRIFT_PATTERNS.map((pattern) => (
@@ -215,6 +216,7 @@ function ClarityQuestionnaire({ isOpen, onClose }) {
       case 2:
         return (
           <div className="questionnaire-step step-constraints">
+            <p className="step-counter">Step 2 of 4</p>
             <h2 className="step-title">Define the operating constraints:</h2>
             <div className="constraint-cards">
               <div className="constraint-card">
@@ -272,6 +274,7 @@ function ClarityQuestionnaire({ isOpen, onClose }) {
       case 3:
         return (
           <div className="questionnaire-step step-output">
+            <p className="step-counter">Step 3 of 4 — Your output</p>
             <h2 className="step-title" style={{ marginBottom: '1.25rem' }}>Execution Directive:</h2>
             <div className="structured-output">
 
@@ -327,6 +330,7 @@ function ClarityQuestionnaire({ isOpen, onClose }) {
       case 4:
         return (
           <div className="questionnaire-step step-permission">
+            <p className="step-counter">Step 4 of 4 — Commit</p>
             <h2 className="step-title" style={{ marginBottom: '1rem', fontSize: '1rem', opacity: 0.7 }}>
               Primary Action — Committed:
             </h2>

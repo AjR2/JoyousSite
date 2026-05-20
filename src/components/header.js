@@ -8,7 +8,8 @@ import '../styles/accessibility.css';
 const Header = () => {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const navRef = useRef(null); // Ref to the navigation container
+  const [activeSection, setActiveSection] = useState('');
+  const navRef = useRef(null);
 
   const handleMenuToggle = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -21,10 +22,24 @@ const Header = () => {
   };
 
   useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside); // Add event listener for clicks
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside); // Cleanup on unmount
-    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  useEffect(() => {
+    const sectionIds = ['about', 'diagnostic', 'values', 'offer'];
+    const observers = [];
+    sectionIds.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const obs = new IntersectionObserver(
+        ([entry]) => { if (entry.isIntersecting) setActiveSection(id); },
+        { rootMargin: '-25% 0px -65% 0px', threshold: 0 }
+      );
+      obs.observe(el);
+      observers.push(obs);
+    });
+    return () => observers.forEach(obs => obs.disconnect());
   }, []);
 
   const handleNavClick = (e, targetId) => {
@@ -90,9 +105,10 @@ const Header = () => {
             <li className="nav-item">
               <a
                 href="/#about"
-                className="nav-link"
+                className={`nav-link${activeSection === 'about' ? ' nav-link--active' : ''}`}
                 onClick={(e) => handleNavClick(e, 'about')}
                 aria-label="Navigate to About section"
+                aria-current={activeSection === 'about' ? 'true' : undefined}
               >
                 About
               </a>
@@ -100,21 +116,23 @@ const Header = () => {
             <li className="nav-item">
               <a
                 href="/#values"
-                className="nav-link"
+                className={`nav-link${activeSection === 'values' ? ' nav-link--active' : ''}`}
                 onClick={(e) => handleNavClick(e, 'values')}
                 aria-label="Navigate to Principles section"
+                aria-current={activeSection === 'values' ? 'true' : undefined}
               >
                 Principles
               </a>
             </li>
             <li className="nav-item">
               <a
-                href="/#founder"
-                className="nav-link"
-                onClick={(e) => handleNavClick(e, 'founder')}
-                aria-label="Navigate to Founder section"
+                href="/#offer"
+                className={`nav-link${activeSection === 'offer' ? ' nav-link--active' : ''}`}
+                onClick={(e) => handleNavClick(e, 'offer')}
+                aria-label="Navigate to Pricing section"
+                aria-current={activeSection === 'offer' ? 'true' : undefined}
               >
-                Founder
+                Pricing
               </a>
             </li>
             <li className="nav-item">

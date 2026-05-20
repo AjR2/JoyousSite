@@ -108,6 +108,12 @@
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.35);
 }
 
+/* Active nav link (IntersectionObserver) */
+.nav-link--active {
+  color: #2563EB !important;
+  background-color: rgba(37, 99, 235, 0.06);
+}
+
 /* Contact CTA nav link */
 .nav-link-cta {
   color: #ffffff !important;
