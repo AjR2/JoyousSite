@@ -147,7 +147,7 @@
 }
 
 /* ── Buttons ── */
-.btn-primary {
+.cq-btn {
   background: #2C5F5A;
   color: #ffffff;
   border: none;
@@ -161,29 +161,29 @@
   letter-spacing: 0;
 }
 
-.btn-primary:hover:not(:disabled) {
+.cq-btn:hover:not(:disabled) {
   background: #24504B;
   transform: translateY(-1px);
 }
 
-.btn-primary:disabled {
+.cq-btn:disabled {
   opacity: 0.4;
   cursor: not-allowed;
 }
 
-.btn-primary:focus-visible {
+.cq-btn:focus-visible {
   outline: none;
   box-shadow: 0 0 0 3px rgba(44, 95, 90, 0.28);
 }
 
 /* Book CTA — larger, more prominent */
-.btn-primary--book {
+.cq-btn--book {
   background: #2C5F5A;
   padding: 1rem 2rem;
   font-size: 1rem;
 }
 
-.btn-secondary {
+.cq-btn-ghost {
   background: transparent;
   color: #6B7280;
   border: 1px solid #E0DDD8;
@@ -195,12 +195,12 @@
   transition: border-color 150ms ease, color 150ms ease;
 }
 
-.btn-secondary:hover {
+.cq-btn-ghost:hover {
   border-color: #1C1B1A;
   color: #1C1B1A;
 }
 
-.btn-secondary:focus-visible {
+.cq-btn-ghost:focus-visible {
   outline: none;
   box-shadow: 0 0 0 3px rgba(44, 95, 90, 0.28);
 }
@@ -527,7 +527,7 @@
   .step-title { font-size: 1.1rem; }
   .entry-disclaimer { font-size: 1.05rem; }
   .permission-statement { font-size: 1.2rem; }
-  .btn-primary { padding: 0.8rem 1.5rem; font-size: 0.9rem; }
+  .cq-btn { padding: 0.8rem 1.5rem; font-size: 0.9rem; }
   .context-option { padding: 0.875rem 1rem; font-size: 0.9rem; }
 }
 
@@ -537,7 +537,7 @@
   .questionnaire-modal,
   .permission-statement { animation: none; }
 
-  .btn-primary:hover:not(:disabled) { transform: none; }
+  .cq-btn:hover:not(:disabled) { transform: none; }
 }
 
 /* ── High contrast ── */

@@ -166,10 +166,10 @@ function ClarityQuestionnaire({ isOpen, onClose }) {
               </p>
             </div>
             <div className="step-actions">
-              <button className="btn-primary" onClick={handleNext} ref={firstFocusableRef}>
+              <button className="cq-btn" onClick={handleNext} ref={firstFocusableRef}>
                 Run Diagnostic (3–5 min)
               </button>
-              <button className="btn-secondary" onClick={onClose}>
+              <button className="cq-btn-ghost" onClick={onClose}>
                 Not now
               </button>
             </div>
@@ -212,7 +212,7 @@ function ClarityQuestionnaire({ isOpen, onClose }) {
 
             <div className="step-actions">
               <button
-                className="btn-primary"
+                className="cq-btn"
                 onClick={handleNext}
                 disabled={!selectedDriftPattern}
               >
@@ -267,7 +267,7 @@ function ClarityQuestionnaire({ isOpen, onClose }) {
               </div>
             </div>
             <div className="step-actions">
-              <button className="btn-primary" onClick={handleNext}>
+              <button className="cq-btn" onClick={handleNext}>
                 Generate closure map
               </button>
             </div>
@@ -323,7 +323,7 @@ function ClarityQuestionnaire({ isOpen, onClose }) {
 
             </div>
             <div className="step-actions">
-              <button className="btn-primary" onClick={handleNext}>
+              <button className="cq-btn" onClick={handleNext}>
                 Commit to Action 1
               </button>
             </div>
@@ -347,7 +347,7 @@ function ClarityQuestionnaire({ isOpen, onClose }) {
               No deliberation. No alternatives. Execute this.
             </p>
             <div className="step-actions">
-              <button className="btn-primary" onClick={handleCommit}>
+              <button className="cq-btn" onClick={handleCommit}>
                 Committed — close this
               </button>
             </div>
@@ -377,7 +377,7 @@ function ClarityQuestionnaire({ isOpen, onClose }) {
 
             <div className="step-actions">
               <a
-                className="btn-primary btn-primary--book"
+                className="cq-btn cq-btn--book"
                 href="https://calendly.com/ajrudd-theenactive/new-meeting-1"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -388,7 +388,7 @@ function ClarityQuestionnaire({ isOpen, onClose }) {
               >
                 Book a closure session
               </a>
-              <button className="btn-secondary" onClick={onClose}>
+              <button className="cq-btn-ghost" onClick={onClose}>
                 Close
               </button>
             </div>
