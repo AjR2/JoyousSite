@@ -360,7 +360,7 @@ function ClarityQuestionnaire({ isOpen, onClose }) {
           <div className="questionnaire-step step-exit">
             <div className="exit-content">
               <p className="exit-statement" ref={firstFocusableRef} tabIndex={0}>
-                Diagnostic complete.
+                One loop closes with action. The rest need structure.
               </p>
               <p className="exit-promise">
                 The closure map surfaced the pattern. Executing the action closes one loop.
