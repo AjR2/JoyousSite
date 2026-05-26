@@ -1,39 +1,38 @@
-/* Header container — glass sticky */
+/* Enactive — Header (Brand Guide v1.0) */
+
 .navbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 2rem;
   height: 64px;
-  background-color: rgba(255, 255, 255, 0.72);
-  backdrop-filter: saturate(180%) blur(14px);
-  -webkit-backdrop-filter: saturate(180%) blur(14px);
+  background-color: rgba(240, 237, 232, 0.88); /* --color-clear with alpha */
+  backdrop-filter: saturate(120%) blur(12px);
+  -webkit-backdrop-filter: saturate(120%) blur(12px);
   position: fixed;
   width: 100%;
   top: 0;
   z-index: 100;
-  border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+  border-bottom: 1px solid #E0DDD8; /* --color-structure */
   transition: background-color 180ms ease, border-color 180ms ease;
 }
 
-/* Fallback for browsers without backdrop-filter */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .navbar { background-color: #ffffff; }
+  .navbar { background-color: #F0EDE8; }
 }
 
-/* Enactive Logo */
+/* Wordmark */
 .enactive-logo {
   cursor: pointer;
   user-select: none;
   display: flex;
   align-items: center;
-  color: #0B1220;
   transition: opacity 180ms ease;
 }
 
-.enactive-logo:hover { opacity: 0.82; }
+.enactive-logo:hover { opacity: 0.75; }
 
-/* Hamburger menu — mobile only */
+/* Hamburger — mobile */
 .hamburger {
   display: none;
   flex-direction: column;
@@ -42,30 +41,28 @@
   gap: 4px;
   cursor: pointer;
   padding: 8px;
-  border: 1px solid rgba(15, 23, 42, 0.08);
-  border-radius: 8px;
+  border: 1px solid #E0DDD8;
+  border-radius: 4px;
   background-color: transparent;
   transition: border-color 180ms ease, background-color 180ms ease;
 }
 
 .hamburger:hover {
-  border-color: rgba(37, 99, 235, 0.3);
-  background-color: rgba(37, 99, 235, 0.04);
+  border-color: #2C5F5A;
+  background-color: rgba(44, 95, 90, 0.05);
 }
 
 .bar {
   width: 18px;
   height: 1.5px;
-  background-color: #0B1220;
+  background-color: #1C1B1A;
   margin: 0;
   transition: background-color 180ms ease, transform 180ms ease;
 }
 
-.hamburger:hover .bar {
-  background-color: #2563EB;
-}
+.hamburger:hover .bar { background-color: #2C5F5A; }
 
-/* ── Desktop navigation ── */
+/* Desktop nav */
 .nav {
   display: flex;
   flex-direction: row;
@@ -79,130 +76,103 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  gap: 0.25rem;
+  gap: 0.125rem;
 }
 
-.nav-list .nav-item {
-  margin: 0;
-}
+.nav-list .nav-item { margin: 0; }
 
 .nav-link {
-  color: #0F172A !important;
+  color: #6B7280 !important;
   text-decoration: none;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 400;
   letter-spacing: -0.005em;
-  padding: 0.45rem 0.85rem;
-  border-radius: 8px;
+  padding: 0.4rem 0.75rem;
+  border-radius: 4px;
   display: inline-block;
   transition: color 180ms ease, background-color 180ms ease;
 }
 
 .nav-link:hover {
-  color: #2563EB !important;
-  background-color: rgba(37, 99, 235, 0.06);
+  color: #1C1B1A !important;
+  background-color: rgba(28, 27, 26, 0.05);
 }
 
 .nav-link:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.35);
+  box-shadow: 0 0 0 3px rgba(44, 95, 90, 0.28);
 }
 
-/* Active nav link (IntersectionObserver) */
+/* Active nav link */
 .nav-link--active {
-  color: #2563EB !important;
-  background-color: rgba(37, 99, 235, 0.06);
+  color: #1C1B1A !important;
+  background-color: rgba(28, 27, 26, 0.05);
 }
 
-/* Contact CTA nav link */
+/* CTA nav link — "Book a closure session" */
 .nav-link-cta {
   color: #ffffff !important;
-  font-weight: 600;
-  background: linear-gradient(135deg, #2563EB 0%, #3B82F6 100%);
+  font-weight: 500;
+  background: #2C5F5A;
   border: 1px solid transparent;
-  padding: 0.45rem 1rem;
-  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.28);
-  margin-left: 0.35rem;
+  padding: 0.4rem 0.9rem;
+  margin-left: 0.5rem;
 }
 
 .nav-link-cta:hover {
   color: #ffffff !important;
-  background: linear-gradient(135deg, #1D4ED8 0%, #2563EB 100%);
-  box-shadow: 0 8px 22px rgba(37, 99, 235, 0.4);
+  background: #24504B;
   transform: translateY(-1px);
 }
 
-/* Unused legacy style */
-.logo-image {
-  width: 150px;
-  height: auto;
-}
+/* Legacy */
+.logo-image { width: 150px; height: auto; }
 
-/* ── Mobile navigation ── */
+/* Mobile */
 @media (max-width: 768px) {
-  .navbar {
-    padding: 0 1rem;
-    height: 56px;
-  }
+  .navbar { padding: 0 1rem; height: 56px; }
 
-  .enactive-text {
-    font-size: 1.5rem;
-  }
-
-  .hamburger {
-    display: flex;
-  }
+  .hamburger { display: flex; }
 
   .nav {
     display: none;
     flex-direction: column;
     align-items: flex-start;
     position: absolute;
-    top: 64px;
+    top: 56px;
     right: 1rem;
     left: 1rem;
-    background-color: rgba(255, 255, 255, 0.96);
-    backdrop-filter: saturate(180%) blur(16px);
-    -webkit-backdrop-filter: saturate(180%) blur(16px);
+    background-color: #F0EDE8;
     z-index: 999;
     padding: 0.5rem;
-    box-shadow: 0 14px 36px rgba(15, 23, 42, 0.14);
-    border-radius: 12px;
-    border: 1px solid rgba(15, 23, 42, 0.08);
+    box-shadow: 0 10px 28px rgba(28, 27, 26, 0.1);
+    border-radius: 8px;
+    border: 1px solid #E0DDD8;
   }
 
-  .nav.open {
-    display: flex;
-  }
+  .nav.open { display: flex; }
 
   .nav-list {
     flex-direction: column;
     width: 100%;
-    gap: 0.125rem;
+    gap: 0.1rem;
   }
 
-  .nav-list .nav-item {
-    width: 100%;
-  }
+  .nav-list .nav-item { width: 100%; }
 
   .nav-link {
     font-size: 15px;
-    font-weight: 500;
-    padding: 0.75rem 0.85rem;
+    padding: 0.7rem 0.85rem;
     width: 100%;
     display: block;
-    border-radius: 8px;
-    border-bottom: none;
-  }
-
-  .nav-list .nav-item:last-child .nav-link {
-    border-bottom: none;
+    border-radius: 4px;
   }
 
   .nav-link-cta {
     margin-top: 0.35rem;
-    border-radius: 8px;
-    padding: 0.75rem 0.85rem;
+    margin-left: 0;
+    border-radius: 4px;
+    padding: 0.7rem 0.85rem;
     text-align: center;
   }
 }

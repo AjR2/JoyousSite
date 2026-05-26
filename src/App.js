@@ -13,6 +13,7 @@ import ErrorBoundary from './components/ErrorBoundary';
 import LoadingSpinner from './components/LoadingSpinner';
 import AccessibilityProvider from './components/AccessibilityProvider';
 import ClarityQuestionnaire from './components/ClarityQuestionnaire';
+import { OpenLoop } from './components/LoopMark';
 
 // Lazy load components for code splitting
 const Contact = React.lazy(() => import('./components/Contact'));
@@ -20,9 +21,7 @@ const TermsOfService = React.lazy(() => import('./components/TermsOfService'));
 const PrivacyPolicy = React.lazy(() => import('./components/PrivacyPolicy'));
 const CognitiveOffloadSprint = React.lazy(() => import('./components/CognitiveOffloadSprint'));
 
-import web1 from './assets/web1.png';
 import web2 from './assets/web2.png';
-import web3 from './assets/web3.png';
 import mtrLogo from './assets/minds-that-roam-logo.png';
 
 // Import AdminAuth directly
@@ -96,9 +95,10 @@ function AppContent() {
 
                 {/* Hero Section */}
                 <section className="hero-section" id="home" aria-labelledby="hero-heading">
-                  <img src={web1} className="hero-bg-photo" alt="" aria-hidden="true" />
-                  <div className="hero-photo-overlay" aria-hidden="true" />
                   <div className="hero-inner">
+                    <div className="hero-loop-accent">
+                      <OpenLoop size={32} />
+                    </div>
                     <div className="hero-pill-stack">
                       <span className="hero-mtr-pill">
                         <img src={mtrLogo} alt="" aria-hidden="true" className="hero-mtr-logo" />
@@ -108,7 +108,7 @@ function AppContent() {
                     </div>
                     <h1 id="hero-heading">Your brain is still running<br />decisions you already made.</h1>
                     <p className="hero-description">
-                      When too many things stay mentally open, focus degrades — not because you're doing too much, but because nothing fully closes. Enactive builds the structure to change that.
+                      When too many things stay mentally open, focus degrades — not because you're doing too much, but because nothing fully closes. Enactive builds the structure to close them.
                     </p>
                     <div className="hero-cta-group">
                       <p className="hero-diagnostic-promise">
@@ -270,15 +270,12 @@ function AppContent() {
                 </section>
 
                 {/* Offer Section */}
-                <section className="page-section founder-section offer-section" id="offer" aria-labelledby="offer-heading">
-                  <img src={web3} className="offer-bg-photo" alt="" aria-hidden="true" />
+                <section className="page-section offer-section" id="offer" aria-labelledby="offer-heading">
                   <div className="section-inner">
                     <header className="kindred-header">
-                      <h2 id="offer-heading" className="section-title">Built for founders who are still in the window.</h2>
+                      <h2 id="offer-heading" className="section-title" style={{ color: '#F0EDE8' }}>Sessions. Structured output. Closed loops.</h2>
                       <p className="kindred-description">
-                        Not in crisis. Not collapsed. But carrying more than the work itself — and starting to feel it in the margins.
-                        Less patience. Shorter tolerance. The sense that something is quietly draining focus even when nothing looks wrong.
-                        That window is where this works. Before withdrawal. Before the cascade.
+                        60-minute sessions with a concrete output — a written Execution Directive that names the open loops, maps the constraints, and specifies the next two actions. Not coaching. Not conversation. A document you can use the same day.
                       </p>
                     </header>
 
@@ -287,56 +284,56 @@ function AppContent() {
                       <article className="offer-card" tabIndex="0">
                         <div className="offer-badge">Beta — limited spots</div>
                         <h3>Cognitive Offload Session</h3>
-                        <span className="founder-service-type">Single session · 60 minutes · Zoom</span>
+                        <span className="founder-service-type" style={{ color: 'rgba(240,237,232,0.5)' }}>Single session · 60 minutes · Zoom</span>
                         <p className="offer-body">
                           We identify the specific decision loops that are currently open and draining focus.
                           You leave with a written Execution Directive — the rules your brain needs to stop re-running what's already been decided.
                         </p>
-                        <p className="founder-price">$250 / session</p>
+                        <p className="founder-price" style={{ color: '#F0EDE8', background: 'rgba(240,237,232,0.08)', borderColor: 'rgba(240,237,232,0.15)' }}>$250 / session</p>
                         <a
                           href="https://calendly.com/ajrudd-theenactive/new-meeting-1"
                           className="button offer-cta-primary"
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          Get your Execution Directive
+                          Book a closure session
                         </a>
                       </article>
 
                       <article className="offer-card" tabIndex="0">
                         <h3>Two-Week Offload Sprint</h3>
-                        <span className="founder-service-type">2 weeks · Async support included</span>
+                        <span className="founder-service-type" style={{ color: 'rgba(240,237,232,0.5)' }}>2 weeks · Async support included</span>
                         <p className="offer-body">
                           Multiple loop identification sessions across two weeks. Includes text access between sessions
                           when a loop resurfaces or a new one opens. Built for founders managing multiple simultaneous stressors.
                         </p>
-                        <p className="founder-price">$1,000</p>
+                        <p className="founder-price" style={{ color: '#F0EDE8', background: 'rgba(240,237,232,0.08)', borderColor: 'rgba(240,237,232,0.15)' }}>$1,000</p>
                         <a
                           href="https://calendly.com/ajrudd-theenactive/offload-sprint-clone"
                           className="button offer-cta-primary"
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          Get your Execution Directive
+                          Book a closure session
                         </a>
                       </article>
 
                       <article className="offer-card" tabIndex="0">
                         <div className="offer-badge">5 spots open</div>
                         <h3>Monthly Containment</h3>
-                        <span className="founder-service-type">1 month · Full async access</span>
+                        <span className="founder-service-type" style={{ color: 'rgba(240,237,232,0.5)' }}>1 month · Full async access</span>
                         <p className="offer-body">
                           The full sprint extended across a month with continuous access. For founders who need sustained
                           structural support while building — not periodic check-ins, but an ongoing containment system.
                         </p>
-                        <p className="founder-price">$1,750</p>
+                        <p className="founder-price" style={{ color: '#F0EDE8', background: 'rgba(240,237,232,0.08)', borderColor: 'rgba(240,237,232,0.15)' }}>$1,750</p>
                         <a
                           href="https://calendly.com/ajrudd-theenactive/offload-sprint-2-week-clone"
                           className="button offer-cta-primary"
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          Get your Execution Directive
+                          Book a closure session
                         </a>
                       </article>
 
@@ -355,7 +352,7 @@ function AppContent() {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      Book a session
+                      Book a closure session
                     </a>
                   </div>
                 </section>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Navbar } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { ReactComponent as EnactiveLogo } from '../assets/enactive-logo.svg';
+import Wordmark from './Wordmark';
 import './header.css';
 import '../styles/accessibility.css';
 
@@ -17,7 +17,7 @@ const Header = () => {
 
   const handleClickOutside = (event) => {
     if (navRef.current && !navRef.current.contains(event.target)) {
-      setIsMenuOpen(false); // Close the menu if the click is outside
+      setIsMenuOpen(false);
     }
   };
 
@@ -45,26 +45,19 @@ const Header = () => {
   const handleNavClick = (e, targetId) => {
     e.preventDefault();
 
-    // Navigate to the main page first
     if (window.location.pathname !== '/') {
-      navigate('/', { replace: false }); // Navigate to the main page
+      navigate('/', { replace: false });
     }
 
-    // Scroll to the target section after navigation
     setTimeout(() => {
       const target = document.getElementById(targetId);
-
       if (target) {
-        const yOffset = -100; // Offset for the height of the navbar
+        const yOffset = -80;
         const yPosition = target.getBoundingClientRect().top + window.scrollY + yOffset;
-
-        window.scrollTo({
-          top: yPosition,
-          behavior: 'smooth', // Smooth scrolling
-        });
+        window.scrollTo({ top: yPosition, behavior: 'smooth' });
       }
-    }, 100); // Small delay to ensure navigation completes
-    setIsMenuOpen(false); // Close menu after clicking a link
+    }, 100);
+    setIsMenuOpen(false);
   };
 
   return (
@@ -75,7 +68,7 @@ const Header = () => {
             className="enactive-logo"
             onClick={(e) => handleNavClick(e, 'home')}
           >
-            <EnactiveLogo height="28" aria-label="Enactive" style={{ display: 'block' }} />
+            <Wordmark size={24} aria-label="Enactive" />
           </div>
         </Navbar.Brand>
 
@@ -137,11 +130,13 @@ const Header = () => {
             </li>
             <li className="nav-item">
               <a
-                href="/contact"
+                href="https://calendly.com/ajrudd-theenactive/new-meeting-1"
                 className="nav-link nav-link-cta"
-                aria-label="Contact Enactive"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Book a closure session"
               >
-                Contact
+                Book a closure session
               </a>
             </li>
           </ul>

@@ -1,14 +1,15 @@
 import React from 'react';
 import './footer.css';
 import nvidia from './../assets/nvidia-badge.jpg';
-import { ReactComponent as EnactiveLogo } from '../assets/enactive-logo.svg';
+import Wordmark from './Wordmark';
 
 function Footer() {
   return (
     <footer className="site-footer">
       <div className="footer-inner">
         <div className="footer-brand">
-          <EnactiveLogo height="26" aria-label="Enactive" style={{ display: 'block', marginBottom: '0.75rem' }} />
+          {/* Two-tone wordmark on dark background — "en" stays teal, "active" renders in Clear */}
+          <Wordmark size={22} style={{ color: '#F0EDE8' }} />
           <p className="footer-tagline">
             Structural interventions for cognitive flexibility and execution integrity.
           </p>
