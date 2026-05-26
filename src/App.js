@@ -95,10 +95,25 @@ function AppContent() {
 
                 {/* Hero Section */}
                 <section className="hero-section" id="home" aria-labelledby="hero-heading">
-                  <div className="hero-inner">
-                    <div className="hero-loop-accent">
-                      <OpenLoop size={32} />
+                  {/* Rotating loop rings — background animation */}
+                  <div className="hero-loop-bg" aria-hidden="true">
+                    <div className="hero-loop-ring hero-loop-ring--outer">
+                      <svg viewBox="0 0 24 24" fill="none" width="680" height="680">
+                        <circle cx="12" cy="12" r="9" stroke="#2C5F5A" strokeWidth="0.6" strokeDasharray="48 8" strokeLinecap="round" transform="rotate(-90 12 12)" />
+                      </svg>
                     </div>
+                    <div className="hero-loop-ring hero-loop-ring--mid">
+                      <svg viewBox="0 0 24 24" fill="none" width="460" height="460">
+                        <circle cx="12" cy="12" r="9" stroke="#2C5F5A" strokeWidth="0.8" strokeDasharray="48 8" strokeLinecap="round" transform="rotate(-90 12 12)" />
+                      </svg>
+                    </div>
+                    <div className="hero-loop-ring hero-loop-ring--inner">
+                      <svg viewBox="0 0 24 24" fill="none" width="280" height="280">
+                        <circle cx="12" cy="12" r="9" stroke="#2C5F5A" strokeWidth="1.2" strokeDasharray="48 8" strokeLinecap="round" transform="rotate(-90 12 12)" />
+                      </svg>
+                    </div>
+                  </div>
+                  <div className="hero-inner">
                     <div className="hero-pill-stack">
                       <span className="hero-mtr-pill">
                         <img src={mtrLogo} alt="" aria-hidden="true" className="hero-mtr-logo" />

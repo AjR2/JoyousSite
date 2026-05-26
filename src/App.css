@@ -55,6 +55,16 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes loop-spin-cw {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes loop-spin-ccw {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(-360deg); }
+}
+
 /* ── Global ── */
 html, body {
   overflow-x: hidden;
@@ -192,7 +202,43 @@ html, body {
   margin-bottom: 1.5rem;
 }
 
-/* Hero loop mark accent */
+/* Hero — animated background loop rings */
+.hero-loop-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-loop-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+.hero-loop-ring--outer {
+  width: 680px;
+  height: 680px;
+  animation: loop-spin-cw 40s linear infinite;
+  opacity: 0.055;
+}
+
+.hero-loop-ring--mid {
+  width: 460px;
+  height: 460px;
+  animation: loop-spin-ccw 24s linear infinite;
+  opacity: 0.07;
+}
+
+.hero-loop-ring--inner {
+  width: 280px;
+  height: 280px;
+  animation: loop-spin-cw 14s linear infinite;
+  opacity: 0.1;
+}
+
+/* Hero loop mark accent (small above heading) */
 .hero-loop-accent {
   display: flex;
   justify-content: center;
@@ -584,13 +630,20 @@ html, body {
   font-family: var(--font-mono);
   font-weight: 400 !important;
   font-size: 0.9rem !important;
-  color: var(--color-closed) !important;
+  color: var(--color-closed);
   background: var(--color-surface-alt);
   border: 1px solid var(--color-structure);
   border-radius: var(--radius-sm);
   padding: 0.35rem 0.85rem;
   display: inline-block;
   letter-spacing: 0.02em;
+}
+
+/* Prices on dark offer cards */
+.offer-section .founder-price {
+  color: rgba(240, 237, 232, 0.9);
+  background: rgba(240, 237, 232, 0.07);
+  border-color: rgba(240, 237, 232, 0.18);
 }
 
 .kindred-cta {
@@ -860,6 +913,10 @@ html, body {
   .button:hover,
   .kindred-button:hover,
   .cta-band-button:hover { transform: none; }
+
+  .hero-loop-ring--outer,
+  .hero-loop-ring--mid,
+  .hero-loop-ring--inner { animation: none; }
 }
 
 @media (prefers-contrast: high) {

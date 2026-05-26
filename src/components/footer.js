@@ -9,7 +9,7 @@ function Footer() {
       <div className="footer-inner">
         <div className="footer-brand">
           {/* Two-tone wordmark on dark background — "en" stays teal, "active" renders in Clear */}
-          <Wordmark size={22} style={{ color: '#F0EDE8' }} />
+          <Wordmark size={22} textColor="#F0EDE8" />
           <p className="footer-tagline">
             Structural interventions for cognitive flexibility and execution integrity.
           </p>

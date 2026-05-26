@@ -1,0 +1,15 @@
+{
+  "enabled": false,
+  "primaryRecipient": "",
+  "secondaryRecipient": "",
+  "enabledPlatforms": [
+    "youtube"
+  ],
+  "reportWindowDays": 7,
+  "emailSubjectPrefix": "",
+  "scheduledSending": false,
+  "cronExpression": "0 9 * * *",
+  "timezone": "America/New_York",
+  "includeCSV": false,
+  "lastUpdated": "2026-01-09T19:38:44.431Z"
+}

@@ -1,8 +1,8 @@
 // Enactive Wordmark — Brand Guide v1.0
-// Two-tone: "en" in Open (#2C5F5A), "active" in Closed (#1C1B1A)
-// Plus Jakarta Sans, weight 500, letter-spacing -0.02em
+// Two-tone: "en" in Open (#2C5F5A), "active" in Closed (#1C1B1A) on light
+// Pass textColor="#F0EDE8" when rendering on dark backgrounds
 
-const Wordmark = ({ size = 28 }) => (
+const Wordmark = ({ size = 28, textColor = '#1C1B1A' }) => (
   <span
     style={{
       fontFamily: "'Plus Jakarta Sans', sans-serif",
@@ -10,7 +10,7 @@ const Wordmark = ({ size = 28 }) => (
       fontWeight: 500,
       letterSpacing: '-0.02em',
       lineHeight: 1,
-      color: '#1C1B1A',
+      color: textColor,
       userSelect: 'none',
     }}
   >
