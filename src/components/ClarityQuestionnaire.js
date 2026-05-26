@@ -74,8 +74,21 @@ const DRIFT_PATTERNS = [
   { id: 'execution_stall',     label: "Movement has stopped on critical items" }
 ];
 
-// Steps map to the agent pipeline: Planner → Synthesis → Execution → Memory
+// Steps map to the agent pipeline: Planner → Synthesis → Execution → Commit
 const STEP_LABELS = ['', 'PLANNER', 'SYNTHESIS', 'EXECUTION', 'COMMIT', ''];
+
+// Track diagnostic → session booking conversion
+function trackDiagnosticConversion(driftPattern) {
+  try {
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', 'diagnostic_to_session', {
+        event_category: 'conversion',
+        event_label: driftPattern || 'unknown',
+        value: 1
+      });
+    }
+  } catch (_) {}
+}
 
 function ClarityQuestionnaire({ isOpen, onClose }) {
   const [currentStep, setCurrentStep] = useState(0);
@@ -117,17 +130,14 @@ function ClarityQuestionnaire({ isOpen, onClose }) {
   const handleNext = () => setCurrentStep(prev => prev + 1);
 
   const handleCommit = () => {
-    onClose();
+    // Scroll to offer section, then advance to exit step
     if (typeof window !== 'undefined') {
-      requestAnimationFrame(() => {
-        const offerEl = document.getElementById('offer');
-        if (offerEl) {
-          offerEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        } else {
-          window.location.hash = '#offer';
-        }
-      });
+      const offerEl = document.getElementById('offer');
+      if (offerEl) {
+        // Don't close — show exit step with booking CTA
+      }
     }
+    setCurrentStep(prev => prev + 1);
   };
 
   const buildConstraintsList = useCallback(() => {
@@ -152,7 +162,7 @@ function ClarityQuestionnaire({ isOpen, onClose }) {
                 This is a drift diagnostic.
               </p>
               <p className="entry-promise">
-                Identify your current execution degradation pattern. Receive a structured containment directive.
+                Identify your current execution degradation pattern. Receive a closure map — your problem named, constraints mapped, next actions specified.
               </p>
             </div>
             <div className="step-actions">
@@ -160,7 +170,7 @@ function ClarityQuestionnaire({ isOpen, onClose }) {
                 Run Diagnostic (3–5 min)
               </button>
               <button className="btn-secondary" onClick={onClose}>
-                Learn about Enactive Founder
+                Not now
               </button>
             </div>
           </div>
@@ -212,7 +222,7 @@ function ClarityQuestionnaire({ isOpen, onClose }) {
           </div>
         );
 
-      // SYNTHESIS: define constraints and priorities
+      // SYNTHESIS: define constraints
       case 2:
         return (
           <div className="questionnaire-step step-constraints">
@@ -220,9 +230,7 @@ function ClarityQuestionnaire({ isOpen, onClose }) {
             <h2 className="step-title">Define the operating constraints:</h2>
             <div className="constraint-cards">
               <div className="constraint-card">
-                <label htmlFor="cannotRisk">
-                  What cannot be risked?
-                </label>
+                <label htmlFor="cannotRisk">What cannot be risked?</label>
                 <span className="constraint-hint">Runway, key relationship, team stability, deal momentum</span>
                 <textarea
                   id="cannotRisk"
@@ -235,9 +243,7 @@ function ClarityQuestionnaire({ isOpen, onClose }) {
               </div>
 
               <div className="constraint-card">
-                <label htmlFor="mustProtect">
-                  What must remain protected?
-                </label>
+                <label htmlFor="mustProtect">What must remain protected?</label>
                 <span className="constraint-hint">Decision authority, strategic focus, operational bandwidth</span>
                 <textarea
                   id="mustProtect"
@@ -249,9 +255,7 @@ function ClarityQuestionnaire({ isOpen, onClose }) {
               </div>
 
               <div className="constraint-card">
-                <label htmlFor="alreadyDecided">
-                  What is already fixed?
-                </label>
+                <label htmlFor="alreadyDecided">What is already fixed?</label>
                 <span className="constraint-hint">Immovable deadline, resource ceiling, commitment already made</span>
                 <textarea
                   id="alreadyDecided"
@@ -264,22 +268,22 @@ function ClarityQuestionnaire({ isOpen, onClose }) {
             </div>
             <div className="step-actions">
               <button className="btn-primary" onClick={handleNext}>
-                Generate Directive
+                Generate closure map
               </button>
             </div>
           </div>
         );
 
-      // EXECUTION: structured output
+      // EXECUTION: closure map output
       case 3:
         return (
           <div className="questionnaire-step step-output">
             <p className="step-counter">Step 3 of 4 — Your output</p>
-            <h2 className="step-title" style={{ marginBottom: '1.25rem' }}>Execution Directive:</h2>
+            <h2 className="step-title" style={{ marginBottom: '1.25rem' }}>Closure Map:</h2>
             <div className="structured-output">
 
               <div className="output-block">
-                <span className="output-label">PROBLEM</span>
+                <span className="output-label">Problem</span>
                 <p className="output-value" ref={firstFocusableRef} tabIndex={0}>
                   {problemStatement.trim() || output.problem}
                 </p>
@@ -287,7 +291,7 @@ function ClarityQuestionnaire({ isOpen, onClose }) {
 
               {buildConstraintsList().length > 0 && (
                 <div className="output-block">
-                  <span className="output-label">CONSTRAINTS</span>
+                  <span className="output-label">Constraints</span>
                   <ul className="output-list">
                     {buildConstraintsList().map((c, i) => (
                       <li key={i}>{c}</li>
@@ -297,21 +301,21 @@ function ClarityQuestionnaire({ isOpen, onClose }) {
               )}
 
               <div className="output-block">
-                <span className="output-label">PRIORITIES</span>
+                <span className="output-label">Priorities</span>
                 <ul className="output-list">
                   {output.priorities.map((p, i) => <li key={i}>{p}</li>)}
                 </ul>
               </div>
 
               <div className="output-block output-block--accent">
-                <span className="output-label">NEXT ACTIONS</span>
+                <span className="output-label">Next Actions</span>
                 <ol className="output-list output-list--ordered">
                   {output.next_actions.map((a, i) => <li key={i}>{a}</li>)}
                 </ol>
               </div>
 
               <div className="output-block output-block--risk">
-                <span className="output-label">RISKS IF UNADDRESSED</span>
+                <span className="output-label">Risks if unaddressed</span>
                 <ul className="output-list">
                   {output.risks.map((r, i) => <li key={i}>{r}</li>)}
                 </ul>
@@ -326,54 +330,66 @@ function ClarityQuestionnaire({ isOpen, onClose }) {
           </div>
         );
 
-      // MEMORY: commit to primary action
+      // COMMIT: primary action
       case 4:
         return (
           <div className="questionnaire-step step-permission">
             <p className="step-counter">Step 4 of 4 — Commit</p>
-            <h2 className="step-title" style={{ marginBottom: '1rem', fontSize: '1rem', opacity: 0.7 }}>
-              Primary Action — Committed:
+            <h2 className="step-title" style={{ marginBottom: '1rem', fontSize: '0.9rem', opacity: 0.6, fontWeight: 400 }}>
+              Primary action — committed:
             </h2>
             <div className="permission-container">
               <p className="permission-statement" ref={firstFocusableRef} tabIndex={0}>
                 {output.next_actions[0]}
               </p>
             </div>
-            <p style={{ fontSize: '0.85rem', opacity: 0.6, textAlign: 'center', marginBottom: '1.5rem' }}>
+            <p style={{ fontSize: '0.82rem', color: '#9CA3AF', textAlign: 'center', marginBottom: '1.5rem', fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
               No deliberation. No alternatives. Execute this.
             </p>
             <div className="step-actions">
               <button className="btn-primary" onClick={handleCommit}>
-                Directive Committed
+                Committed — close this
               </button>
             </div>
           </div>
         );
 
-      // Exit
+      // EXIT: close the loop with a booking CTA
       case 5:
         return (
           <div className="questionnaire-step step-exit">
             <div className="exit-content">
               <p className="exit-statement" ref={firstFocusableRef} tabIndex={0}>
-                Diagnostic complete. Execute the action.
+                Diagnostic complete.
               </p>
               <p className="exit-promise">
-                If the drift is systemic, a structured session will close what the diagnostic surfaced.
+                The closure map surfaced the pattern. Executing the action closes one loop.
               </p>
             </div>
+
+            {/* Conversion block — makes the session feel like the obvious next step */}
+            <div className="exit-conversion">
+              <span className="exit-conversion-label">If the drift is systemic</span>
+              <p className="exit-conversion-text">
+                A 60-minute closure session maps every open loop, defines the closure rules, and produces a full closure map — the structural document your brain needs to stop re-running what's already been decided.
+              </p>
+            </div>
+
             <div className="step-actions">
               <a
-                className="btn-primary"
+                className="btn-primary btn-primary--book"
                 href="https://calendly.com/ajrudd-theenactive/new-meeting-1"
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={onClose}
+                onClick={() => {
+                  trackDiagnosticConversion(selectedDriftPattern);
+                  onClose();
+                }}
               >
-                Book a Session
+                Book a closure session
               </a>
               <button className="btn-secondary" onClick={onClose}>
-                Leave Diagnostic
+                Close
               </button>
             </div>
           </div>

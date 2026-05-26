@@ -393,6 +393,119 @@ html, body {
   box-shadow: none;
 }
 
+/* ── Closure Map Artifact ── */
+.about-artifact {
+  font-family: var(--font-sans);
+  background: var(--color-surface);
+  border: 1px solid var(--color-structure);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+.artifact-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 1.25rem;
+  background: var(--color-closed);
+  border-bottom: 1px solid rgba(240, 237, 232, 0.08);
+}
+
+.artifact-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-open);
+}
+
+.artifact-meta {
+  font-size: 0.68rem;
+  color: rgba(240, 237, 232, 0.35);
+  letter-spacing: 0.04em;
+  font-style: italic;
+}
+
+.artifact-body {
+  padding: 0;
+}
+
+.artifact-section {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--color-structure);
+}
+
+.artifact-section:last-child { border-bottom: none; }
+
+.artifact-section--accent {
+  background: rgba(44, 95, 90, 0.04);
+  border-left: 2px solid var(--color-open);
+}
+
+.artifact-section-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-subtle);
+  margin-bottom: 0.6rem;
+}
+
+.artifact-section--accent .artifact-section-label {
+  color: var(--color-open);
+}
+
+.artifact-loops,
+.artifact-constraints,
+.artifact-actions {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.artifact-actions { list-style: decimal; padding-left: 1.1rem; }
+
+.artifact-loops li,
+.artifact-constraints li,
+.artifact-actions li {
+  font-size: 0.875rem;
+  color: var(--color-closed);
+  line-height: 1.5;
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.artifact-constraints li,
+.artifact-actions li {
+  display: list-item;
+}
+
+.loop-icon {
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.artifact-footer {
+  padding: 0.75rem 1.25rem;
+  background: rgba(44, 95, 90, 0.06);
+  border-top: 1px solid rgba(44, 95, 90, 0.15);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  color: var(--color-open);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
 /* ── About Section ── */
 .about-split {
   display: grid;

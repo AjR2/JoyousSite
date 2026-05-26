@@ -7,3 +7,4 @@ node_modules
 
 # Automation config with credentials
 api/automation/config/automation.config.js
+scripts/youtube-oauth-setup.js

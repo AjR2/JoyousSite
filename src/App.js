@@ -13,7 +13,7 @@ import ErrorBoundary from './components/ErrorBoundary';
 import LoadingSpinner from './components/LoadingSpinner';
 import AccessibilityProvider from './components/AccessibilityProvider';
 import ClarityQuestionnaire from './components/ClarityQuestionnaire';
-import { OpenLoop } from './components/LoopMark';
+import { OpenLoop, ClosedLoop } from './components/LoopMark';
 
 // Lazy load components for code splitting
 const Contact = React.lazy(() => import('./components/Contact'));
@@ -21,7 +21,6 @@ const TermsOfService = React.lazy(() => import('./components/TermsOfService'));
 const PrivacyPolicy = React.lazy(() => import('./components/PrivacyPolicy'));
 const CognitiveOffloadSprint = React.lazy(() => import('./components/CognitiveOffloadSprint'));
 
-import web2 from './assets/web2.png';
 import mtrLogo from './assets/minds-that-roam-logo.png';
 
 // Import AdminAuth directly
@@ -49,7 +48,7 @@ const PRINCIPLES = [
     number: '04',
     title: 'Closure rules, not motivation',
     short: 'Every open loop gets a rule for when it closes.',
-    expanded: "Not a pep talk. Not a framework to remember. A rule. You leave every session with a written Execution Directive — something your brain can actually use.",
+    expanded: "Not a pep talk. Not a framework to remember. A rule. You leave every session with a closure map — something your brain can actually use.",
   },
 ];
 
@@ -127,7 +126,7 @@ function AppContent() {
                     </p>
                     <div className="hero-cta-group">
                       <p className="hero-diagnostic-promise">
-                        5 minutes. You leave with a written Execution Directive — your drift pattern named, your constraints mapped, your next two actions specified.
+                        5 minutes. You leave with a closure map — your drift pattern named, your constraints mapped, your next two actions specified.
                       </p>
                       <button
                         className="button cta-button primary-cta"
@@ -167,8 +166,49 @@ function AppContent() {
                         Not sure if this applies? Run the free diagnostic →
                       </button>
                     </div>
-                    <div className="about-split-photo">
-                      <img src={web2} alt="Founder mid-thought, working late" className="about-photo" />
+                    {/* Closure Map artifact — replaces stock photo */}
+                    <div className="about-artifact" role="img" aria-label="Sample closure map output from a session">
+                      <div className="artifact-header">
+                        <span className="artifact-label">Closure Map</span>
+                        <span className="artifact-meta">Session output — redacted</span>
+                      </div>
+                      <div className="artifact-body">
+                        <div className="artifact-section">
+                          <span className="artifact-section-label">Open loops identified</span>
+                          <ul className="artifact-loops">
+                            <li>
+                              <span className="loop-icon"><OpenLoop size={14} /></span>
+                              Hiring decision — unresolved for 6 weeks
+                            </li>
+                            <li>
+                              <span className="loop-icon"><OpenLoop size={14} /></span>
+                              Partnership terms — circling without closure
+                            </li>
+                            <li>
+                              <span className="loop-icon"><OpenLoop size={14} /></span>
+                              Q3 pricing model — re-opening after each call
+                            </li>
+                          </ul>
+                        </div>
+                        <div className="artifact-section">
+                          <span className="artifact-section-label">Constraints</span>
+                          <ul className="artifact-constraints">
+                            <li>Cannot risk Series A timeline</li>
+                            <li>Must protect lead engineer's focus</li>
+                          </ul>
+                        </div>
+                        <div className="artifact-section artifact-section--accent">
+                          <span className="artifact-section-label">Next actions</span>
+                          <ol className="artifact-actions">
+                            <li>Close hiring decision by Friday. Set closure rule — no further deliberation after that date.</li>
+                            <li>Remove partnership from active consideration until Q3.</li>
+                          </ol>
+                        </div>
+                        <div className="artifact-footer">
+                          <ClosedLoop size={14} color="#2C5F5A" />
+                          2 of 3 loops closed this session
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </section>
@@ -194,13 +234,13 @@ function AppContent() {
                         That is drift. And it has a structure.
                       </p>
                       <p className="about-mission">
-                        The diagnostic identifies which decision loops are currently open, what they are costing you in execution capacity, and what needs to close first. It takes less than five minutes. You leave with a written Execution Directive — your problem named, your constraints mapped, your next two actions specified.
+                        The diagnostic identifies which decision loops are currently open, what they are costing you in execution capacity, and what needs to close first. It takes less than five minutes. You leave with a closure map — your problem named, your constraints mapped, your next two actions specified.
                       </p>
                       <p className="about-mission diagnostic-finisher">
                         Not a score. Not a category. A document you can use today.
                       </p>
 
-                      <div className="sample-directive" aria-label="Sample Execution Directive">
+                      <div className="sample-directive" aria-label="Sample closure map">
                         <span className="sample-directive-label">Sample output</span>
                         <div className="sample-directive-block">
                           <span className="sample-tag">PROBLEM</span>
@@ -213,7 +253,7 @@ function AppContent() {
                             <li>Remove the partnership question from active consideration until Q3.</li>
                           </ol>
                         </div>
-                        <p className="sample-directive-note">Redacted from a real session. Your directive reflects your specific pattern.</p>
+                        <p className="sample-directive-note">Redacted from a real session. Your closure map reflects your specific pattern.</p>
                       </div>
                     </div>
                   </div>
@@ -290,7 +330,7 @@ function AppContent() {
                     <header className="kindred-header">
                       <h2 id="offer-heading" className="section-title" style={{ color: '#F0EDE8' }}>Sessions. Structured output. Closed loops.</h2>
                       <p className="kindred-description">
-                        60-minute sessions with a concrete output — a written Execution Directive that names the open loops, maps the constraints, and specifies the next two actions. Not coaching. Not conversation. A document you can use the same day.
+                        60-minute sessions with a concrete output — a closure map that names the open loops, maps the constraints, and specifies the next two actions. Not coaching. Not conversation. A document you can use the same day.
                       </p>
                     </header>
 
@@ -302,7 +342,7 @@ function AppContent() {
                         <span className="founder-service-type" style={{ color: 'rgba(240,237,232,0.5)' }}>Single session · 60 minutes · Zoom</span>
                         <p className="offer-body">
                           We identify the specific decision loops that are currently open and draining focus.
-                          You leave with a written Execution Directive — the rules your brain needs to stop re-running what's already been decided.
+                          You leave with a closure map — the rules your brain needs to stop re-running what's already been decided.
                         </p>
                         <p className="founder-price" style={{ color: '#F0EDE8', background: 'rgba(240,237,232,0.08)', borderColor: 'rgba(240,237,232,0.15)' }}>$250 / session</p>
                         <a

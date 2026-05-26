@@ -11,7 +11,7 @@ function Footer() {
           {/* Two-tone wordmark on dark background — "en" stays teal, "active" renders in Clear */}
           <Wordmark size={22} textColor="#F0EDE8" />
           <p className="footer-tagline">
-            Structural interventions for cognitive flexibility and execution integrity.
+            Structural interventions for cognitive closure and execution integrity.
           </p>
           <img
             src={nvidia}
@@ -25,7 +25,7 @@ function Footer() {
           <ul className="footer-nav-list">
             <li><a href="/#about">About</a></li>
             <li><a href="/#values">Principles</a></li>
-            <li><a href="/#founder">Enactive Founder</a></li>
+            <li><a href="/#offer">Pricing</a></li>
             <li><a href="https://mindsthatroam.com" target="_blank" rel="noopener noreferrer">Podcast</a></li>
           </ul>
         </div>

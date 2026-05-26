@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.eac08c73.css",
-    "main.js": "/static/js/main.2f086143.js",
+    "main.css": "/static/css/main.55190518.css",
+    "main.js": "/static/js/main.350e6475.js",
     "static/css/869.58dc897f.chunk.css": "/static/css/869.58dc897f.chunk.css",
     "static/js/869.091bae35.chunk.js": "/static/js/869.091bae35.chunk.js",
     "static/css/848.e42950f5.chunk.css": "/static/css/848.e42950f5.chunk.css",
@@ -11,12 +11,11 @@
     "static/css/896.47e4b0a9.chunk.css": "/static/css/896.47e4b0a9.chunk.css",
     "static/js/896.694724ab.chunk.js": "/static/js/896.694724ab.chunk.js",
     "static/js/488.4d6b2944.chunk.js": "/static/js/488.4d6b2944.chunk.js",
-    "static/media/web2.png": "/static/media/web2.53d771d3dc1e7db9a200.png",
     "static/media/minds-that-roam-logo.png": "/static/media/minds-that-roam-logo.f2acb8b8d0be6692579e.png",
     "static/media/nvidia-badge.jpg": "/static/media/nvidia-badge.b18bc55f53db6f273959.jpg",
     "index.html": "/index.html",
-    "main.eac08c73.css.map": "/static/css/main.eac08c73.css.map",
-    "main.2f086143.js.map": "/static/js/main.2f086143.js.map",
+    "main.55190518.css.map": "/static/css/main.55190518.css.map",
+    "main.350e6475.js.map": "/static/js/main.350e6475.js.map",
     "869.58dc897f.chunk.css.map": "/static/css/869.58dc897f.chunk.css.map",
     "869.091bae35.chunk.js.map": "/static/js/869.091bae35.chunk.js.map",
     "848.e42950f5.chunk.css.map": "/static/css/848.e42950f5.chunk.css.map",
@@ -28,7 +27,7 @@
     "488.4d6b2944.chunk.js.map": "/static/js/488.4d6b2944.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.eac08c73.css",
-    "static/js/main.2f086143.js"
+    "static/css/main.55190518.css",
+    "static/js/main.350e6475.js"
   ]
 }
