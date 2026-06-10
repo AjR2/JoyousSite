@@ -553,3 +553,87 @@
   .context-option.selected { border-color: #000; }
   .constraint-card textarea { border-width: 2px; }
 }
+
+/* ══════════════════════════════════════════════════════
+   AI integration — loading, error, fallback badge
+   These append to existing rules; nothing above is changed.
+══════════════════════════════════════════════════════ */
+
+/* ── Loading state ── */
+.cq-loading {
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
+  justify-content: center;
+  padding:         3rem 1rem;
+  gap:             1rem;
+}
+
+.cq-loading-dots {
+  display: flex;
+  gap:     6px;
+}
+
+.cq-loading-dots span {
+  display:       block;
+  width:         7px;
+  height:        7px;
+  border-radius: 50%;
+  background:    #2C5F5A;
+  animation:     cq-bounce 1.2s ease-in-out infinite;
+}
+
+.cq-loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+.cq-loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes cq-bounce {
+  0%, 80%, 100% { transform: scale(0.75); opacity: 0.4; }
+  40%           { transform: scale(1);    opacity: 1;   }
+}
+
+.cq-loading-text {
+  font-size:      0.9rem;
+  color:          #6B7280;
+  font-family:    'JetBrains Mono', 'Fira Code', monospace;
+  letter-spacing: 0.04em;
+  margin:         0;
+}
+
+/* ── Error banner ── */
+.cq-error {
+  margin-top:    1.5rem;
+  padding:       1rem 1.1rem;
+  background:    rgba(180, 60, 40, 0.06);
+  border:        1px solid rgba(180, 60, 40, 0.18);
+  border-radius: 4px;
+}
+
+.cq-error-message {
+  font-size:     0.875rem;
+  color:         #1C1B1A;
+  line-height:   1.55;
+  margin-bottom: 0.9rem;
+}
+
+.cq-error-actions {
+  display:        flex;
+  flex-direction: column;
+  gap:            0.6rem;
+}
+
+/* ── Fallback badge (shown on closure map when AI was unavailable) ── */
+.cq-fallback-badge {
+  font-family:    'JetBrains Mono', 'Fira Code', monospace;
+  font-size:      0.6rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color:          #9CA3AF;
+  text-align:     center;
+  margin-bottom:  0.75rem;
+  margin-top:     -0.25rem;
+}
+
+/* ── Reduced motion for loading dots ── */
+@media (prefers-reduced-motion: reduce) {
+  .cq-loading-dots span { animation: none; opacity: 0.7; }
+}

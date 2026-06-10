@@ -1,8 +1,8 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import './ClarityQuestionnaire.css';
 
-// Deterministic structured outputs per drift pattern
-// Format mirrors claude.md: { problem, constraints, priorities, next_actions, risks }
+// ── Static fallback outputs (used when AI is unavailable) ──────────────────
+// Format: { problem, priorities, next_actions, risks }
 const PATTERN_OUTPUTS = {
   decision_drift: {
     problem: "Decisions are expanding rather than resolving. Cognitive load is increasing without forward movement.",
@@ -77,6 +77,9 @@ const DRIFT_PATTERNS = [
 // Steps map to the agent pipeline: Planner → Synthesis → Execution → Commit
 const STEP_LABELS = ['', 'PLANNER', 'SYNTHESIS', 'EXECUTION', 'COMMIT', ''];
 
+// Expand the single-letter dominant force into a readable label
+const FORCE_LABELS = { S: 'Structural', E: 'Environmental', R: 'Relational', T: 'Temporal' };
+
 // Track diagnostic → session booking conversion
 function trackDiagnosticConversion(driftPattern) {
   try {
@@ -90,23 +93,38 @@ function trackDiagnosticConversion(driftPattern) {
   } catch (_) {}
 }
 
+// Derive an output object matching { problem, priorities, next_actions, risks }
+// from the AI response — maps onto the existing display components unchanged.
+function aiToOutput(ai) {
+  const forceLabel = FORCE_LABELS[ai.dominant_force] || ai.dominant_force;
+  return {
+    problem:      ai.closure_map_summary,
+    priorities:   [`${ai.drift_pattern} — ${forceLabel} force`],
+    next_actions: [ai.recommended_action],
+    risks:        [ai.primary_open_loop]
+  };
+}
+
 function ClarityQuestionnaire({ isOpen, onClose }) {
-  const [currentStep, setCurrentStep] = useState(0);
+  const [currentStep,          setCurrentStep]          = useState(0);
   const [selectedDriftPattern, setSelectedDriftPattern] = useState(null);
-  const [problemStatement, setProblemStatement] = useState('');
-  const [constraints, setConstraints] = useState({
-    cannotRisk: '',
-    mustProtect: '',
-    alreadyDecided: ''
+  const [problemStatement,     setProblemStatement]     = useState('');
+  const [constraints,          setConstraints]          = useState({
+    cannotRisk: '', mustProtect: '', alreadyDecided: ''
   });
 
-  const modalRef = useRef(null);
+  // AI integration state
+  const [isLoading,   setIsLoading]   = useState(false);
+  const [apiError,    setApiError]    = useState(null);   // string | null
+  const [aiResult,    setAiResult]    = useState(null);   // raw API response | null
+  const [useFallback, setUseFallback] = useState(false);  // user elected static output after error
+
+  const modalRef        = useRef(null);
   const firstFocusableRef = useRef(null);
 
+  // Escape key + scroll lock
   useEffect(() => {
-    const handleEscape = (e) => {
-      if (e.key === 'Escape' && isOpen) onClose();
-    };
+    const handleEscape = (e) => { if (e.key === 'Escape' && isOpen) onClose(); };
     if (isOpen) {
       document.addEventListener('keydown', handleEscape);
       document.body.style.overflow = 'hidden';
@@ -118,41 +136,93 @@ function ClarityQuestionnaire({ isOpen, onClose }) {
     };
   }, [isOpen, onClose]);
 
+  // Reset all state when modal closes
   useEffect(() => {
     if (!isOpen) {
       setCurrentStep(0);
       setSelectedDriftPattern(null);
       setProblemStatement('');
       setConstraints({ cannotRisk: '', mustProtect: '', alreadyDecided: '' });
+      setIsLoading(false);
+      setApiError(null);
+      setAiResult(null);
+      setUseFallback(false);
     }
   }, [isOpen]);
 
   const handleNext = () => setCurrentStep(prev => prev + 1);
 
-  const handleCommit = () => {
-    // Scroll to offer section, then advance to exit step
-    if (typeof window !== 'undefined') {
-      const offerEl = document.getElementById('offer');
-      if (offerEl) {
-        // Don't close — show exit step with booking CTA
+  const handleCommit = () => setCurrentStep(prev => prev + 1);
+
+  // Build the answers array that gets sent to the API
+  const buildAnswers = useCallback(() => {
+    const patternObj = DRIFT_PATTERNS.find(p => p.id === selectedDriftPattern);
+    const answers = [];
+    if (patternObj)                           answers.push(`Primary drift pattern: ${patternObj.label}`);
+    if (problemStatement.trim())              answers.push(`Specific problem: ${problemStatement.trim()}`);
+    if (constraints.cannotRisk.trim())        answers.push(`Cannot risk: ${constraints.cannotRisk.trim()}`);
+    if (constraints.mustProtect.trim())       answers.push(`Must protect: ${constraints.mustProtect.trim()}`);
+    if (constraints.alreadyDecided.trim())    answers.push(`Already fixed: ${constraints.alreadyDecided.trim()}`);
+    return answers;
+  }, [selectedDriftPattern, problemStatement, constraints]);
+
+  // POST to /api/diagnostic; fall back gracefully on any failure
+  const handleGenerateClosure = useCallback(async () => {
+    setApiError(null);
+    setIsLoading(true);
+
+    try {
+      const response = await fetch('/api/diagnostic', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ answers: buildAnswers() }),
+      });
+
+      if (!response.ok) {
+        const body = await response.json().catch(() => ({}));
+        throw new Error(body.error || `Server error ${response.status}`);
       }
+
+      const data = await response.json();
+      setAiResult(data);
+      setIsLoading(false);
+      setCurrentStep(prev => prev + 1);
+    } catch (err) {
+      console.error('Diagnostic API error:', err.message);
+      setIsLoading(false);
+      setApiError(
+        'The diagnostic engine is temporarily unavailable. Please try again in a few minutes.'
+      );
     }
+  }, [buildAnswers]);
+
+  const handleUseFallback = () => {
+    setApiError(null);
+    setUseFallback(true);
     setCurrentStep(prev => prev + 1);
+  };
+
+  const handleRetry = () => {
+    setApiError(null);
+    handleGenerateClosure();
   };
 
   const buildConstraintsList = useCallback(() => {
     const items = [];
-    if (constraints.cannotRisk.trim())    items.push(constraints.cannotRisk.trim());
+    if (constraints.cannotRisk.trim())     items.push(constraints.cannotRisk.trim());
     if (constraints.alreadyDecided.trim()) items.push(constraints.alreadyDecided.trim());
     return items;
   }, [constraints]);
 
   if (!isOpen) return null;
 
-  const output = selectedDriftPattern ? PATTERN_OUTPUTS[selectedDriftPattern] : null;
+  // Resolve which output to display: AI → fallback static → null
+  const staticOutput = selectedDriftPattern ? PATTERN_OUTPUTS[selectedDriftPattern] : null;
+  const output = (aiResult && !useFallback) ? aiToOutput(aiResult) : staticOutput;
 
   const renderStep = () => {
     switch (currentStep) {
+      // ── Step 0: Entry ──────────────────────────────────────────────────────
       case 0:
         return (
           <div className="questionnaire-step step-entry">
@@ -176,7 +246,7 @@ function ClarityQuestionnaire({ isOpen, onClose }) {
           </div>
         );
 
-      // PLANNER: identify the drift pattern + state the problem
+      // ── Step 1: PLANNER — identify pattern + state problem ─────────────────
       case 1:
         return (
           <div className="questionnaire-step step-context">
@@ -222,8 +292,25 @@ function ClarityQuestionnaire({ isOpen, onClose }) {
           </div>
         );
 
-      // SYNTHESIS: define constraints
+      // ── Step 2: SYNTHESIS — define constraints + trigger AI ────────────────
       case 2:
+        // Loading state: replaces action area while inference runs
+        if (isLoading) {
+          return (
+            <div className="questionnaire-step step-constraints">
+              <p className="step-counter">Step 2 of 4</p>
+              <h2 className="step-title">Define the operating constraints:</h2>
+              <div className="cq-loading" aria-live="polite" aria-label="Running diagnostic">
+                <span className="cq-loading-dots" aria-hidden="true">
+                  <span /><span /><span />
+                </span>
+                <p className="cq-loading-text">Analyzing your drift pattern…</p>
+              </div>
+            </div>
+          );
+        }
+
+        // Error state: shown below the form if API call failed
         return (
           <div className="questionnaire-step step-constraints">
             <p className="step-counter">Step 2 of 4</p>
@@ -266,20 +353,44 @@ function ClarityQuestionnaire({ isOpen, onClose }) {
                 />
               </div>
             </div>
-            <div className="step-actions">
-              <button className="cq-btn" onClick={handleNext}>
-                Generate closure map
-              </button>
-            </div>
+
+            {/* Error banner with retry + fallback options */}
+            {apiError && (
+              <div className="cq-error" role="alert">
+                <p className="cq-error-message">{apiError}</p>
+                <div className="cq-error-actions">
+                  <button className="cq-btn" onClick={handleRetry}>
+                    Try again
+                  </button>
+                  <button className="cq-btn-ghost" onClick={handleUseFallback}>
+                    Use standard analysis
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {!apiError && (
+              <div className="step-actions">
+                <button className="cq-btn" onClick={handleGenerateClosure}>
+                  Generate closure map
+                </button>
+              </div>
+            )}
           </div>
         );
 
-      // EXECUTION: closure map output
+      // ── Step 3: EXECUTION — closure map output ─────────────────────────────
       case 3:
         return (
           <div className="questionnaire-step step-output">
             <p className="step-counter">Step 3 of 4 — Your output</p>
             <h2 className="step-title" style={{ marginBottom: '1.25rem' }}>Closure Map:</h2>
+
+            {/* Source badge — only shown when fallback is active */}
+            {useFallback && (
+              <p className="cq-fallback-badge">Standard analysis — AI engine offline</p>
+            )}
+
             <div className="structured-output">
 
               <div className="output-block">
@@ -315,7 +426,9 @@ function ClarityQuestionnaire({ isOpen, onClose }) {
               </div>
 
               <div className="output-block output-block--risk">
-                <span className="output-label">Risks if unaddressed</span>
+                <span className="output-label">
+                  {(aiResult && !useFallback) ? 'Primary open loop' : 'Risks if unaddressed'}
+                </span>
                 <ul className="output-list">
                   {output.risks.map((r, i) => <li key={i}>{r}</li>)}
                 </ul>
@@ -330,7 +443,7 @@ function ClarityQuestionnaire({ isOpen, onClose }) {
           </div>
         );
 
-      // COMMIT: primary action
+      // ── Step 4: COMMIT — primary action ────────────────────────────────────
       case 4:
         return (
           <div className="questionnaire-step step-permission">
@@ -354,7 +467,7 @@ function ClarityQuestionnaire({ isOpen, onClose }) {
           </div>
         );
 
-      // EXIT: close the loop with a booking CTA
+      // ── Step 5: EXIT — booking CTA ─────────────────────────────────────────
       case 5:
         return (
           <div className="questionnaire-step step-exit">
@@ -367,7 +480,6 @@ function ClarityQuestionnaire({ isOpen, onClose }) {
               </p>
             </div>
 
-            {/* Conversion block — makes the session feel like the obvious next step */}
             <div className="exit-conversion">
               <span className="exit-conversion-label">If the drift is systemic</span>
               <p className="exit-conversion-text">
