@@ -20,6 +20,7 @@ const Contact = React.lazy(() => import('./components/Contact'));
 const TermsOfService = React.lazy(() => import('./components/TermsOfService'));
 const PrivacyPolicy = React.lazy(() => import('./components/PrivacyPolicy'));
 const CognitiveOffloadSprint = React.lazy(() => import('./components/CognitiveOffloadSprint'));
+const HowItWorks = React.lazy(() => import('./components/HowItWorks'));
 
 import mtrLogo from './assets/minds-that-roam-logo.png';
 
@@ -474,6 +475,21 @@ function AppContent() {
               </div>
             }>
               <CognitiveOffloadSprint />
+            </Suspense>
+            <Footer />
+          </>
+        } />
+
+        <Route path="/howitworks" element={
+          <>
+            <Header />
+            <Suspense fallback={
+              <div className="loading-container" role="status" aria-label="Loading how it works">
+                <LoadingSpinner />
+                <span className="sr-only">Loading how it works...</span>
+              </div>
+            }>
+              <HowItWorks />
             </Suspense>
             <Footer />
           </>

@@ -1,0 +1,158 @@
+/* HowItWorks — matches Brand Guide v1.0 */
+
+/* ── Page wrapper ── */
+.hiw-page {
+  background-color: #F0EDE8;
+  min-height: 100vh;
+  padding-top: 64px; /* nav height */
+}
+
+/* ── Container ── */
+.hiw-container {
+  max-width: 680px;
+  margin:    0 auto;
+  padding:   0 1.5rem;
+}
+
+/* ── Hero ── */
+.hiw-hero {
+  padding: 5rem 0 3.5rem;
+}
+
+.hiw-hero h1 {
+  font-size:      clamp(1.85rem, 4vw, 2.6rem);
+  font-weight:    500;
+  color:          #1C1B1A;
+  line-height:    1.22;
+  letter-spacing: -0.025em;
+  margin:         0;
+}
+
+/* ── Opening story ── */
+.hiw-story {
+  padding-bottom: 1rem;
+}
+
+.hiw-prose p {
+  font-size:     1.025rem;
+  line-height:   1.8;
+  color:         #6B7280;
+  margin-bottom: 1.35rem;
+}
+
+.hiw-prose p:last-child { margin-bottom: 0; }
+
+.hiw-disclosure {
+  font-size:     0.8rem !important;
+  color:         #9CA3AF !important;
+  margin-top:    0.4rem !important;
+  margin-bottom: 0 !important;
+}
+
+/* ── Content sections ── */
+.hiw-section {
+  padding:    3.5rem 0;
+  border-top: 1px solid #E0DDD8;
+}
+
+/* ── Section heading — centered, bold ── */
+.hiw-section-label {
+  display:        block;
+  font-family:    'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+  font-size:      0.68rem;
+  font-weight:    700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color:          #2C5F5A;
+  text-align:     center;
+  margin-bottom:  1.5rem;
+}
+
+/* ── Problem quotes ── */
+.hiw-problem-quotes {
+  margin-bottom: 1.25rem;
+}
+
+.hiw-problem-quotes p {
+  font-size:      1.1rem !important;
+  font-weight:    400;
+  color:          #1C1B1A !important;
+  font-style:     italic;
+  margin-bottom:  0.5rem !important;
+  line-height:    1.5 !important;
+}
+
+/* ── Session block ── */
+.hiw-session-block {
+  background:    #FFFFFF;
+  border:        1px solid #E0DDD8;
+  border-radius: 6px;
+  padding:       1.75rem 2rem;
+}
+
+.hiw-session-block .hiw-prose p {
+  font-size: 0.975rem;
+}
+
+/* ── Closing section ── */
+.hiw-closing {
+  padding:    5rem 0 6rem;
+  text-align: center;
+  border-top: 1px solid #E0DDD8;
+}
+
+.hiw-closing-line {
+  font-size:      clamp(1.5rem, 3.5vw, 2.1rem);
+  font-weight:    500;
+  color:          #1C1B1A;
+  letter-spacing: -0.02em;
+  line-height:    1.3;
+  margin-bottom:  2.5rem;
+}
+
+.hiw-cta {
+  display:         inline-block;
+  background:      #2C5F5A;
+  color:           #ffffff;
+  border:          none;
+  border-radius:   4px;
+  padding:         0.9rem 2rem;
+  font-size:       1rem;
+  font-weight:     500;
+  font-family:     'Plus Jakarta Sans', sans-serif;
+  cursor:          pointer;
+  text-decoration: none;
+  transition:      background 180ms ease, transform 180ms ease;
+}
+
+.hiw-cta:hover {
+  background:      #24504B;
+  color:           #ffffff;
+  text-decoration: none;
+  transform:       translateY(-1px);
+}
+
+.hiw-cta:focus-visible {
+  outline:    none;
+  box-shadow: 0 0 0 3px rgba(44, 95, 90, 0.28);
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .hiw-page     { padding-top: 56px; }
+  .hiw-hero     { padding: 3rem 0 2.5rem; }
+  .hiw-hero h1  { font-size: clamp(1.6rem, 6vw, 2rem); }
+  .hiw-section  { padding: 2.5rem 0; }
+  .hiw-session-block { padding: 1.25rem; }
+  .hiw-closing  { padding: 3.5rem 0 4rem; }
+}
+
+@media (max-width: 480px) {
+  .hiw-hero h1      { font-size: 1.6rem; }
+  .hiw-closing-line { font-size: 1.4rem; }
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .hiw-cta:hover { transform: none; }
+}

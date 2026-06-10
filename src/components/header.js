@@ -130,6 +130,16 @@ const Header = () => {
             </li>
             <li className="nav-item">
               <a
+                href="/howitworks"
+                className={`nav-link${window.location.pathname === '/howitworks' ? ' nav-link--active' : ''}`}
+                aria-label="How it works"
+                aria-current={window.location.pathname === '/howitworks' ? 'page' : undefined}
+              >
+                How It Works
+              </a>
+            </li>
+            <li className="nav-item">
+              <a
                 href="https://calendly.com/ajrudd-theenactive/new-meeting-1"
                 className="nav-link nav-link-cta"
                 target="_blank"
