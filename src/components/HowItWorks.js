@@ -121,8 +121,7 @@ function HowItWorks() {
                 closable. A feeling is not.
               </p>
               <p>
-                The emotion doesn't need to be processed or managed. Once the cause is named, the emotion
-                becomes irrelevant. The loop closes. The attention it was eating gets released.
+                The emotion doesn't need to be processed or managed. The loop closes. The attention it was eating gets released.
               </p>
             </div>
           </div>
