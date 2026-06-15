@@ -60,15 +60,23 @@ module.exports = async function handler(req, res) {
     return res.status(502).json({ error: 'Inference service unavailable' });
   }
 
+  const raw = data.response || '';
+  console.error('[diag] raw data.response:', JSON.stringify(raw));
+
   let result;
   try {
-    const raw = data.response.trim();
-    const cleaned = raw.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
-    result = JSON.parse(cleaned);
+    const match = raw.match(/\{[\s\S]*\}/);
+    if (!match) throw new Error('no JSON object found');
+    result = JSON.parse(match[0]);
+    if (typeof result.dominant_force === 'string') {
+      result.dominant_force = result.dominant_force.trim();
+    }
   } catch {
-    console.error('Model output was not valid JSON:', data.response);
+    console.error('[diag] not valid JSON:', JSON.stringify(raw));
     return res.status(502).json({ error: 'Invalid diagnostic output' });
   }
+
+  console.error('[diag] parsed result:', JSON.stringify(result));
 
   const required = [
     'drift_pattern',
@@ -82,7 +90,7 @@ module.exports = async function handler(req, res) {
     ['S', 'E', 'R', 'T'].includes(result.dominant_force);
 
   if (!valid) {
-    console.error('Model output failed schema validation:', JSON.stringify(result));
+    console.error('[diag] schema validation failed:', JSON.stringify(result));
     return res.status(502).json({ error: 'Invalid diagnostic output' });
   }
 
