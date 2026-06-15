@@ -15,6 +15,7 @@ import AccessibilityProvider from './components/AccessibilityProvider';
 import ClarityQuestionnaire from './components/ClarityQuestionnaire';
 import { OpenLoop, ClosedLoop } from './components/LoopMark';
 import IntakeForm from './components/IntakeForm';
+const BriefsViewer = React.lazy(() => import('./components/BriefsViewer'));
 
 // Lazy load components for code splitting
 const Contact = React.lazy(() => import('./components/Contact'));
@@ -497,6 +498,16 @@ function AppContent() {
         } />
 
         <Route path="/intake" element={<IntakeForm />} />
+
+        <Route path="/briefs" element={
+          <Suspense fallback={
+            <div className="loading-container" role="status">
+              <LoadingSpinner />
+            </div>
+          }>
+            <BriefsViewer />
+          </Suspense>
+        } />
       </Routes>
     </ErrorBoundary>
   );

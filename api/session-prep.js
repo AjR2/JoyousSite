@@ -176,6 +176,22 @@ module.exports = async function handler(req, res) {
     console.error('Could not save brief to Vercel Blob:', err.message);
   }
 
+  // Best-effort: push brief to Personal OS for Obsidian sync
+  try {
+    const osRes = await fetch('https://os.theenactive.com/api/briefs', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-os-key': process.env.OS_SECRET,
+      },
+      body: JSON.stringify({ filename, content: briefText }),
+      signal: AbortSignal.timeout(8000),
+    });
+    if (!osRes.ok) console.error('Personal OS brief sync returned', osRes.status);
+  } catch (err) {
+    console.error('Personal OS brief sync failed:', err.message);
+  }
+
   return res.status(200).json({ success: true, filename, url: blobUrl });
 };
 
