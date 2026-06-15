@@ -43,9 +43,17 @@ function parseAndValidate(raw) {
   const match = raw.match(/\{[\s\S]*\}/);
   if (!match) throw new Error('no JSON object in response');
   const result = JSON.parse(match[0]);
+
   if (typeof result.dominant_force === 'string') {
     result.dominant_force = result.dominant_force.trim();
   }
+
+  // Mistral reliably fills closure_map_summary but occasionally returns
+  // an empty primary_open_loop. Derive it rather than failing the request.
+  if (typeof result.primary_open_loop === 'string' && result.primary_open_loop.length === 0) {
+    result.primary_open_loop = result.closure_map_summary || '';
+  }
+
   const valid =
     REQUIRED.every((k) => typeof result[k] === 'string' && result[k].length > 0) &&
     ['S', 'E', 'R', 'T'].includes(result.dominant_force);
