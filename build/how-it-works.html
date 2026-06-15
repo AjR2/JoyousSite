@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How It Works — Enactive</title>
+  <meta name="description" content="Enactive identifies the open loops draining your attention and closes them through first-principles questioning. This is how it works." />
+  <meta name="theme-color" content="#F0EDE8" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="How It Works — Enactive" />
+  <meta property="og:description" content="Enactive identifies the open loops draining your attention and closes them through first-principles questioning. This is how it works." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://theenactive.com/how-it-works" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FHVZ4XJK19"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-FHVZ4XJK19');
+  </script>
+
+  <style>
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── Design tokens ── */
+    :root {
+      --color-closed:     #1C1B1A;   /* near-black — primary text */
+      --color-open:       #2C5F5A;   /* teal — accent / CTA */
+      --color-clear:      #F0EDE8;   /* warm off-white — page background */
+      --color-peripheral: #6B7280;   /* gray — body text */
+      --color-structure:  #E0DDD8;   /* light border */
+      --color-surface:    #FFFFFF;   /* white card surface */
+      --color-hover:      #24504B;   /* CTA hover */
+
+      --font-body:        'Plus Jakarta Sans', system-ui, sans-serif;
+      --max-w:            680px;     /* prose column */
+      --nav-h:            64px;
+    }
+
+    /* ── Base ── */
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family:      var(--font-body);
+      font-size:        1rem;
+      line-height:      1.75;
+      color:            var(--color-peripheral);
+      background-color: var(--color-clear);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    a:hover { text-decoration: none; }
+
+    /* ── Container ── */
+    .container {
+      max-width: var(--max-w);
+      margin:    0 auto;
+      padding:   0 1.5rem;
+    }
+
+    /* ══════════════════════════════════════
+       NAV
+    ══════════════════════════════════════ */
+    .site-nav {
+      position:         fixed;
+      top:              0;
+      left:             0;
+      right:            0;
+      height:           var(--nav-h);
+      background:       rgba(240, 237, 232, 0.88);
+      backdrop-filter:  blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom:    1px solid rgba(224, 221, 216, 0.6);
+      z-index:          1000;
+      display:          flex;
+      align-items:      center;
+    }
+
+    .nav-inner {
+      width:          100%;
+      max-width:      1100px;
+      margin:         0 auto;
+      padding:        0 2rem;
+      display:        flex;
+      align-items:    center;
+      justify-content: space-between;
+    }
+
+    .nav-wordmark {
+      font-size:      22px;
+      font-weight:    500;
+      letter-spacing: -0.02em;
+      line-height:    1;
+      color:          var(--color-closed);
+      text-decoration: none;
+      flex-shrink:    0;
+    }
+
+    .nav-wordmark .wm-en { color: var(--color-open); }
+
+    .nav-links {
+      display:     flex;
+      align-items: center;
+      gap:         0.25rem;
+      list-style:  none;
+    }
+
+    .nav-links a {
+      font-size:      0.875rem;
+      font-weight:    400;
+      color:          var(--color-peripheral);
+      padding:        0.4rem 0.7rem;
+      border-radius:  4px;
+      transition:     color 150ms ease;
+      white-space:    nowrap;
+    }
+
+    .nav-links a:hover { color: var(--color-closed); }
+
+    .nav-links a.active {
+      color:       var(--color-closed);
+      font-weight: 500;
+    }
+
+    .nav-cta {
+      background:    var(--color-open) !important;
+      color:         #ffffff !important;
+      font-weight:   500 !important;
+      padding:       0.45rem 0.9rem !important;
+      border-radius: 4px !important;
+      margin-left:   0.5rem !important;
+      transition:    background 150ms ease !important;
+    }
+
+    .nav-cta:hover { background: var(--color-hover) !important; color: #ffffff !important; }
+
+    /* Hamburger — hidden by default */
+    .nav-hamburger {
+      display:         none;
+      flex-direction:  column;
+      gap:             5px;
+      cursor:          pointer;
+      background:      none;
+      border:          none;
+      padding:         0.25rem;
+    }
+
+    .nav-hamburger span {
+      display:      block;
+      width:        22px;
+      height:       2px;
+      background:   var(--color-closed);
+      border-radius: 2px;
+      transition:   all 200ms ease;
+    }
+
+    /* Mobile nav */
+    .nav-mobile {
+      display:        none;
+      position:       fixed;
+      top:            var(--nav-h);
+      left:           0;
+      right:          0;
+      background:     var(--color-clear);
+      border-bottom:  1px solid var(--color-structure);
+      padding:        1rem 1.5rem 1.5rem;
+      z-index:        999;
+      flex-direction: column;
+      gap:            0.25rem;
+    }
+
+    .nav-mobile.open { display: flex; }
+
+    .nav-mobile a {
+      font-size:    0.95rem;
+      color:        var(--color-peripheral);
+      padding:      0.6rem 0;
+      border-bottom: 1px solid var(--color-structure);
+      display:      block;
+    }
+
+    .nav-mobile a:last-child { border-bottom: none; }
+    .nav-mobile a:hover,
+    .nav-mobile a.active { color: var(--color-closed); font-weight: 500; }
+
+    .nav-mobile-cta {
+      margin-top:    0.75rem;
+      background:    var(--color-open) !important;
+      color:         #ffffff !important;
+      border:        none !important;
+      border-radius: 4px !important;
+      padding:       0.75rem 1.25rem !important;
+      font-size:     0.95rem !important;
+      font-family:   var(--font-body) !important;
+      font-weight:   500 !important;
+      text-align:    center !important;
+      cursor:        pointer;
+      display:       block;
+    }
+
+    /* ══════════════════════════════════════
+       HERO
+    ══════════════════════════════════════ */
+    .hero {
+      padding-top:    calc(var(--nav-h) + 5rem);
+      padding-bottom: 4rem;
+    }
+
+    .hero h1 {
+      font-size:      clamp(1.85rem, 4vw, 2.75rem);
+      font-weight:    500;
+      color:          var(--color-closed);
+      line-height:    1.22;
+      letter-spacing: -0.025em;
+    }
+
+    /* ══════════════════════════════════════
+       OPENING STORY
+    ══════════════════════════════════════ */
+    .story {
+      padding-top:    0;
+      padding-bottom: 3rem;
+    }
+
+    .prose p {
+      margin-bottom: 1.35rem;
+      font-size:     1.025rem;
+      line-height:   1.8;
+    }
+
+    .prose p:last-child { margin-bottom: 0; }
+
+    .disclosure {
+      font-size:   0.8rem !important;
+      color:       #9CA3AF;
+      margin-top:  0.5rem !important;
+      margin-bottom: 0 !important;
+    }
+
+    /* ══════════════════════════════════════
+       DIVIDER
+    ══════════════════════════════════════ */
+    .section-divider {
+      border:     none;
+      border-top: 1px solid var(--color-structure);
+      margin:     0;
+    }
+
+    /* ══════════════════════════════════════
+       CONTENT SECTIONS
+    ══════════════════════════════════════ */
+    .content-section {
+      padding: 3.5rem 0;
+      border-top: 1px solid var(--color-structure);
+    }
+
+    .content-section:first-of-type { border-top: none; }
+
+    .section-heading {
+      font-size:      0.68rem;
+      font-weight:    500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color:          var(--color-open);
+      margin-bottom:  1.25rem;
+      font-family:    'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+    }
+
+    .content-section .prose p {
+      font-size:   1.025rem;
+      line-height: 1.8;
+    }
+
+    /* ── Quoted problem statements ── */
+    .problem-quotes {
+      margin-bottom: 1.25rem;
+    }
+
+    .problem-quotes p {
+      font-size:      1.1rem !important;
+      font-weight:    400;
+      color:          var(--color-closed) !important;
+      font-style:     italic;
+      margin-bottom:  0.5rem !important;
+      line-height:    1.5 !important;
+    }
+
+    /* ── "How a session works" block ── */
+    .session-block {
+      background:    var(--color-surface);
+      border:        1px solid var(--color-structure);
+      border-radius: 6px;
+      padding:       1.75rem 2rem;
+    }
+
+    .session-block .prose p {
+      font-size: 0.975rem;
+    }
+
+    /* ══════════════════════════════════════
+       CLOSING + CTA
+    ══════════════════════════════════════ */
+    .closing-section {
+      padding:    5rem 0 6rem;
+      text-align: center;
+      border-top: 1px solid var(--color-structure);
+    }
+
+    .closing-line {
+      font-size:      clamp(1.5rem, 3.5vw, 2.1rem);
+      font-weight:    500;
+      color:          var(--color-closed);
+      letter-spacing: -0.02em;
+      line-height:    1.3;
+      margin-bottom:  2.5rem;
+    }
+
+    .cta-btn {
+      display:       inline-block;
+      background:    var(--color-open);
+      color:         #ffffff;
+      border:        none;
+      border-radius: 4px;
+      padding:       0.9rem 2rem;
+      font-size:     1rem;
+      font-weight:   500;
+      font-family:   var(--font-body);
+      cursor:        pointer;
+      text-decoration: none;
+      transition:    background 180ms ease, transform 180ms ease;
+    }
+
+    .cta-btn:hover {
+      background:      var(--color-hover);
+      color:           #ffffff;
+      text-decoration: none;
+      transform:       translateY(-1px);
+    }
+
+    .cta-btn:focus-visible {
+      outline:    none;
+      box-shadow: 0 0 0 3px rgba(44, 95, 90, 0.28);
+    }
+
+    /* ══════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════ */
+    .site-footer {
+      background: var(--color-closed);
+      padding:    3.5rem 2rem 2rem;
+    }
+
+    .footer-inner {
+      max-width:     1100px;
+      margin:        0 auto;
+      display:       grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap:           2rem 3rem;
+    }
+
+    .footer-wordmark {
+      font-size:      22px;
+      font-weight:    500;
+      letter-spacing: -0.02em;
+      line-height:    1;
+      color:          #F0EDE8;
+      display:        inline-block;
+      margin-bottom:  0.75rem;
+      user-select:    none;
+    }
+
+    .footer-wordmark .wm-en { color: var(--color-open); }
+
+    .footer-tagline {
+      font-size:   0.875rem;
+      color:       rgba(240, 237, 232, 0.5);
+      line-height: 1.6;
+      max-width:   280px;
+    }
+
+    .footer-nav-heading {
+      font-size:      0.65rem;
+      font-weight:    500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color:          rgba(240, 237, 232, 0.35);
+      margin-bottom:  1rem;
+      font-family:    'JetBrains Mono', 'Fira Code', monospace;
+    }
+
+    .footer-nav-list {
+      list-style: none;
+      display:    flex;
+      flex-direction: column;
+      gap:        0.5rem;
+    }
+
+    .footer-nav-list a {
+      font-size:   0.875rem;
+      color:       rgba(240, 237, 232, 0.6);
+      transition:  color 150ms ease;
+    }
+
+    .footer-nav-list a:hover { color: #F0EDE8; }
+
+    .footer-bottom {
+      max-width:   1100px;
+      margin:      2rem auto 0;
+      padding-top: 1.25rem;
+      border-top:  1px solid rgba(240, 237, 232, 0.1);
+    }
+
+    .footer-bottom p {
+      font-size: 0.8rem;
+      color:     rgba(240, 237, 232, 0.3);
+    }
+
+    /* ══════════════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════════════ */
+    @media (max-width: 768px) {
+      :root { --nav-h: 56px; }
+
+      .nav-links  { display: none; }
+
+      .nav-hamburger { display: flex; }
+
+      .hero { padding-top: calc(var(--nav-h) + 3rem); padding-bottom: 2.5rem; }
+
+      .hero h1 { font-size: clamp(1.65rem, 6vw, 2rem); }
+
+      .footer-inner {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .session-block { padding: 1.25rem 1.25rem; }
+
+      .closing-section { padding: 3.5rem 0 4rem; }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 1.6rem; }
+      .closing-line { font-size: 1.4rem; }
+    }
+
+    /* ── Reduced motion ── */
+    @media (prefers-reduced-motion: reduce) {
+      .cta-btn:hover { transform: none; }
+    }
+
+    /* ── High contrast ── */
+    @media (prefers-contrast: high) {
+      .section-divider,
+      .content-section { border-color: #000; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════
+       NAV
+  ══════════════════════════════════════ -->
+  <nav class="site-nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="/" class="nav-wordmark" aria-label="Enactive home">
+        <span class="wm-en">en</span>active
+      </a>
+
+      <ul class="nav-links" role="list">
+        <li><a href="/#about">About</a></li>
+        <li><a href="/#values">Principles</a></li>
+        <li><a href="/#offer">Pricing</a></li>
+        <li><a href="https://mindsthatroam.com" target="_blank" rel="noopener noreferrer">Podcast</a></li>
+        <li><a href="/how-it-works.html" class="active">How It Works</a></li>
+        <li>
+          <a
+            href="https://calendly.com/ajrudd-theenactive/new-meeting-1"
+            class="nav-cta"
+            target="_blank"
+            rel="noopener noreferrer"
+          >Book a closure session</a>
+        </li>
+      </ul>
+
+      <button
+        class="nav-hamburger"
+        aria-label="Open navigation"
+        aria-expanded="false"
+        aria-controls="nav-mobile"
+        onclick="toggleMobileNav(this)"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile nav -->
+  <div class="nav-mobile" id="nav-mobile" role="navigation" aria-label="Mobile navigation">
+    <a href="/#about">About</a>
+    <a href="/#values">Principles</a>
+    <a href="/#offer">Pricing</a>
+    <a href="https://mindsthatroam.com" target="_blank" rel="noopener noreferrer">Podcast</a>
+    <a href="/how-it-works.html" class="active">How It Works</a>
+    <a
+      href="https://calendly.com/ajrudd-theenactive/new-meeting-1"
+      class="nav-mobile-cta"
+      target="_blank"
+      rel="noopener noreferrer"
+    >Book a closure session</a>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       HERO
+  ══════════════════════════════════════ -->
+  <main>
+    <section class="hero">
+      <div class="container">
+        <h1>We don't ask how you feel about it. We ask what's causing it.</h1>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         OPENING STORY
+    ══════════════════════════════════════ -->
+    <section class="story">
+      <div class="container">
+        <div class="prose">
+          <p>A friend was at my place a while back. Something was off the moment he walked in. Small digs at how I run my life. Nothing direct, just pressure leaking out sideways. I asked twice if something was going on. Nothing. So when he got up to leave, I let him.</p>
+          <p>He made it to the door and couldn't walk through it. Came back and said, can I tell you what's going on.</p>
+          <p>We talked while I cooked. I didn't ask him how he felt. I asked what was causing it. Then I asked what was causing that. We kept going until the answers stopped being feelings and started being facts.</p>
+          <p>He was carrying four unfinished things at once. Pressure from his partner. Anxiety from another situation he'd been avoiding. The weight of almost walking out. And the situation itself, sitting on top of all of it.</p>
+          <p>Underneath all four was one thing he'd never looked at: a rule about commitment he'd inherited from where he grew up. He didn't choose that rule. It was installed before he could question it, and it had him overcommitted to the point of drowning. The pressure I saw at my door wasn't about me. It was four open loops wearing a disguise.</p>
+          <p class="disclosure">Details changed to protect privacy.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         CONTENT SECTIONS
+    ══════════════════════════════════════ -->
+
+    <!-- The problem, in your own words -->
+    <section class="content-section">
+      <div class="container">
+        <p class="section-heading">The problem, in your own words</p>
+        <div class="prose">
+          <div class="problem-quotes">
+            <p>"No matter what I do, I just feel drained."</p>
+            <p>"I'm exhausted."</p>
+            <p>"I don't know what to do next."</p>
+          </div>
+          <p>It can show up as full cognitive overload or just a low hum of discontent. A sense that life isn't going where you want it to go, and you can't say why.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- What's actually causing it -->
+    <section class="content-section">
+      <div class="container">
+        <p class="section-heading">What's actually causing it</p>
+        <div class="prose">
+          <p>Your attention is occupied by open loops. Unmade decisions. Undefined tasks. Conversations you haven't had. Situations you haven't resolved.</p>
+          <p>But you don't experience them as loops. You experience them as emotions. Dread. Guilt. Irritation. Exhaustion. So you treat the emotion. You vent, you distract, you push harder, or you get handed a label like anxiety or depression that explains the feeling and completely misses the cause.</p>
+          <p>The feeling-solution never closes anything. The loops stay open. Open loops keep consuming attention whether you're looking at them or not. That constant drain is what you're calling exhaustion.</p>
+          <p>And here's the part almost nobody questions: most of those loops were loaded into you by your environment. The job you took, the commitments you keep, the rules you run on — decided through experiences you weren't paying attention to when they shaped you. People will question their brain chemistry before they question their environment.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- What we actually do -->
+    <section class="content-section">
+      <div class="container">
+        <p class="section-heading">What we actually do</p>
+        <div class="prose">
+          <p>We sit down and find what's occupying your attention. Then we run first-principles questioning on each item.</p>
+          <p>Not "how do you feel about this." That's the question everyone else asks, and it keeps you in the feeling.</p>
+          <p>We ask "what is causing this." Then we ask what's causing that. We keep going until the vague weight resolves into a concrete cause and a closable action. A named cause is closable. A feeling is not.</p>
+          <p>The emotion doesn't need to be processed or managed. Once the cause is named, the emotion becomes irrelevant. The loop closes. The attention it was eating gets released.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why it sticks -->
+    <section class="content-section">
+      <div class="container">
+        <p class="section-heading">Why it sticks</p>
+        <div class="prose">
+          <p>Do this enough times and you internalize the questioning. You start catching loops while they're forming. You stop being dragged by whatever your environment loaded into you and start choosing where your attention goes.</p>
+          <p>That's the actual product. Not the sessions. The trained ability to direct your own attention.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- What changes -->
+    <section class="content-section">
+      <div class="container">
+        <p class="section-heading">What changes</p>
+        <div class="prose">
+          <p>Freed attention is what people experience as energy coming back. Clarity. Direction. Same person, same life, different allocation.</p>
+          <p>The friend at my door walked in carrying four loops he couldn't see. He left able to name every one of them and knowing what closed each one. The difference wasn't that he felt better. It's that the things eating him were now on a list with actions next to them instead of running loose in his head.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- How a session works -->
+    <section class="content-section">
+      <div class="container">
+        <p class="section-heading">How a session works</p>
+        <div class="session-block">
+          <div class="prose">
+            <p>In the first session we identify the primary blocker currently demanding the most of your attention. You complete a short questionnaire before we meet — this gives us a clear picture of what's occupying your focus before we sit down together. The session concludes with two deliverables sent to you by email: a closure map and a set of closure rules. The map names each issue we identified and what closes it. The closure rules govern how you engage with those issues between now and closure — so they stop running in the background.</p>
+            <p>If you sign up for two weeks, you have direct messaging access throughout. If something we identified turns out to be wrong, or something new surfaces, you reach out and we adjust. We meet again in week two to close any gaps the first session missed. You leave with a second map and updated closure rules.</p>
+            <p>At the end of two weeks the loops that were draining you are either closed or have a defined path to closure. Your attention is no longer paying rent on problems you haven't addressed.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         CLOSING + CTA
+    ══════════════════════════════════════ -->
+    <section class="closing-section">
+      <div class="container">
+        <p class="closing-line">Same person. Same life. Different allocation.</p>
+        <a
+          href="https://calendly.com/ajrudd-theenactive/new-meeting-1"
+          class="cta-btn"
+          target="_blank"
+          rel="noopener noreferrer"
+        >Book a session</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- ══════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════ -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+
+      <div class="footer-brand">
+        <a href="/" class="footer-wordmark" aria-label="Enactive home">
+          <span class="wm-en">en</span>active
+        </a>
+        <p class="footer-tagline">
+          Structural interventions for cognitive closure and execution integrity.
+        </p>
+      </div>
+
+      <div class="footer-nav">
+        <h4 class="footer-nav-heading">Navigate</h4>
+        <ul class="footer-nav-list">
+          <li><a href="/#about">About</a></li>
+          <li><a href="/#values">Principles</a></li>
+          <li><a href="/#offer">Pricing</a></li>
+          <li><a href="https://mindsthatroam.com" target="_blank" rel="noopener noreferrer">Podcast</a></li>
+          <li><a href="/how-it-works.html">How It Works</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-nav">
+        <h4 class="footer-nav-heading">Legal</h4>
+        <ul class="footer-nav-list">
+          <li><a href="/privacy">Privacy Policy</a></li>
+          <li><a href="/terms">Terms of Service</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; <script>document.write(new Date().getFullYear())</script> Enactive. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- ══════════════════════════════════════
+       NAV JS (mobile toggle only)
+  ══════════════════════════════════════ -->
+  <script>
+    function toggleMobileNav(btn) {
+      var nav     = document.getElementById('nav-mobile');
+      var isOpen  = nav.classList.toggle('open');
+      btn.setAttribute('aria-expanded', isOpen);
+      btn.setAttribute('aria-label', isOpen ? 'Close navigation' : 'Open navigation');
+    }
+
+    // Close mobile nav on outside click
+    document.addEventListener('click', function(e) {
+      var nav = document.getElementById('nav-mobile');
+      var btn = document.querySelector('.nav-hamburger');
+      if (nav.classList.contains('open') && !nav.contains(e.target) && !btn.contains(e.target)) {
+        nav.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+        btn.setAttribute('aria-label', 'Open navigation');
+      }
+    });
+
+    // Close mobile nav on nav link click
+    document.querySelectorAll('#nav-mobile a').forEach(function(link) {
+      link.addEventListener('click', function() {
+        var nav = document.getElementById('nav-mobile');
+        var btn = document.querySelector('.nav-hamburger');
+        nav.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+        btn.setAttribute('aria-label', 'Open navigation');
+      });
+    });
+  </script>
+
+</body>
+</html>

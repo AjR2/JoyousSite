@@ -14,6 +14,7 @@ import LoadingSpinner from './components/LoadingSpinner';
 import AccessibilityProvider from './components/AccessibilityProvider';
 import ClarityQuestionnaire from './components/ClarityQuestionnaire';
 import { OpenLoop, ClosedLoop } from './components/LoopMark';
+import IntakeForm from './components/IntakeForm';
 
 // Lazy load components for code splitting
 const Contact = React.lazy(() => import('./components/Contact'));
@@ -494,6 +495,8 @@ function AppContent() {
             <Footer />
           </>
         } />
+
+        <Route path="/intake" element={<IntakeForm />} />
       </Routes>
     </ErrorBoundary>
   );

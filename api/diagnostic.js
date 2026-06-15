@@ -1,7 +1,3 @@
-// api/diagnostic.js
-// Vercel serverless function: Drift Diagnostic → Mistral via secured Cloudflare Tunnel
-// Requires env var: INFERENCE_SECRET (set in Vercel dashboard, never committed)
-
 'use strict';
 
 const INFERENCE_URL = 'https://inference.theenactive.com/api/generate';
@@ -66,9 +62,11 @@ module.exports = async function handler(req, res) {
 
   let result;
   try {
-    result = JSON.parse(data.response.trim());
+    const raw = data.response.trim();
+    const cleaned = raw.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+    result = JSON.parse(cleaned);
   } catch {
-    console.error('Model output was not valid JSON');
+    console.error('Model output was not valid JSON:', data.response);
     return res.status(502).json({ error: 'Invalid diagnostic output' });
   }
 
@@ -84,7 +82,7 @@ module.exports = async function handler(req, res) {
     ['S', 'E', 'R', 'T'].includes(result.dominant_force);
 
   if (!valid) {
-    console.error('Model output failed schema validation');
+    console.error('Model output failed schema validation:', JSON.stringify(result));
     return res.status(502).json({ error: 'Invalid diagnostic output' });
   }
 
