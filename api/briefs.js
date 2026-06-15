@@ -10,7 +10,8 @@ module.exports = async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'GET') return res.status(405).json({ error: 'Method not allowed' });
 
-  if (req.headers['x-practitioner-key'] !== process.env.PRACTITIONER_SECRET) {
+  const secret = process.env.PRACTITIONER_SECRET;
+  if (!secret || req.headers['x-practitioner-key'] !== secret) {
     return res.status(401).json({ error: 'Unauthorized' });
   }
 
