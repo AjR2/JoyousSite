@@ -64,9 +64,19 @@ Performance (self-rated, higher = managing well): ${data.tlx_performance}
 Produce the Session Prep Brief now. Output in plain markdown only — no preamble, no closing remarks. [/INST]`;
 }
 
-function formatBrief(content, data, timestamp) {
+function slugifyName(raw) {
+  return raw
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '')
+    || 'client';
+}
+
+function formatBrief(content, data, timestamp, clientName) {
   const isoDate = new Date(timestamp).toISOString();
   return `# Session Prep Brief
+**Client:** ${clientName}
 **Generated:** ${isoDate}
 
 ---
@@ -98,6 +108,7 @@ module.exports = async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
   const body = req.body || {};
+  const clientName = String(body.name || '').trim().slice(0, 60) || 'Unknown';
   const required = [
     'sert_s', 'sert_e', 'sert_r', 'sert_t',
     'tlx_mental', 'tlx_effort', 'tlx_frustration', 'tlx_temporal', 'tlx_performance',
@@ -162,8 +173,8 @@ module.exports = async function handler(req, res) {
   }
 
   const timestamp = Date.now();
-  const filename = `brief-${timestamp}.md`;
-  const briefText = formatBrief(briefContent, data, timestamp);
+  const filename = `brief-${slugifyName(clientName)}-${timestamp}.md`;
+  const briefText = formatBrief(briefContent, data, timestamp, clientName);
 
   let blobUrl;
   try {

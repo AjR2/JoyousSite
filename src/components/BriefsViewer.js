@@ -17,6 +17,18 @@ function formatTime(iso) {
   });
 }
 
+// brief-alex-m-1718453834000.md → "Alex M."
+function parseName(filename) {
+  const base = filename.replace(/\.md$/, '');       // brief-alex-m-1718453834000
+  const parts = base.split('-');                    // ['brief','alex','m','1718453834000']
+  const tsIndex = parts.findIndex(p => /^\d{10,}$/.test(p));
+  if (tsIndex <= 1) return null;                    // no name segment
+  return parts
+    .slice(1, tsIndex)                              // ['alex','m']
+    .map(s => s.charAt(0).toUpperCase() + s.slice(1))
+    .join(' ');                                     // 'Alex M'
+}
+
 export default function BriefsViewer() {
   const [key, setKey] = useState('');
   const [authed, setAuthed] = useState(false);
@@ -118,8 +130,8 @@ export default function BriefsViewer() {
                   tabIndex={0}
                   onKeyDown={e => { if (e.key === 'Enter') handleSelect(b); }}
                 >
-                  <span className="bv-item-date">{formatDate(b.uploadedAt)}</span>
-                  <span className="bv-item-time">{formatTime(b.uploadedAt)}</span>
+                  <span className="bv-item-name">{parseName(b.filename) || 'Unknown'}</span>
+                  <span className="bv-item-meta">{formatDate(b.uploadedAt)} · {formatTime(b.uploadedAt)}</span>
                 </li>
               ))}
             </ul>

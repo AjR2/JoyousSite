@@ -1,72 +1,29 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './IntakeForm.css';
 
+const NAME_QUESTION = {
+  id: 'name',
+  type: 'name',
+  question: 'What\'s your name?',
+  label: null,
+};
+
 const SERT_QUESTIONS = [
-  {
-    id: 'sert_s',
-    section: 'S',
-    label: 'Structural',
-    question: 'What decisions or systems feel unresolved right now?',
-  },
-  {
-    id: 'sert_e',
-    section: 'E',
-    label: 'Environmental',
-    question: 'What in your current environment is affecting your focus or energy?',
-  },
-  {
-    id: 'sert_r',
-    section: 'R',
-    label: 'Relational',
-    question: 'What relationships feel like open loops?',
-  },
-  {
-    id: 'sert_t',
-    section: 'T',
-    label: 'Temporal',
-    question: 'What deadlines or time pressures are you currently carrying?',
-  },
+  { id: 'sert_s', type: 'text', section: 'S', label: 'Structural',   question: 'What decisions or systems feel unresolved right now?' },
+  { id: 'sert_e', type: 'text', section: 'E', label: 'Environmental', question: 'What in your current environment is affecting your focus or energy?' },
+  { id: 'sert_r', type: 'text', section: 'R', label: 'Relational',    question: 'What relationships feel like open loops?' },
+  { id: 'sert_t', type: 'text', section: 'T', label: 'Temporal',      question: 'What deadlines or time pressures are you currently carrying?' },
 ];
 
 const TLX_QUESTIONS = [
-  {
-    id: 'tlx_mental',
-    label: 'Mental Demand',
-    question: 'How mentally demanding is your current situation?',
-    low: 'Low',
-    high: 'High',
-  },
-  {
-    id: 'tlx_effort',
-    label: 'Effort',
-    question: 'How hard are you working right now?',
-    low: 'Low',
-    high: 'High',
-  },
-  {
-    id: 'tlx_frustration',
-    label: 'Frustration',
-    question: 'How frustrated or stressed do you feel?',
-    low: 'Low',
-    high: 'High',
-  },
-  {
-    id: 'tlx_temporal',
-    label: 'Temporal Demand',
-    question: 'How much time pressure are you operating under?',
-    low: 'Low',
-    high: 'High',
-  },
-  {
-    id: 'tlx_performance',
-    label: 'Performance',
-    question: 'How well do you feel you are managing everything?',
-    low: 'Poorly',
-    high: 'Well',
-  },
+  { id: 'tlx_mental',      type: 'slider', label: 'Mental Demand',   question: 'How mentally demanding is your current situation?', low: 'Low',    high: 'High' },
+  { id: 'tlx_effort',      type: 'slider', label: 'Effort',          question: 'How hard are you working right now?',              low: 'Low',    high: 'High' },
+  { id: 'tlx_frustration', type: 'slider', label: 'Frustration',     question: 'How frustrated or stressed do you feel?',          low: 'Low',    high: 'High' },
+  { id: 'tlx_temporal',    type: 'slider', label: 'Temporal Demand', question: 'How much time pressure are you operating under?',   low: 'Low',    high: 'High' },
+  { id: 'tlx_performance', type: 'slider', label: 'Performance',     question: 'How well do you feel you are managing everything?', low: 'Poorly', high: 'Well' },
 ];
 
-const ALL_STEPS = [...SERT_QUESTIONS, ...TLX_QUESTIONS];
+const ALL_STEPS = [NAME_QUESTION, ...SERT_QUESTIONS, ...TLX_QUESTIONS];
 const TOTAL = ALL_STEPS.length;
 
 export default function IntakeForm() {
@@ -74,11 +31,14 @@ export default function IntakeForm() {
   const [answers, setAnswers] = useState({});
   const [status, setStatus] = useState('idle'); // idle | submitting | done | error
   const [errorMsg, setErrorMsg] = useState('');
+  const inputRef = useRef(null);
   const textareaRef = useRef(null);
   const containerRef = useRef(null);
 
   const current = ALL_STEPS[step];
-  const isTLX = step >= SERT_QUESTIONS.length;
+  const isName = current?.type === 'name';
+  const isTLX = current?.type === 'slider';
+  const isText = current?.type === 'text';
   const isLast = step === TOTAL - 1;
   const currentAnswer = answers[current?.id];
 
@@ -89,12 +49,10 @@ export default function IntakeForm() {
   const sliderValue = typeof currentAnswer === 'number' ? currentAnswer : 50;
 
   useEffect(() => {
-    if (!isTLX && textareaRef.current) {
-      textareaRef.current.focus();
-    }
-  }, [step, isTLX]);
+    if (isName && inputRef.current) inputRef.current.focus();
+    if (isText && textareaRef.current) textareaRef.current.focus();
+  }, [step, isName, isText]);
 
-  // Slide-in animation on step change
   useEffect(() => {
     if (containerRef.current) {
       containerRef.current.classList.remove('intake-body--entered');
@@ -116,18 +74,13 @@ export default function IntakeForm() {
     if (isTLX && typeof currentAnswer === 'undefined') {
       setAnswers(prev => ({ ...prev, [current.id]: 50 }));
     }
-    if (isLast) {
-      handleSubmit();
-    } else {
-      setStep(s => s + 1);
-    }
+    if (isLast) handleSubmit();
+    else setStep(s => s + 1);
   }
 
   function handleKeyDown(e) {
-    if (!isTLX && e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
-      e.preventDefault();
-      handleNext();
-    }
+    if (isName && e.key === 'Enter') { e.preventDefault(); handleNext(); }
+    if (isText && e.key === 'Enter' && (e.metaKey || e.ctrlKey)) { e.preventDefault(); handleNext(); }
   }
 
   async function handleSubmit() {
@@ -166,9 +119,7 @@ export default function IntakeForm() {
               </svg>
             </div>
             <h1 className="intake-confirmation-heading">Your session brief has been prepared.</h1>
-            <p className="intake-confirmation-body">
-              The practitioner will review it before your session.
-            </p>
+            <p className="intake-confirmation-body">The practitioner will review it before your session.</p>
           </div>
         </div>
       </div>
@@ -191,7 +142,6 @@ export default function IntakeForm() {
   return (
     <div className="intake-page">
       <div className="intake-shell">
-        {/* Progress header */}
         <header className="intake-header">
           <span className="intake-eyebrow">Session Prep</span>
           <div
@@ -212,18 +162,43 @@ export default function IntakeForm() {
           <span className="intake-step-count">{step + 1}<span className="intake-step-of">/{TOTAL}</span></span>
         </header>
 
-        {/* Question body */}
         <main className="intake-body intake-body--entered" ref={containerRef}>
           <div className="intake-section-tag">
-            {isTLX
-              ? <><span className="intake-tag-name">Cognitive Load</span><span className="intake-tag-dim">{current.label}</span></>
-              : <><span className="intake-tag-name">S-E-R-T</span><span className="intake-tag-dim">{current.section} — {current.label}</span></>
-            }
+            {isName && <span className="intake-tag-name">Before we begin</span>}
+            {isText && <><span className="intake-tag-name">S-E-R-T</span><span className="intake-tag-dim">{current.section} — {current.label}</span></>}
+            {isTLX && <><span className="intake-tag-name">Cognitive Load</span><span className="intake-tag-dim">{current.label}</span></>}
           </div>
 
           <h2 className="intake-question">{current.question}</h2>
 
-          {isTLX ? (
+          {isName && (
+            <input
+              ref={inputRef}
+              type="text"
+              className="intake-text-input"
+              value={currentAnswer || ''}
+              onChange={handleTextChange}
+              onKeyDown={handleKeyDown}
+              placeholder="e.g. Alex M."
+              autoComplete="given-name"
+              aria-label={current.question}
+            />
+          )}
+
+          {isText && (
+            <textarea
+              ref={textareaRef}
+              className="intake-textarea"
+              value={currentAnswer || ''}
+              onChange={handleTextChange}
+              onKeyDown={handleKeyDown}
+              placeholder="Write freely — this is private."
+              rows={5}
+              aria-label={current.question}
+            />
+          )}
+
+          {isTLX && (
             <div className="intake-slider-wrap">
               <div className="intake-slider-value-display" aria-live="polite">{sliderValue}</div>
               <input
@@ -244,17 +219,6 @@ export default function IntakeForm() {
                 <span>{current.high}</span>
               </div>
             </div>
-          ) : (
-            <textarea
-              ref={textareaRef}
-              className="intake-textarea"
-              value={currentAnswer || ''}
-              onChange={handleTextChange}
-              onKeyDown={handleKeyDown}
-              placeholder="Write freely — this is private."
-              rows={5}
-              aria-label={current.question}
-            />
           )}
 
           <div className="intake-actions">
@@ -265,9 +229,8 @@ export default function IntakeForm() {
             >
               {isLast ? 'Prepare my brief' : 'Continue'}
             </button>
-            {!isTLX && (
-              <span className="intake-hint">⌘ Return to continue</span>
-            )}
+            {isName && <span className="intake-hint">Return to continue</span>}
+            {isText && <span className="intake-hint">⌘ Return to continue</span>}
           </div>
 
           {status === 'error' && (

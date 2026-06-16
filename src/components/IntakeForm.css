@@ -119,6 +119,30 @@
   letter-spacing: -0.01em;
 }
 
+/* ── Name input ── */
+.intake-text-input {
+  width: 100%;
+  background: #fff;
+  border: 1px solid var(--color-structure, #E0DDD8);
+  border-radius: var(--radius-md, 8px);
+  padding: 0.875rem 1rem;
+  font-family: inherit;
+  font-size: 1.1rem;
+  color: var(--color-closed, #1C1B1A);
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+  outline: none;
+  -webkit-appearance: none;
+}
+
+.intake-text-input::placeholder {
+  color: var(--color-text-subtle, #9CA3AF);
+}
+
+.intake-text-input:focus {
+  border-color: var(--color-open, #2C5F5A);
+  box-shadow: 0 0 0 3px rgba(44, 95, 90, 0.12);
+}
+
 /* ── Textarea ── */
 .intake-textarea {
   width: 100%;

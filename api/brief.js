@@ -16,7 +16,7 @@ module.exports = async function handler(req, res) {
   }
 
   const { filename } = req.query;
-  if (!filename || !/^brief-\d+\.md$/.test(filename)) {
+  if (!filename || !/^brief-[a-z0-9-]+-\d+\.md$/.test(filename)) {
     return res.status(400).json({ error: 'Valid filename required' });
   }
 
