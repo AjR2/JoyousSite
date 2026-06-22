@@ -26,6 +26,7 @@
   line-height:    1.22;
   letter-spacing: -0.025em;
   margin:         0;
+  text-align:     center;
 }
 
 /* ── Opening story ── */
@@ -38,6 +39,7 @@
   line-height:   1.8;
   color:         #6B7280;
   margin-bottom: 1.35rem;
+  text-align:    center;
 }
 
 .hiw-prose p:last-child { margin-bottom: 0; }

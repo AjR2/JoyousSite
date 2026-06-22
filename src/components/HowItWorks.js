@@ -36,9 +36,9 @@ function HowItWorks() {
               <p>
                 A friend was at my place a while back. Something was off the moment he walked in.
                 Small digs at how I run my life. Nothing direct, just pressure leaking out sideways.
-                I asked twice if something was going on. Nothing. So when he got up to leave, I let him.
+                I asked twice if something was going on? Nothing. So when he got up to leave, I let him.
               </p>
-              <p>He made it to the door and couldn't walk through it. Came back and said, can I tell you what's going on.</p>
+              <p>He made it to the door and couldn't walk through it. Came back and said, can I tell you what's going on?</p>
               <p>
                 We talked while I cooked. I didn't ask him how he felt. I asked what was causing it.
                 Then I asked what was causing that. We kept going until the answers stopped being feelings
@@ -55,6 +55,7 @@ function HowItWorks() {
                 and it had him overcommitted to the point of drowning. The pressure I saw at my door wasn't
                 about me. It was four open loops wearing a disguise.
               </p>
+              <p>Most people walk around carrying versions of that same weight and have no idea what's actually in it.</p>
               <p className="hiw-disclosure">Details changed to protect privacy.</p>
             </div>
           </div>
@@ -96,12 +97,9 @@ function HowItWorks() {
               <p>
                 The feeling-solution never closes anything. The loops stay open. Open loops keep consuming
                 attention whether you're looking at them or not. That constant drain is what you're calling
-                exhaustion.
-              </p>
-              <p>
-                And here's the part almost nobody questions: most of those loops were loaded into you by
-                your environment. The job you took, the commitments you keep, the rules you run on —
-                decided through experiences you weren't paying attention to when they shaped you.
+                exhaustion. And here's the part almost nobody questions: most of those loops were loaded into
+                you by your environment. The job you took, the commitments you keep, the rules you run on
+                were decided through experiences you weren't paying attention to when they shaped you.
                 People will question their brain chemistry before they question their environment.
               </p>
             </div>
@@ -135,9 +133,9 @@ function HowItWorks() {
               <p>
                 Do this enough times and you internalize the questioning. You start catching loops while
                 they're forming. You stop being dragged by whatever your environment loaded into you and
-                start choosing where your attention goes.
+                start choosing where your attention goes. That's the actual product. Not the sessions.
+                The trained ability to direct your own attention.
               </p>
-              <p>That's the actual product. Not the sessions. The trained ability to direct your own attention.</p>
             </div>
           </div>
         </section>
@@ -169,18 +167,15 @@ function HowItWorks() {
               <div className="hiw-prose">
                 <p>
                   In the first session we identify the primary blocker currently demanding the most of
-                  your attention. You complete a short questionnaire before we meet — this gives us a
+                  your attention. You complete a short questionnaire before we meet, which gives us a
                   clear picture of what's occupying your focus before we sit down together. The session
                   concludes with two deliverables sent to you by email: a closure map and a set of
                   closure rules. The map names each issue we identified and what closes it. The closure
-                  rules govern how you engage with those issues between now and closure — so they stop
-                  running in the background.
-                </p>
-                <p>
-                  If you sign up for two weeks, you have direct messaging access throughout. If something
-                  we identified turns out to be wrong, or something new surfaces, you reach out and we
-                  adjust. We meet again in week two to close any gaps the first session missed. You leave
-                  with a second map and updated closure rules.
+                  rules govern how you engage with those issues between now and closure, so they stop
+                  running in the background. If you sign up for two weeks, you have direct messaging
+                  access throughout. If something we identified turns out to be wrong, or something new
+                  surfaces, you reach out and we adjust. We meet again in week two to close any gaps
+                  the first session missed. You leave with a second map and updated closure rules.
                 </p>
                 <p>
                   At the end of two weeks the loops that were draining you are either closed or have a
