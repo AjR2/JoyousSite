@@ -2,6 +2,7 @@
 // Generates a pre-session brief so AJ enters every call focused, not cold
 
 const { ENACTIVE_CONTEXT, callClaude } = require('./context');
+const { requireAuth } = require('../_lib/verifyToken');
 
 const SYSTEM_PROMPT = `You are the Enactive Session Prep agent. Your job is to generate a focused pre-session brief so AJ enters each session already oriented to the founder's specific pattern.
 
@@ -37,10 +38,11 @@ OUTPUT FORMAT — return only valid JSON, no preamble, no markdown fences:
 module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+  if (!requireAuth(req, res)) return;
 
   const { input } = req.body || {};
   if (!input) return res.status(400).json({ error: 'input is required — paste prospect name, notes, or intake form' });

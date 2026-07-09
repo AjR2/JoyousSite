@@ -3,6 +3,7 @@
  * Manages analytics reporting configuration and execution
  */
 import React, { useState, useEffect } from 'react';
+import { authFetch } from '../utils/adminApi';
 import './AnalyticsReporterAdmin.css';
 
 const AnalyticsReporterAdmin = () => {
@@ -23,8 +24,8 @@ const AnalyticsReporterAdmin = () => {
     setLoading(true);
     try {
       const [configRes, statusRes] = await Promise.all([
-        fetch('/api/analytics-reporter-config'),
-        fetch('/api/analytics-reporter-status')
+        authFetch('/api/analytics-reporter-config'),
+        authFetch('/api/analytics-reporter-status')
       ]);
 
       const configData = await configRes.json();
@@ -60,7 +61,7 @@ const AnalyticsReporterAdmin = () => {
   const handleSaveConfig = async () => {
     setSaving(true);
     try {
-      const response = await fetch('/api/analytics-reporter-config', {
+      const response = await authFetch('/api/analytics-reporter-config', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(config)
@@ -88,7 +89,7 @@ const AnalyticsReporterAdmin = () => {
 
     setRunning(true);
     try {
-      const response = await fetch('/api/analytics-reporter-run', {
+      const response = await authFetch('/api/analytics-reporter-run', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ sendEmail: true, trigger: 'manual_admin' })
@@ -115,7 +116,7 @@ const AnalyticsReporterAdmin = () => {
 
     setTesting(true);
     try {
-      const response = await fetch('/api/analytics-reporter-test', {
+      const response = await authFetch('/api/analytics-reporter-test', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ recipient: testEmail })

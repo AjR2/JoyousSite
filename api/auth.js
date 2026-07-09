@@ -1,3 +1,5 @@
+const jwt = require('jsonwebtoken');
+
 const WINDOW_MS = 15 * 60 * 1000; // 15 minutes
 const MAX_ATTEMPTS = 3;
 const LOCKOUT_MS = 30 * 60 * 1000; // 30 minutes
@@ -70,9 +72,15 @@ module.exports = function handler(req, res) {
   }
 
   if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+    const secret = process.env.JWT_SECRET;
+    if (!secret) {
+      console.error('JWT_SECRET not configured');
+      return res.status(500).json({ error: 'Server configuration error' });
+    }
+
     // Successful login — reset record
     attempts[ip] = { count: 0, windowStart: now, lockedUntil: null };
-    const token = Buffer.from(`${username}:${Date.now()}`).toString('base64');
+    const token = jwt.sign({ username }, secret, { expiresIn: '8h' });
     return res.status(200).json({ success: true, token });
   }
 

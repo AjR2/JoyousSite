@@ -1,4 +1,6 @@
 // Nimbus AI Agents API endpoint
+const { requireAuth } = require('../_lib/verifyToken');
+
 module.exports = function handler(req, res) {
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -9,6 +11,8 @@ module.exports = function handler(req, res) {
     res.status(200).end();
     return;
   }
+
+  if (!requireAuth(req, res)) return;
 
   try {
     // Default agents configuration

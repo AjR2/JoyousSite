@@ -1,6 +1,7 @@
 // Vercel API Route for Tags
 const fs = require('fs');
 const path = require('path');
+const { requireAuth } = require('./_lib/verifyToken');
 
 // Helper function to load posts
 const loadPosts = () => {
@@ -47,6 +48,8 @@ module.exports = function handler(req, res) {
   if (req.method !== 'GET') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
+
+  if (!requireAuth(req, res)) return;
 
   try {
     const posts = loadPosts();

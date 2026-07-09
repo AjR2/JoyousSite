@@ -1,4 +1,5 @@
 // Simple Nimbus AI Chat API endpoint for Vercel
+const { requireAuth } = require('../_lib/verifyToken');
 
 // Agent selection logic
 function selectBestAgent(message) {
@@ -103,6 +104,8 @@ module.exports = async function handler(req, res) {
     res.status(405).json({ error: 'Method not allowed' });
     return;
   }
+
+  if (!requireAuth(req, res)) return;
 
   const { message, agent_id, conversation_id } = req.body;
 

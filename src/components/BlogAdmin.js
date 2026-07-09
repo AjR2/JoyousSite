@@ -4,6 +4,7 @@ import MarkdownEditor from './MarkdownEditor';
 import BlogAnalytics from './BlogAnalytics';
 import NimbusAdmin from './NimbusAdmin';
 import AnalyticsReporterAdmin from './AnalyticsReporterAdmin';
+import { authFetch } from '../utils/adminApi';
 import './BlogAdmin.css';
 
 const BlogAdmin = () => {
@@ -30,9 +31,9 @@ const BlogAdmin = () => {
   const fetchData = async () => {
     try {
       const [postsRes, categoriesRes, tagsRes] = await Promise.all([
-        fetch('/api/posts'),
-        fetch('/api/categories'),
-        fetch('/api/tags')
+        authFetch('/api/posts'),
+        authFetch('/api/categories'),
+        authFetch('/api/tags')
       ]);
 
       const postsData = await postsRes.json();
@@ -142,7 +143,7 @@ const BlogAdmin = () => {
       const url = editingPost ? `/api/posts/${editingPost.id}` : '/api/posts';
       const method = editingPost ? 'PUT' : 'POST';
 
-      const response = await fetch(url, {
+      const response = await authFetch(url, {
         method,
         headers: {
           'Content-Type': 'application/json',
@@ -172,7 +173,7 @@ const BlogAdmin = () => {
     }
 
     try {
-      const response = await fetch(`/api/posts/${post.id}`, {
+      const response = await authFetch(`/api/posts/${post.id}`, {
         method: 'DELETE',
       });
 

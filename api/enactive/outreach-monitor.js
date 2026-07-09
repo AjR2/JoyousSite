@@ -2,6 +2,7 @@
 // Scans ICP-matched founder pain posts and drafts responses
 
 const { ENACTIVE_CONTEXT, callClaude } = require('./context');
+const { requireAuth } = require('../_lib/verifyToken');
 
 const SYSTEM_PROMPT = `You are the Enactive Outreach Monitor. Your job is to identify founder pain posts that match Enactive's ICP and generate draft responses AJ can post manually.
 
@@ -46,10 +47,11 @@ Return 4–7 posts. Only include posts with icp_score >= 55. Prioritize posts fr
 module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+  if (!requireAuth(req, res)) return;
 
   const { input } = req.body || {};
   if (!input) return res.status(400).json({ error: 'input is required' });

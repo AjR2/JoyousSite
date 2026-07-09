@@ -5,6 +5,7 @@
  */
 const ReportBuilder = require('./analytics-reporter/report-builder');
 const AnalyticsReporterOrchestrator = require('./analytics-reporter/orchestrator');
+const { requireAuth } = require('./_lib/verifyToken');
 
 module.exports = async function handler(req, res) {
   // CORS headers
@@ -19,6 +20,8 @@ module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
+
+  if (!requireAuth(req, res)) return;
 
   try {
     const { recipient } = req.body || {};

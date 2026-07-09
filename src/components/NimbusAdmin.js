@@ -1,5 +1,6 @@
 // NimbusAdmin.js - Nimbus AI management interface integrated with existing admin
 import React, { useState, useEffect } from 'react';
+import { authFetch } from '../utils/adminApi';
 import './NimbusAdmin.css';
 
 const NimbusAdmin = () => {
@@ -39,7 +40,7 @@ const NimbusAdmin = () => {
 
   const fetchSystemStatus = async () => {
     try {
-      const response = await fetch('/api/nimbus/health-simple?detailed=true');
+      const response = await authFetch('/api/nimbus/health-simple?detailed=true');
       const data = await response.json();
       
       if (data.services) {
@@ -65,7 +66,7 @@ const NimbusAdmin = () => {
 
   const fetchAgents = async () => {
     try {
-      const response = await fetch('/api/nimbus/agents');
+      const response = await authFetch('/api/nimbus/agents');
       const data = await response.json();
       setAgents(data.agents || []);
       setLoading(false);
@@ -103,7 +104,7 @@ const NimbusAdmin = () => {
     setChatLoading(true);
 
     try {
-      const response = await fetch('/api/nimbus/chat-simple', {
+      const response = await authFetch('/api/nimbus/chat-simple', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -161,7 +162,7 @@ const NimbusAdmin = () => {
         ? `/api/nimbus/agents?agent_id=${editingAgent.agent_id}`
         : '/api/nimbus/agents';
 
-      const response = await fetch(url, {
+      const response = await authFetch(url, {
         method,
         headers: {
           'Content-Type': 'application/json',
@@ -208,7 +209,7 @@ const NimbusAdmin = () => {
     if (!confirm(`Are you sure you want to delete agent '${agentId}'?`)) return;
 
     try {
-      const response = await fetch(`/api/nimbus/agents?agent_id=${agentId}`, {
+      const response = await authFetch(`/api/nimbus/agents?agent_id=${agentId}`, {
         method: 'DELETE',
       });
 

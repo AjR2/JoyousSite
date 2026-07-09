@@ -1,4 +1,5 @@
 // Simple Nimbus AI Health Check API endpoint for Vercel
+const { requireAuth } = require('../_lib/verifyToken');
 
 module.exports = async function handler(req, res) {
   // Set CORS headers
@@ -14,6 +15,8 @@ module.exports = async function handler(req, res) {
   if (req.method !== 'GET') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
+
+  if (!requireAuth(req, res)) return;
 
   try {
     const { detailed } = req.query;

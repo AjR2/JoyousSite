@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import { authFetch } from '../utils/adminApi';
 import './EnactiveAgents.css';
 
 const AGENTS = [
@@ -62,7 +63,7 @@ function AgentPanel({ agent }) {
     setError(null);
 
     try {
-      const res = await fetch(`/api/enactive/${agent.id}`, {
+      const res = await authFetch(`/api/enactive/${agent.id}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ input: input.trim() }),

@@ -1,6 +1,7 @@
 // Vercel API Route for Blog Posts
 const fs = require('fs');
 const path = require('path');
+const { requireAuth } = require('./_lib/verifyToken');
 
 // Helper functions
 const loadPosts = () => {
@@ -39,6 +40,8 @@ module.exports = function handler(req, res) {
     res.status(200).end();
     return;
   }
+
+  if (!requireAuth(req, res)) return;
 
   try {
     if (req.method === 'GET') {

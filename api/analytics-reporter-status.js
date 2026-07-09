@@ -4,6 +4,7 @@
  */
 const { ReporterConfig, RunHistory } = require('./analytics-reporter/data/models');
 const { testAllConnectors } = require('./analytics-reporter/connectors');
+const { requireAuth } = require('./_lib/verifyToken');
 
 module.exports = async function handler(req, res) {
   // CORS headers
@@ -18,6 +19,8 @@ module.exports = async function handler(req, res) {
   if (req.method !== 'GET') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
+
+  if (!requireAuth(req, res)) return;
 
   try {
     const config = ReporterConfig.load();

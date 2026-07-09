@@ -1,5 +1,6 @@
 // BlogAnalytics.js - Simple analytics dashboard for blog
 import React, { useState, useEffect } from 'react';
+import { authFetch } from '../utils/adminApi';
 import './BlogAnalytics.css';
 
 const BlogAnalytics = () => {
@@ -28,9 +29,9 @@ const BlogAnalytics = () => {
       
       // Fetch all necessary data
       const [postsRes, categoriesRes, tagsRes] = await Promise.all([
-        fetch('/api/posts'),
-        fetch('/api/categories'),
-        fetch('/api/tags')
+        authFetch('/api/posts'),
+        authFetch('/api/categories'),
+        authFetch('/api/tags')
       ]);
 
       if (!postsRes.ok || !categoriesRes.ok || !tagsRes.ok) {

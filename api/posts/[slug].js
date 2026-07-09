@@ -3,6 +3,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const { requireAuth } = require('../_lib/verifyToken');
 
 // Helper function to load posts
 const loadPosts = () => {
@@ -55,6 +56,8 @@ module.exports = async function handler(req, res) {
         res.status(404).json({ error: 'Post not found' });
       }
     } else if (req.method === 'DELETE') {
+      if (!requireAuth(req, res)) return;
+
       const postIndex = posts.findIndex(post => post.id === slug);
 
       if (postIndex === -1) {
