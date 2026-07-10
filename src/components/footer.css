@@ -1,11 +1,19 @@
 /* Enactive — Footer (Brand Guide v1.0) */
 
 .site-footer {
-  background: #1C1B1A;   /* --color-closed */
+  background: rgba(28, 27, 26, 0.94);   /* --color-closed, translucent so the loop tunnel reads through */
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border-top: none;
   color: rgba(240, 237, 232, 0.6); /* --color-clear at 60% */
   padding: 4rem 2rem 0;
   margin-top: 0;
+  position: relative;
+  z-index: 1;
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .site-footer { background: #1C1B1A; }
 }
 
 .footer-inner {

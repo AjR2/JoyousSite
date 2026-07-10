@@ -14,6 +14,7 @@ import LoadingSpinner from './components/LoadingSpinner';
 import AccessibilityProvider from './components/AccessibilityProvider';
 import ClarityQuestionnaire from './components/ClarityQuestionnaire';
 import { OpenLoop, ClosedLoop } from './components/LoopMark';
+import LoopTunnel from './components/LoopTunnel';
 import IntakeForm from './components/IntakeForm';
 const BriefsViewer = React.lazy(() => import('./components/BriefsViewer'));
 
@@ -93,28 +94,11 @@ function AppContent() {
           element={
             <>
               <Header />
+              <LoopTunnel loopCount={6} />
               <main className="main-content" id="main-content" role="main">
 
                 {/* Hero Section */}
                 <section className="hero-section" id="home" aria-labelledby="hero-heading">
-                  {/* Rotating loop rings — background animation */}
-                  <div className="hero-loop-bg" aria-hidden="true">
-                    <div className="hero-loop-ring hero-loop-ring--outer">
-                      <svg viewBox="0 0 24 24" fill="none" width="680" height="680">
-                        <circle cx="12" cy="12" r="9" stroke="#2C5F5A" strokeWidth="0.6" strokeDasharray="48 8" strokeLinecap="round" transform="rotate(-90 12 12)" />
-                      </svg>
-                    </div>
-                    <div className="hero-loop-ring hero-loop-ring--mid">
-                      <svg viewBox="0 0 24 24" fill="none" width="460" height="460">
-                        <circle cx="12" cy="12" r="9" stroke="#2C5F5A" strokeWidth="0.8" strokeDasharray="48 8" strokeLinecap="round" transform="rotate(-90 12 12)" />
-                      </svg>
-                    </div>
-                    <div className="hero-loop-ring hero-loop-ring--inner">
-                      <svg viewBox="0 0 24 24" fill="none" width="280" height="280">
-                        <circle cx="12" cy="12" r="9" stroke="#2C5F5A" strokeWidth="1.2" strokeDasharray="48 8" strokeLinecap="round" transform="rotate(-90 12 12)" />
-                      </svg>
-                    </div>
-                  </div>
                   <div className="hero-inner">
                     <div className="hero-pill-stack">
                       <span className="hero-mtr-pill">
@@ -139,6 +123,7 @@ function AppContent() {
                       </button>
                       <span className="hero-cta-meta">Free · No signup · Less than 5 minutes</span>
                     </div>
+                    <span className="tunnel-mono-hint" aria-hidden="true">SCROLL — EACH SECTION CLOSES A LOOP ↓</span>
                   </div>
                 </section>
 
@@ -150,7 +135,7 @@ function AppContent() {
 
                 {/* About Section */}
                 <section className="page-section about-section" id="about" aria-labelledby="about-heading">
-                  <div className="about-split">
+                  <div className="tunnel-panel about-panel">
                     <div className="about-split-text">
                       <h2 id="about-heading">The real drain isn't the workload.</h2>
                       <p className="about-description">
@@ -169,57 +154,106 @@ function AppContent() {
                         Not sure if this applies? Run the free diagnostic →
                       </button>
                     </div>
-                    {/* Closure Map artifact — replaces stock photo */}
-                    <div className="about-artifact" role="img" aria-label="Sample closure map output from a session">
-                      <div className="artifact-header">
-                        <span className="artifact-label">Closure Map</span>
-                        <span className="artifact-meta">Session output — redacted</span>
+                  </div>
+                </section>
+
+                <div className="tunnel-spacer" aria-hidden="true" />
+
+                {/* What you can expect Section */}
+                <section className="page-section expect-section" id="expect" aria-labelledby="expect-heading">
+                  <div className="section-inner">
+                    <h2 id="expect-heading" className="section-title">What you can expect</h2>
+                    <p className="about-mission expect-intro">
+                      Every session ends with a document, not a conversation. These are redacted examples of the actual output.
+                    </p>
+                    <div className="card-3d-row expect-artifact-row">
+                      {/* Closure Map artifact — replaces stock photo */}
+                      <div className="card-3d" style={{ transform: 'rotateY(-9deg)' }}>
+                        <div className="about-artifact" role="img" aria-label="Sample closure map output from a session">
+                          <div className="artifact-header">
+                            <span className="artifact-label">Closure Map</span>
+                            <span className="artifact-meta">Session output — redacted</span>
+                          </div>
+                          <div className="artifact-body">
+                            <div className="artifact-section">
+                              <span className="artifact-section-label">Open loops identified</span>
+                              <ul className="artifact-loops">
+                                <li>
+                                  <span className="loop-icon"><OpenLoop size={14} /></span>
+                                  Hiring decision — unresolved for 6 weeks
+                                </li>
+                                <li>
+                                  <span className="loop-icon"><OpenLoop size={14} /></span>
+                                  Partnership terms — circling without closure
+                                </li>
+                                <li>
+                                  <span className="loop-icon"><OpenLoop size={14} /></span>
+                                  Q3 pricing model — re-opening after each call
+                                </li>
+                              </ul>
+                            </div>
+                            <div className="artifact-section">
+                              <span className="artifact-section-label">Constraints</span>
+                              <ul className="artifact-constraints">
+                                <li>Cannot risk Series A timeline</li>
+                                <li>Must protect lead engineer's focus</li>
+                              </ul>
+                            </div>
+                            <div className="artifact-section artifact-section--accent">
+                              <span className="artifact-section-label">Next actions</span>
+                              <ol className="artifact-actions">
+                                <li>Close hiring decision by Friday. Set closure rule — no further deliberation after that date.</li>
+                                <li>Remove partnership from active consideration until Q3.</li>
+                              </ol>
+                            </div>
+                            <div className="artifact-footer">
+                              <ClosedLoop size={14} color="#2C5F5A" />
+                              2 of 3 loops closed this session
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                      <div className="artifact-body">
-                        <div className="artifact-section">
-                          <span className="artifact-section-label">Open loops identified</span>
-                          <ul className="artifact-loops">
-                            <li>
-                              <span className="loop-icon"><OpenLoop size={14} /></span>
-                              Hiring decision — unresolved for 6 weeks
-                            </li>
-                            <li>
-                              <span className="loop-icon"><OpenLoop size={14} /></span>
-                              Partnership terms — circling without closure
-                            </li>
-                            <li>
-                              <span className="loop-icon"><OpenLoop size={14} /></span>
-                              Q3 pricing model — re-opening after each call
-                            </li>
-                          </ul>
-                        </div>
-                        <div className="artifact-section">
-                          <span className="artifact-section-label">Constraints</span>
-                          <ul className="artifact-constraints">
-                            <li>Cannot risk Series A timeline</li>
-                            <li>Must protect lead engineer's focus</li>
-                          </ul>
-                        </div>
-                        <div className="artifact-section artifact-section--accent">
-                          <span className="artifact-section-label">Next actions</span>
-                          <ol className="artifact-actions">
-                            <li>Close hiring decision by Friday. Set closure rule — no further deliberation after that date.</li>
-                            <li>Remove partnership from active consideration until Q3.</li>
-                          </ol>
-                        </div>
-                        <div className="artifact-footer">
-                          <ClosedLoop size={14} color="#2C5F5A" />
-                          2 of 3 loops closed this session
+
+                      <div className="card-3d" style={{ transform: 'rotateY(9deg)' }}>
+                        <div className="sample-directive" aria-label="Sample closure map">
+                          <span className="sample-directive-label">Sample output</span>
+                          <div className="sample-directive-block">
+                            <span className="sample-tag">PROBLEM</span>
+                            <p>Three decisions are structurally unresolved, creating recursive loops that activate outside work hours.</p>
+                          </div>
+                          <div className="sample-directive-block sample-directive-block--accent">
+                            <span className="sample-tag">NEXT ACTIONS</span>
+                            <ol>
+                              <li>Set a closure rule for the hiring decision by Friday — no further deliberation after that date.</li>
+                              <li>Remove the partnership question from active consideration until Q3.</li>
+                            </ol>
+                          </div>
+                          <p className="sample-directive-note">Redacted from a real session. Your closure map reflects your specific pattern.</p>
                         </div>
                       </div>
                     </div>
                   </div>
                 </section>
 
+                <div className="tunnel-spacer" aria-hidden="true" />
+
                 {/* Drift Diagnostic Section */}
                 <section className="page-section diagnostic-section" id="diagnostic" aria-labelledby="diagnostic-heading">
-                  <div className="about-split diagnostic-split">
-                    <div className="diagnostic-cta-block">
+                  <div className="tunnel-panel diagnostic-panel">
+                    <h2 id="diagnostic-heading">Drift diagnostic</h2>
+                    <p className="about-description">
+                      Most founders know something is off before they can name it. Shorter patience. Slower decisions. The sense that more effort is producing less movement.
+                    </p>
+                    <p className="about-description">
+                      That is drift. And it has a structure.
+                    </p>
+                    <p className="about-mission">
+                      The diagnostic identifies which decision loops are currently open, what they are costing you in execution capacity, and what needs to close first. It takes less than five minutes. You leave with a closure map — your problem named, your constraints mapped, your next two actions specified.
+                    </p>
+                    <p className="about-mission diagnostic-finisher">
+                      Not a score. Not a category. A document you can use today.
+                    </p>
+                    <div className="diagnostic-cta-block diagnostic-cta-block--inline">
                       <button
                         className="button cta-button primary-cta diagnostic-cta-button"
                         onClick={() => setIsQuestionnaireOpen(true)}
@@ -228,55 +262,30 @@ function AppContent() {
                       </button>
                       <span className="diagnostic-meta">Less than 5 minutes · No signup</span>
                     </div>
-                    <div className="about-split-text diagnostic-split-text">
-                      <h2 id="diagnostic-heading">Drift diagnostic</h2>
-                      <p className="about-description">
-                        Most founders know something is off before they can name it. Shorter patience. Slower decisions. The sense that more effort is producing less movement.
-                      </p>
-                      <p className="about-description">
-                        That is drift. And it has a structure.
-                      </p>
-                      <p className="about-mission">
-                        The diagnostic identifies which decision loops are currently open, what they are costing you in execution capacity, and what needs to close first. It takes less than five minutes. You leave with a closure map — your problem named, your constraints mapped, your next two actions specified.
-                      </p>
-                      <p className="about-mission diagnostic-finisher">
-                        Not a score. Not a category. A document you can use today.
-                      </p>
-
-                      <div className="sample-directive" aria-label="Sample closure map">
-                        <span className="sample-directive-label">Sample output</span>
-                        <div className="sample-directive-block">
-                          <span className="sample-tag">PROBLEM</span>
-                          <p>Three decisions are structurally unresolved, creating recursive loops that activate outside work hours.</p>
-                        </div>
-                        <div className="sample-directive-block sample-directive-block--accent">
-                          <span className="sample-tag">NEXT ACTIONS</span>
-                          <ol>
-                            <li>Set a closure rule for the hiring decision by Friday — no further deliberation after that date.</li>
-                            <li>Remove the partnership question from active consideration until Q3.</li>
-                          </ol>
-                        </div>
-                        <p className="sample-directive-note">Redacted from a real session. Your closure map reflects your specific pattern.</p>
-                      </div>
-                    </div>
                   </div>
                 </section>
+
+                <div className="tunnel-spacer" aria-hidden="true" />
 
                 {/* Operating Principles Section */}
                 <section className="page-section values-section" id="values" aria-labelledby="values-heading">
                   <div className="section-inner">
                     <h2 id="values-heading" className="section-title">Operating Principles</h2>
-                    <div className="values-grid" role="list" aria-label="Our operating principles">
-                      {PRINCIPLES.map(p => (
-                        <PrincipleCard key={p.number} {...p} />
+                    <div className="card-3d-row" role="list" aria-label="Our operating principles">
+                      {PRINCIPLES.map((p, i) => (
+                        <div key={p.number} className="card-3d" style={{ transform: `rotateY(${[-16, -5, 5, 16][i] || 0}deg)` }}>
+                          <PrincipleCard {...p} />
+                        </div>
                       ))}
                     </div>
                   </div>
                 </section>
 
+                <div className="tunnel-spacer" aria-hidden="true" />
+
                 {/* Who This Is For Section */}
                 <section className="page-section icp-section" id="who" aria-labelledby="icp-heading">
-                  <div className="section-inner">
+                  <div className="tunnel-panel section-inner">
                     <h2 id="icp-heading" className="section-title">Who this is for</h2>
                     <div className="icp-grid">
                       <div className="icp-col icp-col--yes">
@@ -301,9 +310,11 @@ function AppContent() {
                   </div>
                 </section>
 
+                <div className="tunnel-spacer" aria-hidden="true" />
+
                 {/* Founder Credibility Section */}
                 <section className="page-section founder-cred-section" id="founder" aria-labelledby="founder-cred-heading">
-                  <div className="section-inner founder-cred-inner">
+                  <div className="tunnel-panel founder-cred-inner">
                     <div className="founder-cred-text">
                       <span className="section-eyebrow">Who runs the sessions</span>
                       <h2 id="founder-cred-heading">AJ Rudd</h2>
@@ -327,9 +338,11 @@ function AppContent() {
                   </div>
                 </section>
 
+                <div className="tunnel-spacer" aria-hidden="true" />
+
                 {/* Offer Section */}
                 <section className="page-section offer-section" id="offer" aria-labelledby="offer-heading">
-                  <div className="section-inner">
+                  <div className="tunnel-panel tunnel-panel--dark offer-panel">
                     <header className="kindred-header">
                       <h2 id="offer-heading" className="section-title" style={{ color: '#F0EDE8' }}>Sessions. Structured output. Closed loops.</h2>
                       <p className="kindred-description">
@@ -401,7 +414,7 @@ function AppContent() {
 
                 {/* CTA Band */}
                 <section className="cta-band" aria-labelledby="cta-band-heading">
-                  <div className="cta-band-inner">
+                  <div className="tunnel-panel cta-band-inner">
                     <p className="cta-band-trust">This isn't therapy. It isn't coaching. It's structural cognitive work — the kind that produces a document you can actually use the next time the load spikes.</p>
                     <h2 id="cta-band-heading">If you're a founder who's still functioning but starting to feel the ceiling — this is the window. Not after the collapse. Now.</h2>
                     <a
@@ -412,6 +425,7 @@ function AppContent() {
                     >
                       Book a closure session
                     </a>
+                    <span className="tunnel-mono-hint" aria-hidden="true">ALL 6 LOOPS CLOSED ○</span>
                   </div>
                 </section>
 

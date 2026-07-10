@@ -55,16 +55,6 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes loop-spin-cw {
-  from { transform: translate(-50%, -50%) rotate(0deg); }
-  to   { transform: translate(-50%, -50%) rotate(360deg); }
-}
-
-@keyframes loop-spin-ccw {
-  from { transform: translate(-50%, -50%) rotate(0deg); }
-  to   { transform: translate(-50%, -50%) rotate(-360deg); }
-}
-
 /* ── Global ── */
 html, body {
   overflow-x: hidden;
@@ -160,30 +150,25 @@ html, body {
   background: var(--color-structure);
 }
 
-/* ── Section backgrounds — all on Clear ── */
-.about-section      { background: var(--color-clear); }
-.values-section     { background: var(--color-clear); }
-.icp-section        { background: var(--color-clear); }
-.diagnostic-section { background: var(--color-clear); }
-.founder-cred-section { background: var(--color-clear); }
-
-/* Offer section — slightly darker surface to distinguish */
+/* ── Section backgrounds — transparent so the loop tunnel reads through ── */
+.about-section,
+.values-section,
+.icp-section,
+.diagnostic-section,
+.founder-cred-section,
 .offer-section {
-  background: var(--color-closed);
+  background: transparent;
   position: relative;
-  overflow: hidden;
 }
 
 /* ── Hero Section ── */
 .hero-section {
-  background: var(--color-clear);
+  background: transparent;
   padding: 9rem 2rem 8rem;
   text-align: center;
   width: 100%;
   position: relative;
   overflow: hidden;
-  isolation: isolate;
-  border-bottom: 1px solid var(--color-structure);
 }
 
 .hero-inner {
@@ -200,42 +185,6 @@ html, body {
   line-height: 1.06;
   letter-spacing: -0.04em;
   margin-bottom: 1.5rem;
-}
-
-/* Hero — animated background loop rings */
-.hero-loop-bg {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.hero-loop-ring {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-}
-
-.hero-loop-ring--outer {
-  width: 680px;
-  height: 680px;
-  animation: loop-spin-cw 40s linear infinite;
-  opacity: 0.055;
-}
-
-.hero-loop-ring--mid {
-  width: 460px;
-  height: 460px;
-  animation: loop-spin-ccw 24s linear infinite;
-  opacity: 0.07;
-}
-
-.hero-loop-ring--inner {
-  width: 280px;
-  height: 280px;
-  animation: loop-spin-cw 14s linear infinite;
-  opacity: 0.1;
 }
 
 /* Hero loop mark accent (small above heading) */
@@ -507,12 +456,19 @@ html, body {
 }
 
 /* ── About Section ── */
-.about-split {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 5rem;
-  align-items: center;
-  max-width: 1100px;
+.about-panel {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.expect-intro {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 2.5rem;
+}
+
+.expect-artifact-row {
+  max-width: 1000px;
   margin: 0 auto;
 }
 
@@ -567,6 +523,13 @@ html, body {
 }
 
 /* ── Drift Diagnostic Section ── */
+.diagnostic-panel h2 {
+  text-align: left;
+  font-size: clamp(1.6rem, 2vw + 1rem, 2.2rem);
+  letter-spacing: -0.03em;
+  margin-bottom: 1.25rem;
+}
+
 .diagnostic-cta-block {
   display: flex;
   flex-direction: column;
@@ -574,6 +537,15 @@ html, body {
   justify-content: center;
   gap: 1rem;
   text-align: center;
+}
+
+.diagnostic-cta-block--inline {
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1.25rem;
+  text-align: left;
+  margin-top: 1.75rem;
 }
 
 .diagnostic-cta-button {
@@ -589,13 +561,6 @@ html, body {
   font-weight: 500;
 }
 
-.diagnostic-split-text h2 {
-  text-align: left;
-  font-size: clamp(1.6rem, 2vw + 1rem, 2.2rem);
-  letter-spacing: -0.03em;
-  margin-bottom: 1.25rem;
-}
-
 .diagnostic-finisher {
   font-style: italic;
   color: var(--color-open);
@@ -604,8 +569,11 @@ html, body {
 }
 
 @media (max-width: 768px) {
-  .diagnostic-split { grid-template-columns: 1fr; gap: 2rem; }
-  .diagnostic-cta-block { align-items: stretch; }
+  .diagnostic-cta-block--inline {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
   .diagnostic-cta-button { width: 100%; }
 }
 
@@ -625,19 +593,10 @@ html, body {
   color: var(--color-open);
 }
 
-/* ── Values / Principles Grid ── */
-.values-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1px;
-  margin-top: 2.5rem;
-  border: 1px solid var(--color-structure);
-  background: var(--color-structure);
-}
-
+/* ── Values / Principles — tilted card row (wrapped in .card-3d-row) ── */
 .value-item {
   position: relative;
-  background: var(--color-clear);
+  background: var(--color-surface);
   padding: 1.75rem;
   text-align: left;
   transition: background var(--dur-base) var(--ease-out);
@@ -833,27 +792,29 @@ html, body {
 .offer-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1px;
+  gap: 1.25rem;
   margin-top: 2.75rem;
   text-align: left;
-  border: 1px solid rgba(240, 237, 232, 0.15);
-  background: rgba(240, 237, 232, 0.1);
 }
 
 .offer-card {
   position: relative;
-  background: rgba(28, 27, 26, 0.6);
-  border: none;
+  background: transparent;
+  border: 1px solid rgba(240, 237, 232, 0.15);
+  border-radius: 8px;
   padding: 2rem 1.75rem;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   text-align: left;
   gap: 0.85rem;
-  transition: background var(--dur-base) var(--ease-out);
+  transition: background var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out);
 }
 
-.offer-card:hover { background: rgba(28, 27, 26, 0.75); }
+.offer-card:hover {
+  background: rgba(240, 237, 232, 0.05);
+  border-color: rgba(240, 237, 232, 0.3);
+}
 
 .offer-card h3 {
   font-size: 1.1rem;
@@ -912,8 +873,7 @@ html, body {
 
 /* ── CTA Band ── */
 .cta-band {
-  background: var(--color-clear);
-  border-top: 1px solid var(--color-structure);
+  background: transparent;
   padding: 6rem 2rem;
   text-align: center;
   position: relative;
@@ -978,10 +938,6 @@ html, body {
   .hero-section { padding: 5rem 1.5rem 5rem; }
   .hero-section h1 { font-size: 2.1rem; }
 
-  .about-split {
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
-  }
   .about-split-text h2 { font-size: 1.5rem; }
   .about-photo { height: 280px; }
   .about-description, .about-mission { text-align: left; }
@@ -989,7 +945,7 @@ html, body {
   .page-section h2,
   .section-title { font-size: 1.6rem; }
 
-  .values-grid { grid-template-columns: 1fr; }
+  .card-3d-row { grid-template-columns: 1fr; }
 
   .cta-band { padding: 4rem 1.5rem; }
   .cta-band h2 { font-size: 1.5rem; }
@@ -1026,10 +982,6 @@ html, body {
   .button:hover,
   .kindred-button:hover,
   .cta-band-button:hover { transform: none; }
-
-  .hero-loop-ring--outer,
-  .hero-loop-ring--mid,
-  .hero-loop-ring--inner { animation: none; }
 }
 
 @media (prefers-contrast: high) {
@@ -1054,6 +1006,18 @@ html, body {
   color: var(--color-text-subtle);
   margin-top: 0.75rem;
   font-weight: 500;
+}
+
+/* ── Tunnel mono hint lines — scroll cue + terminal "loops closed" state ── */
+.tunnel-mono-hint {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-open);
+  text-align: center;
+  margin-top: 2.5rem;
 }
 
 /* ── About nudge CTA ── */
@@ -1289,5 +1253,108 @@ html, body {
     .page-section,
     .value-item,
     .offer-card { animation: none; }
+  }
+}
+
+/* ── Loop Tunnel — shared 3D scroll background (Home + How It Works) ── */
+.loop-tunnel {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  margin-bottom: -100vh;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.loop-tunnel-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.loop-counter {
+  position: fixed;
+  top: 80px;
+  right: 1.5rem;
+  z-index: 5;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--color-open);
+  background: rgba(240, 237, 232, 0.85);
+  border: 1px solid var(--color-structure);
+  border-radius: var(--radius-sm);
+  padding: 0.35rem 0.7rem;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+/* Content sits above the sticky tunnel canvas without needing per-section z-index */
+.main-content,
+.hiw-page {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Tunnel panel — translucent floating section over the tunnel ── */
+.tunnel-panel {
+  position: relative;
+  background: rgba(240, 237, 232, 0.9);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--color-structure);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: 3rem 2.5rem;
+}
+
+.tunnel-panel--dark {
+  background: rgba(28, 27, 26, 0.94);
+  border-color: rgba(240, 237, 232, 0.15);
+}
+
+.tunnel-spacer {
+  height: 320px;
+}
+
+/* ── Tilted 3D card row ── */
+.card-3d-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.75rem;
+  perspective: 1500px;
+}
+
+.card-3d {
+  transition: transform var(--dur-slow) var(--ease-out);
+  transform-style: preserve-3d;
+}
+
+.card-3d:hover,
+.card-3d:focus-within {
+  transform: rotateY(0deg) translateZ(30px) !important;
+}
+
+/* ── Guardrails: reduced motion, mobile, no-WebGL fallback ── */
+@media (prefers-reduced-motion: reduce) {
+  .card-3d {
+    transition: none;
+  }
+  .card-3d:hover,
+  .card-3d:focus-within {
+    transform: none !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .tunnel-spacer {
+    height: 140px;
+  }
+  .card-3d {
+    transform: none !important;
+  }
+  .tunnel-panel {
+    padding: 2rem 1.5rem;
   }
 }

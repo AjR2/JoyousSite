@@ -5,6 +5,7 @@
   background-color: #F0EDE8;
   min-height: 100vh;
   padding-top: 64px; /* nav height */
+  position: relative;
 }
 
 /* ── Container ── */
@@ -14,10 +15,19 @@
   padding:   0 1.5rem;
 }
 
+/* Floating panels over the tunnel */
+.hiw-panel {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
 /* ── Hero ── */
 .hiw-hero {
   padding: 5rem 0 3.5rem;
+  text-align: center;
 }
+
+.hiw-hero .section-eyebrow { display: block; }
 
 .hiw-hero h1 {
   font-size:      clamp(1.85rem, 4vw, 2.6rem);
@@ -44,6 +54,12 @@
 
 .hiw-prose p:last-child { margin-bottom: 0; }
 
+/* Lead paragraph of each floating panel reads as ink, not peripheral gray */
+.hiw-panel:not(.tunnel-panel--dark) .hiw-prose p:first-child {
+  color: #1C1B1A;
+  font-weight: 500;
+}
+
 .hiw-disclosure {
   font-size:     0.8rem !important;
   color:         #9CA3AF !important;
@@ -53,8 +69,7 @@
 
 /* ── Content sections ── */
 .hiw-section {
-  padding:    3.5rem 0;
-  border-top: 1px solid #E0DDD8;
+  padding: 3.5rem 0;
 }
 
 /* ── Section heading — centered, bold ── */
@@ -82,25 +97,30 @@
   font-style:     italic;
   margin-bottom:  0.5rem !important;
   line-height:    1.5 !important;
+  text-align:     left;
+  border-left:    2px solid #2C5F5A;
+  padding:        0.35rem 0 0.35rem 1rem;
 }
 
-/* ── Session block ── */
-.hiw-session-block {
-  background:    #FFFFFF;
-  border:        1px solid #E0DDD8;
-  border-radius: 6px;
-  padding:       1.75rem 2rem;
-}
-
+/* ── Session block — the single dark tunnel panel on the page ── */
 .hiw-session-block .hiw-prose p {
   font-size: 0.975rem;
+  color: rgba(240, 237, 232, 0.75);
+}
+
+.hiw-session-panel .hiw-prose p:last-child {
+  color: #F0EDE8;
+  font-weight: 500;
 }
 
 /* ── Closing section ── */
 .hiw-closing {
   padding:    5rem 0 6rem;
   text-align: center;
-  border-top: 1px solid #E0DDD8;
+}
+
+.hiw-closing-panel {
+  text-align: center;
 }
 
 .hiw-closing-line {
@@ -145,7 +165,6 @@
   .hiw-hero     { padding: 3rem 0 2.5rem; }
   .hiw-hero h1  { font-size: clamp(1.6rem, 6vw, 2rem); }
   .hiw-section  { padding: 2.5rem 0; }
-  .hiw-session-block { padding: 1.25rem; }
   .hiw-closing  { padding: 3.5rem 0 4rem; }
 }
 
