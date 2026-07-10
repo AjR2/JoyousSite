@@ -85,7 +85,7 @@ html, body {
 
 .main-content {
   margin-top: 64px;
-  background-color: var(--color-clear);
+  background-color: transparent;
   min-height: 100vh;
 }
 
