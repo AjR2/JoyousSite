@@ -57,7 +57,9 @@
 
 /* ── Global ── */
 html, body {
-  overflow-x: hidden;
+  /* clip (not hidden) avoids the overflow-x/overflow-y auto-pairing quirk that
+     turns body into its own scroll container and breaks position: sticky */
+  overflow-x: clip;
   margin: 0;
   padding: 0;
   background-color: var(--color-clear);
