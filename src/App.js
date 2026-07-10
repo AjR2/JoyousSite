@@ -159,6 +159,36 @@ function AppContent() {
 
                 <div className="tunnel-spacer" aria-hidden="true" />
 
+                {/* Drift Diagnostic Section */}
+                <section className="page-section diagnostic-section" id="diagnostic" aria-labelledby="diagnostic-heading">
+                  <div className="tunnel-panel diagnostic-panel">
+                    <h2 id="diagnostic-heading">Drift diagnostic</h2>
+                    <p className="about-description">
+                      Most founders know something is off before they can name it. Shorter patience. Slower decisions. The sense that more effort is producing less movement.
+                    </p>
+                    <p className="about-description">
+                      That is drift. And it has a structure.
+                    </p>
+                    <p className="about-mission">
+                      The diagnostic identifies which decision loops are currently open, what they are costing you in execution capacity, and what needs to close first. It takes less than five minutes. You leave with a closure map — your problem named, your constraints mapped, your next two actions specified.
+                    </p>
+                    <p className="about-mission diagnostic-finisher">
+                      Not a score. Not a category. A document you can use today.
+                    </p>
+                    <div className="diagnostic-cta-block diagnostic-cta-block--inline">
+                      <button
+                        className="button cta-button primary-cta diagnostic-cta-button"
+                        onClick={() => setIsQuestionnaireOpen(true)}
+                      >
+                        Run Drift Diagnostic
+                      </button>
+                      <span className="diagnostic-meta">Less than 5 minutes · No signup</span>
+                    </div>
+                  </div>
+                </section>
+
+                <div className="tunnel-spacer" aria-hidden="true" />
+
                 {/* What you can expect Section */}
                 <section className="page-section expect-section" id="expect" aria-labelledby="expect-heading">
                   <div className="section-inner">
@@ -231,36 +261,6 @@ function AppContent() {
                           <p className="sample-directive-note">Redacted from a real session. Your closure map reflects your specific pattern.</p>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                </section>
-
-                <div className="tunnel-spacer" aria-hidden="true" />
-
-                {/* Drift Diagnostic Section */}
-                <section className="page-section diagnostic-section" id="diagnostic" aria-labelledby="diagnostic-heading">
-                  <div className="tunnel-panel diagnostic-panel">
-                    <h2 id="diagnostic-heading">Drift diagnostic</h2>
-                    <p className="about-description">
-                      Most founders know something is off before they can name it. Shorter patience. Slower decisions. The sense that more effort is producing less movement.
-                    </p>
-                    <p className="about-description">
-                      That is drift. And it has a structure.
-                    </p>
-                    <p className="about-mission">
-                      The diagnostic identifies which decision loops are currently open, what they are costing you in execution capacity, and what needs to close first. It takes less than five minutes. You leave with a closure map — your problem named, your constraints mapped, your next two actions specified.
-                    </p>
-                    <p className="about-mission diagnostic-finisher">
-                      Not a score. Not a category. A document you can use today.
-                    </p>
-                    <div className="diagnostic-cta-block diagnostic-cta-block--inline">
-                      <button
-                        className="button cta-button primary-cta diagnostic-cta-button"
-                        onClick={() => setIsQuestionnaireOpen(true)}
-                      >
-                        Run Drift Diagnostic
-                      </button>
-                      <span className="diagnostic-meta">Less than 5 minutes · No signup</span>
                     </div>
                   </div>
                 </section>

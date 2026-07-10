@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import LoopCounter from './LoopCounter';
 
 const SEGMENTS = 160;
-const STATION_SPACING = 14;
+const STATION_SPACING = 26;
 const OPEN_FRACTION = 0.82;
 const CAMERA_START_Z = 5;
 
@@ -60,7 +60,7 @@ function LoopTunnel({ loopCount, color = '#2C5F5A' }) {
       scene.fog = new THREE.Fog(0xF0EDE8, 26, 110);
 
       const camera = new THREE.PerspectiveCamera(
-        60,
+        58,
         window.innerWidth / window.innerHeight,
         0.1,
         200
@@ -78,7 +78,10 @@ function LoopTunnel({ loopCount, color = '#2C5F5A' }) {
       const basePositions = buildRingPositions();
       const openCount = Math.floor((SEGMENTS + 1) * OPEN_FRACTION);
       const fullCount = SEGMENTS + 1;
-      const radii = [1.7, 1.2, 0.7];
+      // Large concentric loops that fill the frame like the design mockup;
+      // outer rings sit fainter so the tunnel reads with depth.
+      const radii = [5.5, 7.7, 9.9];
+      const ringOpacities = [0.55, 0.41, 0.27];
 
       for (let i = 0; i < loopCount; i++) {
         const z = CAMERA_START_Z - (i + 1) * STATION_SPACING;
@@ -89,20 +92,32 @@ function LoopTunnel({ loopCount, color = '#2C5F5A' }) {
         );
         geometry.setDrawRange(0, openCount);
 
-        const material = new THREE.LineBasicMaterial({
-          color,
-          transparent: true,
-          opacity: 0.55,
-        });
+        // Group the three rings so a station rotates and closes as one unit.
+        const group = new THREE.Group();
+        group.position.z = z;
+        group.rotation.z = i * 0.9; // vary the open-arc gap orientation per station
+        const materials = [];
 
-        radii.forEach((r) => {
+        radii.forEach((r, k) => {
+          const material = new THREE.LineBasicMaterial({
+            color,
+            transparent: true,
+            opacity: ringOpacities[k],
+          });
           const line = new THREE.Line(geometry, material);
           line.scale.set(r, r, r);
-          line.position.z = z;
-          scene.add(line);
+          group.add(line);
+          materials.push(material);
         });
 
-        stations.push({ z, geometry, material });
+        scene.add(group);
+        stations.push({
+          z,
+          geometry,
+          materials,
+          group,
+          spin: (i % 2 === 0 ? 1 : -1) * (0.0012 + i * 0.0002),
+        });
       }
 
       const getScrollProgress = () => {
@@ -120,6 +135,7 @@ function LoopTunnel({ loopCount, color = '#2C5F5A' }) {
 
         let closed = 0;
         stations.forEach((station) => {
+          station.group.rotation.z += station.spin;
           const remaining = camera.position.z - station.z;
           const t = 1 - Math.min(1, Math.max(0, remaining / (STATION_SPACING * 0.6)));
           const eased = easeInOutCubic(t);
@@ -159,7 +175,7 @@ function LoopTunnel({ loopCount, color = '#2C5F5A' }) {
       window.removeEventListener('resize', handleResize);
       stations.forEach((s) => {
         s.geometry.dispose();
-        s.material.dispose();
+        s.materials.forEach((m) => m.dispose());
       });
       if (renderer) renderer.dispose();
     };
