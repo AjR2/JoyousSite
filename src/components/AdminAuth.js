@@ -50,17 +50,35 @@ const AdminAuth = () => {
     credentials: { username: credentials.username, password: '***' }
   });
 
-  // Check if user is already authenticated on component mount
+  // Check if user is already authenticated on component mount — the token
+  // must be validated against the server, not just present in localStorage,
+  // since a stale/expired token would otherwise still render the dashboard.
   useEffect(() => {
-    const token = localStorage.getItem('admin_token');
-    if (token) {
-      // In a real app, you would validate the token with the server
-      setIsAuthenticated(true);
-    }
+    const verifyToken = async () => {
+      const token = localStorage.getItem('admin_token');
+      if (!token) {
+        setIsLoading(false);
+        return;
+      }
 
+      try {
+        const response = await fetch('/api/auth-verify', {
+          headers: { Authorization: `Bearer ${token}` },
+        });
 
+        if (response.ok) {
+          setIsAuthenticated(true);
+        } else if (response.status === 401) {
+          localStorage.removeItem('admin_token');
+        }
+      } catch (err) {
+        console.error('Token verification failed:', err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-    setIsLoading(false);
+    verifyToken();
   }, []);
 
   const handleInputChange = (e) => {
